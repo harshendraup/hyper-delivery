@@ -1,9 +1,9 @@
 import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import logo from '../asset/splash.png'; 
+import logo from '../asset/OTPsend.png';
 
-const Splash = () => {
+const OtpSplash = () => {
   const navigation = useNavigation();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -11,7 +11,7 @@ const Splash = () => {
     setIsMounted(true);
     const timer = setTimeout(() => {
       if (isMounted) {
-        navigation.navigate('Onboarding');
+        navigation.navigate('OTPEnter');
       }
     }, 1000); // Navigate after 1 second
 
@@ -23,14 +23,14 @@ const Splash = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Onboarding')}>
+      <TouchableOpacity onPress={() => navigation.navigate('OTPEnter')}>
         <Image source={logo} style={styles.logo} />
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Splash;
+export default OtpSplash;
 
 const styles = StyleSheet.create({
   container: {
