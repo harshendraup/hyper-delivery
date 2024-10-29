@@ -93,14 +93,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'light',
     marginBottom: 20,
-    textAlign: 'center', // Center align subtext
+    textAlign: 'center', 
+    // Center align subtext
   },
   contact: {
     fontSize: 16,
     color: 'green',
     textDecorationLine: 'underline',
     marginVertical: 5,
-    textAlign: 'center', // Center align contact text
+    textAlign: 'center',
+    fontWeight: 'bold' // Center align contact text
   },
 });
 
