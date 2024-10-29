@@ -6,6 +6,8 @@ import ConnectWithPhone from '../screens/ConnectWithPhone';
 import OtpSplash from '../screens/OtpSplash';
 import OTPEnter from '../screens/OTPEnter';
 import PersonalInfo from '../screens/PersonalInfo';
+import BusinessDetails from '../screens/registration/BusinessDetails';
+import ApprovalWaitng from '../screens/ApprovalWaitng';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,8 @@ const RootNavigator=()=> {
       <Stack.Screen name="OtpSplash" component={OtpSplash} />
       <Stack.Screen name="OTPEnter" component={OTPEnter} />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+      <Stack.Screen name="BusinessDetails" component={BusinessDetails} />
+      <Stack.Screen name="ApprovalWaitng" component={ApprovalWaitng} />
     </Stack.Navigator>
   );
 };

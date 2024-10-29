@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,7 +11,6 @@ import {
   TextInput,
   Keyboard,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
@@ -20,6 +20,26 @@ const GreenButton = ({title, onPress}) => (
     <Text style={styles.greenButtonText}>{title}</Text>
   </TouchableOpacity>
 );
+
+const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  return (
+    <View style={styles.floatingLabelContainer}>
+      <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
+        {label}
+      </Text>
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        {...props}
+      />
+    </View>
+  );
+};
 
 const PersonalInfo = () => {
   const navigation = useNavigation();
@@ -31,24 +51,7 @@ const PersonalInfo = () => {
   const [frontID, setFrontID] = useState(null);
   const [backID, setBackID] = useState(null);
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {},
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {},
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
-
   const handleUpload = side => {
-    // Logic for uploading the document can be implemented here.
     alert(`Upload ${side} ID`);
   };
 
@@ -60,61 +63,60 @@ const PersonalInfo = () => {
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
-        <Text style={{textAlign: 'left', fontSize: 14, alignContent: 'l'}}>
+        <Text style={styles.topText}>
           Fill your personal information or register {'\n'}with your social
           account
         </Text>
 
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="First Name"
+          <FloatingLabelInput
+            label="First Name"
             value={firstName}
             onChangeText={setFirstName}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Last Name"
+          <FloatingLabelInput
+            label="Last Name"
             value={lastName}
             onChangeText={setLastName}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
+          <FloatingLabelInput
+            label="Email"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Date of Birth (YYYY-MM-DD)"
+          <FloatingLabelInput
+            label="Date of Birth (YYYY-MM-DD)"
             value={dob}
             onChangeText={setDob}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Address"
+          <FloatingLabelInput
+            label="Address"
             value={address}
             onChangeText={setAddress}
+            multiline
+            numberOfLines={3}
+            style={styles.addressInput}
           />
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>Upload Documents:</Text>
+          <Text style={styles.uploadText}>Upload Documents</Text>
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={() => handleUpload('Front')}>
               <Text style={styles.uploadButtonText}>
-                Front{'\n'}Upload & Scan passport / drivers licence
+                Front{'\n'}
+                {'\n'}Upload & Scan passport / drivers licence
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={() => handleUpload('Back')}>
               <Text style={styles.uploadButtonText}>
-                Back
-                {'\n'}Upload & Scan passport / drivers licence{' '}
+                Back{'\n'}
+                {'\n'}Upload & Scan passport / drivers licence
               </Text>
             </TouchableOpacity>
           </View>
@@ -123,7 +125,7 @@ const PersonalInfo = () => {
         <View style={styles.buttonContainer}>
           <GreenButton
             title="Next"
-            onPress={() => navigation.navigate('OtpSplash')}
+            onPress={() => navigation.navigate('BusinessDetails')}
           />
         </View>
       </ScrollView>
@@ -147,13 +149,25 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     paddingBottom: 20,
   },
+  floatingLabelContainer: {
+    position: 'relative',
+    marginVertical: 10,
+  },
+  floatingLabel: {
+    position: 'absolute',
+    left: 10,
+    color: 'gray',
+    fontSize: 12,
+    transition: 'top 0.2s ease',
+    marginTop: 3,
+  },
   input: {
-    height: 45,
+    height: 60,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 5,
-    marginVertical: 8,
+    borderRadius: 10,
     paddingHorizontal: 10,
+    fontSize: 18,
     backgroundColor: 'transparent',
   },
   uploadContainer: {
@@ -161,29 +175,33 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   uploadText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 20,
     marginBottom: 10,
+    color: 'black',
+    fontWeight: 'bold',
+    marginTop: -30,
   },
   uploadRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   uploadButton: {
-    height: 150, // Adjust height for larger button
-    width: 150, // Adjust width for square button
-    borderColor: 'gray',
+    height: 130,
+    width: 165,
+    borderColor: 'green',
     borderWidth: 1,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
-    backgroundColor: 'lightgreen',
+    marginBottom: 30,
+    backgroundColor: '#ecf6ee',
+    borderStyle: 'dashed',
   },
   uploadButtonText: {
     fontSize: 16,
     color: 'gray',
-    textAlign:'center'
+    textAlign: 'center',
   },
   buttonContainer: {
     paddingTop: 10,
@@ -203,5 +221,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: 'white',
+  },
+  topText: {
+    textAlign: 'left',
+    fontSize: 17,
+    width: width * 0.85,
+    color: 'black',
+    marginBottom: 40,
+  },
+  addressInput: {
+    height: 100,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    fontSize: 18,
+    backgroundColor: 'transparent',
   },
 });
