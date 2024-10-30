@@ -20,6 +20,8 @@ import GetstartwithFace from '../asset/icons/Face.png';
 import Apple from '../asset/icons/Apple.png';
 import tri from '../asset/tri.png';
 import {useNavigation} from '@react-navigation/native';
+import CommonButton from '../component/button';
+import Textinput from '../component/TextInput';
 
 const {width, height} = Dimensions.get('window');
 
@@ -46,14 +48,6 @@ const CustomButton = ({title, onPress}) => {
   );
 };
 
-const GreenButton = ({title, onPress}) => {
-  return (
-    <TouchableOpacity style={styles.greenButton} onPress={onPress}>
-      <Text style={styles.greenButtonText}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
-
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   useEffect(() => {
@@ -76,26 +70,6 @@ const ConnectWithPhone = () => {
       keyboardDidShowListener.remove();
     };
   }, []);
-  const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
-    const [isFocused, setIsFocused] = useState(false);
-
-    return (
-      <View style={styles.floatingLabelContainer}>
-        <Text
-          style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
-          {label}
-        </Text>
-        <TextInput
-          style={styles.input}
-          value={value}
-          onChangeText={onChangeText}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          {...props}
-        />
-      </View>
-    );
-  };
 
   return (
     <KeyboardAvoidingView
@@ -118,16 +92,15 @@ const ConnectWithPhone = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          <FloatingLabelInput
+          {/* <FloatingLabelInput
             label="Enter Email"
-            // value={email}
-            // onChangeText={setEmail}
             keyboardType="email-address"
-          />
+          /> */}
+          <Textinput label="Enter Email" keyboardType="email-address" />
         </View>
 
         <View style={styles.buttonContainer}>
-          <GreenButton
+          <CommonButton
             title="Next"
             onPress={() => navigation.navigate('ScanFace')}
           />

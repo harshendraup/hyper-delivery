@@ -14,14 +14,9 @@ import {
 import React, {useEffect, useState, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Scanface from '../asset/ScanFace.png';
+import CommonButton from '../component/button';
 
 const {width} = Dimensions.get('window');
-
-const GreenButton = ({title, onPress}) => (
-  <TouchableOpacity style={styles.greenButton} onPress={onPress}>
-    <Text style={styles.greenButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
 
 const ScanFace = () => {
   const navigation = useNavigation();
@@ -55,7 +50,7 @@ const ScanFace = () => {
           <Image source={Scanface} style={styles.logo} />
         </View>
         <View style={styles.buttonContainer}>
-          <GreenButton
+          <CommonButton
             title="Next"
             onPress={() => navigation.navigate('UploadDoc')}
           />

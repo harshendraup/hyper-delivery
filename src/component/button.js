@@ -2,26 +2,28 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-const CommonButton = ({title, onPress, buttonStyle, textStyle}) => {
+const CommonButton = ({title, onPress}) => {
   return (
-    <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
-      <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+    <TouchableOpacity style={styles.commonButton} onPress={onPress}>
+      <Text style={styles.commonButtonText}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
+  commonButton: {
     width: '100%',
     height: 45,
+    backgroundColor: 'rgba(64, 156, 89, 1)',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
   },
-  buttonText: {
+  commonButtonText: {
     fontSize: 16,
     fontWeight: '600',
+    color: 'white',
   },
 });
 

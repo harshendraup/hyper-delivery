@@ -1,4 +1,4 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import Splash from '../screens/Splash';
 import Onboarding from '../screens/Onboarding';
 import TabNavigator from './TabNavigator';
@@ -11,10 +11,11 @@ import BusinessDetails from '../screens/registration/BusinessDetails';
 import ApprovalWaitng from '../screens/ApprovalWaitng';
 import ScanFace from '../screens/ScanFace';
 import UploadDoc from '../screens/UploadDoc';
+import AddProducts from '../screens/AddProducts';
 
 const Stack = createStackNavigator();
 
-const RootNavigator=()=> {
+const RootNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Splash" component={Splash} />
@@ -24,6 +25,7 @@ const RootNavigator=()=> {
       <Stack.Screen name="ConnectWithEmail" component={ConnectWithEmail} />
       <Stack.Screen name="ScanFace" component={ScanFace} />
       <Stack.Screen name="UploadDoc" component={UploadDoc} />
+      <Stack.Screen name="AddProducts" component={AddProducts} />
       <Stack.Screen name="OtpSplash" component={OtpSplash} />
       <Stack.Screen name="OTPEnter" component={OTPEnter} />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
