@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
   bottomText: {
     fontSize: 14,
-    color: 'green',
+    color: '#409C59',
     marginBottom: 20,
     fontWeight: 'heavy',
   },
@@ -150,11 +150,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: '#409C59',
     borderRadius: 10,
     textAlign: 'center',
     fontSize: 24,
-    color: 'green',
+    color: '#409C59',
   },
   subsubText: {
     fontSize: 12,

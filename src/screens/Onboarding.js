@@ -53,7 +53,9 @@ const Onboarding = () => {
     <View style={styles.container}>
       <View style={styles.topSection}>
         <View style={styles.touchable}>
-          <Image source={logo} style={styles.logo} />
+          <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
+            <Image source={logo} style={styles.logo} />
+          </TouchableOpacity>
           <View>
             <Text style={styles.boldText}>Let's Start!</Text>
             <Text style={styles.subText}>
@@ -88,7 +90,10 @@ const Onboarding = () => {
           title="Get Started with Phone"
           onPress={() => navigation.navigate('ConnectWithPhone')}
         />
-        <CustomButton title="Get Started with Email" onPress={() => navigation.navigate('ConnectWithEmail')} />
+        <CustomButton
+          title="Get Started with Email"
+          onPress={() => navigation.navigate('ConnectWithEmail')}
+        />
         <CustomButton title="Get Started with Google" onPress={() => {}} />
         <CustomButton title="Get Started with Apple" onPress={() => {}} />
         <CustomButton title="Get Started with Facebook" onPress={() => {}} />

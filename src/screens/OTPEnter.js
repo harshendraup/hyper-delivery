@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 14,
-    color: 'green',
+    color: '#409C59',
     marginBottom: 20,
     fontWeight: 'heavy',
   },
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   greenButton: {
     width: '100%',
     height: 45,
-    backgroundColor: 'green',
+    backgroundColor: '#409C59',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   logo: {
-    width: 270,
-    height: 270,
+    width: 227,
+    height: 227,
     marginRight: 10,
     marginTop: 40,
   },
@@ -173,11 +173,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: '#409C59',
     borderRadius: 10,
     textAlign: 'center',
     fontSize: 24,
-    color:'green',
+    color:'#409C59',
   },
   subsubText: {
     fontSize: 12,

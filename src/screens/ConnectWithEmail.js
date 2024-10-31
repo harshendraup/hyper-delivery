@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 12,
-    color: 'green',
+    color: '#409C59',
     paddingBottom: 5,
   },
   bottomTextHelp: {
     fontSize: 12,
-    color: 'green',
+    color: '#409C59',
     paddingBottom: 5,
   },
   scrollContainer: {

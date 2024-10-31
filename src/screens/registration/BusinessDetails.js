@@ -9,14 +9,14 @@ import {
   Platform,
   ScrollView,
   TextInput,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import uploadcloud from '../../asset/uploadcloud.png';
+import backbutton from '../../asset/backbutton.png';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
-
-
 
 const FloatingLabelInput = ({label, value, onChangeText}) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -54,11 +54,11 @@ const BusinessDetails = () => {
     alert(`Upload ${side} ID`);
   };
 
-const GreenButton = ({title, onPress}) => (
-  <TouchableOpacity style={styles.greenButton} onPress={onPress}>
-    <Text style={styles.greenButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
+  const GreenButton = ({title, onPress}) => (
+    <TouchableOpacity style={styles.greenButton} onPress={onPress}>
+      <Text style={styles.greenButtonText}>{title}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <KeyboardAvoidingView
@@ -68,9 +68,11 @@ const GreenButton = ({title, onPress}) => (
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
-        <View style={styles.arrowContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} color="black" />
+        <View style={styles.backButtonContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}>
+            <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
         </View>
 
@@ -109,7 +111,7 @@ const GreenButton = ({title, onPress}) => (
                 onChangeText={setAccountNumber}
               />
               <FloatingLabelInput
-                label="Account Holder Name"
+                label="Account holder Name"
                 value={HolderName}
                 onChangeText={setHolderName}
               />
@@ -119,7 +121,7 @@ const GreenButton = ({title, onPress}) => (
                 onChangeText={setBankName}
               />
               <FloatingLabelInput
-                label="Ifc Code"
+                label="Ifsc Code"
                 value={sortCode}
                 onChangeText={setSortCode}
               />
@@ -130,7 +132,7 @@ const GreenButton = ({title, onPress}) => (
                     style={styles.uploadButton}
                     onPress={() => handleUpload('Front')}>
                     <Text style={styles.uploadButtonText}>
-                      <Icon name="upload" size={20} color="green" />
+                      <Image source={uploadcloud} />
                       {'\n'}
                       {'\n'}
                       Upload Form
@@ -180,7 +182,7 @@ const GreenButton = ({title, onPress}) => (
                     style={styles.uploadButton}
                     onPress={() => handleUpload('Front')}>
                     <Text style={styles.uploadButtonText}>
-                      <Icon name="upload" size={20} color="green" />
+                      <Image source={uploadcloud} />
                       {'\n'}
                       {'\n'}
                       Upload Logo
@@ -196,7 +198,7 @@ const GreenButton = ({title, onPress}) => (
                     style={styles.uploadButtonThree}
                     onPress={() => handleUpload('Front')}>
                     <Text style={styles.uploadButtonText}>
-                      <Icon name="upload" size={20} color="green" />
+                      <Image source={uploadcloud} />
                       {'\n'}
                       {'\n'}
                       Outside
@@ -206,7 +208,7 @@ const GreenButton = ({title, onPress}) => (
                     style={styles.uploadButtonThree}
                     onPress={() => handleUpload('Back')}>
                     <Text style={styles.uploadButtonText}>
-                      <Icon name="upload" size={20} color="green" />
+                      <Image source={uploadcloud} />
                       {'\n'}
                       {'\n'}
                       Inside
@@ -216,12 +218,16 @@ const GreenButton = ({title, onPress}) => (
                     style={styles.uploadButtonThree}
                     onPress={() => handleUpload('Back')}>
                     <Text style={styles.uploadButtonText}>
-                      <Icon name="upload" size={20} color="green" />
+                      <Image source={uploadcloud} />
                       {'\n'}
                       {'\n'}Menu
                     </Text>
                   </TouchableOpacity>
                 </View>
+                <GreenButton
+                  title="Next"
+                  onPress={() => setIsBankDetails(true)}
+                />
               </View>
             </>
           )}
@@ -240,28 +246,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 25,
   },
+  backButtonContainer: {
+    position: 'absolute', // Set position to absolute
+    top: 10, // Adjust this value as needed
+    left: 10, // Adjust this value as needed
+    zIndex: 1, // Ensure it's above other elements
+  },
+
   toggleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: width * 0.85,
     marginBottom: 15,
-    backgroundColor: 'green',
+    backgroundColor: '#409C59',
     borderRadius: 30,
   },
   toggleButton: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 8,
     alignItems: 'center',
     borderRadius: 30,
     marginHorizontal: 5,
   },
-  activeToggle: {backgroundColor: 'green'},
+  activeToggle: {backgroundColor: '#409C59'},
   toggleButtonText: {fontWeight: 'bold'},
   activeText: {
     textAlign: 'center',
-    color: 'green',
+    color: '#409C59',
     backgroundColor: 'white',
-    width: width * 0.35,
+    width: width * 0.37,
     borderRadius: 30,
     padding: 4,
   },
@@ -294,7 +307,7 @@ const styles = StyleSheet.create({
   uploadButton: {
     height: 120,
     width: 350,
-    borderColor: 'green',
+    borderColor: '#409C59',
     borderWidth: 1,
     borderRadius: 10,
     justifyContent: 'center',
@@ -305,7 +318,7 @@ const styles = StyleSheet.create({
   uploadButtonThree: {
     height: 90,
     width: 100,
-    borderColor: 'green',
+    borderColor: '#409C59',
     borderWidth: 1,
     borderRadius: 10,
     justifyContent: 'center',
@@ -313,16 +326,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf6ee',
     borderStyle: 'dashed',
   },
-  uploadButtonText: {fontSize: 16, color: 'gray', textAlign: 'center'},
+  uploadButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
+    textAlign: 'center',
+    fontFamily: 'Mulish',
+    marginTop: 4,
+    marginBottom: 6,
+  },
   buttonContainer: {paddingTop: 5, width: width * 0.85, paddingBottom: 30},
   greenButton: {
     width: '100%',
     height: 45,
-    backgroundColor: 'green',
+    backgroundColor: '#409C59',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 8,
+    marginTop: 170,
+    marginBottom: 30,
   },
   greenButtonText: {fontSize: 16, fontWeight: '600', color: 'white'},
   topText: {
@@ -332,24 +354,5 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 40,
     fontWeight: '700',
-  },
-  arrowContainer: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-    zIndex: 1,
-    borderWidth: 1,
-    borderColor: 'gray', // Change color as needed
-    borderRadius: 10,
-    padding: 10, // Adjust padding for better click area
-    backgroundColor: 'white', // Optional: background color for visibility
-    shadowColor: '#000', // Shadow color
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    elevation: 5, // For Android shadow
   },
 });

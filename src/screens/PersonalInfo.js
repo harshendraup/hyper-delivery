@@ -9,9 +9,10 @@ import {
   Platform,
   ScrollView,
   TextInput,
-  Keyboard,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import uploadcloud from '../asset/uploadcloud.png';
 
 const {width} = Dimensions.get('window');
 
@@ -48,8 +49,6 @@ const PersonalInfo = () => {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
-  const [frontID, setFrontID] = useState(null);
-  const [backID, setBackID] = useState(null);
 
   const handleUpload = side => {
     alert(`Upload ${side} ID`);
@@ -106,18 +105,24 @@ const PersonalInfo = () => {
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={() => handleUpload('Front')}>
-              <Text style={styles.uploadButtonText}>
-                Front{'\n'}
-                {'\n'}Upload & Scan passport / drivers licence
-              </Text>
+              <View style={styles.uploadButtonContent}>
+                <Image source={uploadcloud} />
+                <Text style={styles.uploadButtonText}>Front</Text>
+                <Text style={styles.uploadButtonSubtext}>
+                  Upload & Scan passport / drivers licence
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={() => handleUpload('Back')}>
-              <Text style={styles.uploadButtonText}>
-                Back{'\n'}
-                {'\n'}Upload & Scan passport / drivers licence
-              </Text>
+              <View style={styles.uploadButtonContent}>
+                <Image source={uploadcloud} />
+                <Text style={styles.uploadButtonText}>Back</Text>
+                <Text style={styles.uploadButtonSubtext}>
+                  Upload & Scan passport / drivers licence
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -185,23 +190,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  uploadButtonContent: {
+    alignItems: 'center', // Centers content horizontally
+  },
   uploadButton: {
     height: 130,
     width: 165,
-    borderColor: 'green',
+    borderColor: '#409C59',
     borderWidth: 1,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
-    marginBottom: 30,
     backgroundColor: '#ecf6ee',
     borderStyle: 'dashed',
   },
+  uploadButtonSubtext: {
+    fontFamily: 'Mulish', // Set font-family to Mulish
+    fontSize: 12, // Set font size to 12px
+    fontWeight: '600', // Set font weight to 600
+    lineHeight: 15.06, // Set line height to 15.06px
+    textAlign: 'center', // Center-align text
+    color: '#333333',
+  },
   uploadButtonText: {
-    fontSize: 16,
-    color: 'gray',
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
     textAlign: 'center',
+    fontFamily: 'Mulish',
+    marginTop: 4,
+    marginBottom: 6,
   },
   buttonContainer: {
     paddingTop: 10,
@@ -211,7 +230,7 @@ const styles = StyleSheet.create({
   greenButton: {
     width: '100%',
     height: 45,
-    backgroundColor: 'green',
+    backgroundColor: '#409C59',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

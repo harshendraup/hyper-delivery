@@ -8,8 +8,10 @@ import {
   Linking,
 } from 'react-native';
 import connect from '../asset/connect.png';
+import {useNavigation} from '@react-navigation/native';
 
 const ApprovalWaiting = () => {
+  const navigation = useNavigation();
   const handleWhatsAppPress = () => {
     Linking.openURL('https://wa.me/your-number'); // Replace with your WhatsApp number
   };
@@ -20,10 +22,12 @@ const ApprovalWaiting = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={connect} // Replace with your image URL
-        style={styles.image}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
+        <Image
+          source={connect}
+          style={styles.image}
+        />
+      </TouchableOpacity>
       <View style={styles.textContainer}>
         <Text style={styles.heading}>Nice to Meet You at get weed.</Text>
         <Text style={styles.subtext}>
@@ -73,10 +77,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // or 'space-between' based on your layout preference
   },
   image: {
-    width: '70%',
-    height: '50%',
-    resizeMode: 'contain',
-    marginBottom:-100,
+    width: 200,
+    height: 160,
+    marginBottom: 50,
   },
   textContainer: {
     padding: 20,
@@ -93,16 +96,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'light',
     marginBottom: 20,
-    textAlign: 'center', 
+    textAlign: 'center',
     // Center align subtext
   },
   contact: {
     fontSize: 16,
-    color: 'green',
+    color: '#409C59',
     textDecorationLine: 'underline',
     marginVertical: 5,
     textAlign: 'center',
-    fontWeight: 'bold' // Center align contact text
+    fontWeight: 'bold', // Center align contact text
   },
 });
 

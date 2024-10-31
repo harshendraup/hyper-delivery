@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 12,
-    color: 'green',
+    color: '#409C59',
     paddingBottom: 5,
   },
   bottomTextHelp: {
     fontSize: 12,
-    color: 'green',
+    color: '#409C59',
     paddingBottom: 5,
   },
   scrollContainer: {
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     height: 60,
     borderWidth: 1,
-    borderColor: 'green',
+    borderColor: '#409C59',
     borderRadius: 10,
     paddingHorizontal: 10,
     marginVertical: 20,
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   greenButton: {
     width: '100%',
     height: 45,
-    backgroundColor: 'green',
+    backgroundColor: '#409C59',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

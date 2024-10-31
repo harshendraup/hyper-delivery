@@ -1,7 +1,7 @@
-import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, TextInput as RNTextInput} from 'react-native';
 
-const TextInput = ({label, value, onChangeText, ...props}) => {
+const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -9,7 +9,7 @@ const TextInput = ({label, value, onChangeText, ...props}) => {
       <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
         {label}
       </Text>
-      <TextInput
+      <RNTextInput
         style={styles.input}
         value={value}
         onChangeText={onChangeText}
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     left: 10,
     color: 'gray',
     fontSize: 12,
-    transition: 'top 0.2s ease',
     marginTop: 3,
   },
   input: {
@@ -45,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TextInput;
+export default FloatingLabelInput;

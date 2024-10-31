@@ -10,9 +10,11 @@ import {
   ScrollView,
   TextInput,
   Keyboard,
+  Image
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
+import uploadcloud from '../asset/uploadcloud.png';
 
 const {width} = Dimensions.get('window');
 
@@ -98,18 +100,25 @@ const AddProducts = () => {
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={() => handleUpload('Front')}>
-              <Text style={styles.uploadButtonText}>
-                Front{'\n'}
-                {'\n'}Upload & Scan passport / drivers licence
-              </Text>
+              <View style={styles.uploadButtonContent}>
+                <Image source={uploadcloud} />
+                <Text style={styles.uploadButtonText}>Front</Text>
+                <Text style={styles.uploadButtonSubtext}>
+                  Upload & Scan passport / drivers licence
+                </Text>
+              </View>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={() => handleUpload('Back')}>
-              <Text style={styles.uploadButtonText}>
-                Back{'\n'}
-                {'\n'}Upload & Scan passport / drivers licence
-              </Text>
+              <View style={styles.uploadButtonContent}>
+                <Image source={uploadcloud} />
+                <Text style={styles.uploadButtonText}>Back</Text>
+                <Text style={styles.uploadButtonSubtext}>
+                  Upload & Scan passport / drivers licence
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -178,41 +187,49 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   uploadButton: {
-    height: 130,
-    width: 165,
-    borderColor: 'green',
-    borderWidth: 1,
+    width: 171,
+    height: 120,
+    paddingTop: 16,
     borderRadius: 10,
+    borderColor: '#409C59',
+    borderWidth: 1,
+    backgroundColor: '#409C591A',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 8,
-    marginBottom: 30,
-    backgroundColor: '#ecf6ee',
     borderStyle: 'dashed',
+    marginVertical: 8,
   },
   uploadButtonText: {
-    fontSize: 16,
-    color: 'gray',
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
     textAlign: 'center',
+    fontFamily: 'Mulish',
+    marginTop: 4,
+    marginBottom: 6,
+  },
+  uploadButtonContent: {
+    alignItems: 'center', // Centers content horizontally
+  },
+  uploadButtonHeader: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
+    textAlign: 'center',
+    fontFamily: 'Mulish',
+  },
+  uploadButtonSubtext: {
+    fontFamily: 'Mulish', // Set font-family to Mulish
+    fontSize: 12, // Set font size to 12px
+    fontWeight: '600', // Set font weight to 600
+    lineHeight: 15.06, // Set line height to 15.06px
+    textAlign: 'center', // Center-align text
+    color: '#333333',
   },
   buttonContainer: {
     paddingTop: 10,
     width: width * 0.85,
     paddingBottom: 30,
-  },
-  greenButton: {
-    width: '100%',
-    height: 45,
-    backgroundColor: 'green',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 8,
-  },
-  greenButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
   },
   topText: {
     textAlign: 'left',
@@ -231,3 +248,4 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
+
