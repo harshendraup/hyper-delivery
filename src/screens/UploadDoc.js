@@ -74,7 +74,7 @@ const UploadDoc = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Next"
-            onPress={() => navigation.navigate('AddProducts')}
+            onPress={() => navigation.navigate('TabNavigator')}
           />
         </View>
       </ScrollView>

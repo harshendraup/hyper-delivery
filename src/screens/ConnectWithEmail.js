@@ -21,7 +21,7 @@ import Apple from '../asset/icons/Apple.png';
 import tri from '../asset/tri.png';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
-import Textinput from '../component/TextInput';
+// import Textinput from '../component/TextInput';
 
 const {width, height} = Dimensions.get('window');
 
@@ -31,6 +31,26 @@ const iconMapping = {
   'Get Started with Apple': Apple,
   'Get Started with Facebook': Facebook,
   'Get Started with Face': GetstartwithFace,
+};
+
+const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  return (
+    <View style={styles.floatingLabelContainer}>
+      <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
+        {label}
+      </Text>
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        {...props}
+      />
+    </View>
+  );
 };
 
 const CustomButton = ({title, onPress}) => {
@@ -48,8 +68,9 @@ const CustomButton = ({title, onPress}) => {
   );
 };
 
-const ConnectWithPhone = () => {
+const ConnectWithEmail = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -92,11 +113,10 @@ const ConnectWithPhone = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          {/* <FloatingLabelInput
+          <FloatingLabelInput
             label="Enter Email"
             keyboardType="email-address"
-          /> */}
-          <Textinput label="Enter Email" keyboardType="email-address" />
+          />
         </View>
 
         <View style={styles.buttonContainer}>
@@ -130,7 +150,7 @@ const ConnectWithPhone = () => {
   );
 };
 
-export default ConnectWithPhone;
+export default ConnectWithEmail;
 
 const styles = StyleSheet.create({
   container: {

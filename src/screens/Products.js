@@ -149,7 +149,10 @@ const Products = () => {
   ];
 
   const renderProductTile = product => (
-    <View key={product.id} style={styles.productTile}>
+    <TouchableOpacity
+      key={product.id}
+      style={styles.productTile}
+      onPress={() => navigation.navigate('ProductInfo')}>
       <View style={styles.imageContainer}>
         <Image source={stock} style={styles.productImage} />
         <View style={styles.badge}>
@@ -178,7 +181,7 @@ const Products = () => {
           <Image source={edit} style={styles.backButtonImage} />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -246,7 +249,9 @@ const Products = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate('AddProducts')}>
           <View style={styles.addButtonContent}>
             <Image source={plus} style={styles.addButtonImage} />
             <Text style={styles.addButtonText}>Add Products</Text>

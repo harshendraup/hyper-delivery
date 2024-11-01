@@ -12,6 +12,8 @@ import ApprovalWaitng from '../screens/ApprovalWaitng';
 import ScanFace from '../screens/ScanFace';
 import UploadDoc from '../screens/UploadDoc';
 import AddProducts from '../screens/AddProducts';
+import EditProducts from '../screens/EditProducts';
+import ProductInfo from '../screens/ProductInfo';
 
 const Stack = createStackNavigator();
 
@@ -26,11 +28,13 @@ const RootNavigator = () => {
       <Stack.Screen name="ScanFace" component={ScanFace} />
       <Stack.Screen name="UploadDoc" component={UploadDoc} />
       <Stack.Screen name="AddProducts" component={AddProducts} />
+      <Stack.Screen name="EditProducts" component={EditProducts} />
       <Stack.Screen name="OtpSplash" component={OtpSplash} />
       <Stack.Screen name="OTPEnter" component={OTPEnter} />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
       <Stack.Screen name="BusinessDetails" component={BusinessDetails} />
       <Stack.Screen name="ApprovalWaitng" component={ApprovalWaitng} />
+      <Stack.Screen name="ProductInfo" component={ProductInfo} />
     </Stack.Navigator>
   );
 };
