@@ -15,6 +15,10 @@ import ratingImage from '../asset/rating.png';
 import edit from '../asset/icons/edit.png';
 import Licence from '../asset/Licence.png';
 import note from '../asset/note.png';
+import image from '../asset/orderPics/image1.png';
+import invoice from '../asset/Invoicebutton.png';
+import Download from '../asset/icons/solar_download-bold.png';
+import star from '../asset/icons/star.png';
 
 const {width} = Dimensions.get('window');
 
@@ -57,9 +61,8 @@ const formatDate = dateString => {
   return `${day}/${month}/${year}`;
 };
 
-const OrderDetails = ({route}) => {
+const UpdateOrderDetails = () => {
   const navigation = useNavigation();
-  const {order} = route.params;
 
   // State variables for uploaded documents
   const [uploadedLicense, setUploadedLicense] = useState('');
@@ -84,20 +87,20 @@ const OrderDetails = ({route}) => {
           <Text style={styles.title}>Order Details</Text>
         </View>
         <View style={styles.detailsContainer}>
-          <Image source={order.image} style={styles.orderImage} />
+          <Image source={image} style={styles.orderImage} />
           <View style={styles.textContainer}>
             <Text style={styles.orderTitle}>HYBRID</Text>
             <Text style={styles.orderText}>
               Walker Kush {'                                           '}50g
             </Text>
             <View style={styles.priceContainer}>
-              <Text style={styles.orderPrice}>{order.price}</Text>
+              <Text style={styles.orderPrice}>$65.00</Text>
               <Text style={styles.strikethroughPrice}>₹ 10,499.00</Text>
             </View>
           </View>
           <View style={styles.ratingContainer}>
             <Image source={ratingImage} style={styles.ratingImage} />
-            <Text style={styles.ratingText}>{order.rating}</Text>
+            {/* <Text style={styles.ratingText}>{order.rating}</Text> */}
           </View>
         </View>
         <View style={styles.deliveryContainer}>
@@ -113,15 +116,14 @@ const OrderDetails = ({route}) => {
           </View>
 
           <View style={styles.deliveryInfoContainer}>
-            <Text style={styles.deliveryDateText}>
-              {order.customerName} - #ID{order.id}
-            </Text>
-            <Text style={styles.deliveryDateText}>
-              {formatDate(order.date)}
-            </Text>
+            <Text style={styles.deliveryDateText}>Praveen Reddy - #ID1234</Text>
+            <Text style={styles.deliveryDateText}>12/Nov/2024</Text>
           </View>
-          <Text style={styles.deliveryText}>{order.contactNumber}</Text>
-          <Text style={styles.deliveryText}>{order.deliveryAddress}</Text>
+          <Text style={styles.deliveryText}>+91 1234567890</Text>
+          <Text style={styles.deliveryText}>
+            City Road, 1st cross, Sector 6, HSR Layout, Bangalore, Karnataka -
+            561115
+          </Text>
         </View>
         <View>
           <Text style={styles.consumerTitle}>
@@ -189,16 +191,16 @@ const OrderDetails = ({route}) => {
             <Text style={styles.summaryValueBold}>$ 78</Text>
           </View>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.invoiceButtonContainer}>
           <TouchableOpacity
-            style={styles.rejectButton}
-            onPress={() => navigation.navigate('RejectReason')}>
-            <Text style={styles.buttonTextReject}>Reject</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.acceptButton}
-            onPress={() => navigation.navigate('Update')}>
-            <Text style={styles.buttonText}>Accept</Text>
+            style={styles.invoiceButton}
+            onPress={() => alert('Invoice button clicked!')}>
+            <Image source={invoice} style={styles.invoiceImage} />
+            <Text style={styles.invoiceButtonText}>
+              Download Invoice
+              {'                                              '}
+              <Image source={Download} />
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -206,13 +208,22 @@ const OrderDetails = ({route}) => {
   );
 };
 
-export default OrderDetails;
+export default UpdateOrderDetails;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
     padding: 20,
+  },
+  feedbackContainer: {
+    width: 358, // Fixed width
+    height: 140, // Fixed height
+    padding: 20, // Padding
+    borderRadius: 10, // Rounded corners
+    backgroundColor: 'rgba(64, 156, 89, 1)', // Background color
+    marginTop: 20, // Space from the previous element
+    opacity: 0.5, // Semi-transparent background
   },
   scrollContainer: {
     alignItems: 'center',
@@ -516,5 +527,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'rgba(64, 156, 89, 1)',
+  },
+  invoiceButtonContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  invoiceButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center', // Centering items horizontally
+    backgroundColor: 'rgba(64, 156, 89, 1)',
+    padding: 10,
+    borderRadius: 10,
+    width: 358,
+    height: 48,
+  },
+  invoiceImage: {
+    width: 24,
+    height: 24,
+    marginRight: 5,
+  },
+  invoiceButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center', // Centering text
   },
 });

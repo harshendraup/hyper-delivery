@@ -24,6 +24,9 @@ import AncillaryAddProducts from '../screens/AncillaryAddProducts';
 import AncillaryEditProduct from '../screens/AncillaryEditProduct';
 import SelectLanguage from '../screens/SelectLanguage';
 import OrderDetails from '../screens/OrderDetails';
+import RejectReason from '../screens/RejectReason';
+import Update from '../screens/Update';
+import UpdateOrderDetails from '../screens/UpdateOrderDetails';
 
 const Stack = createStackNavigator();
 
@@ -38,8 +41,11 @@ const RootNavigator = () => {
       <Stack.Screen name="ScanFace" component={ScanFace} />
       <Stack.Screen name="UploadDoc" component={UploadDoc} />
       <Stack.Screen name="AddProducts" component={AddProducts} />
+      <Stack.Screen name="Update" component={Update} />
       <Stack.Screen name="OrderDetails" component={OrderDetails} />
+      <Stack.Screen name="UpdateOrderDetails" component={UpdateOrderDetails} />
       <Stack.Screen name="EditProducts" component={EditProducts} />
+      <Stack.Screen name="RejectReason" component={RejectReason} />
       <Stack.Screen name="OtpSplash" component={OtpSplash} />
       <Stack.Screen name="OTPEnter" component={OTPEnter} />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />

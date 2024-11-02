@@ -42,262 +42,141 @@ const getRandomImage = () => {
   return orderImages[randomIndex];
 };
 
+// Sample recent orders data
+const recentOrders = [
+  {
+    id: '12345',
+    date: '2024-10-01',
+    time: '10:30 AM',
+    price: '$50.00',
+    status: 'New Orders',
+    image: getRandomImage(),
+    customerName: 'Aarav Sharma',
+    contactNumber: '98765 43210',
+    deliveryAddress: '12, MG Road, Bengaluru, Karnataka, 560001',
+  },
+  {
+    id: '12346',
+    date: '2024-10-02',
+    time: '11:00 AM',
+    price: '$75.00',
+    status: 'Cancelled',
+    image: getRandomImage(),
+    customerName: 'Sneha Reddy',
+    contactNumber: '98765 12345',
+    deliveryAddress: '45, Brigade Road, Bengaluru, Karnataka, 560025',
+  },
+  {
+    id: '12347',
+    date: '2024-10-03',
+    time: '01:00 PM',
+    price: '$100.00',
+    status: 'Completed',
+    image: getRandomImage(),
+    customerName: 'Rajesh Kumar',
+    contactNumber: '98765 67890',
+    deliveryAddress: '78, Marine Drive, Mumbai, Maharashtra, 400002',
+  },
+  {
+    id: '12348',
+    date: '2024-10-04',
+    time: '03:00 PM',
+    price: '$60.00',
+    status: 'New Orders',
+    image: getRandomImage(),
+    customerName: 'Pooja Singh',
+    contactNumber: '98765 34567',
+    deliveryAddress: '34, Connaught Place, New Delhi, 110001',
+  },
+  {
+    id: '12349',
+    date: '2024-10-05',
+    time: '04:30 PM',
+    price: '$80.00',
+    status: 'Completed',
+    image: getRandomImage(),
+    customerName: 'Vikram Mehta',
+    contactNumber: '98765 76543',
+    deliveryAddress: '56, Juhu Beach, Mumbai, Maharashtra, 400049',
+  },
+  {
+    id: '12350',
+    date: '2024-10-06',
+    time: '09:15 AM',
+    price: '$90.00',
+    status: 'New Orders',
+    image: getRandomImage(),
+    customerName: 'Neha Gupta',
+    contactNumber: '98765 98765',
+    deliveryAddress: '23, Khandala, Pune, Maharashtra, 411001',
+  },
+  {
+    id: '12351',
+    date: '2024-10-07',
+    time: '02:00 PM',
+    price: '$120.00',
+    status: 'Completed',
+    image: getRandomImage(),
+    customerName: 'Rohit Verma',
+    contactNumber: '98765 43212',
+    deliveryAddress: '89, Nungambakkam, Chennai, Tamil Nadu, 600034',
+  },
+  {
+    id: '12352',
+    date: '2024-10-08',
+    time: '05:00 PM',
+    price: '$45.00',
+    status: 'Cancelled',
+    image: getRandomImage(),
+    customerName: 'Anjali Desai',
+    contactNumber: '98765 65432',
+    deliveryAddress: '101, Banjara Hills, Hyderabad, Telangana, 500034',
+  },
+  {
+    id: '12353',
+    date: '2024-10-09',
+    time: '11:45 AM',
+    price: '$70.00',
+    status: 'Completed',
+    image: getRandomImage(),
+    customerName: 'Karan Singh',
+    contactNumber: '98765 54321',
+    deliveryAddress: '15, Sector 17, Chandigarh, 160017',
+  },
+  {
+    id: '12354',
+    date: '2024-10-10',
+    time: '01:30 PM',
+    price: '$85.00',
+    status: 'New Orders',
+    image: getRandomImage(),
+    customerName: 'Simran Kaur',
+    contactNumber: '98765 67812',
+    deliveryAddress: '22, Shanti Nagar, Jaipur, Rajasthan, 302001',
+  },
+  {
+    id: '12355',
+    date: '2024-10-11',
+    time: '04:00 PM',
+    price: '$55.00',
+    status: 'Cancelled',
+    image: getRandomImage(),
+    customerName: 'Tarun Bansal',
+    contactNumber: '98765 98712',
+    deliveryAddress: '38, MG Road, Surat, Gujarat, 395003',
+  },
+];
+
 const Orders = () => {
   const navigation = useNavigation();
-  const recentOrders = [
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12345',
-      date: '2024-10-01',
-      time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12346',
-      date: '2024-10-02',
-      time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
-      image: getRandomImage(), // Assign a random image
-    },
-    {
-      id: '12347',
-      date: '2024-10-03',
-      time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-      image: getRandomImage(), // Assign a random image
-    },
-
-    // Add more orders as needed...
-  ];
 
   // Function to determine badge color
   const getBadgeStyle = status => {
     switch (status) {
       case 'Cancelled':
         return {backgroundColor: '#AA1A1A'};
-
       case 'Completed':
         return {backgroundColor: '#409C59'};
-
       case 'New Orders':
         return {backgroundColor: '#2039B7'};
       default:
@@ -328,7 +207,14 @@ const Orders = () => {
         </View>
         <View style={styles.listContainer}>
           {recentOrders.map(order => (
-            <View key={order.id} style={styles.listItem}>
+            <TouchableOpacity
+              key={order.id}
+              onPress={() =>
+                navigation.navigate('OrderDetails', {
+                  order,
+                })
+              }
+              style={styles.listItem}>
               <Image source={order.image} style={styles.listIcon} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
@@ -343,7 +229,7 @@ const Orders = () => {
                   }>{`${order.date} ${order.time}`}</Text>
               </View>
               <Text style={styles.orderPrice}>{order.price}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -393,7 +279,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
-  listIcon: {width: 50, height: 50, marginRight: 10}, // Increased size for better visibility
+  listIcon: {width: 50, height: 50, marginRight: 10},
   orderInfo: {flex: 1},
   orderIdContainer: {
     flexDirection: 'row',
