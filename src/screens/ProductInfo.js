@@ -13,9 +13,13 @@ import {useNavigation} from '@react-navigation/native';
 import backbutton from '../asset/backbutton.png';
 import {Card, Text, Chip} from 'react-native-paper';
 import Swiper from 'react-native-swiper';
-import girlBag from '../asset/stock.png';
-import girlWeb from '../asset/stock.png';
-import guyPhoto from '../asset/stock.png';
+import girlBag from '../asset/yellow.png';
+import girlWeb from '../asset/yellow.png';
+import guyPhoto from '../asset/yellow.png';
+import Strength from '../asset/icons/bicep.png';
+import clarity_license from '../asset/icons/clarity_license-line.png';
+import mdi_drug from '../asset/icons/mdi_drug.png';
+import CommonButton from '../component/button';
 
 const {width, height} = Dimensions.get('window');
 
@@ -51,13 +55,24 @@ const ProductInfo = () => {
                 showsPagination={false}
                 loop={true}>
                 <View style={styles.slide}>
-                  <Image source={girlBag} style={styles.image} />
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={girlBag}
+                      style={[styles.image, styles.imageRadius]}
+                    />
+                  </View>
                 </View>
                 <View style={styles.slide}>
-                  <Image source={guyPhoto} style={styles.image} />
+                  <Image
+                    source={guyPhoto}
+                    style={[styles.image, styles.imageRadius]}
+                  />
                 </View>
                 <View style={styles.slide}>
-                  <Image source={girlWeb} style={styles.image} />
+                  <Image
+                    source={girlWeb}
+                    style={[styles.image, styles.imageRadius]}
+                  />
                 </View>
               </Swiper>
             </View>
@@ -84,12 +99,14 @@ const ProductInfo = () => {
                 <Chip
                   mode="outlined"
                   style={styles.chip}
+                  icon={clarity_license}
                   textStyle={styles.chipText}>
                   Example Chip
                 </Chip>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
+                  icon={mdi_drug}
                   textStyle={styles.chipText}>
                   Example Chip
                 </Chip>
@@ -111,8 +128,9 @@ const ProductInfo = () => {
                 <Chip
                   mode="outlined"
                   style={styles.chip}
+                  icon={Strength}
                   textStyle={styles.chipText}>
-                  Example Chip
+                  Strength 1
                 </Chip>
                 <Chip
                   mode="outlined"
@@ -165,6 +183,21 @@ const ProductInfo = () => {
             </View>
           </Card.Content>
         </Card>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginVertical: 30,
+            marginHorizontal: 114,
+            gap: 10,
+            marginTop: 180,
+          }}>
+          <CommonButton
+            title="Add to Cart"
+            onPress={() => navigation.navigate('')}
+            greenBorder={true}
+          />
+          <CommonButton title="Next" onPress={() => navigation.navigate('')} />
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -202,7 +235,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     width: width * 0.85,
-    marginTop: 50,
+    marginTop: 10,
     borderRadius: 30,
     overflow: 'hidden',
     marginHorizontal: 30,
@@ -251,12 +284,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     width: width * 0.85,
     color: 'black',
-    marginBottom: 40,
+    marginBottom: 30,
     fontWeight: '700',
   },
   swiperContainer: {
     height: height * 0.3,
     width: width,
+    borderRadius: 10,
+    marginTop:-30,
   },
   wrapper: {},
   slide: {
@@ -265,18 +300,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: width * 0.8,
-    height: height * 0.35,
+    width: width * 0.85,
+    height: height * 0.4,
     resizeMode: 'contain',
+  },
+  imageRadius: {
+    borderRadius: 20,
   },
   detailSection: {
     marginHorizontal: 30,
+    marginTop:-20,
   },
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 10,
+    shadowColor: '#000', // Shadow color
+    shadowOffset: {
+      width: 0,
+      height: 2, // Vertical shadow offset
+    },
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.5, // Shadow blur radius
+    elevation: 5, // Elevation for Android
   },
   productHeading: {
     fontSize: 20,
@@ -307,7 +354,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
-    marginTop: 10,
+    marginTop: -5,
     marginBottom: 5,
   },
   productDescription: {
@@ -329,9 +376,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderWidth: 0,
+    // Ensure no other color is set here that might affect the icon
   },
   chipText: {
     fontSize: 10,
-    color:'grey', // Set the desired smaller font size here
+    color: 'grey', // You can adjust this as needed
   },
 });

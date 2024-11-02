@@ -13,9 +13,34 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import chat from '../asset/icons/chat.png';
 import dashboard from '../asset/icons/dashboard.png';
-import ordersIcon from '../asset/icons/orders.png';
+import image1 from '../asset/orderPics/image1.png';
+import image4 from '../asset/orderPics/image4.png';
+import image5 from '../asset/orderPics/image5.png';
+import image6 from '../asset/orderPics/image6.png';
+import image7 from '../asset/orderPics/image7.png';
+import image8 from '../asset/orderPics/image8.png';
+import image9 from '../asset/orderPics/image9.png';
+import image10 from '../asset/orderPics/image10.png';
 
 const {width} = Dimensions.get('window');
+
+// Array of images
+const orderImages = [
+  image1,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8,
+  image9,
+  image10,
+];
+
+// Function to get a random image
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * orderImages.length);
+  return orderImages[randomIndex];
+};
 
 const Orders = () => {
   const navigation = useNavigation();
@@ -25,108 +50,260 @@ const Orders = () => {
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      isNew: true,
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      isNew: false,
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      isNew: true,
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12348',
-      date: '2024-10-04',
-      time: '09:00 AM',
-      price: '$120.00',
-      isNew: false,
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12349',
-      date: '2024-10-05',
-      time: '03:00 PM',
-      price: '$45.00',
-      isNew: true,
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12350',
-      date: '2024-10-06',
-      time: '12:15 PM',
-      price: '$200.00',
-      isNew: false,
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12351',
-      date: '2024-10-07',
-      time: '04:30 PM',
-      price: '$60.00',
-      isNew: true,
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12352',
-      date: '2024-10-08',
-      time: '08:45 AM',
-      price: '$90.00',
-      isNew: false,
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12353',
-      date: '2024-10-09',
-      time: '02:00 PM',
-      price: '$110.00',
-      isNew: true,
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12354',
-      date: '2024-10-10',
-      time: '05:15 PM',
-      price: '$30.00',
-      isNew: false,
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12355',
-      date: '2024-10-11',
-      time: '07:00 PM',
-      price: '$80.00',
-      isNew: true,
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12356',
-      date: '2024-10-12',
-      time: '10:00 AM',
-      price: '$150.00',
-      isNew: false,
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12357',
-      date: '2024-10-13',
-      time: '11:30 AM',
-      price: '$70.00',
-      isNew: true,
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12358',
-      date: '2024-10-14',
-      time: '01:45 PM',
-      price: '$65.00',
-      isNew: false,
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12359',
-      date: '2024-10-15',
-      time: '03:30 PM',
-      price: '$140.00',
-      isNew: true,
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
     },
+    {
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      price: '$50.00',
+      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      price: '$75.00',
+      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      price: '$100.00',
+      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
+    },
+
+    // Add more orders as needed...
   ];
 
+  // Function to determine badge color
+  const getBadgeStyle = status => {
+    switch (status) {
+      case 'Cancelled':
+        return {backgroundColor: '#AA1A1A'};
+
+      case 'Completed':
+        return {backgroundColor: '#409C59'};
+
+      case 'New Orders':
+        return {backgroundColor: '#2039B7'};
+      default:
+        return {backgroundColor: '#e0e0e0'};
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -144,7 +321,7 @@ const Orders = () => {
           </TouchableOpacity>
           <Text style={styles.topText}>Orders</Text>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('Chat')}
             style={[styles.backButton, styles.shadow]}>
             <Image source={chat} style={styles.backButtonImage} />
           </TouchableOpacity>
@@ -152,15 +329,13 @@ const Orders = () => {
         <View style={styles.listContainer}>
           {recentOrders.map(order => (
             <View key={order.id} style={styles.listItem}>
-              <Image source={ordersIcon} style={styles.listIcon} />
+              <Image source={order.image} style={styles.listIcon} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
                   <Text style={styles.orderId}>Order ID: {order.id}</Text>
-                  {order.isNew && (
-                    <View style={styles.newBadge}>
-                      <Text style={styles.badgeText}>New Order</Text>
-                    </View>
-                  )}
+                  <View style={[styles.newBadge, getBadgeStyle(order.status)]}>
+                    <Text style={styles.badgeText}>{order.status}</Text>
+                  </View>
                 </View>
                 <Text
                   style={
@@ -218,7 +393,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
-  listIcon: {width: 24, height: 24, marginRight: 10},
+  listIcon: {width: 50, height: 50, marginRight: 10}, // Increased size for better visibility
   orderInfo: {flex: 1},
   orderIdContainer: {
     flexDirection: 'row',
@@ -227,7 +402,6 @@ const styles = StyleSheet.create({
   },
   orderId: {fontSize: 16, fontWeight: '500', color: '#333333'},
   newBadge: {
-    backgroundColor: '#2039B7',
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 2,

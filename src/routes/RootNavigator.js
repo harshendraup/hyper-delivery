@@ -14,6 +14,15 @@ import UploadDoc from '../screens/UploadDoc';
 import AddProducts from '../screens/AddProducts';
 import EditProducts from '../screens/EditProducts';
 import ProductInfo from '../screens/ProductInfo';
+import Chat from '../screens/Chat';
+import EditProfile from '../screens/EditProfile';
+import StoreDetails from '../screens/StoreDetails';
+import Earnings from '../screens/Earnings';
+import CustomerSupport from '../screens/CustomerSupport';
+import ContactUsForm from '../screens/ContactUsForm';
+import AncillaryAddProducts from '../screens/AncillaryAddProducts';
+import AncillaryEditProduct from '../screens/AncillaryEditProduct';
+import SelectLanguage from '../screens/SelectLanguage';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +44,21 @@ const RootNavigator = () => {
       <Stack.Screen name="BusinessDetails" component={BusinessDetails} />
       <Stack.Screen name="ApprovalWaitng" component={ApprovalWaitng} />
       <Stack.Screen name="ProductInfo" component={ProductInfo} />
+      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="StoreDetails" component={StoreDetails} />
+      <Stack.Screen name="Earnings" component={Earnings} />
+      <Stack.Screen name="CustomerSupport" component={CustomerSupport} />
+      <Stack.Screen name="ContactUsForm" component={ContactUsForm} />
+      <Stack.Screen name="SelectLanguage" component={SelectLanguage} />
+      <Stack.Screen
+        name="AncillaryAddProducts"
+        component={AncillaryAddProducts}
+      />
+      <Stack.Screen
+        name="AncillaryEditProduct"
+        component={AncillaryEditProduct}
+      />
     </Stack.Navigator>
   );
 };

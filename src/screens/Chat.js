@@ -12,200 +12,173 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import chatIcon from '../asset/icons/chat.png';
-import dashboardIcon from '../asset/icons/dashboard.png';
-import ordersIcon from '../asset/icons/orders.png';
+import backArrow from '../asset/icons/backArrow.png';
+import f1 from '../asset/faces/Ellipse1.png'; // Example icon
+import f2 from '../asset/faces/Ellipse2.png'; // Additional example icon
+import f3 from '../asset/faces/Ellipse3.png';
+import f4 from '../asset/faces/Ellipse4.png';
+import f5 from '../asset/faces/Ellipse5.png';
+import f6 from '../asset/faces/Ellipse6.png';
+import f7 from '../asset/faces/Ellipse7.png';
+import f8 from '../asset/faces/Ellipse8.png';
+import f9 from '../asset/faces/Ellipse9.png';
+import f10 from '../asset/faces/Ellipse10.png';
+import f11 from '../asset/faces/Ellipse11.png';
+import f12 from '../asset/faces/Ellipse12.png';
+ // Additional example icon
 
 const {width} = Dimensions.get('window');
 
-const Notification = () => {
+// Array of random images
+const orderImages = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12];
+ // Add your imported images here
+
+// Function to get a random image
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * orderImages.length);
+  return orderImages[randomIndex];
+};
+
+const Chat = () => {
   const navigation = useNavigation();
 
-  // Updated recentOrders with status instead of isNew
+  // Updated recentOrders with random images
   const recentOrders = [
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
-      status: 'New Orders',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
-      status: 'Cancelled',
+      image: getRandomImage(), // Assign a random image
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
-      status: 'Completed',
+      image: getRandomImage(), // Assign a random image
     },
     {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      id: '12345',
+      date: '2024-10-01',
+      time: '10:30 AM',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      image: getRandomImage(), // Assign a random image
+    },
+    
+    {
+      id: '12346',
+      date: '2024-10-02',
+      time: '11:00 AM',
+      image: getRandomImage(), // Assign a random image
+    },
+    {
+      id: '12347',
+      date: '2024-10-03',
+      time: '01:00 PM',
+      image: getRandomImage(), // Assign a random image
     },
     // Add more orders as needed...
   ];
-
-  // Function to determine badge color (same as in Orders component)
-  const getBadgeStyle = status => {
-    switch (status) {
-      case 'Cancelled':
-        return {backgroundColor: '#AA1A1A'};
-      case 'Completed':
-        return {backgroundColor: '#409C59'};
-      case 'New Orders':
-        return {backgroundColor: '#2039B7'};
-      default:
-        return {backgroundColor: '#2039B7'};
-    }
-  };
 
   return (
     <KeyboardAvoidingView
@@ -219,36 +192,22 @@ const Notification = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButton}>
-            <Image source={dashboardIcon} style={styles.backButtonImage} />
+            <Image source={backArrow} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Chat')}
-            style={styles.backButton}>
-            <Image source={chatIcon} style={styles.backButtonImage} />
-          </TouchableOpacity>
+         
         </View>
 
         <View style={styles.listContainer}>
           <Text style={styles.listTitle}>Notification</Text>
           {recentOrders.map((order, index) => (
             <View key={`${order.id}-${index}`} style={styles.listItem}>
-              <Image source={ordersIcon} style={styles.listIcon} />
+              <Image source={order.image} style={styles.buttonImage} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
-                  <View style={styles.orderIdBadgeContainer}>
-                    <Text style={styles.orderId}>Order ID: {order.id}</Text>
-                    <View
-                      style={[styles.newBadge, getBadgeStyle(order.status)]}>
-                      <Text style={styles.badgeText}>{order.status}</Text>
-                    </View>
-                  </View>
-                  <Text style={styles.orderDate}>
-                    {order.date} a {order.time}
-                  </Text>
+                  <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                  <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
-                <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Text>
+                <Text>Where are you?</Text>
               </View>
             </View>
           ))}
@@ -275,7 +234,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#409C59',
     borderRadius: 5,
     elevation: 5,
     shadowColor: '#000',
@@ -284,6 +243,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   backButtonImage: {width: 24, height: 24},
+  buttonImage: {width: 45, height: 45, marginRight: 10},
   listContainer: {width: '100%', paddingHorizontal: 10},
   listTitle: {
     fontSize: 20,
@@ -292,7 +252,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     textAlign: 'center',
   },
-  listIcon: {width: 24, height: 24, marginRight: 10},
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -309,7 +268,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     width: '100%',
   },
-  orderIdBadgeContainer: {flexDirection: 'row', alignItems: 'center'},
   orderDate: {
     fontSize: 12,
     color: '#666',
@@ -317,14 +275,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 20,
   },
-  orderId: {fontSize: 12, fontWeight: '500', color: '#333333'},
-  newBadge: {
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    marginLeft: 8,
-  },
-  badgeText: {color: 'white', fontSize: 12},
+  orderId: {fontSize: 16, fontWeight: '700', color: '#333333'},
 });
 
-export default Notification;
+export default Chat;
