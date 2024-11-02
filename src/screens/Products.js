@@ -177,7 +177,9 @@ const Products = () => {
         <TouchableOpacity style={styles.deleteButton}>
           <Image source={bin} style={styles.backButtonImage} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => navigation.navigate('EditProducts')}>
           <Image source={edit} style={styles.backButtonImage} />
         </TouchableOpacity>
       </View>

@@ -186,7 +186,7 @@ const AddProducts = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Next"
-            onPress={() => navigation.navigate('EditProducts')}
+            onPress={() => navigation.navigate('BusinessDetails')}
           />
         </View>
       </ScrollView>

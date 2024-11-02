@@ -35,7 +35,7 @@ const Profile = () => {
     {label: 'Earnings', icon: earningsIcon, route: 'Earnings'},
     {label: 'Privacy Policy', icon: privacyIcon, route: 'PrivacyPolicy'},
     {label: 'Customer Support', icon: supportIcon, route: 'CustomerSupport'},
-    {label: 'Logout', icon: logoutIcon, route: 'Logout'},
+    {label: 'Logout', icon: logoutIcon, route: 'TabNavigator'},
   ];
 
   const handlePress = route => {

@@ -194,7 +194,7 @@ const EditProducts = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Next"
-            // onPress={() => navigation.navigate('BusinessDetails')}
+            onPress={() => navigation.navigate('BusinessDetails')}
           />
         </View>
       </ScrollView>
