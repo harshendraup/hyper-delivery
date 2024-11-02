@@ -14,6 +14,7 @@ import UploadDoc from '../screens/UploadDoc';
 import AddProducts from '../screens/AddProducts';
 import EditProducts from '../screens/EditProducts';
 import ProductInfo from '../screens/ProductInfo';
+import OrderDetails from '../screens/OrderDetails';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const RootNavigator = () => {
       <Stack.Screen name="ScanFace" component={ScanFace} />
       <Stack.Screen name="UploadDoc" component={UploadDoc} />
       <Stack.Screen name="AddProducts" component={AddProducts} />
+      <Stack.Screen name="OrderDetails" component={OrderDetails} />
       <Stack.Screen name="EditProducts" component={EditProducts} />
       <Stack.Screen name="OtpSplash" component={OtpSplash} />
       <Stack.Screen name="OTPEnter" component={OTPEnter} />
