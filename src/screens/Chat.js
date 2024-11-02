@@ -186,6 +186,7 @@ const Chat = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
         <View style={styles.headerContainer}>
@@ -194,7 +195,6 @@ const Chat = () => {
             style={styles.backButton}>
             <Image source={backArrow} style={styles.backButtonImage} />
           </TouchableOpacity>
-         
         </View>
 
         <View style={styles.listContainer}>

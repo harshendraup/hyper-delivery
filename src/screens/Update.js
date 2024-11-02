@@ -18,17 +18,14 @@ import profilePic1 from '../asset/faces/Ellipse12.png';
 import messageIcon from '../asset/messangeIcon.png';
 import phoneIcon from '../asset/callIcon.png';
 import star from '../asset/icons/star.png';
-import pickupIcon from '../asset/icons/pickuploc.png'; // Import pickup icon
+import pickupIcon from '../asset/icons/pickuploc.png';
 import deliveryIcon from '../asset/icons/deliveryloc.png';
-import ractangle from '../asset/icons/rectangle.png';
-import orderIcon from '../asset/icons/orderId.png'; // Import the order icon
-// Import delivery icon
+import orderIcon from '../asset/icons/orderId.png';
 
 const {width} = Dimensions.get('window');
 
 const Update = () => {
   const navigation = useNavigation();
-  const rating = 4.5;
   const orderId = 'ORD123456';
 
   return (
@@ -37,6 +34,7 @@ const Update = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
         <View style={styles.headerContainer}>
@@ -44,7 +42,7 @@ const Update = () => {
         </View>
 
         <Image source={map} style={styles.mapImage} />
-        {/* Profile Section */}
+
         <View style={styles.profileContainer}>
           <View style={styles.profileLeft}>
             <Image source={profilePic} style={styles.profilePic} />
@@ -90,13 +88,14 @@ const Update = () => {
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={styles.locationContainer}>
           <View style={styles.locationRow}>
             <Image source={pickupIcon} style={styles.locationIcon} />
             <Text style={styles.locationText}>Pickup Location:</Text>
           </View>
           <Text style={styles.addressText}>123 Main St.</Text>
-          <Image source={ractangle} style={styles.rectangleimage} />
+          <View style={styles.rectangleImage} />
 
           <View style={styles.locationRow}>
             <Image source={deliveryIcon} style={styles.locationIcon} />
@@ -104,7 +103,7 @@ const Update = () => {
           </View>
           <Text style={styles.addressText}>456 Elm St.</Text>
         </View>
-        {/* Order ID Section */}
+
         <View style={styles.orderIdContainer}>
           <View style={styles.orderRow}>
             <Image source={orderIcon} style={styles.orderIcon} />
@@ -136,6 +135,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 25,
     flexGrow: 1,
+    marginHorizontal: 20,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 1,
-    marginTop: 1,
   },
   locationIcon: {
     width: 20,
@@ -196,19 +195,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     fontWeight: '500',
-    marginLeft: 30, // Align the address text with the icon
+    marginLeft: 30,
     marginBottom: 10,
   },
-  separator: {
-    height: 1,
-  },
-  rectangleimage: {
-    width: 3, // Set width to fill the container
-    height: 32, // Adjust height as necessary
-    backgroundColor: 'rgba(217, 217, 217, 1)', // Optional: If you want to see a background color
+  rectangleImage: {
+    width: 3,
+    height: 32,
+    backgroundColor: 'rgba(217, 217, 217, 1)',
     marginHorizontal: 7,
     marginBottom: 10,
-    marginTop: 1, // Space above and below the rectangle
   },
   profileContainer: {
     flexDirection: 'row',
@@ -254,6 +249,45 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
   },
+  
+  
+ 
+  orderIdContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 20,
+    width: '100%',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  orderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  orderIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  orderIdHeading: {
+    fontSize: 14,
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+  },
+  orderIdText: {
+    fontSize: 14,
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '500',
+    marginTop: 5,
+    marginLeft: 30,
+  },
   profileRight: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -273,46 +307,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 3,
+    backgroundColor: 'white', // Optional: to ensure icons stand out against background
   },
   icon: {
-    marginTop: 10,
-    width: 40,
-    height: 40,
-  },
-  orderIdContainer: {
-    flexDirection: 'column',
-    alignItems: 'flex-start', // Align items to the left
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-    marginTop: 20,
-    width: '100%',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 3,
-  },
-  orderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 5, // Space below the row
-  },
-  orderIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 10, // Space between icon and heading
-  },
-  orderIdHeading: {
-    fontSize: 14,
-    color: 'rgba(51, 51, 51, 1)',
-    fontWeight: '600', // Bold for emphasis
-  },
-  orderIdText: {
-    fontSize: 14,
-    color: 'rgba(51, 51, 51, 1)',
-    fontWeight: '500',
-    marginTop: 5,
-    marginLeft: 30, // Space above the order ID
+    width: 50, // Adjusted width to fit the icons properly
+    height: 50, // Adjusted height for proper aspect ratio
+    resizeMode: 'contain',
+    marginTop:10, // Ensures the icons scale appropriately
   },
 });

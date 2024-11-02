@@ -78,6 +78,7 @@ const AncillaryEditProduct = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
         <View style={styles.headerContainer}>
@@ -110,7 +111,6 @@ const AncillaryEditProduct = () => {
             onChangeText={setPricePerGram}
             keyboardType="email-address"
           />
-          
 
           <FloatingLabelInput
             label="Enter Stock"
@@ -145,7 +145,7 @@ const AncillaryEditProduct = () => {
 
         <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Product Image</Text>
-          
+
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={styles.uploadButton}

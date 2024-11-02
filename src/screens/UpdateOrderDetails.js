@@ -8,6 +8,8 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import backbutton from '../asset/backbutton.png';
@@ -19,6 +21,8 @@ import image from '../asset/orderPics/image1.png';
 import invoice from '../asset/Invoicebutton.png';
 import Download from '../asset/icons/solar_download-bold.png';
 import star from '../asset/icons/star.png';
+import CommonTextInput from '../component/TextInput';
+import CommonButton from '../component/button';
 
 const {width} = Dimensions.get('window');
 
@@ -76,8 +80,14 @@ const UpdateOrderDetails = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // Adjust as needed
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -100,7 +110,6 @@ const UpdateOrderDetails = () => {
           </View>
           <View style={styles.ratingContainer}>
             <Image source={ratingImage} style={styles.ratingImage} />
-            {/* <Text style={styles.ratingText}>{order.rating}</Text> */}
           </View>
         </View>
         <View style={styles.deliveryContainer}>
@@ -114,7 +123,6 @@ const UpdateOrderDetails = () => {
               <Image source={edit} style={styles.editButtonImage} />
             </TouchableOpacity>
           </View>
-
           <View style={styles.deliveryInfoContainer}>
             <Text style={styles.deliveryDateText}>Praveen Reddy - #ID1234</Text>
             <Text style={styles.deliveryDateText}>12/Nov/2024</Text>
@@ -195,16 +203,43 @@ const UpdateOrderDetails = () => {
           <TouchableOpacity
             style={styles.invoiceButton}
             onPress={() => alert('Invoice button clicked!')}>
-            <Image source={invoice} style={styles.invoiceImage} />
-            <Text style={styles.invoiceButtonText}>
-              Download Invoice
-              {'                                              '}
-              <Image source={Download} />
-            </Text>
+            <Text style={styles.invoiceButtonText}>Download Invoice</Text>
+            <Image source={Download} style={styles.downloadIcon} />
           </TouchableOpacity>
         </View>
+
+        <View style={styles.feedbackContainer}>
+          <Text style={styles.feedbackTitle}>Share your feedback</Text>
+          <View style={{position: 'relative', width: 330}}>
+            <CommonTextInput
+              placeholder=" " // This is necessary to ensure the input field has a placeholder space.
+              style={{
+                borderColor: 'white',
+                borderWidth: 2,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                paddingLeft: 10, // Add padding to ensure the text doesn't touch the border
+                height: 50, // Adjust height as needed
+              }}
+            />
+            <Text
+              style={{
+                position: 'absolute',
+                left: 5, // Positioning the label inside
+                top: 10, // Adjust vertical positioning as needed
+                backgroundColor: 'white', // Same as background to cover input
+                paddingHorizontal: 5, // Add some padding for aesthetics
+              }}>
+              Tell us what you liked.
+            </Text>
+          </View>
+        </View>
+        <CommonButton
+          title="Go to Home"
+          onPress={() => navigation.navigate('TabNavigator')}
+        />
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -216,17 +251,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
   },
-  feedbackContainer: {
-    width: 358, // Fixed width
-    height: 140, // Fixed height
-    padding: 20, // Padding
-    borderRadius: 10, // Rounded corners
-    backgroundColor: 'rgba(64, 156, 89, 1)', // Background color
-    marginTop: 20, // Space from the previous element
-    opacity: 0.5, // Semi-transparent background
-  },
+
   scrollContainer: {
     alignItems: 'center',
+    paddingBottom: 20,
   },
   textContainer: {
     marginLeft: 10,
@@ -530,26 +558,49 @@ const styles = StyleSheet.create({
   },
   invoiceButtonContainer: {
     marginTop: 20,
+    justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    marginBottom: 50,
   },
+
   invoiceButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center', // Centering items horizontally
-    backgroundColor: 'rgba(64, 156, 89, 1)',
-    padding: 10,
+    backgroundColor: '#409C59',
+    width: '100%',
+    padding: 12,
     borderRadius: 10,
-    width: 358,
-    height: 48,
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Adjusted to space out items
+    alignItems: 'center', // Center items vertically
   },
-  invoiceImage: {
-    width: 24,
-    height: 24,
-    marginRight: 5,
-  },
+
   invoiceButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    marginLeft: 20, // Maintain space between text and icon
+  },
+  
+  downloadIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 20,
+    marginLeft: 10, // Add margin to the left of the icon for additional spacing
+  },
+  feedbackContainer: {
+    backgroundColor: '#409C59',
+    padding: 20,
+    borderRadius: 10,
+    // position: 'absolute',
+    bottom: 20,
+    // left: 20,
+    // right: 20,
+    alignItems: 'flex-start',
+    marginTop: 20,
+    width: '100%',
+  },
+  feedbackTitle: {
     color: 'white',
+    fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center', // Centering text
   },
 });

@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: 10,
+
     paddingTop: 20,
     paddingBottom: 10,
     backgroundColor: 'white', // Header background set to white
@@ -154,8 +155,8 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   backButtonImage: {
-    width: 20,
-    height: 20,
+    width: 16, // Smaller width
+    height: 16, // Smaller height
   },
   messageList: {
     flex: 1,

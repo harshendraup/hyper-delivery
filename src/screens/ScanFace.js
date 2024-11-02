@@ -44,7 +44,8 @@ const ScanFace = () => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Scan Face</Text>
         <View style={styles.imageContainer}>
           <Image source={Scanface} style={styles.logo} />

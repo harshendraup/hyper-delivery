@@ -62,7 +62,8 @@ const OTPEnter = () => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}>
         <Image source={getStuff} style={styles.logo} />
         <Text style={styles.title}>Enter OTP</Text>
         <Text style={styles.subTitle}>

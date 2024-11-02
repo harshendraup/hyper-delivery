@@ -53,7 +53,9 @@ const Profile = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.semiCircle}>
           <Text style={styles.profileLabel}>Profile</Text>
           <Image source={Ellipse12} style={styles.profileImage} />
