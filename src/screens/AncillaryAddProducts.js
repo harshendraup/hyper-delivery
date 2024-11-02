@@ -42,7 +42,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   );
 };
 
-const AddProducts = () => {
+const AncillaryAddProducts = () => {
   const navigation = useNavigation();
   const [ProductName, setProductName] = useState('');
   const [pricePerGram, setPricePerGram] = useState('');
@@ -83,11 +83,7 @@ const AddProducts = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text
-            style={styles.title}
-            onPress={() => navigation.navigate('AncillaryAddProducts')}>
-            Add Products
-          </Text>
+          <Text style={styles.title}>Add Products</Text>
         </View>
 
         <View style={styles.inputContainer}>
@@ -110,7 +106,7 @@ const AddProducts = () => {
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Price Per Gram"
+            label="Price"
             value={pricePerGram}
             onChangeText={setPricePerGram}
             keyboardType="email-address"
@@ -122,35 +118,7 @@ const AddProducts = () => {
             keyboardType="email-address"
           />
 
-          {/* Accordion for Boats and Animals Type */}
-
-          {/* Accordion for Project Category */}
-          <Accordion
-            title="Project Category"
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
-            isOpen={projectCategoryOpen}
-            toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
-            onSelect={item => alert(`Selected: ${item}`)}
-          />
-
-          <FloatingLabelInput
-            label="Enter Lanzer (Range 10 to 28)"
-            value={lanzer}
-            onChangeText={handleLanzerChange}
-          />
-          <FloatingLabelInput
-            label="Enter CBD"
-            value={Cbd}
-            onChangeText={setCbd}
-            keyboardType="email-address"
-          />
-          <Accordion
-            title="Cannabis Type"
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
-            isOpen={Cannabisform}
-            toggle={() => setCannabisform(!Cannabisform)}
-            onSelect={item => alert(`Selected: ${item}`)}
-          />
+         
           <FloatingLabelInput
             label="Enter Stock"
             value={Stock}
@@ -172,7 +140,7 @@ const AddProducts = () => {
 
         <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Product Image</Text>
-          <Image source={ProductImage} />
+          
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={styles.uploadButton}
@@ -186,7 +154,7 @@ const AddProducts = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Next"
-            onPress={() => navigation.navigate('BusinessDetails')}
+            onPress={() => navigation.navigate('EditProducts')}
           />
         </View>
       </ScrollView>
@@ -194,7 +162,7 @@ const AddProducts = () => {
   );
 };
 
-export default AddProducts;
+export default AncillaryAddProducts;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -266,18 +234,16 @@ const styles = StyleSheet.create({
   uploadButton: {
     height: 120,
     width: 358,
-    
+
     borderWidth: 1,
     borderRadius: 10,
     borderColor: '#409C59',
-    
-   
+
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
     backgroundColor: '#ecf6ee',
     borderStyle: 'dashed',
-   
   },
   uploadButtonText: {
     fontSize: 14,
@@ -331,4 +297,3 @@ const styles = StyleSheet.create({
     marginLeft: 10, // Spacing between checkbox and text
   },
 });
-

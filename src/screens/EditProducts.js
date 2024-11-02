@@ -86,7 +86,11 @@ const EditProducts = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.title}>Edit Products</Text>
+          <Text
+            style={styles.title}
+            onPress={() => navigation.navigate('AncillaryEditProduct')}>
+            Edit Products
+          </Text>
         </View>
 
         <View style={styles.inputContainer}>
@@ -190,7 +194,7 @@ const EditProducts = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Next"
-            // onPress={() => navigation.navigate('BusinessDetails')}
+            onPress={() => navigation.navigate('BusinessDetails')}
           />
         </View>
       </ScrollView>

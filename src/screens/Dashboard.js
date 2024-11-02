@@ -134,7 +134,7 @@ const Dashboard = () => {
           </TouchableOpacity>
           <Text style={styles.topText}>Dashboard</Text>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('Chat')}
             style={[styles.backButton, styles.shadow]}>
             <Image source={chat} style={styles.backButtonImage} />
           </TouchableOpacity>

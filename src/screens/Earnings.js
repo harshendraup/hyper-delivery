@@ -11,201 +11,149 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import chatIcon from '../asset/icons/chat.png';
-import dashboardIcon from '../asset/icons/dashboard.png';
-import ordersIcon from '../asset/icons/orders.png';
+import chat from '../asset/icons/chat.png';
+import dashboard from '../asset/icons/dashboard.png';
+import earningsIcon from '../asset/icons/earnings.png';
+import ordersIcon from '../asset/icons/earn.png';
 
 const {width} = Dimensions.get('window');
 
-const Notification = () => {
+const Earnings = () => {
   const navigation = useNavigation();
 
-  // Updated recentOrders with status instead of isNew
+  const tilesData = [
+    {icon: earningsIcon, title: 'Total Earning', data: '$5000'},
+  ];
+
   const recentOrders = [
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      status: 'Cancelled',
+      isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      status: 'Cancelled',
+      isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      status: 'Cancelled',
+      isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      status: 'Cancelled',
+      isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      status: 'Cancelled',
+      isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      status: 'Completed',
-    },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
       price: '$50.00',
-      status: 'New Orders',
+      isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
       price: '$75.00',
-      status: 'Cancelled',
+      isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
       price: '$100.00',
-      status: 'Completed',
+      isNew: true,
     },
-    {
-      id: '12348',
-      date: '2024-10-04',
-      time: '02:00 PM',
-      price: '$60.00',
-      status: 'New Orders',
-    },
-    // Add more orders as needed...
+    // Additional unique orders can be added here
   ];
-
-  // Function to determine badge color (same as in Orders component)
-  const getBadgeStyle = status => {
-    switch (status) {
-      case 'Cancelled':
-        return {backgroundColor: '#AA1A1A'};
-      case 'Completed':
-        return {backgroundColor: '#409C59'};
-      case 'New Orders':
-        return {backgroundColor: '#2039B7'};
-      default:
-        return {backgroundColor: '#2039B7'};
-    }
-  };
 
   return (
     <KeyboardAvoidingView
@@ -218,38 +166,41 @@ const Notification = () => {
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={styles.backButton}>
-            <Image source={dashboardIcon} style={styles.backButtonImage} />
+            style={[styles.backButton, styles.shadow]}>
+            <Image source={dashboard} style={styles.backButtonImage} />
           </TouchableOpacity>
+          <Text style={styles.topText}>Earning</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat')}
-            style={styles.backButton}>
-            <Image source={chatIcon} style={styles.backButtonImage} />
+            style={[styles.backButton, styles.shadow]}>
+            <Image source={chat} style={styles.backButtonImage} />
           </TouchableOpacity>
         </View>
 
+        <View style={styles.tileContainer}>
+          {tilesData.map((tile, index) => (
+            <View key={index} style={styles.tile}>
+              <View style={styles.tileHeader}>
+                <Image source={tile.icon} style={styles.tileIcon} />
+                <Text style={styles.tileTitle}>{tile.title}</Text>
+              </View>
+              <Text style={styles.tileData}>{tile.data}</Text>
+            </View>
+          ))}
+        </View>
+
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Notification</Text>
-          {recentOrders.map((order, index) => (
-            <View key={`${order.id}-${index}`} style={styles.listItem}>
+          <Text style={styles.listTitle}>Recent Orders</Text>
+          {recentOrders.map(order => (
+            <View key={order.id} style={styles.listItem}>
               <Image source={ordersIcon} style={styles.listIcon} />
               <View style={styles.orderInfo}>
-                <View style={styles.orderIdContainer}>
-                  <View style={styles.orderIdBadgeContainer}>
-                    <Text style={styles.orderId}>Order ID: {order.id}</Text>
-                    <View
-                      style={[styles.newBadge, getBadgeStyle(order.status)]}>
-                      <Text style={styles.badgeText}>{order.status}</Text>
-                    </View>
-                  </View>
-                  <Text style={styles.orderDate}>
-                    {order.date} a {order.time}
-                  </Text>
-                </View>
-                <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                <Text style={styles.orderDate}>
+                  {order.date} {order.time}
                 </Text>
               </View>
+              <Text style={styles.orderPrice}>{order.price}</Text>
             </View>
           ))}
         </View>
@@ -257,6 +208,8 @@ const Notification = () => {
     </KeyboardAvoidingView>
   );
 };
+
+export default Earnings;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},
@@ -277,22 +230,94 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 5,
+  },
+  shadow: {
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.25,
     shadowRadius: 6,
   },
-  backButtonImage: {width: 24, height: 24},
-  listContainer: {width: '100%', paddingHorizontal: 10},
+  backButtonImage: {
+    width: 24,
+    height: 24,
+  },
+  topText: {
+    textAlign: 'center',
+    fontSize: 24,
+    width: width * 0.5,
+    color: 'black',
+    fontWeight: '700',
+  },
+  tileContainer: {
+    // flexDirection: 'row',
+    flexWrap: 'wrap',
+    // justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 20,
+  },
+  tile: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: 390,
+    height: 120,
+    alignItems: 'center',
+    paddingVertical: 10,
+    // marginHorizontal: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  tileHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+  },
+  tileIcon: {
+    width: 40,
+    height: 40,
+    marginRight: 8,
+  },
+  tileTitle: {
+    fontFamily: 'Mulish',
+    fontSize: 18,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: '#333333',
+  },
+  tileData: {
+    fontFamily: 'Mulish',
+    fontSize: 24,
+    fontWeight: '700',
+    lineHeight: 36,
+    letterSpacing: 1,
+    color: '#333333',
+    textAlign: 'center',
+  },
+  listContainer: {
+    width: '100%',
+    paddingHorizontal: 10,
+  },
   listTitle: {
     fontSize: 20,
     fontWeight: '700',
     marginBottom: 10,
     color: '#333333',
-    textAlign: 'center',
+    paddingHorizontal: 10,
   },
-  listIcon: {width: 24, height: 24, marginRight: 10},
+  listIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -301,30 +326,25 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
-  orderInfo: {flex: 1},
-  orderIdContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-    width: '100%',
+  orderId: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333333',
   },
-  orderIdBadgeContainer: {flexDirection: 'row', alignItems: 'center'},
   orderDate: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#666',
-    textAlign: 'right',
+  },
+  orderPrice: {
+    fontSize: 20,
+    fontWeight: '500',
+    alignSelf: 'flex-end',
     flex: 1,
-    marginRight: 20,
+    textAlign: 'right',
+    paddingBottom: 10,
+    color: '#000000',
+    fontFamily:'Mulish',
   },
-  orderId: {fontSize: 12, fontWeight: '500', color: '#333333'},
-  newBadge: {
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    marginLeft: 8,
-  },
-  badgeText: {color: 'white', fontSize: 12},
 });
 
-export default Notification;
+
