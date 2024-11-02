@@ -55,13 +55,6 @@ const AddProducts = () => {
   const [Cannabisform, setCannabisform] = useState(false); // State for Boats and Animals accordion
   const [projectCategoryOpen, setProjectCategoryOpen] = useState(false); // State for Project Category accordion
 
-  const [selectedCannabisType, setSelectedCannabisType] = useState('');
-
-  const handleCannabisSelect = item => {
-    setSelectedCannabisType(item);
-    
-  };
-
   const handleUpload = side => {
     alert(`Upload ${side} ID`);
   };
@@ -104,56 +97,38 @@ const AddProducts = () => {
             items={['Medical', 'Oil', 'Power', 'Ancillary']}
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
-            onSelect={handleCannabisSelect}
-          />
+            onSelect={item => alert(`Selected: ${item}`)}
+              />
 
-          {selectedCannabisType === 'Ancillary' ? (
-            <>
               <FloatingLabelInput
                 label="Product Name"
                 value={ProductName}
                 onChangeText={setProductName}
-              />
-              <FloatingLabelInput
-                label="Price"
-                value={pricePerGram}
-                onChangeText={setPricePerGram}
-              />
-              <FloatingLabelInput
-                label="Product Details"
-                value={ProductDetails}
-                onChangeText={setProductDetails}
-              />
-              <FloatingLabelInput
-                label="Enter Stock"
-                value={Stock}
-                onChangeText={setStock}
-              />
-            </>
-          ) : (
-            <>
-              <FloatingLabelInput
-                label="Product Name"
-                value={ProductName}
-                onChangeText={setProductName}
+            keyboardType="email-address"
               />
               <FloatingLabelInput
                 label="Price Per Gram"
                 value={pricePerGram}
                 onChangeText={setPricePerGram}
+            keyboardType="email-address"
               />
               <FloatingLabelInput
                 label="Product Details"
                 value={ProductDetails}
                 onChangeText={setProductDetails}
+            keyboardType="email-address"
+          />
+
+          {/* Accordion for Boats and Animals Type */}
+
+          {/* Accordion for Project Category */}
+          <Accordion
+            title="Project Category"
+            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            isOpen={projectCategoryOpen}
+            toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
+            onSelect={item => alert(`Selected: ${item}`)}
               />
-              <FloatingLabelInput
-                label="Enter Stock"
-                value={Stock}
-                onChangeText={setStock}
-              />
-            </>
-          )}
 
           <FloatingLabelInput
             label="Enter Lanzer (Range 10 to 28)"
@@ -164,8 +139,21 @@ const AddProducts = () => {
             label="Enter CBD"
             value={Cbd}
             onChangeText={setCbd}
+            keyboardType="email-address"
           />
-          {/* Additional accordions and fields can be placed here */}
+          <Accordion
+            title="Cannabis Type"
+            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            isOpen={Cannabisform}
+            toggle={() => setCannabisform(!Cannabisform)}
+            onSelect={item => alert(`Selected: ${item}`)}
+          />
+          <FloatingLabelInput
+            label="Enter Stock"
+            value={Stock}
+            onChangeText={setStock}
+            keyboardType="email-address"
+          />
 
           {/* Checkbox for prescription requirement */}
           <View style={styles.checkboxContainer}>
