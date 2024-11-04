@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   accordionTitle: {
     fontSize: 12,
+    color: 'gray',
   },
   arrowIcon: {
     width: 20,

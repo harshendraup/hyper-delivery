@@ -57,7 +57,9 @@ const Onboarding = () => {
             <Image source={logo} style={styles.logo} />
           </TouchableOpacity>
           <View>
-            <Text style={styles.boldText}>{Language.english.onboarding.letsstart}</Text>
+            <Text style={styles.boldText}>
+              {Language.english.onboarding.letsstart}
+            </Text>
             <Text style={styles.subText}>
               Welcome, Please Enter Your Details!
             </Text>
@@ -194,5 +196,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#000',
   },
 });

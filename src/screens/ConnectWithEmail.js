@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#000',
   },
   separatorContainer: {
     flexDirection: 'row',

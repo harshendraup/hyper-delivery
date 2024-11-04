@@ -21,7 +21,6 @@ import Apple from '../asset/icons/Apple.png';
 import tri from '../asset/tri.png';
 import {useNavigation} from '@react-navigation/native';
 
-
 const {width, height} = Dimensions.get('window');
 
 const iconMapping = {
@@ -56,7 +55,7 @@ const GreenButton = ({title, onPress}) => {
 };
 
 const ConnectWithPhone = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '100%', // Ensures it takes full width
     alignItems: 'flex-start', // Aligns the items at the start
-    marginLeft:60,
+    marginLeft: 60,
   },
 
   logo: {
@@ -284,6 +283,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#000',
   },
   separatorContainer: {
     flexDirection: 'row',
