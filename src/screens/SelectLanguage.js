@@ -39,13 +39,19 @@ const SelectLanguage = () => {
 
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
-            {['Arabic', 'English'].map(language => (
+            {['عربي', 'English'].map(language => (
               <TouchableOpacity
                 key={language}
                 style={styles.uploadButton}
                 onPress={() => handleUpload(language)}>
                 <View style={styles.uploadButtonContent}>
-                  <Text style={styles.uploadButtonSubtext}>{language}</Text>
+                  <Text
+                    style={[
+                      styles.uploadButtonSubtext,
+                      language === 'عربي' && styles.largeText,
+                    ]}>
+                    {language}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
     height: 130,
     width: 165,
     borderColor: '#409C59',
-    borderWidth: 5,
+    borderWidth: 3,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -101,6 +107,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#333333',
+  },
+  largeText: {
+    fontSize: 30, // Increase font size for Arabic text
   },
   buttonContainer: {
     paddingTop: 10,

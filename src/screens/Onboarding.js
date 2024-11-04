@@ -19,7 +19,7 @@ import Phone from '../asset/icons/Phone.png';
 import GetstartwithFace from '../asset/icons/Face.png';
 import Apple from '../asset/icons/Apple.png';
 import {useNavigation} from '@react-navigation/native';
-
+import Language from '../utils/Language';
 const {width, height} = Dimensions.get('window');
 
 const iconMapping = {
@@ -57,7 +57,7 @@ const Onboarding = () => {
             <Image source={logo} style={styles.logo} />
           </TouchableOpacity>
           <View>
-            <Text style={styles.boldText}>Let's Start!</Text>
+            <Text style={styles.boldText}>{Language.english.onboarding.letsstart}</Text>
             <Text style={styles.subText}>
               Welcome, Please Enter Your Details!
             </Text>
