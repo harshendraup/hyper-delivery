@@ -228,6 +228,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginBottom: 20,
+     
+                        // Ensure buttons are vertically centered
+                        // width: '100%',
+                      
   },
   tile: {
     backgroundColor: 'white',

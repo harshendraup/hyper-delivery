@@ -40,6 +40,7 @@ const ApprovalWaiting = () => {
             fontSize: 16,
             fontWeight: 'light',
             textAlign: 'center',
+            color:'black'
           }}>
           Contact Us
         </Text>
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: 'light',
     marginBottom: 20,
     textAlign: 'center',
+    color:'black'
     // Center align subtext
   },
   contact: {

@@ -151,7 +151,10 @@ const AncillaryAddProducts = () => {
           </View>
         </View>
 
-        <View style={styles.buttonContainer}>
+        <View
+          style={
+            ([styles.buttonContainer], {width: '85%', alignItems: 'center'})
+          }>
           <CommonButton
             title="Next"
             onPress={() => navigation.navigate('EditProducts')}
@@ -233,7 +236,7 @@ const styles = StyleSheet.create({
   },
   uploadButton: {
     height: 120,
-    width: 358,
+    width: '100%',
 
     borderWidth: 1,
     borderRadius: 10,
@@ -290,6 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
+    width: '90%',
   },
   checkboxLabel: {
     fontSize: 16,

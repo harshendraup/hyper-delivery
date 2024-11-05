@@ -30,7 +30,7 @@ const Profile = () => {
   const navigation = useNavigation();
 
   const menuItems = [
-    {label: 'Edit Profile', icon: editIcon, route: 'EditProfile'},
+    {label: 'Edit Profile', icon: editIcon, route: 'EditUserProfile'},
     {label: 'Edit Store Details', icon: storeIcon, route: 'StoreDetails'},
     {label: 'Earnings', icon: earningsIcon, route: 'Earnings'},
     {label: 'Privacy Policy', icon: privacyIcon, route: 'PrivacyPolicy'},

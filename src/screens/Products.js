@@ -314,10 +314,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     marginVertical: 10,
+    
   },
   tabButton: {
     padding: 10,
-    width: 120,
+    width: 110,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: 'gray',

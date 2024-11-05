@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
   uploadContainer: {
     width: width * 0.85,
     marginTop: 20,
+    marginRight: 20,
   },
   uploadText: {
     fontSize: 20,
@@ -189,7 +190,9 @@ const styles = StyleSheet.create({
   },
   uploadRow: {
     flexDirection: 'row',
+    gap: 5,
     justifyContent: 'space-between',
+    marginVertical: 8,
   },
   uploadButtonContent: {
     alignItems: 'center', // Centers content horizontally

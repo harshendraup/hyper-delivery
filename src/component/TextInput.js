@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 18,
     backgroundColor: 'transparent',
+    color:'black'
   },
 });
 

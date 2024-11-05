@@ -19,7 +19,7 @@ import CommonButton from '../component/button';
 
 const {width, height} = Dimensions.get('window');
 
-const EditProfile = () => {
+const EditUserProfile = () => {
   const navigation = useNavigation();
 
   const [name, setName] = useState('');
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginBottom: 10,
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: '#fff',
   },
   inputContainer: {
     width: '80%',
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditProfile;
+export default EditUserProfile;

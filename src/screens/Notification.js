@@ -247,7 +247,7 @@ const Notification = () => {
                     {order.date} a {order.time}
                   </Text>
                 </View>
-                <Text>
+                <Text style={{color:'black'}}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Text>
               </View>

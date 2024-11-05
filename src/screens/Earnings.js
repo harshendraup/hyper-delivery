@@ -178,7 +178,7 @@ const Earnings = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.tileContainer}>
+        <View style={[styles.tileContainer]}>
           {tilesData.map((tile, index) => (
             <View key={index} style={styles.tile}>
               <View style={styles.tileHeader}>
@@ -251,18 +251,20 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   tileContainer: {
-    // flexDirection: 'row',
+    flexDirection: 'row',
     flexWrap: 'wrap',
-    // justifyContent: 'space-between',
+    justifyContent: 'center', // Centers the tiles horizontally
+    alignItems: 'center', // Ensures that the tiles are vertically centered
     width: '100%',
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginBottom: 20,
   },
+
   tile: {
     backgroundColor: 'white',
     borderRadius: 10,
-    width: 390,
+    width: width * 0.9,
     height: 120,
     alignItems: 'center',
     paddingVertical: 10,
@@ -344,8 +346,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     paddingBottom: 10,
     color: '#000000',
-    fontFamily:'Mulish',
+    fontFamily: 'Mulish',
   },
 });
-
-

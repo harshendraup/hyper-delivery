@@ -84,9 +84,12 @@ const styles = StyleSheet.create({
   uploadContainer: {
     width: width * 0.85,
     marginTop: 20,
+    alignItems: 'center', // Ensure buttons are vertically centered
+    // width: '100%',
   },
   uploadRow: {
     flexDirection: 'row',
+    gap: 10,
     justifyContent: 'space-between',
   },
   uploadButton: {

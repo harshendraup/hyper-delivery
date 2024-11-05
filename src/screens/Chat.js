@@ -207,7 +207,7 @@ const Chat = () => {
                   <Text style={styles.orderId}>Order ID: {order.id}</Text>
                   <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
-                <Text>Where are you?</Text>
+                <Text style={{color:'black'}}>Where are you?</Text>
               </View>
             </View>
           ))}

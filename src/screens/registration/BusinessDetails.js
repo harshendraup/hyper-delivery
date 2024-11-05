@@ -130,7 +130,13 @@ const BusinessDetails = () => {
                 <Text style={styles.uploadText}>Account Approval From</Text>
                 <View style={styles.uploadRow}>
                   <TouchableOpacity
-                    style={styles.uploadButton}
+                    style={[
+                      styles.uploadButton,
+                      {
+                        alignItems: 'center', // Ensure buttons are vertically centered
+                        width: '100%',
+                      },
+                    ]}
                     onPress={() => handleUpload('Front')}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
@@ -180,7 +186,13 @@ const BusinessDetails = () => {
                 <Text style={styles.uploadText}>Store Logo</Text>
                 <View style={styles.uploadRow}>
                   <TouchableOpacity
-                    style={styles.uploadButton}
+                    style={[
+                      styles.uploadButton,
+                      {
+                        alignItems: 'center', // Ensure buttons are vertically centered
+                        width: '100%',
+                      },
+                    ]}
                     onPress={() => handleUpload('Front')}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
@@ -304,7 +316,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  uploadRow: {flexDirection: 'row', justifyContent: 'space-between'},
+  uploadRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center', // Ensure buttons are vertically centered
+    width: '100%',
+  },
   uploadButton: {
     height: 120,
     width: 350,

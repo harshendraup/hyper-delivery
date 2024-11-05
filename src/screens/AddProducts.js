@@ -98,24 +98,24 @@ const AddProducts = () => {
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
             onSelect={item => alert(`Selected: ${item}`)}
-              />
+          />
 
-              <FloatingLabelInput
-                label="Product Name"
-                value={ProductName}
-                onChangeText={setProductName}
+          <FloatingLabelInput
+            label="Product Name"
+            value={ProductName}
+            onChangeText={setProductName}
             keyboardType="email-address"
-              />
-              <FloatingLabelInput
-                label="Price Per Gram"
-                value={pricePerGram}
-                onChangeText={setPricePerGram}
+          />
+          <FloatingLabelInput
+            label="Price Per Gram"
+            value={pricePerGram}
+            onChangeText={setPricePerGram}
             keyboardType="email-address"
-              />
-              <FloatingLabelInput
-                label="Product Details"
-                value={ProductDetails}
-                onChangeText={setProductDetails}
+          />
+          <FloatingLabelInput
+            label="Product Details"
+            value={ProductDetails}
+            onChangeText={setProductDetails}
             keyboardType="email-address"
           />
 
@@ -128,7 +128,7 @@ const AddProducts = () => {
             isOpen={projectCategoryOpen}
             toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
             onSelect={item => alert(`Selected: ${item}`)}
-              />
+          />
 
           <FloatingLabelInput
             label="Enter Lanzer (Range 10 to 28)"
@@ -169,7 +169,10 @@ const AddProducts = () => {
 
         <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Product Image</Text>
-          <Image source={ProductImage} />
+          <Image
+            source={ProductImage}
+            style={{width: '100%', alignItems: 'center'}}
+          />
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={styles.uploadButton}
@@ -180,7 +183,10 @@ const AddProducts = () => {
           </View>
         </View>
 
-        <View style={styles.buttonContainer}>
+        <View
+          style={
+            ([styles.buttonContainer], {width: '85%', alignItems: 'center'})
+          }>
           <CommonButton
             title="Next"
             onPress={() => navigation.navigate('BusinessDetails')}
@@ -262,19 +268,17 @@ const styles = StyleSheet.create({
   },
   uploadButton: {
     height: 120,
-    width: 358,
-    
+    width: '100%',
+
     borderWidth: 1,
     borderRadius: 10,
     borderColor: '#409C59',
-    
-   
+
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
     backgroundColor: '#ecf6ee',
     borderStyle: 'dashed',
-   
   },
   uploadButtonText: {
     fontSize: 14,
@@ -321,6 +325,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
+    width: '90%',
+    // alignItems: 'center',
   },
   checkboxLabel: {
     fontSize: 16,

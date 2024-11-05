@@ -181,7 +181,13 @@ const EditProducts = () => {
 
         <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Product Image</Text>
-          <Image source={ProductImage} />
+          <Image
+            source={ProductImage}
+            style={{
+              width: '100%',
+              alignItems: 'center', // Ensure buttons are vertically centered
+            }}
+          />
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={styles.uploadButton}
@@ -192,7 +198,10 @@ const EditProducts = () => {
           </View>
         </View>
 
-        <View style={styles.buttonContainer}>
+        <View
+          style={
+            ([styles.buttonContainer], {width: '85%', alignItems: 'center'})
+          }>
           <CommonButton
             title="Next"
             onPress={() => navigation.navigate('BusinessDetails')}
@@ -275,7 +284,7 @@ const styles = StyleSheet.create({
   },
   uploadButton: {
     height: 120,
-    width: 358,
+    width: '100%',
     borderColor: 'green',
     borderWidth: 1,
     borderRadius: 10,
@@ -308,6 +317,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
+    width: '90%',
   },
   checkboxLabel: {
     fontSize: 16,

@@ -117,12 +117,12 @@ const ProductInfo = () => {
                   textStyle={styles.chipText}>
                   Example Chip
                 </Chip>
-                <Chip
+                {/* <Chip
                   mode="outlined"
                   style={styles.chip}
                   textStyle={styles.chipText}>
                   Example Chip
-                </Chip>
+                </Chip> */}
               </View>
 
               <View style={styles.chipContainer}>
@@ -228,8 +228,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 380,
+    marginHorizontal: 20, // Apply marginHorizontal here
     alignItems: 'center',
+    width: '90%',
   },
   toggleContainer: {
     flexDirection: 'row',
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     height: height * 0.3,
     width: width,
     borderRadius: 10,
-    marginTop:-30,
+    marginTop: -30,
   },
   wrapper: {},
   slide: {
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
   },
   detailSection: {
     marginHorizontal: 30,
-    marginTop:-20,
+    marginTop: -20,
   },
   ratingContainer: {
     flexDirection: 'row',
@@ -370,17 +371,14 @@ const styles = StyleSheet.create({
     width: '30%',
     marginVertical: -2,
   },
-  chipContainerRow: {
-    // justifyContent: 'space-between',
-  },
   chip: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderWidth: 0,
-    // Ensure no other color is set here that might affect the icon
   },
   chipText: {
     fontSize: 10,
     color: 'grey', // You can adjust this as needed
   },
 });
+

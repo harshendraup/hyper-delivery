@@ -119,6 +119,7 @@ const CustomerSupport = () => {
           value={inputValue}
           onChangeText={setInputValue}
           placeholder="Type your message..."
+          placeholderTextColor="black"
         />
         <TouchableOpacity onPress={sendMessage}>
           <Image source={sendButton} style={styles.sendButton} />
@@ -220,6 +221,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginRight: 10,
+    color:'black',
   },
   sendButton: {
     width: 40,
