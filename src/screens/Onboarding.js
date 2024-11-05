@@ -2,9 +2,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
@@ -12,32 +12,29 @@ import logo from '../asset/logo.png';
 import girlBag from '../asset/girlBag.png';
 import girlWeb from '../asset/girlWeb.png';
 import guyPhoto from '../asset/guyPhoto.png';
-import Google from '../asset/icons/Google.png';
-import Email from '../asset/icons/Email.png';
-import Facebook from '../asset/icons/Facebook.png';
-import Phone from '../asset/icons/Phone.png';
-import GetstartwithFace from '../asset/icons/Face.png';
-import Apple from '../asset/icons/Apple.png';
+import Apple from '../asset/SVG/Apple'; // Import SVG components
+import Phone from '../asset/SVG/Call';
+import Email from '../asset/SVG/Email';
+import Facebook from '../asset/SVG/Facebook';
+import Google from '../asset/SVG/Google';
+import GetstartwithFace from '../asset/SVG/ScanFace';
 import {useNavigation} from '@react-navigation/native';
 import Language from '../utils/Language';
+
 const {width, height} = Dimensions.get('window');
 
-const iconMapping = {
-  'Get Started with Google': Google,
-  'Get Started with Email': Email,
-  'Get Started with Phone': Phone,
-  'Get Started with Apple': Apple,
-  'Get Started with Facebook': Facebook,
-  'Get Started with Face': GetstartwithFace,
-};
-
 const CustomButton = ({title, onPress}) => {
-  const iconSource = iconMapping[title];
-
+  // Directly render the SVG components as JSX
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
-        {iconSource && <Image source={iconSource} style={styles.icon} />}
+        {/* Conditionally render the correct SVG icon */}
+        {title === 'Get Started with Phone' && <Phone />}
+        {title === 'Get Started with Email' && <Email />}
+        {title === 'Get Started with Google' && <Google />}
+        {title === 'Get Started with Apple' && <Apple />}
+        {title === 'Get Started with Facebook' && <Facebook />}
+        {title === 'Get Started with Face' && <GetstartwithFace />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
         </View>
@@ -181,12 +178,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingLeft: 60, // Add padding to the left
+    paddingLeft: 60,
   },
   icon: {
-    width: 30, // Increase the icon size
-    height: 30, // Increase the icon size
-    marginRight: -20,
+    width: 30, // Adjust size for SVG icon
+    height: 30, // Adjust size for SVG icon
+    // marginRight: 10, // Adjust margin to fit your design
   },
   textContainer: {
     flex: 1,
@@ -194,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     color: '#000',
   },

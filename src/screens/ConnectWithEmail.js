@@ -13,26 +13,21 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import logo from '../asset/logo.png';
-import Google from '../asset/icons/Google.png';
-import Phone from '../asset/icons/Phone.png';
-import Facebook from '../asset/icons/Facebook.png';
-import GetstartwithFace from '../asset/icons/Face.png';
-import Apple from '../asset/icons/Apple.png';
+
 import tri from '../asset/tri.png';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
-// import Textinput from '../component/TextInput';
+// Import SVG components directly
+import Apple from '../asset/SVG/Apple'; // Import SVG components
+import Phone from '../asset/SVG/Call';
+import Email from '../asset/SVG/Email';
+import Facebook from '../asset/SVG/Facebook';
+import Google from '../asset/SVG/Google';
+import GetstartwithFace from '../asset/SVG/ScanFace';
 
 const {width, height} = Dimensions.get('window');
 
-const iconMapping = {
-  'Get Started with Google': Google,
-  'Get Started with Phone No.': Phone,
-  'Get Started with Apple': Apple,
-  'Get Started with Facebook': Facebook,
-  'Get Started with Face': GetstartwithFace,
-};
-
+// Custom Floating Label Input Component
 const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -54,12 +49,16 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 };
 
 const CustomButton = ({title, onPress}) => {
-  const iconSource = iconMapping[title];
-
+  // Render the correct SVG component based on the title
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
-        {iconSource && <Image source={iconSource} style={styles.icon} />}
+        {/* Conditionally render the correct SVG icon */}
+        {title === 'Get Started with Google' && <Google />}
+        {title === 'Get Started with Phone No.' && <Phone />}
+        {title === 'Get Started with Apple' && <Apple />}
+        {title === 'Get Started with Facebook' && <Facebook />}
+        {title === 'Get Started with Face' && <GetstartwithFace />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
         </View>
@@ -71,6 +70,7 @@ const CustomButton = ({title, onPress}) => {
 const ConnectWithEmail = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
+
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -117,6 +117,8 @@ const ConnectWithEmail = () => {
           <FloatingLabelInput
             label="Enter Email"
             keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
           />
         </View>
 
@@ -216,11 +218,6 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     paddingBottom: 10,
   },
-  // triangleIcon: {
-  //   width: 80,
-  //   height: 20,
-  //   marginRight: 10,
-  // },
   floatingLabelContainer: {
     position: 'relative',
     marginVertical: 10,
@@ -230,7 +227,6 @@ const styles = StyleSheet.create({
     left: 10,
     color: 'gray',
     fontSize: 12,
-    transition: 'top 0.2s ease',
     marginTop: 15,
     marginLeft: 10,
   },
@@ -291,7 +287,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     color: '#000',
   },

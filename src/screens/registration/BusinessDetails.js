@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import uploadcloud from '../../asset/uploadcloud.png';
 import backbutton from '../../asset/backbutton.png';
 import Accordion from '../../component/Accordion';
+import Clock from "../../asset/SVG/Clock";
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
@@ -170,10 +171,11 @@ const BusinessDetails = () => {
                 keyboardType="email-address"
               />
               <FloatingLabelInput
-                label="Timing"
+                label="Timing of shop"
                 value={dob}
                 onChangeText={setDob}
               />
+              
               <Accordion
                 title="Open days at shop"
                 items={['day 1', 'day 2', 'day 3']}

@@ -204,18 +204,18 @@ const UpdateOrderDetails = () => {
               placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
               style={{
                 borderColor: 'white',
-                borderWidth: 2,
+                borderWidth: 1,
                 backgroundColor: 'white',
                 borderRadius: 10,
                 paddingLeft: 10, // Add padding to ensure the text doesn't touch the border
-                height: 50, // Adjust height as needed
+                height: 70, // Adjust height as needed
               }}
             />
             <Text
               style={{
                 position: 'absolute',
-                left: 5, // Positioning the label inside
-                top: 10, // Adjust vertical positioning as needed
+                left: 10, // Positioning the label inside
+                top: 12, // Adjust vertical positioning as needed
                 backgroundColor: 'white', // Same as background to cover input
                 paddingHorizontal: 5, // Add some padding for aesthetics
               }}>
