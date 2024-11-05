@@ -54,10 +54,6 @@ const ContactUsForm = () => {
   const [idNumber, setIdNumber] = useState('');
   const [userType, setUserType] = useState(false); // State for Boats and Animals accordion
 
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -102,7 +98,7 @@ const ContactUsForm = () => {
             items={['Type 1', 'Type 2', 'Type 3']} // Replace with actual items
             isOpen={userType}
             toggle={() => setUserType(!userType)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
           <FloatingLabelInput
             label="Id number"
@@ -122,25 +118,21 @@ const ContactUsForm = () => {
         <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Upload Documents</Text>
           <View style={styles.uploadRow}>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Front')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={uploadcloud} />
                 <Text style={styles.uploadButtonText}>Front</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / drivers licence
+                  Upload & Scan passport / driver's license
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Back')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={uploadcloud} />
                 <Text style={styles.uploadButtonText}>Back</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / drivers licence
+                  Upload & Scan passport / driver's license
                 </Text>
               </View>
             </TouchableOpacity>
@@ -198,6 +190,7 @@ const styles = StyleSheet.create({
   uploadContainer: {
     width: width * 0.85,
     marginTop: 20,
+    marginRight: 20,
   },
   uploadText: {
     fontSize: 20,
@@ -208,7 +201,9 @@ const styles = StyleSheet.create({
   },
   uploadRow: {
     flexDirection: 'row',
+    gap: 5,
     justifyContent: 'space-between',
+    marginVertical: 8,
   },
   uploadButtonContent: {
     alignItems: 'center', // Centers content horizontally

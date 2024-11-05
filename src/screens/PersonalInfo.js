@@ -50,10 +50,6 @@ const PersonalInfo = () => {
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
 
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -103,25 +99,21 @@ const PersonalInfo = () => {
         <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Upload Documents</Text>
           <View style={styles.uploadRow}>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Front')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={uploadcloud} />
                 <Text style={styles.uploadButtonText}>Front</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / drivers licence
+                  Upload & Scan passport / driver's license
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Back')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={uploadcloud} />
                 <Text style={styles.uploadButtonText}>Back</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / drivers licence
+                  Upload & Scan passport / driver's license
                 </Text>
               </View>
             </TouchableOpacity>

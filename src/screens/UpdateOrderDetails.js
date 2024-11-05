@@ -74,11 +74,6 @@ const UpdateOrderDetails = () => {
   const [uploadedPrescription, setUploadedPrescription] = useState('');
   const [uploadedFaceScan, setUploadedFaceScan] = useState('');
 
-  const handleOpen = () => {
-    // Logic for "Open" button can be added here
-    alert('Open button clicked!');
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -141,25 +136,21 @@ const UpdateOrderDetails = () => {
             label="Uploaded License *"
             value={uploadedLicense}
             onChangeText={setUploadedLicense}
-            onOpen={handleOpen}
           />
           <FloatingLabelInput
             label="Uploaded ID Card *"
             value={uploadedID}
             onChangeText={setUploadedID}
-            onOpen={handleOpen}
           />
           <FloatingLabelInput
             label="Uploaded Prescription *"
             value={uploadedPrescription}
             onChangeText={setUploadedPrescription}
-            onOpen={handleOpen}
           />
           <FloatingLabelInput
             label="Face Scan *"
             value={uploadedFaceScan}
             onChangeText={setUploadedFaceScan}
-            onOpen={handleOpen}
           />
         </View>
         <View style={styles.noteContainer}>
@@ -200,9 +191,7 @@ const UpdateOrderDetails = () => {
           </View>
         </View>
         <View style={styles.invoiceButtonContainer}>
-          <TouchableOpacity
-            style={styles.invoiceButton}
-            onPress={() => alert('Invoice button clicked!')}>
+          <TouchableOpacity style={styles.invoiceButton}>
             <Text style={styles.invoiceButtonText}>Download Invoice</Text>
             <Image source={Download} style={styles.downloadIcon} />
           </TouchableOpacity>
@@ -212,7 +201,7 @@ const UpdateOrderDetails = () => {
           <Text style={styles.feedbackTitle}>Share your feedback</Text>
           <View style={{position: 'relative', width: 330}}>
             <CommonTextInput
-              placeholder=" " // This is necessary to ensure the input field has a placeholder space.
+              placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
               style={{
                 borderColor: 'white',
                 borderWidth: 2,
@@ -579,7 +568,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 20, // Maintain space between text and icon
   },
-  
+
   downloadIcon: {
     width: 20,
     height: 20,

@@ -308,5 +308,6 @@ const styles = StyleSheet.create({
   orText: {
     paddingHorizontal: 10,
     fontSize: 16,
+    color: 'gray',
   },
 });

@@ -51,13 +51,9 @@ const AddProducts = () => {
   const [Stock, setStock] = useState('');
   const [lanzer, setLanzer] = useState('');
   const [isPrescriptionRequired, setIsPrescriptionRequired] = useState(false);
-  const [Cannabistype, setCannabistype] = useState(false); // State for Boats and Animals accordion
-  const [Cannabisform, setCannabisform] = useState(false); // State for Boats and Animals accordion
+  const [Cannabistype, setCannabistype] = useState(false); // State for Cannabis type accordion
+  const [Cannabisform, setCannabisform] = useState(false); // State for Cannabis form accordion
   const [projectCategoryOpen, setProjectCategoryOpen] = useState(false); // State for Project Category accordion
-
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
 
   const handleLanzerChange = Number => {
     const numericValue = parseInt(Number, 10);
@@ -97,7 +93,7 @@ const AddProducts = () => {
             items={['Medical', 'Oil', 'Power', 'Ancillary']}
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -119,15 +115,13 @@ const AddProducts = () => {
             keyboardType="email-address"
           />
 
-          {/* Accordion for Boats and Animals Type */}
-
-          {/* Accordion for Project Category */}
+          {/* Accordion for Cannabis Type */}
           <Accordion
             title="Project Category"
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            items={['Category 1', 'Category 2', 'Category 3']}
             isOpen={projectCategoryOpen}
             toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -142,11 +136,11 @@ const AddProducts = () => {
             keyboardType="email-address"
           />
           <Accordion
-            title="Cannabis Type"
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            title="Cannabis Form"
+            items={['Form 1', 'Form 2', 'Form 3']} // Replace with actual items
             isOpen={Cannabisform}
             toggle={() => setCannabisform(!Cannabisform)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
           <FloatingLabelInput
             label="Enter Stock"
@@ -157,10 +151,13 @@ const AddProducts = () => {
 
           {/* Checkbox for prescription requirement */}
           <View style={styles.checkboxContainer}>
-            <CheckBox
-              value={isPrescriptionRequired}
-              onValueChange={setIsPrescriptionRequired}
-            />
+            <View style={styles.checkboxWrapper}>
+              <CheckBox
+                value={isPrescriptionRequired}
+                onValueChange={setIsPrescriptionRequired}
+                style={styles.checkbox} // Optional: Apply some other styles to checkbox itself
+              />
+            </View>
             <Text style={styles.checkboxLabel}>
               Does this product require a prescription & License?
             </Text>
@@ -174,9 +171,7 @@ const AddProducts = () => {
             style={{width: '100%', alignItems: 'center'}}
           />
           <View style={styles.uploadRow}>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Front')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>
@@ -184,13 +179,11 @@ const AddProducts = () => {
         </View>
 
         <View
-          style={
-            ([styles.buttonContainer], {width: '85%', alignItems: 'center'})
-          }>
-          <CommonButton
-            title="Next"
-            onPress={() => navigation.navigate('BusinessDetails')}
-          />
+          style={[
+            styles.buttonContainer,
+            {width: '85%', alignItems: 'center'},
+          ]}>
+          <CommonButton title="Next" onPress={() => {}} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -198,6 +191,7 @@ const AddProducts = () => {
 };
 
 export default AddProducts;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -269,11 +263,9 @@ const styles = StyleSheet.create({
   uploadButton: {
     height: 120,
     width: '100%',
-
     borderWidth: 1,
     borderRadius: 10,
     borderColor: '#409C59',
-
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
@@ -289,49 +281,33 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 6,
   },
-  uploadButtonContent: {
-    alignItems: 'center', // Centers content horizontally
-  },
-  uploadButtonHeader: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333333',
-    textAlign: 'center',
-    fontFamily: 'Mulish',
-  },
-  uploadButtonSubtext: {
-    fontFamily: 'Mulish', // Set font-family to Mulish
-    fontSize: 12, // Set font size to 12px
-    fontWeight: '600', // Set font weight to 600
-    lineHeight: 15.06, // Set line height to 15.06px
-    textAlign: 'center', // Center-align text
-    color: '#333333',
-  },
   buttonContainer: {
     paddingTop: 10,
     width: 358,
     paddingBottom: 30,
   },
-  addressInput: {
-    height: 100,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    fontSize: 18,
-    backgroundColor: 'transparent',
-  },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
     width: '90%',
-    // alignItems: 'center',
+    marginVertical: 10,
+  },
+  checkboxWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    padding: 1,
+    marginLeft: 3,
+    width: '13%',
+    height: '90%',
+  },
+  checkbox: {
+    transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {
     fontSize: 16,
     color: 'black',
-    marginLeft: 10, // Spacing between checkbox and text
+    marginLeft: 10,
   },
 });
-

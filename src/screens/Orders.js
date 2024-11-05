@@ -199,7 +199,7 @@ const Orders = () => {
             style={[styles.backButton, styles.shadow]}>
             <Image source={dashboard} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.topText}>Orders</Text>
+          <Text style={styles.topText}> My Orders</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat')}
             style={[styles.backButton, styles.shadow]}>

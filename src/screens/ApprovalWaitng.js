@@ -23,13 +23,10 @@ const ApprovalWaiting = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
-        <Image
-          source={connect}
-          style={styles.image}
-        />
+        <Image source={connect} style={styles.image} />
       </TouchableOpacity>
       <View style={styles.textContainer}>
-        <Text style={styles.heading}>Nice to Meet You at get weed.</Text>
+        <Text style={styles.heading}>Nice to meet you at get weed.</Text>
         <Text style={styles.subtext}>
           Please wait for approval. Your {'\n'}registration is completed, and
           our{'\n'}
@@ -40,7 +37,7 @@ const ApprovalWaiting = () => {
             fontSize: 16,
             fontWeight: 'light',
             textAlign: 'center',
-            color:'black'
+            color: 'black',
           }}>
           Contact Us
         </Text>
@@ -87,18 +84,19 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Center align text within this container
   },
   heading: {
-    fontSize: 30,
-    color: 'black',
-    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '700',
     marginBottom: 20,
     textAlign: 'center', // Center align heading text
   },
   subtext: {
-    fontSize: 16,
-    fontWeight: 'light',
+    fontSize: 15,
+    fontWeight: '500',
     marginBottom: 20,
     textAlign: 'center',
-    color:'black'
+    color: 'rgba(125, 125, 125, 1)',
+    fontFamily: 'Inter',
     // Center align subtext
   },
   contact: {

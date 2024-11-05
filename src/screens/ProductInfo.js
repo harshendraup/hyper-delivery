@@ -184,21 +184,6 @@ const ProductInfo = () => {
             </View>
           </Card.Content>
         </Card>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginVertical: 30,
-            marginHorizontal: 114,
-            gap: 10,
-            marginTop: 180,
-          }}>
-          <CommonButton
-            title="Add to Cart"
-            onPress={() => navigation.navigate('')}
-            greenBorder={true}
-          />
-          <CommonButton title="Next" onPress={() => navigation.navigate('')} />
-        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -310,7 +295,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   detailSection: {
-    marginHorizontal: 30,
+    marginHorizontal: 26,
     marginTop: -20,
   },
   ratingContainer: {
@@ -318,28 +303,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 10,
-    shadowColor: '#000', // Shadow color
+    paddingHorizontal: 15, // Add padding to the left and right
+    paddingVertical: 8, // Add vertical padding for some extra space
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2, // Vertical shadow offset
+      height: 2,
     },
-    shadowOpacity: 0.25, // Shadow opacity
-    shadowRadius: 3.5, // Shadow blur radius
-    elevation: 5, // Elevation for Android
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
   },
+
   productHeading: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
   },
   ratingBadge: {
-    backgroundColor: '#409C59',
+    backgroundColor: 'rgba(64, 156, 89, 1)',
     height: height * 0.03,
-    width: width * 0.2,
+    width: width * 0.25, // Adjust width for padding
     borderRadius: 5,
-    padding: 5,
+    paddingHorizontal: 10, // Add horizontal padding inside the badge
+    paddingVertical: 3, // Add vertical padding inside the badge
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center', // Ensure the text is centered within the badge
   },
   ratingText: {
     fontSize: 12,
@@ -381,4 +371,3 @@ const styles = StyleSheet.create({
     color: 'grey', // You can adjust this as needed
   },
 });
-

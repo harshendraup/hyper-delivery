@@ -244,10 +244,10 @@ const Notification = () => {
                     </View>
                   </View>
                   <Text style={styles.orderDate}>
-                    {order.date} a {order.time}
+                    {order.date} {order.time}
                   </Text>
                 </View>
-                <Text style={{color:'black'}}>
+                <Text style={{color: 'black'}}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Text>
               </View>

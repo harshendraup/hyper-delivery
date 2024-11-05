@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 25,
+    paddingTop: '31.37px',
   },
   topSection: {
     flex: 1,

@@ -26,7 +26,7 @@ const {width} = Dimensions.get('window');
 
 const Update = () => {
   const navigation = useNavigation();
-  const orderId = 'ORD123456';
+  const orderId = '#123456';
 
   return (
     <KeyboardAvoidingView
@@ -249,22 +249,15 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
   },
-  
-  
- 
+
   orderIdContainer: {
     flexDirection: 'column',
     alignItems: 'flex-start',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
-    marginTop: 20,
+    marginTop: 10,
     width: '100%',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 3,
   },
   orderRow: {
     flexDirection: 'row',
@@ -313,6 +306,6 @@ const styles = StyleSheet.create({
     width: 50, // Adjusted width to fit the icons properly
     height: 50, // Adjusted height for proper aspect ratio
     resizeMode: 'contain',
-    marginTop:10, // Ensures the icons scale appropriately
+    marginTop: 10, // Ensures the icons scale appropriately
   },
 });

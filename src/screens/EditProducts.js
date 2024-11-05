@@ -24,7 +24,7 @@ const {width} = Dimensions.get('window');
 
 const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   const [isFocused, setIsFocused] = useState(false);
-  
+
   return (
     <View style={styles.floatingLabelContainer}>
       <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
@@ -38,7 +38,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
         onBlur={() => setIsFocused(false)}
         keyboardType="numeric"
         {...props}
-        />
+      />
     </View>
   );
 };
@@ -57,11 +57,7 @@ const EditProducts = () => {
   const [selectedType, setSelectedType] = useState('');
   const [lanzer, setLanzer] = useState('');
   const [isPrescriptionRequired, setIsPrescriptionRequired] = useState(false); // State for checkbox
-  
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
-  
+
   const handleLanzerChange = Number => {
     const numericValue = parseInt(Number, 10);
     if (
@@ -71,7 +67,7 @@ const EditProducts = () => {
       setLanzer(Number);
     }
   };
-  
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -100,7 +96,7 @@ const EditProducts = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -126,7 +122,7 @@ const EditProducts = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={projectCategoryOpen}
             toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -145,7 +141,7 @@ const EditProducts = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabisform}
             toggle={() => setCannabisform(!Cannabisform)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -165,14 +161,17 @@ const EditProducts = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Status}
             toggle={() => setStatus(!Status)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
           {/* Checkbox for prescription requirement */}
           <View style={styles.checkboxContainer}>
-            <CheckBox
-              value={isPrescriptionRequired}
-              onValueChange={setIsPrescriptionRequired}
-            />
+            <View style={styles.checkboxWrapper}>
+              <CheckBox
+                value={isPrescriptionRequired}
+                onValueChange={setIsPrescriptionRequired}
+                style={styles.checkbox} // Optional: Apply some other styles to checkbox itself
+              />
+            </View>
             <Text style={styles.checkboxLabel}>
               Does this product require a prescription & License?
             </Text>
@@ -315,9 +314,24 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
     width: '90%',
+    marginVertical: 10,
+    // Add any additional spacing or layout styles here if needed
+  },
+  checkboxWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1, // Black border
+    borderColor: 'black', // Black border color
+    borderRadius: 5, // Optional: rounded corners for the border
+    padding: 1,
+    marginLeft: 3,
+    width: '13%',
+    height: '90%', // Padding to ensure the border doesn't touch the checkbox or text directly
+  },
+  checkbox: {
+    // Optional: Customize the checkbox size if you want it larger
+    transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {
     fontSize: 16,

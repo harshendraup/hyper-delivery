@@ -191,7 +191,7 @@ const Earnings = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Recent Orders</Text>
+          <Text style={styles.listTitle}>Payment History</Text>
           {recentOrders.map(order => (
             <View key={order.id} style={styles.listItem}>
               <Image source={ordersIcon} style={styles.listIcon} />

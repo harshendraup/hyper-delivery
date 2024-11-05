@@ -22,10 +22,6 @@ const GreenButton = ({title, onPress}) => (
 const SelectLanguage = () => {
   const navigation = useNavigation();
 
-  const handleUpload = language => {
-    alert(` ${language} `);
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -40,10 +36,7 @@ const SelectLanguage = () => {
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             {['عربي', 'English'].map(language => (
-              <TouchableOpacity
-                key={language}
-                style={styles.uploadButton}
-                onPress={() => handleUpload(language)}>
+              <TouchableOpacity key={language} style={styles.uploadButton}>
                 <View style={styles.uploadButtonContent}>
                   <Text
                     style={[

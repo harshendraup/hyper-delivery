@@ -58,10 +58,6 @@ const AncillaryEditProduct = () => {
   const [lanzer, setLanzer] = useState('');
   const [isPrescriptionRequired, setIsPrescriptionRequired] = useState(false); // State for checkbox
 
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
-
   const handleLanzerChange = Number => {
     const numericValue = parseInt(Number, 10);
     if (
@@ -96,7 +92,7 @@ const AncillaryEditProduct = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -129,7 +125,7 @@ const AncillaryEditProduct = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Status}
             toggle={() => setStatus(!Status)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
           {/* Checkbox for prescription requirement */}
           <View style={styles.checkboxContainer}>

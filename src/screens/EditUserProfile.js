@@ -9,8 +9,10 @@ import {
   Platform,
   ScrollView,
   Image,
+  TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icons
 
 import FloatingLabelInput from '../component/TextInput'; // Import the FloatingLabelInput component
 import backbutton from '../asset/backbutton.png';
@@ -44,6 +46,8 @@ const EditUserProfile = () => {
           </TouchableOpacity>
           <Text style={styles.profileLabel}>Edit Profile</Text>
           <Image source={Ellipse12} style={styles.profileImage} />
+          <Text style={styles.profileName}>Your Name</Text>
+          <Text style={styles.profileEmail}>email@example.com</Text>
         </View>
 
         {/* Floating label inputs */}
@@ -66,16 +70,28 @@ const EditUserProfile = () => {
             onChangeText={setEmail}
             keyboardType="email-address"
           />
-          <FloatingLabelInput
-            label="Date of Birth"
-            value={dob}
-            onChangeText={setDob}
-            // You can add a date picker here if needed
-          />
+
+          {/* Custom input for Date of Birth with Calendar Icon inside */}
+          <View style={styles.inputWithIcon}>
+            <FloatingLabelInput
+              label="Date of Birth"
+              // value={email}
+              // onChangeText={setEmail}
+              // keyboardType="email-address"
+            />
+            <TouchableOpacity
+              style={styles.calendarIcon}
+              onPress={() => {
+                /* Open date picker logic here */
+              }}>
+              <FontAwesome name="calendar" size={20} color="#409C59" />
+            </TouchableOpacity>
+          </View>
         </View>
+
         <View style={styles.buttonContainer}>
           <CommonButton
-            title="Next"
+            title="Update Profile"
             onPress={() => navigation.navigate('UploadDoc')}
           />
         </View>
@@ -106,6 +122,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  profileName: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '600',
+  },
+  profileEmail: {
+    fontSize: 14,
+    color: 'white',
+  },
   buttonContainer: {
     marginTop: 100,
     width: width * 0.85,
@@ -132,6 +157,27 @@ const styles = StyleSheet.create({
   backButtonImage: {
     width: 45,
     height: 45,
+  },
+
+  // Styling for the Date of Birth input and calendar icon
+  inputWithIcon: {
+    position: 'relative',
+    marginVertical: 10,
+  },
+  input: {
+    height: 60,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    fontSize: 18,
+    backgroundColor: 'transparent',
+    color: 'black', // Add space for the icon inside the input
+  },
+  calendarIcon: {
+    position: 'absolute',
+    right: 15,
+    top: '35%',
   },
 });
 

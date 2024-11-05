@@ -14,6 +14,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import uploadcloud from '../../asset/uploadcloud.png';
 import backbutton from '../../asset/backbutton.png';
+import Accordion from '../../component/Accordion';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
@@ -49,10 +50,7 @@ const BusinessDetails = () => {
   const [HolderName, setHolderName] = useState('');
   const [sortCode, setSortCode] = useState('');
   const [isBankDetails, setIsBankDetails] = useState(false);
-
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
+  const [selectDayOpen, setselectDayOpen] = useState(false);
 
   const GreenButton = ({title, onPress}) => (
     <TouchableOpacity style={styles.greenButton} onPress={onPress}>
@@ -77,7 +75,7 @@ const BusinessDetails = () => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.topText}>Register</Text>
+        <Text style={styles.topText}>Registration</Text>
         <View style={styles.toggleContainer}>
           <TouchableOpacity
             style={[styles.toggleButton, !isBankDetails && styles.activeToggle]}
@@ -136,8 +134,7 @@ const BusinessDetails = () => {
                         alignItems: 'center', // Ensure buttons are vertically centered
                         width: '100%',
                       },
-                    ]}
-                    onPress={() => handleUpload('Front')}>
+                    ]}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
                       {'\n'}
@@ -177,11 +174,18 @@ const BusinessDetails = () => {
                 value={dob}
                 onChangeText={setDob}
               />
-              <FloatingLabelInput
+              <Accordion
+                title="Open days at shop"
+                items={['day 1', 'day 2', 'day 3']}
+                isOpen={selectDayOpen}
+                toggle={() => setselectDayOpen(!selectDayOpen)}
+                onSelect={() => {}}
+              />
+              {/* <FloatingLabelInput
                 label="Open days at shop"
                 value={day}
                 onChangeText={setDay}
-              />
+              /> */}
               <View style={styles.uploadContainer}>
                 <Text style={styles.uploadText}>Store Logo</Text>
                 <View style={styles.uploadRow}>
@@ -192,8 +196,7 @@ const BusinessDetails = () => {
                         alignItems: 'center', // Ensure buttons are vertically centered
                         width: '100%',
                       },
-                    ]}
-                    onPress={() => handleUpload('Front')}>
+                    ]}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
                       {'\n'}
@@ -207,9 +210,7 @@ const BusinessDetails = () => {
               <View style={styles.uploadContainer}>
                 <Text style={styles.uploadText}>Business Images</Text>
                 <View style={styles.uploadRow}>
-                  <TouchableOpacity
-                    style={styles.uploadButtonThree}
-                    onPress={() => handleUpload('Front')}>
+                  <TouchableOpacity style={styles.uploadButtonThree}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
                       {'\n'}
@@ -217,9 +218,7 @@ const BusinessDetails = () => {
                       Outside
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.uploadButtonThree}
-                    onPress={() => handleUpload('Back')}>
+                  <TouchableOpacity style={styles.uploadButtonThree}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
                       {'\n'}
@@ -227,9 +226,7 @@ const BusinessDetails = () => {
                       Inside
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.uploadButtonThree}
-                    onPress={() => handleUpload('Back')}>
+                  <TouchableOpacity style={styles.uploadButtonThree}>
                     <Text style={styles.uploadButtonText}>
                       <Image source={uploadcloud} />
                       {'\n'}

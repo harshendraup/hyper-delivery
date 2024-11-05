@@ -67,11 +67,6 @@ const OrderDetails = ({route}) => {
   const [uploadedPrescription, setUploadedPrescription] = useState('');
   const [uploadedFaceScan, setUploadedFaceScan] = useState('');
 
-  const handleOpen = () => {
-    // Logic for "Open" button can be added here
-    alert('Open button clicked!');
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView
@@ -89,9 +84,10 @@ const OrderDetails = ({route}) => {
           <Image source={order.image} style={styles.orderImage} />
           <View style={styles.textContainer}>
             <Text style={styles.orderTitle}>HYBRID</Text>
-            <Text style={styles.orderText}>
-              Walker Kush {'                                           '}50g
-            </Text>
+            <View style={styles.deliveryInfoContainer}>
+              <Text style={styles.orderText}>Walker Kush</Text>
+              <Text style={styles.orderText}>50g</Text>
+            </View>
             <View style={styles.priceContainer}>
               <Text style={styles.orderPrice}>{order.price}</Text>
               <Text style={styles.strikethroughPrice}>₹ 10,499.00</Text>
@@ -133,25 +129,21 @@ const OrderDetails = ({route}) => {
             label="Uploaded License *"
             value={uploadedLicense}
             onChangeText={setUploadedLicense}
-            onOpen={handleOpen}
           />
           <FloatingLabelInput
             label="Uploaded ID Card *"
             value={uploadedID}
             onChangeText={setUploadedID}
-            onOpen={handleOpen}
           />
           <FloatingLabelInput
             label="Uploaded Prescription *"
             value={uploadedPrescription}
             onChangeText={setUploadedPrescription}
-            onOpen={handleOpen}
           />
           <FloatingLabelInput
             label="Face Scan *"
             value={uploadedFaceScan}
             onChangeText={setUploadedFaceScan}
-            onOpen={handleOpen}
           />
         </View>
         <View style={styles.noteContainer}>
@@ -295,7 +287,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: 'rgba(0, 0, 0, 1)',
-    marginBottom: 5,
+    marginBottom: 3,
     lineHeight: 17,
   },
   priceContainer: {
@@ -316,6 +308,7 @@ const styles = StyleSheet.create({
     lineHeight: 17.6,
     textDecorationLine: 'line-through',
     color: 'rgba(155, 155, 155, 1)',
+    marginBottom: 10,
   },
   deliveryTitleContainer: {
     flexDirection: 'row',
@@ -358,7 +351,6 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.7)',
     marginTop: 4,
     textAlign: 'right',
-    flex: 1,
   },
   editButton: {
     borderRadius: 5,
@@ -369,9 +361,9 @@ const styles = StyleSheet.create({
   },
   consumerTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
-    lineHeight: 20.63,
-    marginRight: 95,
+    fontWeight: '600',
+    marginRight: 35,
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
     marginVertical: 10,
@@ -488,18 +480,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+    marginBottom: 10,
     width: '100%',
   },
   rejectButton: {
     width: '48%', // Adjust width to fit spacing
-    height: 48,
-    padding: 14,
+    height: 50, // Increase height to provide more space
+    paddingHorizontal: 14, // Add horizontal padding to give the text some breathing room
     borderRadius: 10,
     borderWidth: 2,
     borderColor: 'rgba(64, 156, 89, 1)',
     backgroundColor: 'rgba(255, 255, 255, 1)',
     opacity: 1, // Make visible
     marginRight: '2%', // Space between buttons
+    justifyContent: 'center', // Center text vertically
+    alignItems: 'center', // Center text horizontally
   },
   acceptButton: {
     width: '48%', // Adjust width to fit spacing
@@ -516,7 +511,9 @@ const styles = StyleSheet.create({
   },
   buttonTextReject: {
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: 'rgba(64, 156, 89, 1)',
+    lineHeight: 22, // Adjust lineHeight to ensure text fits properly
+    textAlignVertical: 'center', // For Android devices to vertically align the text in the button
   },
 });

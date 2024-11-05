@@ -36,84 +36,72 @@ const Dashboard = () => {
       id: '12345',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
       isNew: true,
     },
     {
       id: '12346',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
       isNew: false,
     },
     {
       id: '12347',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
       isNew: true,
     },
     {
       id: '1235',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
       isNew: true,
     },
     {
       id: '1236',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
       isNew: false,
     },
     {
       id: '1237',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
       isNew: true,
     },
     {
       id: '123',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
       isNew: true,
     },
     {
       id: '12w3',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
       isNew: false,
     },
     {
       id: '12573',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
       isNew: true,
     },
     {
       id: '12384',
       date: '2024-10-01',
       time: '10:30 AM',
-      price: '$50.00',
       isNew: true,
     },
     {
       id: '12304',
       date: '2024-10-02',
       time: '11:00 AM',
-      price: '$75.00',
       isNew: false,
     },
     {
       id: '1234',
       date: '2024-10-03',
       time: '01:00 PM',
-      price: '$100.00',
       isNew: true,
     },
   ];
@@ -228,10 +216,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginBottom: 20,
-     
-                        // Ensure buttons are vertically centered
-                        // width: '100%',
-                      
+
+    // Ensure buttons are vertically centered
+    // width: '100%',
   },
   tile: {
     backgroundColor: 'white',
@@ -256,8 +243,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   tileIcon: {
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     marginRight: 8,
   },
   tileTitle: {

@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 45,
     fontSize: 16,
-    color: 'black',
+    color: '#000',
   },
   buttonContainer: {
     paddingTop: 5,
@@ -298,5 +298,6 @@ const styles = StyleSheet.create({
   orText: {
     paddingHorizontal: 10,
     fontSize: 16,
+    color: 'gray',
   },
 });

@@ -43,10 +43,6 @@ const StoreDetails = () => {
   const [shopName, setShopName] = useState('');
   const [shopAddress, setShopAddress] = useState('');
 
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -83,16 +79,12 @@ const StoreDetails = () => {
         <View style={styles.uploadContainer}>
           <Text style={styles.topText}>Shop Documents</Text>
           <View style={styles.uploadRow}>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Front')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>
             <Text style={styles.topText}>Product image</Text>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Back')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>

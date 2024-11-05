@@ -25,13 +25,13 @@ import f9 from '../asset/faces/Ellipse9.png';
 import f10 from '../asset/faces/Ellipse10.png';
 import f11 from '../asset/faces/Ellipse11.png';
 import f12 from '../asset/faces/Ellipse12.png';
- // Additional example icon
+// Additional example icon
 
 const {width} = Dimensions.get('window');
 
 // Array of random images
 const orderImages = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12];
- // Add your imported images here
+// Add your imported images here
 
 // Function to get a random image
 const getRandomImage = () => {
@@ -164,7 +164,7 @@ const Chat = () => {
       time: '11:00 AM',
       image: getRandomImage(), // Assign a random image
     },
-    
+
     {
       id: '12346',
       date: '2024-10-02',
@@ -198,7 +198,7 @@ const Chat = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Notification</Text>
+          <Text style={styles.listTitle}>Chats</Text>
           {recentOrders.map((order, index) => (
             <View key={`${order.id}-${index}`} style={styles.listItem}>
               <Image source={order.image} style={styles.buttonImage} />
@@ -207,7 +207,7 @@ const Chat = () => {
                   <Text style={styles.orderId}>Order ID: {order.id}</Text>
                   <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
-                <Text style={{color:'black'}}>Where are you?</Text>
+                <Text style={{color: 'black'}}>Where are you?</Text>
               </View>
             </View>
           ))}

@@ -55,10 +55,6 @@ const AncillaryAddProducts = () => {
   const [Cannabisform, setCannabisform] = useState(false); // State for Boats and Animals accordion
   const [projectCategoryOpen, setProjectCategoryOpen] = useState(false); // State for Project Category accordion
 
-  const handleUpload = side => {
-    alert(`Upload ${side} ID`);
-  };
-
   const handleLanzerChange = Number => {
     const numericValue = parseInt(Number, 10);
     if (
@@ -97,7 +93,7 @@ const AncillaryAddProducts = () => {
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
-            onSelect={item => alert(`Selected: ${item}`)}
+            onSelect={() => {}}
           />
 
           <FloatingLabelInput
@@ -142,9 +138,7 @@ const AncillaryAddProducts = () => {
           <Text style={styles.uploadText}>Product Image</Text>
 
           <View style={styles.uploadRow}>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() => handleUpload('Front')}>
+            <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>

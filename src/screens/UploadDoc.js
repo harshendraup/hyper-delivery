@@ -60,14 +60,14 @@ const UploadDoc = () => {
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>
                 Front{'\n'}
-                {'\n'}Upload & Scan passport / drivers licence
+                {'\n'}Upload & Scan passport / driver's license
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>
                 Back{'\n'}
-                {'\n'}Upload & Scan passport / drivers licence
+                {'\n'}Upload & Scan passport / driver's license
               </Text>
             </TouchableOpacity>
           </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 14,
-    color:'#409C59',
+    color: '#409C59',
     marginBottom: 20,
     fontWeight: 'heavy',
   },
