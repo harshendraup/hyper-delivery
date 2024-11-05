@@ -12,9 +12,11 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import chat from '../asset/icons/chat.png';
-import dashboard from '../asset/icons/dashboard.png';
 import earningsIcon from '../asset/icons/earnings.png';
 import ordersIcon from '../asset/icons/earn.png';
+// import backbutton from '../asset/backbutton.png';
+import Backbutton from '../asset/SVG/Back';
+// import backbutton from '../asset/icons/Group.svg';
 
 const {width} = Dimensions.get('window');
 
@@ -168,7 +170,8 @@ const Earnings = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.backButton, styles.shadow]}>
-            <Image source={dashboard} style={styles.backButtonImage} />
+              <Backbutton/>
+            
           </TouchableOpacity>
           <Text style={styles.topText}>Earning</Text>
           <TouchableOpacity

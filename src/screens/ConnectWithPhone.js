@@ -13,31 +13,28 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import logo from '../asset/logo.png';
-import Google from '../asset/icons/Google.png';
-import Email from '../asset/icons/Email.png';
-import Facebook from '../asset/icons/Facebook.png';
-import GetstartwithFace from '../asset/icons/Face.png';
-import Apple from '../asset/icons/Apple.png';
+import Apple from '../asset/SVG/Apple'; // Import SVG components
+import Phone from '../asset/SVG/Call';
+import Email from '../asset/SVG/Email';
+import Facebook from '../asset/SVG/Facebook';
+import Google from '../asset/SVG/Google';
+import GetstartwithFace from '../asset/SVG/ScanFace';
 import tri from '../asset/tri.png';
 import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
-const iconMapping = {
-  'Get Started with Google': Google,
-  'Get Started with Email': Email,
-  'Get Started with Apple': Apple,
-  'Get Started with Facebook': Facebook,
-  'Get Started with Face': GetstartwithFace,
-};
-
 const CustomButton = ({title, onPress}) => {
-  const iconSource = iconMapping[title];
-
+  // Render the correct SVG component based on the title
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
-        {iconSource && <Image source={iconSource} style={styles.icon} />}
+        {/* Conditionally render the correct SVG icon */}
+        {title === 'Get Started with Google' && <Google />}
+        {title === 'Get Started with Email' && <Email />}
+        {title === 'Get Started with Apple' && <Apple />}
+        {title === 'Get Started with Facebook' && <Facebook />}
+        {title === 'Get Started with Face' && <GetstartwithFace />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
         </View>
@@ -56,6 +53,7 @@ const GreenButton = ({title, onPress}) => {
 
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
+
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -107,6 +105,7 @@ const ConnectWithPhone = () => {
             maxLength={10}
           />
         </View>
+
         <View style={styles.containerText}>
           <Text
             style={[
@@ -281,7 +280,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     color: '#000',
   },

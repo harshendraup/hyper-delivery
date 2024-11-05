@@ -17,7 +17,7 @@ import chat from '../asset/icons/chat.png';
 import dashboard from '../asset/icons/dashboard.png';
 import editIcon from '../asset/icons/person.png';
 import storeIcon from '../asset/icons/store.png';
-import earningsIcon from '../asset/icons/earnings.png';
+import earningsIcon from '../asset/icons/EarnIcon.png';
 import privacyIcon from '../asset/icons/privacy.png';
 import supportIcon from '../asset/icons/support.png';
 import greenArrow from '../asset/icons/greenArrow.png';
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},
   scrollContainer: {alignItems: 'center', paddingTop: 25},
   semiCircle: {
-    width: '100%',
-    height: height * 0.3,
+    width: 430,
+    height: height * 0.3, // Increased height to 50% of the parent container's height
     backgroundColor: '#409C59',
     borderBottomLeftRadius: width / 2,
     borderBottomRightRadius: width / 2,
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: -30,
   },
+
   profileLabel: {
     position: 'absolute',
     top: 20,
