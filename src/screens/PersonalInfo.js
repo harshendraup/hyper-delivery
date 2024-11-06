@@ -60,8 +60,8 @@ const PersonalInfo = () => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <Text style={styles.topText}>
-          Fill your personal information or register with your social
-          account
+          Fill Your Personal Information Or Register With Your Social
+          Account
         </Text>
 
         <View style={styles.inputContainer}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -22,6 +22,13 @@ const GreenButton = ({title, onPress}) => (
 const SelectLanguage = () => {
   const navigation = useNavigation();
 
+  // State to track which language button is selected
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const handleLanguageSelect = language => {
+    setSelectedLanguage(language); // Set the selected language
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -36,7 +43,13 @@ const SelectLanguage = () => {
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             {['عربي', 'English'].map(language => (
-              <TouchableOpacity key={language} style={styles.uploadButton}>
+              <TouchableOpacity
+                key={language}
+                style={[
+                  styles.uploadButton,
+                  selectedLanguage === language && styles.selectedButton,
+                ]}
+                onPress={() => handleLanguageSelect(language)}>
                 <View style={styles.uploadButtonContent}>
                   <Text
                     style={[
@@ -72,14 +85,12 @@ const styles = StyleSheet.create({
   scrollContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
-    // paddingTop: 20,
   },
   uploadContainer: {
     width: width * 0.85,
     marginTop: 20,
-    alignItems: 'center', // Ensure buttons are vertically centered
-    // width: '100%',
-    marginHorizontal:30,
+    alignItems: 'center',
+    marginHorizontal: 30,
   },
   uploadRow: {
     flexDirection: 'row',
@@ -96,6 +107,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 8,
     backgroundColor: '#ecf6ee',
+  },
+  selectedButton: {
+    backgroundColor: '#409C59', // Darker background when selected
   },
   uploadButtonContent: {
     alignItems: 'center',

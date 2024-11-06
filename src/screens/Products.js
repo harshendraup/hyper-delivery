@@ -156,15 +156,14 @@ const Products = () => {
       <View style={styles.imageContainer}>
         <Image source={stock} style={styles.productImage} />
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>New Stock</Text>
+          <Text style={styles.badgeText}>In Stock</Text>
         </View>
       </View>
       <Text style={styles.productTitle}>{product.title}</Text>
       <Text style={styles.productSubtitle}>
         {product.subtitle}
-        <Text style={styles.waitText}>
-          {'       '}
-          {'   '} {product.wight}gm
+        <Text style={styles.waitText}>{     '        '}
+          {product.wight}g
         </Text>
       </Text>
       <View style={styles.priceContainer}>
@@ -322,7 +321,7 @@ const styles = StyleSheet.create({
     width: 110,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#EFEFEFEE',
     backgroundColor: 'white',
   },
   selectedButton: {
@@ -332,7 +331,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 1)',
   },
   tabButtonText: {
-    color: 'rgba(51, 51, 51, 1)',
+    color: 'rgba(51, 51, 51, 1)', //border: 1px solid #EFEFEFEE
     fontWeight: '400',
     fontFamily: 'Inter',
     fontSize: 11,

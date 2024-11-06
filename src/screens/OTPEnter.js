@@ -67,7 +67,7 @@ const OTPEnter = () => {
         <Image source={getStuff} style={styles.logo} />
         <Text style={styles.title}>Enter OTP</Text>
         <Text style={styles.subTitle}>
-          A 6 digit code has been sent to{'\n'}+123456789
+          A 6 Digit Code Has Been Sent To{'\n'}+123456789
         </Text>
         <View style={styles.otpContainer}>
           {otp.map((digit, index) => (
@@ -94,9 +94,7 @@ const OTPEnter = () => {
         <View style={styles.containerText}>
           <Text style={styles.bottomText}>4 OTP is left!</Text>
         </View>
-        <Text style={styles.subsubText}>
-          Auto for verifying you OTP in (00:13)
-        </Text>
+        <Text style={styles.subsubText}>Auto verifying you OTP in (00:13)</Text>
       </ScrollView>
     </KeyboardAvoidingView>
   );

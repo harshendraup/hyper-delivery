@@ -379,6 +379,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center', // Ensure buttons are vertically centered
     width: '100%',
+    gap:5
   },
   uploadButton: {
     height: 120,
