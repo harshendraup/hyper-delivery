@@ -46,7 +46,7 @@ const getRandomImage = () => {
 const recentOrders = [
   {
     id: '12345',
-    date: '2024-10-01',
+    date: '01-10-2024',
     time: '10:30 AM',
     price: '$50',
     status: 'New Orders',
@@ -57,7 +57,7 @@ const recentOrders = [
   },
   {
     id: '12346',
-    date: '2024-10-02',
+    date: '02-10-2024',
     time: '11:00 AM',
     price: '$75',
     status: 'Cancelled',
@@ -68,7 +68,7 @@ const recentOrders = [
   },
   {
     id: '12347',
-    date: '2024-10-03',
+    date: '03-10-2024',
     time: '01:00 PM',
     price: '$100',
     status: 'Completed',
@@ -79,7 +79,7 @@ const recentOrders = [
   },
   {
     id: '12348',
-    date: '2024-10-04',
+    date: '04-10-2024',
     time: '03:00 PM',
     price: '$60',
     status: 'New Orders',
@@ -90,7 +90,7 @@ const recentOrders = [
   },
   {
     id: '12349',
-    date: '2024-10-05',
+    date: '05-10-2024',
     time: '04:30 PM',
     price: '$80',
     status: 'Completed',
@@ -101,7 +101,7 @@ const recentOrders = [
   },
   {
     id: '12350',
-    date: '2024-10-06',
+    date: '06-10-2024',
     time: '09:15 AM',
     price: '$90',
     status: 'New Orders',
@@ -112,7 +112,7 @@ const recentOrders = [
   },
   {
     id: '12351',
-    date: '2024-10-07',
+    date: '07-10-2024',
     time: '02:00 PM',
     price: '$120',
     status: 'Completed',
@@ -123,7 +123,7 @@ const recentOrders = [
   },
   {
     id: '12352',
-    date: '2024-10-08',
+    date: '08-10-2024',
     time: '05:00 PM',
     price: '$45',
     status: 'Cancelled',
@@ -134,7 +134,7 @@ const recentOrders = [
   },
   {
     id: '12353',
-    date: '2024-10-09',
+    date: '09-10-2024',
     time: '11:45 AM',
     price: '$70',
     status: 'Completed',
@@ -145,7 +145,7 @@ const recentOrders = [
   },
   {
     id: '12354',
-    date: '2024-10-10',
+    date: '10-10-2024',
     time: '01:30 PM',
     price: '$85',
     status: 'New Orders',
@@ -156,7 +156,7 @@ const recentOrders = [
   },
   {
     id: '12355',
-    date: '2024-10-11',
+    date: '11-10-2024',
     time: '04:00 PM',
     price: '$55',
     status: 'Cancelled',
@@ -166,6 +166,7 @@ const recentOrders = [
     deliveryAddress: '38, MG Road, Surat, Gujarat, 395003',
   },
 ];
+
 
 const Orders = () => {
   const navigation = useNavigation();
