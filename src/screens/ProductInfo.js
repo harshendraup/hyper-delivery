@@ -297,6 +297,7 @@ const styles = StyleSheet.create({
   },
   detailSection: {
     marginHorizontal: 46,
+    marginTop: 10,
   },
   ratingContainer: {
     flexDirection: 'row',
