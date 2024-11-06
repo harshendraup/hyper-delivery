@@ -317,8 +317,9 @@ const styles = StyleSheet.create({
   productHeading: {
     fontSize: 22,
     fontWeight: '600',
-    color: 'rgba(51, 51, 51 1)',
+    color: 'black',
     fontFamily: 'Inter',
+
   },
   productMin: {
     fontSize: 15,
