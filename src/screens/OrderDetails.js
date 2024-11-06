@@ -90,7 +90,7 @@ const OrderDetails = ({route}) => {
             </View>
             <View style={styles.priceContainer}>
               <Text style={styles.orderPrice}>{order.price}</Text>
-              <Text style={styles.strikethroughPrice}>₹ 10,499.00</Text>
+              <Text style={styles.strikethroughPrice}>₹ 10,499</Text>
             </View>
           </View>
           <View style={styles.ratingContainer}>

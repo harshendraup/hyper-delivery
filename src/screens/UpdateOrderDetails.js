@@ -100,8 +100,8 @@ const UpdateOrderDetails = () => {
               <Text style={styles.orderText}>50g</Text>
             </View>
             <View style={styles.priceContainer}>
-              <Text style={styles.orderPrice}>$65.00</Text>
-              <Text style={styles.strikethroughPrice}>₹ 10,499.00</Text>
+              <Text style={styles.orderPrice}>$65</Text>
+              <Text style={styles.strikethroughPrice}>₹ 10,499</Text>
             </View>
           </View>
           <View style={styles.ratingContainer}>
