@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish',
     fontWeight: '400',
     flex: 1,
-    marginRight: 20,
+    // marginRight: 20,
   },
   orderId: {
     fontSize: 12,
