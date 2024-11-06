@@ -96,8 +96,8 @@ const PersonalInfo = () => {
           />
         </View>
 
-        <View style={styles.uploadContainer}>
           <Text style={styles.uploadText}>Upload Documents</Text>
+        <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
@@ -172,20 +172,25 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     marginTop: 20,
     // marginRight: 20,
-    alignItems:'center'
+    alignItems: 'center',
   },
   uploadText: {
     fontSize: 20,
-    marginBottom: 10,
+    alignItems: 'left', // Align items to the left
+    textAlign: 'left',
+    marginLeft: 50,
     color: 'black',
+    justifyContent: 'flex-start', // Align buttons to the left
+    width: '100%', //
     fontWeight: 'bold',
-    marginTop: -30,
+    // marginTop: ,
   },
   uploadRow: {
     flexDirection: 'row',
     gap: 5,
     justifyContent: 'space-between',
     marginVertical: 8,
+    alignItems: 'center',
   },
   uploadButtonContent: {
     alignItems: 'center', // Centers content horizontally

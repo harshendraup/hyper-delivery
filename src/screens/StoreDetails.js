@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 150,
-    width: 358,
+    width: width*0.85,
   },
 });
 

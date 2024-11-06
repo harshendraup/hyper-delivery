@@ -175,7 +175,7 @@ const BusinessDetails = () => {
                 value={dob}
                 onChangeText={setDob}
               />
-              
+
               <Accordion
                 title="Open days at shop"
                 items={['day 1', 'day 2', 'day 3']}
