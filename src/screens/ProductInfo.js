@@ -52,9 +52,13 @@ const ProductInfo = () => {
                 style={styles.wrapper}
                 autoplay
                 autoplayTimeout={3}
-                showsButtons={false}
-                showsPagination={false}
-                loop={true}>
+                showsButtons={false} // Hide buttons
+                showsPagination={true} // Show pagination (dots)
+                loop={true} // Enable loop
+                paginationStyle={styles.paginationStyle} // Position the dots
+                dotStyle={styles.dotStyle} // Style for inactive dots (green)
+                activeDotStyle={styles.activeDotStyle} // Style for active dot (dark green)
+              >
                 <View style={styles.slide}>
                   <View style={styles.imageContainer}>
                     <Image
@@ -77,6 +81,7 @@ const ProductInfo = () => {
                 </View>
               </Swiper>
             </View>
+
             <View style={styles.detailSection}>
               <View style={styles.ratingContainer}>
                 <Text style={styles.productHeading}>Product Title</Text>
@@ -320,7 +325,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Inter',
     marginHorizontal: 46,
-    marginTop:10
+    marginTop: 10,
   },
   ratingBadge: {
     backgroundColor: 'rgba(64, 156, 89, 1)',
@@ -386,6 +391,31 @@ const styles = StyleSheet.create({
   icon: {
     width: 16, // Set the icon width
     height: 16, // Set the icon height
+  },
+  paginationStyle: {
+    position: 'absolute',
+    bottom: -15, // Position the dots just below the image
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  dotStyle: {
+    width: 10,
+    height: 10,
+    borderRadius: 5, // Makes the dot circular
+    margin: 5,
+    borderWidth: 1.5,
+    borderColor: '#409C59',
+    backgroundColor: 'transparent', // Inactive dot color (green)background: #409C59;
+  },
+
+  activeDotStyle: {
+    width: 30,
+    height: 10,
+    backgroundColor: '#409C59', // Active dot color (dark green)
   },
 });
 

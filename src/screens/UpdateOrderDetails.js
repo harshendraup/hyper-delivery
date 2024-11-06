@@ -233,7 +233,7 @@ const UpdateOrderDetails = () => {
         </View>
         <CommonButton
           title="Go to Home"
-          onPress={() => navigation.navigate('TabNavigator')}
+          onPress={() => navigation.navigate('TabNavigator', {screen: 'Home'})}
         />
       </ScrollView>
     </KeyboardAvoidingView>
