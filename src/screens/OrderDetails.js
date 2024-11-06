@@ -121,7 +121,7 @@ const OrderDetails = ({route}) => {
           <Text style={styles.deliveryText}>{order.contactNumber}</Text>
           <Text style={styles.deliveryText}>{order.deliveryAddress}</Text>
         </View>
-        <View>
+        <View style={{width:width*0.85        }}>
           <Text style={styles.consumerTitle}>
             Required Document by Consumer
           </Text>
@@ -373,11 +373,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
-    marginVertical: 10,
+    // marginVertical: 8,
   },
   floatingLabelContainer: {
     position: 'relative',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   inputContainer: {
     flexDirection: 'row',

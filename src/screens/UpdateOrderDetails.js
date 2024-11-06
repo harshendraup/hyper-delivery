@@ -130,7 +130,7 @@ const UpdateOrderDetails = () => {
             561115
           </Text>
         </View>
-        <View>
+        <View style={{width: width * 0.85}}>
           <Text style={styles.consumerTitle}>
             Required Document by Consumer
           </Text>
@@ -201,7 +201,7 @@ const UpdateOrderDetails = () => {
 
         <View style={styles.feedbackContainer}>
           <Text style={styles.feedbackTitle}>Share your feedback</Text>
-          <View style={{position: 'relative', width: width*0.78}}>
+          <View style={{position: 'relative', width: width * 0.78}}>
             <CommonTextInput
               placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
               style={{
@@ -410,11 +410,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
-    marginVertical: 10,
+    // marginVertical: 10,
   },
   floatingLabelContainer: {
     position: 'relative',
-    marginVertical: 10,
+    marginVertical: 8,
   },
   inputContainer: {
     flexDirection: 'row',
