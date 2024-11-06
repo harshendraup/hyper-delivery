@@ -277,8 +277,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backButtonImage: {
-    width: 20,
-    height: 20,
+    width: 40,
+    height: 40,
   },
   topText: {
     textAlign: 'center',
