@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
   },
   orderIdBadgeContainer: {flexDirection: 'row', alignItems: 'center'},
   orderDate: {
-    fontSize: 12,
+    fontSize: 10,
     color: '#666',
     textAlign: 'right',
     flex: 1,
