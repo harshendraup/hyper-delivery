@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  ScrollView
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
@@ -47,61 +48,68 @@ const Onboarding = () => {
   const navigation = useNavigation();
 
   return (
+    
     <View style={styles.container}>
-      <View style={styles.topSection}>
-        <View style={styles.touchable}>
-          <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
-            <Image source={logo} style={styles.logo} />
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.boldText}>
-              {Language.english.onboarding.letsstart}
-            </Text>
-            <Text style={styles.subText}>
-              Welcome, Please Enter Your Details!
-            </Text>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          // keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+        <View style={styles.topSection}>
+          <View style={styles.touchable}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('TabNavigator')}>
+              <Image source={logo} style={styles.logo} />
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.boldText}>
+                {Language.english.onboarding.letsstart}
+              </Text>
+              <Text style={styles.subText}>
+                Welcome, Please Enter Your Details!
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.swiperContainer}>
+            <Swiper
+              style={styles.wrapper}
+              autoplay
+              autoplayTimeout={3}
+              showsButtons={false}
+              showsPagination={false}
+              loop={true}>
+              <View style={styles.slide}>
+                <Image source={girlBag} style={styles.image} />
+              </View>
+              <View style={styles.slide}>
+                <Image source={guyPhoto} style={styles.image} />
+              </View>
+              <View style={styles.slide}>
+                <Image source={girlWeb} style={styles.image} />
+              </View>
+            </Swiper>
           </View>
         </View>
 
-        <View style={styles.swiperContainer}>
-          <Swiper
-            style={styles.wrapper}
-            autoplay
-            autoplayTimeout={3}
-            showsButtons={false}
-            showsPagination={false}
-            loop={true}>
-            <View style={styles.slide}>
-              <Image source={girlBag} style={styles.image} />
-            </View>
-            <View style={styles.slide}>
-              <Image source={guyPhoto} style={styles.image} />
-            </View>
-            <View style={styles.slide}>
-              <Image source={girlWeb} style={styles.image} />
-            </View>
-          </Swiper>
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            title="Get Started with Phone"
+            onPress={() => navigation.navigate('ConnectWithPhone')}
+          />
+          <CustomButton
+            title="Get Started with Email"
+            onPress={() => navigation.navigate('ConnectWithEmail')}
+          />
+          <CustomButton title="Get Started with Google" onPress={() => {}} />
+          <CustomButton title="Get Started with Apple" onPress={() => {}} />
+          <CustomButton title="Get Started with Facebook" onPress={() => {}} />
+          <CustomButton title="Get Started with Face" onPress={() => {}} />
         </View>
+        <Text style={styles.subsubText}>
+          By continuing you agree to our{'\n'}Terms of use and privacy
+        </Text>
+    </ScrollView>
       </View>
-
-      <View style={styles.buttonContainer}>
-        <CustomButton
-          title="Get Started with Phone"
-          onPress={() => navigation.navigate('ConnectWithPhone')}
-        />
-        <CustomButton
-          title="Get Started with Email"
-          onPress={() => navigation.navigate('ConnectWithEmail')}
-        />
-        <CustomButton title="Get Started with Google" onPress={() => {}} />
-        <CustomButton title="Get Started with Apple" onPress={() => {}} />
-        <CustomButton title="Get Started with Facebook" onPress={() => {}} />
-        <CustomButton title="Get Started with Face" onPress={() => {}} />
-      </View>
-      <Text style={styles.subsubText}>
-        By continuing you agree to our{'\n'}Terms of use and privacy
-      </Text>
-    </View>
   );
 };
 
@@ -114,6 +122,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: '31.37px',
+  },
+  scrollContainer: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 25,
   },
   topSection: {
     flex: 1,

@@ -60,7 +60,7 @@ const PersonalInfo = () => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <Text style={styles.topText}>
-          Fill your personal information or register {'\n'}with your social
+          Fill your personal information or register with your social
           account
         </Text>
 
@@ -171,7 +171,8 @@ const styles = StyleSheet.create({
   uploadContainer: {
     width: width * 0.85,
     marginTop: 20,
-    marginRight: 20,
+    // marginRight: 20,
+    alignItems:'center'
   },
   uploadText: {
     fontSize: 20,

@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center', // Ensure buttons are vertically centered
     // width: '100%',
+    marginHorizontal:30,
   },
   uploadRow: {
     flexDirection: 'row',

@@ -116,14 +116,15 @@ const styles = StyleSheet.create({
     fontWeight: 'heavy',
   },
   scrollContainer: {
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 25,
+    justifyContent: 'space-between',
     marginTop: 30,
   },
   uploadContainer: {
-    width: width * 0.95,
+    width: '100%',
     marginTop: 20,
+    alignItems: 'center',
   },
   uploadText: {
     fontSize: 20,

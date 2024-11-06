@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 170,
+    marginTop: 70,
     marginBottom: 30,
   },
   greenButtonText: {fontSize: 16, fontWeight: '600', color: 'white'},

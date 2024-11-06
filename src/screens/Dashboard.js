@@ -208,61 +208,67 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '700',
   },
-  tileContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginBottom: 20,
 
-    // Ensure buttons are vertically centered
-    // width: '100%',
-  },
-  tile: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    width: width * 0.45,
-    height: 120,
-    alignItems: 'center',
-    paddingVertical: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 5,
-  },
-  tileHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  tileIcon: {
-    width: 25,
-    height: 25,
-    marginRight: 8,
-  },
-  tileTitle: {
-    fontFamily: 'Mulish',
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    color: '#333333',
-  },
-  tileData: {
-    fontFamily: 'Mulish',
-    fontSize: 24,
-    fontWeight: '700',
-    lineHeight: 36,
-    letterSpacing: 1,
-    color: '#333333',
-    textAlign: 'center',
-  },
+tileContainer: {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between', // Distribute tiles evenly
+  width: '100%',
+  paddingHorizontal: 10,
+  paddingVertical: 10,
+  marginBottom: 20,
+},
+
+tile: {
+  backgroundColor: 'white',
+  borderRadius: 10,
+  width: width * 0.45,
+  height: 120,
+  alignItems: 'center',  // Center content horizontally
+  justifyContent: 'center',  // Center content vertically
+  paddingVertical: 10,
+  marginBottom: 10,
+  borderWidth: 1,
+  borderColor: '#e0e0e0',
+  shadowColor: '#000',
+  shadowOffset: {width: 0, height: 4},
+  shadowOpacity: 0.3,
+  shadowRadius: 6,
+  elevation: 5,
+},
+
+tileHeader: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 8,
+},
+
+tileIcon: {
+  width: 25,
+  height: 25,
+  marginRight: 8,
+},
+
+tileTitle: {
+  fontFamily: 'Mulish',
+  fontSize: 18,
+  fontWeight: '600',
+  textAlign: 'center',
+  color: '#333333',
+},
+
+tileData: {
+  fontFamily: 'Mulish',
+  fontSize: 24,
+  fontWeight: '700',
+  lineHeight: 36,
+  letterSpacing: 1,
+  color: '#333333',
+  textAlign: 'center',  // Horizontal text centering
+  justifyContent: 'center',  // Ensure vertical centering if needed
+},
+
   listContainer: {
     width: '100%',
     paddingHorizontal: 10,

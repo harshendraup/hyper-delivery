@@ -28,7 +28,7 @@ const ApprovalWaiting = () => {
       <View style={styles.textContainer}>
         <Text style={styles.heading}>Nice to meet you at get weed.</Text>
         <Text style={styles.subtext}>
-          Please wait for approval. Your {'\n'}registration is completed, and
+          Please wait for approval. Your registration is completed, and
           our{'\n'}
           representative will contact you soon.
         </Text>
