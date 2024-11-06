@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
 import backbutton from '../asset/backbutton.png';
 import uploadcloud from '../asset/uploadcloud.png';
+import Calender from '../asset/icons/Location.png'; // Import the calendar icon
 
 const {width} = Dimensions.get('window');
 
@@ -68,12 +69,23 @@ const StoreDetails = () => {
             onChangeText={setShopName}
             keyboardType="default"
           />
-          <FloatingLabelInput
-            label="Shop Address"
-            value={shopAddress}
-            onChangeText={setShopAddress}
-            keyboardType="default"
-          />
+
+          {/* Shop Address input with calendar icon */}
+          <View style={styles.inputWithIcon}>
+            <FloatingLabelInput
+              label="Shop Address"
+              value={shopAddress}
+              onChangeText={setShopAddress}
+              keyboardType="default"
+            />
+            <TouchableOpacity
+              style={styles.calendarIcon}
+              onPress={() => {
+                /* Open date picker logic here */
+              }}>
+              <Image source={Calender} style={{width: 30, height: 30}} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={styles.uploadContainer}>
@@ -94,7 +106,7 @@ const StoreDetails = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Save Shop"
-            onPress={() => navigation.navigate('')}
+            onPress={() => navigation.navigate('')} // Add the proper navigation here
           />
         </View>
       </ScrollView>
@@ -197,7 +209,18 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 150,
-    width: width*0.85,
+    width: width * 0.85,
+  },
+
+  // Added styles for the Shop Address input with calendar icon
+  inputWithIcon: {
+    position: 'relative',
+    marginVertical: 10,
+  },
+  calendarIcon: {
+    position: 'absolute',
+    right: 15,
+    top: '35%',
   },
 });
 
