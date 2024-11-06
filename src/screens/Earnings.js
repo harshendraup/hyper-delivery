@@ -170,8 +170,7 @@ const Earnings = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.backButton, styles.shadow]}>
-              <Backbutton/>
-            
+            <Backbutton />
           </TouchableOpacity>
           <Text style={styles.topText}>Earning</Text>
           <TouchableOpacity
@@ -248,9 +247,10 @@ const styles = StyleSheet.create({
   },
   topText: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
     width: width * 0.5,
-    color: 'black',
+    fontFamily: 'Inter',
+    color: 'rgba(51, 51, 51, 1)',
     fontWeight: '700',
   },
   tileContainer: {
@@ -294,10 +294,10 @@ const styles = StyleSheet.create({
   },
   tileTitle: {
     fontFamily: 'Mulish',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '600',
     textAlign: 'center',
-    color: '#333333',
+    color: 'rgba(124, 124, 124, 1)',
   },
   tileData: {
     fontFamily: 'Mulish',
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 36,
     letterSpacing: 1,
-    color: '#333333',
+    color: 'rgba(48, 44, 54, 1)',
     textAlign: 'center',
   },
   listContainer: {
@@ -313,11 +313,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   listTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 16,
+    fontWeight: '600',
     marginBottom: 10,
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
     paddingHorizontal: 10,
+    fontFamily: 'Inter',
   },
   listIcon: {
     width: 24,
@@ -333,13 +334,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e0e0e0',
   },
   orderId: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333333',
+    fontSize: 12,
+    fontWeight: '400',
+    color: 'rgba(0, 0, 0, 1)',
+    fontFamily: 'Mulish',
   },
   orderDate: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 12,
+    color: 'rgba(79, 79, 79, 1)',
+    fontFamily: 'Mulish',
+    fontWeight: '400',
   },
   orderPrice: {
     fontSize: 20,
@@ -348,7 +352,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
     paddingBottom: 10,
-    color: '#000000',
+    color: 'rgba(0, 0, 0, 1)',
     fontFamily: 'Mulish',
   },
 });

@@ -157,7 +157,7 @@ const OrderDetails = ({route}) => {
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Summary</Text>
+          <Text style={styles.summaryTitle}>Summery</Text>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Amount</Text>
             <Text style={styles.summaryValue}>$ 6800</Text>
@@ -244,8 +244,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginRight: 40,
     flex: 1,
@@ -279,6 +280,7 @@ const styles = StyleSheet.create({
   orderTitle: {
     fontSize: 12,
     fontWeight: '300',
+    fontFamily: 'Mulish',
     color: 'rgba(79, 79, 79, 1)',
     marginBottom: 5,
     lineHeight: 15,
@@ -288,6 +290,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'rgba(0, 0, 0, 1)',
     marginBottom: 3,
+    fontFamily: 'Mulish',
     lineHeight: 17,
   },
   priceContainer: {
@@ -328,15 +331,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     flex: 1,
+    fontFamily: 'Inter',
     lineHeight: 19,
     color: 'rgba(0, 0, 0, 1)',
   },
   deliveryText: {
     fontSize: 14,
     fontWeight: '400',
+    fontFamily: 'Inter',
     marginLeft: 3,
     marginTop: 3,
-    color: 'rgba(0, 0, 0, 0.7)',
+    color: 'rgba(89, 95, 116, 1)',
     flex: 1,
   },
   deliveryInfoContainer: {
@@ -347,8 +352,9 @@ const styles = StyleSheet.create({
   },
   deliveryDateText: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, 0.7)',
+    fontWeight: '600',
+    color: 'rgba(89, 95, 116, 1)',
+    fontFamily: 'Inter',
     marginTop: 4,
     textAlign: 'right',
   },
@@ -447,7 +453,8 @@ const styles = StyleSheet.create({
   },
   summaryTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(0, 0, 0, 1)',
     marginBottom: 10,
   },
@@ -460,20 +467,24 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     color: 'rgba(112, 112, 112, 1)',
+    fontFamily: 'Inter',
   },
   summaryValue: {
     fontSize: 15,
     fontWeight: '400',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   summaryLabelBold: {
     fontSize: 18,
     fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   summaryValueBold: {
     fontSize: 18,
     fontWeight: '700',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   buttonContainer: {

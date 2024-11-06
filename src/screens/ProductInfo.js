@@ -242,10 +242,10 @@ const styles = StyleSheet.create({
   inactiveToggle: {
     backgroundColor: 'transparent',
   },
-  toggleButtonText: {fontWeight: 'bold'},
+  toggleButtonText: {fontWeight: '500'},
   activeText: {
     textAlign: 'center',
-    color: '#409C59',
+    color: 'rgba(64, 156, 89, 1)',
     backgroundColor: 'white',
     width: width * 0.37,
     borderRadius: 30,
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   },
   activeTextRed: {
     textAlign: 'center',
-    color: 'red',
+    color: 'rgba(255, 54, 54, 1)',
     backgroundColor: 'white',
     width: width * 0.37,
     borderRadius: 30,
@@ -268,11 +268,12 @@ const styles = StyleSheet.create({
   },
   topText: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
     width: width * 0.85,
-    color: 'black',
+    color: 'rgba(51, 51, 51, 1)',
     marginBottom: 30,
-    fontWeight: '700',
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
   swiperContainer: {
     height: height * 0.3,
@@ -316,9 +317,10 @@ const styles = StyleSheet.create({
   },
 
   productHeading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
+    fontSize: 22,
+    fontWeight: '600',
+    color: 'rgba(51, 51, 51 1)',
+    fontFamily: 'Inter',
   },
   ratingBadge: {
     backgroundColor: 'rgba(64, 156, 89, 1)',
@@ -333,8 +335,9 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     fontSize: 12,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: '800',
+    color: 'rgba(255, 255, 255, 1)',
+    fontFamily: 'Roboto',
     marginLeft: 3,
   },
   ratingStars: {
@@ -343,15 +346,17 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   subHeading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'black',
+    fontSize: 15,
+    fontWeight: '700',
+    color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     marginTop: -5,
     marginBottom: 5,
   },
   productDescription: {
-    fontSize: 16,
-    color: 'gray',
+    fontSize: 13,
+    color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     marginTop: 5,
     marginBottom: 10,
   },
@@ -368,6 +373,8 @@ const styles = StyleSheet.create({
   },
   chipText: {
     fontSize: 10,
-    color: 'grey', // You can adjust this as needed
+    fontFamily: 'Lato',
+    fontWeight: '600',
+    color: 'rgba(120, 120, 120, 1)', // You can adjust this as needed
   },
 });

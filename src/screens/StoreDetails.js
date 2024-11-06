@@ -109,10 +109,11 @@ const styles = StyleSheet.create({
   },
   topText: {
     textAlign: 'left',
-    fontSize: 18,
+    fontSize: 16,
     width: width * 0.85,
-    color: 'black',
+    color: 'rgba(51, 51, 51, 1)',
     fontWeight: '600',
+    fontFamily: 'Inter',
     marginBottom: 5,
     marginTop: 5,
   },
@@ -131,9 +132,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
     color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     marginRight: 40,
     flex: 1,
     textAlign: 'center',
@@ -185,9 +187,9 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   uploadButtonText: {
-    fontSize: 14,
+    fontSize: 1,
     fontWeight: '600',
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
     textAlign: 'center',
     fontFamily: 'Mulish',
     marginTop: 4,
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 150,
-    width: 358,
+    width: 330,
   },
 });
 

@@ -152,9 +152,11 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   uploadButtonText: {
-    fontSize: 16,
+    fontSize: 12,
     color: 'rgba(51, 51, 51, 1)',
     textAlign: 'center',
+    fontWeight: '600',
+    fontFamily: 'Mulish',
   },
   buttonContainer: {
     paddingTop: 70,
@@ -182,8 +184,9 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginRight: 40,
     flex: 1, // Allow the title to take remaining space

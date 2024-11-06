@@ -193,10 +193,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   uploadText: {
-    fontSize: 20,
+    fontSize: 18,
     marginBottom: 10,
-    color: 'black',
-    fontWeight: 'bold',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Inter',
     marginTop: -30,
   },
   uploadRow: {
@@ -226,12 +227,12 @@ const styles = StyleSheet.create({
     fontWeight: '600', // Set font weight to 600
     lineHeight: 15.06, // Set line height to 15.06px
     textAlign: 'center', // Center-align text
-    color: '#333333',
+    color: 'rgba(51,51, 51, 1)',
   },
   uploadButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333333',
+    color: 'rgba(51,51, 51, 1)',
     textAlign: 'center',
     fontFamily: 'Mulish',
     marginTop: 4,
@@ -260,8 +261,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 24,
     width: width * 0.85,
-    color: 'black',
-    fontWeight: '700',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Mulish',
     marginBottom: 10,
   },
   addressInput: {

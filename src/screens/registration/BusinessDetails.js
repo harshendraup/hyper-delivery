@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import uploadcloud from '../../asset/uploadcloud.png';
 import backbutton from '../../asset/backbutton.png';
 import Accordion from '../../component/Accordion';
-import Clock from "../../asset/SVG/Clock";
+import Clock from '../../asset/SVG/Clock';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
@@ -175,7 +175,7 @@ const BusinessDetails = () => {
                 value={dob}
                 onChangeText={setDob}
               />
-              
+
               <Accordion
                 title="Open days at shop"
                 items={['day 1', 'day 2', 'day 3']}
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeToggle: {backgroundColor: '#409C59'},
-  toggleButtonText: {fontWeight: 'bold'},
+  toggleButtonText: {fontWeight: '600', fontFamily: 'Inter', fontSize: 14},
   activeText: {
     textAlign: 'center',
     color: '#409C59',
@@ -310,10 +310,11 @@ const styles = StyleSheet.create({
   },
   uploadContainer: {width: width * 0.85, marginTop: 20},
   uploadText: {
-    fontSize: 20,
+    fontSize: 18,
     marginBottom: 10,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: '600',
+    color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
   },
   uploadRow: {
     flexDirection: 'row',
@@ -344,9 +345,9 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   uploadButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
     textAlign: 'center',
     fontFamily: 'Mulish',
     marginTop: 4,
@@ -366,10 +367,11 @@ const styles = StyleSheet.create({
   greenButtonText: {fontSize: 16, fontWeight: '600', color: 'white'},
   topText: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
     width: width * 0.85,
-    color: 'black',
+    color: 'rgba(51, 51, 51, 1)',
     marginBottom: 40,
-    fontWeight: '700',
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
 });

@@ -127,9 +127,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Inter', // Specify the font family
-    fontSize: 24, // Font size
+    fontSize: 22, // Font size
     color: 'rgba(51, 51, 51, 1)',
-    fontWeight: 'bold',
+    fontWeight: '600',
     lineHeight: 26.63, // Line height
     textAlign: 'center', // Center alignment
     paddingTop: 70,

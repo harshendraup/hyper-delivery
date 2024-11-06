@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
   profileLabel: {
     position: 'absolute',
     top: 20,
-    fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 1)',
+    fontWeight: '700',
   },
   profileImage: {
     width: 80,
@@ -112,13 +112,16 @@ const styles = StyleSheet.create({
     borderColor: 'white',
   },
   profileName: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '600',
+    fontSize: 22,
+    color: 'rgba(255, 255, 255, 1)',
+    fontWeight: '700',
+    fontFamily: 'Inter',
   },
   profileEmail: {
-    fontSize: 14,
-    color: 'white',
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 1)',
+    fontWeight: '500',
+    fontFamily: 'Inter',
   },
   menuContainer: {
     width: '80%',
@@ -139,8 +142,9 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: 18,
-    color: 'black',
-    fontWeight: '500',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Lato',
     flex: 1,
   },
   arrowIcon: {
