@@ -216,7 +216,7 @@ const Notification = () => {
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
-        <View style={styles.headerContainer}>
+        {/* <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButton}>
@@ -227,7 +227,7 @@ const Notification = () => {
             style={styles.backButton}>
             <Image source={chatIcon} style={styles.backButtonImage} />
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={styles.listContainer}>
           <Text style={styles.listTitle}>Notification</Text>

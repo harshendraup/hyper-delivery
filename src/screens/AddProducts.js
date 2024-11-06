@@ -159,7 +159,7 @@ const AddProducts = () => {
               />
             </View>
             <Text style={styles.checkboxLabel}>
-              Does this product require a prescription{'\n'} & License?
+              Does this product require a prescription & License?
             </Text>
           </View>
         </View>
@@ -296,9 +296,7 @@ const styles = StyleSheet.create({
   checkboxWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
+   
     padding: 1,
     marginRight: 1,
     width: '11%',

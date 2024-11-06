@@ -15,28 +15,33 @@ import {useNavigation} from '@react-navigation/native';
 import uploadcloud from '../../asset/uploadcloud.png';
 import backbutton from '../../asset/backbutton.png';
 import Accordion from '../../component/Accordion';
-import Clock from '../../asset/SVG/Clock';
+import Clock from '../../asset/icons/clock.png';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 
-const FloatingLabelInput = ({label, value, onChangeText}) => {
+const FloatingLabelInput = ({label, value, onChangeText, icon}) => {
   const [isFocused, setIsFocused] = useState(false);
   return (
     <View style={styles.floatingLabelContainer}>
       <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
         {label}
       </Text>
-      <TextInput
-        style={styles.input}
-        value={value}
-        onChangeText={onChangeText}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
+      <View style={styles.inputWrapper}>
+        <TextInput
+          style={[styles.input, icon && styles.inputWithIcon]} // Adjust input style when icon is present
+          value={value}
+          onChangeText={onChangeText}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        {icon && <Image source={Clock} style={styles.icon} />}
+      </View>
     </View>
   );
 };
+
+
 
 const BusinessDetails = () => {
   const navigation = useNavigation();
@@ -174,6 +179,7 @@ const BusinessDetails = () => {
                 label="Timing of shop"
                 value={dob}
                 onChangeText={setDob}
+                icon={Clock} // Pass the Clock icon as a prop
               />
 
               <Accordion
@@ -252,7 +258,10 @@ const BusinessDetails = () => {
 export default BusinessDetails;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   scrollContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -264,7 +273,22 @@ const styles = StyleSheet.create({
     left: 10, // Adjust this value as needed
     zIndex: 1, // Ensure it's above other elements
   },
-
+  backButton: {
+    padding: 10,
+  },
+  backButtonImage: {
+    width: 20,
+    height: 20,
+  },
+  topText: {
+    textAlign: 'center',
+    fontSize: 18,
+    width: width * 0.85,
+    color: 'rgba(51, 51, 51, 1)',
+    marginBottom: 40,
+    fontWeight: '600',
+    fontFamily: 'Inter',
+  },
   toggleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -280,8 +304,14 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginHorizontal: 5,
   },
-  activeToggle: {backgroundColor: '#409C59'},
-  toggleButtonText: {fontWeight: '600', fontFamily: 'Inter', fontSize: 14},
+  activeToggle: {
+    backgroundColor: '#409C59',
+  },
+  toggleButtonText: {
+    fontWeight: '600',
+    fontFamily: 'Inter',
+    fontSize: 14,
+  },
   activeText: {
     textAlign: 'center',
     color: '#409C59',
@@ -297,18 +327,46 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 5,
   },
-  inputContainer: {width: width * 0.85},
-  floatingLabelContainer: {position: 'relative', marginVertical: 5},
-  floatingLabel: {position: 'absolute', left: 10, color: 'gray', fontSize: 12},
-  input: {
-    height: 60,
+  inputContainer: {
+    width: width * 0.85,
+  },
+  floatingLabelContainer: {
+    position: 'relative',
+    marginVertical: 5,
+  },
+  floatingLabel: {
+    position: 'absolute',
+    left: 10,
+    color: 'gray',
+    fontSize: 12,
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 10,
-    fontSize: 18,
+    height: 60,
+    justifyContent: 'space-between', // Ensure the icon is on the right
   },
-  uploadContainer: {width: width * 0.85, marginTop: 20},
+  input: {
+    flex: 1,
+    fontSize: 18,
+    paddingRight: 30, // Make room for the icon on the right
+  },
+  inputWithIcon: {
+    paddingRight: 40, // Adjust padding to ensure space for the icon
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginLeft: 10, // Space between the icon and the text input
+  },
+  uploadContainer: {
+    width: width * 0.85,
+    marginTop: 20,
+  },
   uploadText: {
     fontSize: 18,
     marginBottom: 10,
@@ -353,7 +411,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 6,
   },
-  buttonContainer: {paddingTop: 5, width: width * 0.85, paddingBottom: 30},
+  buttonContainer: {
+    paddingTop: 5,
+    width: width * 0.85,
+    paddingBottom: 30,
+  },
   greenButton: {
     width: '100%',
     height: 45,
@@ -364,14 +426,15 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginBottom: 30,
   },
-  greenButtonText: {fontSize: 16, fontWeight: '600', color: 'white'},
-  topText: {
-    textAlign: 'center',
-    fontSize: 18,
-    width: width * 0.85,
-    color: 'rgba(51, 51, 51, 1)',
-    marginBottom: 40,
+  greenButtonText: {
+    fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Inter',
+    color: 'white',
+  },
+  greenButtonContainer: {
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
+
+

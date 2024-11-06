@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   uploadContainer: {
-    width: width * 0.85,
+    width: width * 0.70,
     marginTop: 20,
     // marginRight: 20,
     alignItems: 'center',
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 16,
     fontWeight: '400',
-    width: '169px',
+    width: width*0.80,
     height: '22px',
     color: 'rgba(51, 51, 51, 1)',
     marginBottom: 20,

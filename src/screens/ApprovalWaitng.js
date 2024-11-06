@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
   },
   contact: {
     fontSize: 16,
-    color: 'rgbs(64, 156, 89, 1)',
+    color: '#409C59', //background: #409C59;
+
     textDecorationLine: 'underline',
     marginVertical: 5,
     textAlign: 'center',
