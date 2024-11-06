@@ -34,89 +34,91 @@ const Dashboard = () => {
 const recentOrders = [
   {
     id: '12345',
-    date: '2024-10-01',
+    date: '01-10-2024',
     time: '10:30 AM',
     isNew: true,
-    price: 29, // example price
+    price: 29,
   },
   {
     id: '12346',
-    date: '2024-10-02',
+    date: '02-10-2024',
     time: '11:00 AM',
     isNew: false,
     price: 19,
   },
   {
     id: '12347',
-    date: '2024-10-03',
+    date: '03-10-2024',
     time: '01:00 PM',
     isNew: true,
     price: 34,
   },
   {
     id: '1235',
-    date: '2024-10-01',
+    date: '01-10-2024',
     time: '10:30 AM',
     isNew: true,
     price: 22,
   },
   {
     id: '1236',
-    date: '2024-10-02',
+    date: '02-10-2024',
     time: '11:00 AM',
     isNew: false,
     price: 18,
   },
   {
     id: '1237',
-    date: '2024-10-03',
+    date: '03-10-2024',
     time: '01:00 PM',
     isNew: true,
     price: 39,
   },
   {
     id: '123',
-    date: '2024-10-01',
+    date: '01-10-2024',
     time: '10:30 AM',
     isNew: true,
     price: 25,
   },
   {
     id: '12w3',
-    date: '2024-10-02',
+    date: '02-10-2024',
     time: '11:00 AM',
     isNew: false,
     price: 15,
   },
   {
     id: '12573',
-    date: '2024-10-03',
+    date: '03-10-2024',
     time: '01:00 PM',
     isNew: true,
     price: 28,
   },
   {
     id: '12384',
-    date: '2024-10-01',
+    date: '01-10-2024',
     time: '10:30 AM',
     isNew: true,
     price: 32,
   },
   {
     id: '12304',
-    date: '2024-10-02',
+    date: '02-10-2024',
     time: '11:00 AM',
     isNew: false,
     price: 20,
   },
   {
     id: '1234',
-    date: '2024-10-03',
+    date: '03-10-2024',
     time: '01:00 PM',
     isNew: true,
     price: 27,
   },
 ];
+
+
 
   return (
     <KeyboardAvoidingView
