@@ -213,16 +213,7 @@ const UpdateOrderDetails = () => {
                 height: 70, // Adjust height as needed
               }}
             />
-            <Text
-              style={{
-                position: 'absolute',
-                left: 10, // Positioning the label inside
-                top: 12, // Adjust vertical positioning as needed
-                backgroundColor: 'white', // Same as background to cover input
-                paddingHorizontal: 5, // Add some padding for aesthetics
-              }}>
-              Tell us what you liked.
-            </Text>
+            
           </View>
         </View>
         <CommonButton
