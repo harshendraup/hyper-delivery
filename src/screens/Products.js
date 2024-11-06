@@ -166,6 +166,7 @@ const Products = () => {
           {product.wight}g
         </Text>
       </Text>
+
       <View style={styles.priceContainer}>
         <Text style={styles.priceText}>${product.price}</Text>
         <Text style={styles.discountedPriceText}>
@@ -276,6 +277,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: 25,
+    marginHorizontal: 10,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -371,24 +373,29 @@ const styles = StyleSheet.create({
   productTile: {
     backgroundColor: 'white',
     borderRadius: 5,
-    padding: 15,
     marginVertical: 10,
     width: '48%', // Two tiles in a row
+    height: 250, // Keep the previous height (adjustable as needed)
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
   },
+
   imageContainer: {
-    position: 'relative',
+    width: '100%',
+    height: '45%', // Image occupies 40% of the tile height
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    overflow: 'hidden', // Ensure image corners are rounded
   },
   productImage: {
     width: '100%',
-    height: 150,
-    borderRadius: 5,
-    marginBottom: 10,
+    height: '100%',
+    resizeMode: 'cover', // Ensures the image fills the container
   },
+
   badge: {
     position: 'absolute',
     top: 10,
@@ -408,20 +415,25 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     fontFamily: 'Mulish',
     color: 'rgba(79, 79, 79, 1)',
+    marginLeft: 10,
+    marginTop: 10,
   },
   productSubtitle: {
     fontSize: 14,
     color: 'rgba(0, 0, 0, 1)',
     fontWeight: '500',
     fontFamily: 'Mulish',
+    marginLeft: 10,
   },
   waitText: {
     color: 'black',
     textAlign: 'right',
+    marginLeft: 10,
   },
   priceContainer: {
     flexDirection: 'row',
     marginTop: 10,
+    marginLeft: 10,
   },
   priceText: {
     fontSize: 16,

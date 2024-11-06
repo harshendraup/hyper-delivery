@@ -104,8 +104,11 @@ const UpdateOrderDetails = () => {
               <Text style={styles.orderPrice}>$65</Text>
               <Text style={styles.strikethroughPrice}>₹ 10,499</Text>
             </View>
+            <View style={styles.ratingContainer}>
+              <Image source={ratingImage} style={styles.ratingImage} />
+              <Text style={styles.ratingText}></Text>
+            </View>
           </View>
-          
         </View>
         <View style={styles.deliveryContainer}>
           <View style={styles.deliveryTitleContainer}>
@@ -129,7 +132,7 @@ const UpdateOrderDetails = () => {
             561115
           </Text>
         </View>
-        <View style={{width: width * 0.85}}>
+        <View style={{width: '100%'}}>
           <Text style={styles.consumerTitle}>
             Required Document by Consumer
           </Text>
@@ -387,8 +390,7 @@ const styles = StyleSheet.create({
     color: 'rgba(89, 95, 116, 1)',
     fontFamily: 'Inter',
     marginTop: 4,
-    textAlign: 'left',
-    flex: 1,
+    textAlign: 'right',
   },
   editButton: {
     borderRadius: 5,
@@ -401,6 +403,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600',
     marginRight: 35,
+    marginLeft: -5,
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,

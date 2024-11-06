@@ -121,7 +121,7 @@ const OrderDetails = ({route}) => {
           <Text style={styles.deliveryText}>{order.contactNumber}</Text>
           <Text style={styles.deliveryText}>{order.deliveryAddress}</Text>
         </View>
-        <View style={{width:width*0.85        }}>
+        <View style={{width:'100%'      }}>
           <Text style={styles.consumerTitle}>
             Required Document by Consumer
           </Text>
@@ -157,7 +157,7 @@ const OrderDetails = ({route}) => {
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Summery</Text>
+          <Text style={styles.summaryTitle}>Summary</Text>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Amount</Text>
             <Text style={styles.summaryValue}>$ 6800</Text>
@@ -369,7 +369,8 @@ const styles = StyleSheet.create({
   consumerTitle: {
     fontSize: 17,
     fontWeight: '600',
-    marginRight: 35,
+    // marginRight: 35,
+    marginLeft:-7,
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,

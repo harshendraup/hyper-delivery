@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import chat from '../asset/icons/chat.png';
-import earningsIcon from '../asset/icons/earnings.png';
+import earningsIcon from '../asset/icons/EarnIcon.png';
 import ordersIcon from '../asset/icons/earn.png';
 // import backbutton from '../asset/backbutton.png';
 import Backbutton from '../asset/SVG/Back';
@@ -220,6 +220,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 25,
+    alignSelf: 'center', // This ensures content stays centered
+    width: '100%',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -233,6 +235,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 5,
+    alignSelf: 'center', // Ensures the button is centered
   },
   shadow: {
     elevation: 5,
@@ -246,7 +249,7 @@ const styles = StyleSheet.create({
     height: 24,
   },
   topText: {
-    textAlign: 'center',
+    textAlign: 'center', // Center the text horizontally
     fontSize: 18,
     width: width * 0.5,
     fontFamily: 'Inter',
@@ -256,7 +259,7 @@ const styles = StyleSheet.create({
   tileContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center', // Centers the tiles horizontally
+    justifyContent: 'center', // Center the tiles horizontally
     alignItems: 'center', // Ensures that the tiles are vertically centered
     width: '100%',
     paddingHorizontal: 10,
@@ -271,7 +274,6 @@ const styles = StyleSheet.create({
     height: 120,
     alignItems: 'center',
     paddingVertical: 10,
-    // marginHorizontal: 10,
     marginBottom: 10,
     borderWidth: 1,
     borderColor: '#e0e0e0',
@@ -284,12 +286,13 @@ const styles = StyleSheet.create({
   tileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
+    justifyContent: 'center', // Center the content in tile header
+    // marginBottom: 8,
+    marginTop: 20,
   },
   tileIcon: {
-    width: 40,
-    height: 40,
+    width: 20,
+    height: 20,
     marginRight: 8,
   },
   tileTitle: {
@@ -306,11 +309,12 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     letterSpacing: 1,
     color: 'rgba(48, 44, 54, 1)',
-    textAlign: 'center',
+    textAlign: 'center', // Center the tile data
   },
   listContainer: {
     width: '100%',
     paddingHorizontal: 10,
+    alignItems: 'left', // Center the list container
   },
   listTitle: {
     fontSize: 16,
@@ -319,6 +323,7 @@ const styles = StyleSheet.create({
     color: 'rgba(51, 51, 51, 1)',
     paddingHorizontal: 10,
     fontFamily: 'Inter',
+    textAlign: 'left', // Center the payment history title
   },
   listIcon: {
     width: 24,
@@ -332,6 +337,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+    width: '100%', // Ensures the list item takes full width
   },
   orderId: {
     fontSize: 12,
@@ -356,3 +362,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish',
   },
 });
+

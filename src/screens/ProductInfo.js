@@ -89,47 +89,48 @@ const ProductInfo = () => {
 
               <Text style={styles.subHeading}>$189/gm</Text>
               <Text style={styles.productDescription}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                lacinia odio vitae vestibulum.Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit.
+                Lorem ipsum dolor sit amet, consec tetur adi pis cing elit.
+                Vivamus lacinia odio vitae vesti bulum.Lorem ipsum dolor sit
+                amet, consectetur adipiscing elit.
               </Text>
 
               {/* Chips Section */}
-
               <View style={styles.chipContainer}>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
-                  icon={clarity_license}
+                  icon={() => (
+                    <Image source={clarity_license} style={styles.icon} />
+                  )}
                   textStyle={styles.chipText}>
-                  Example Chip
+                  required License
                 </Chip>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
-                  icon={mdi_drug}
+                  icon={() => <Image source={mdi_drug} style={styles.icon} />}
                   textStyle={styles.chipText}>
-                  Example Chip
+                  Medical Drug
                 </Chip>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
                   textStyle={styles.chipText}>
-                  Example Chip
+                  THC: 18%
                 </Chip>
-                {/* <Chip
+                <Chip
                   mode="outlined"
                   style={styles.chip}
                   textStyle={styles.chipText}>
-                  Example Chip
-                </Chip> */}
+                  CBD: 18
+                </Chip>
               </View>
 
               <View style={styles.chipContainer}>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
-                  icon={Strength}
+                  icon={() => <Image source={Strength} style={styles.icon} />}
                   textStyle={styles.chipText}>
                   Strength 1
                 </Chip>
@@ -137,16 +138,11 @@ const ProductInfo = () => {
                   mode="outlined"
                   style={styles.chip}
                   textStyle={styles.chipText}>
-                  Example Chip
-                </Chip>
-                <Chip
-                  mode="outlined"
-                  style={styles.chip}
-                  textStyle={styles.chipText}>
-                  Example Chip
+                  Stain Type: Sativa
                 </Chip>
               </View>
             </View>
+            <Text style={styles.productMin}>Minimum Quantity: 10 gm</Text>
 
             <View
               style={[
@@ -279,7 +275,6 @@ const styles = StyleSheet.create({
     height: height * 0.3,
     width: width,
     borderRadius: 10,
-    // marginTop: -30,
   },
   wrapper: {},
   slide: {
@@ -297,15 +292,13 @@ const styles = StyleSheet.create({
   },
   detailSection: {
     marginHorizontal: 46,
-    // marginTop: -20,
   },
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 10,
-    // paddingHorizontal: 15, // Add padding to the left and right
-    paddingVertical: 8, // Add vertical padding for some extra space
+    paddingVertical: 8,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -315,26 +308,31 @@ const styles = StyleSheet.create({
     shadowRadius: 3.5,
     elevation: 5,
   },
-
   productHeading: {
     fontSize: 22,
     fontWeight: '600',
     color: 'rgba(51, 51, 51 1)',
     fontFamily: 'Inter',
   },
+  productMin: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: 'black',
+    fontFamily: 'Inter',
+    marginHorizontal: 46,
+    marginTop:10
+  },
   ratingBadge: {
     backgroundColor: 'rgba(64, 156, 89, 1)',
-    height: height * 0.03, // Keep the height responsive
-    width: 'auto', // Let the width adjust based on content
-    minWidth: width * 0.2, // Add a minimum width to ensure enough space
+    height: height * 0.03,
+    width: 'auto',
+    minWidth: width * 0.2,
     borderRadius: 5,
     paddingHorizontal: 10,
-    // paddingVertical: 3,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   ratingText: {
     fontSize: 12,
     fontWeight: '800',
@@ -342,13 +340,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     marginLeft: 3,
   },
-
   ratingStars: {
     textAlign: 'center',
     fontSize: 12,
     color: 'white',
   },
-
   subHeading: {
     fontSize: 15,
     fontWeight: '700',
@@ -366,19 +362,30 @@ const styles = StyleSheet.create({
   },
   chipContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap', // Allow chips to wrap if they don't fit in a single row
     justifyContent: 'flex-start',
-    width: '30%',
     marginVertical: -2,
   },
   chip: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderWidth: 0,
+    marginRight: -15,
+    marginLeft: -5,
+    // Adds space between chips horizontally
+    // marginBottom: 8, // Adds space between chips vertically
   },
   chipText: {
-    fontSize: 10,
+    fontSize: 9, // Increased font size for better readability
     fontFamily: 'Lato',
     fontWeight: '600',
-    color: 'rgba(120, 120, 120, 1)', // You can adjust this as needed
+    color: 'rgba(120, 120, 120, 1)',
+    textAlign: 'center', // Ensures the text is centered within the chip
+  },
+  // Custom icon style for controlling icon size
+  icon: {
+    width: 16, // Set the icon width
+    height: 16, // Set the icon height
   },
 });
+

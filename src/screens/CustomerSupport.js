@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   backButtonImage: {
-    width: 16, // Smaller width
-    height: 16, // Smaller height
+    width: 12, // Smaller width
+    height: 14, // Smaller height
   },
   messageList: {
     flex: 1,

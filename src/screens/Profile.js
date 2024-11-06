@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     height: width * 0.2, // Dynamically setting image height (20% of screen width)
     borderRadius: width * 0.1, // Dynamically setting border radius to keep the image round
     marginBottom: 10,
-    borderWidth: 2,
-    borderColor: 'white',
+    // borderWidth: 2,
+    // borderColor: 'white',
   },
   profileName: {
     fontSize: 22,
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   arrowIcon: {
-    width: 16,
+    width: 10,
     height: 16,
   },
 });

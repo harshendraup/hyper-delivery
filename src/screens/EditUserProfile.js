@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.1, // Dynamically setting border radius to keep the image round
     marginBottom: 10,
     borderWidth: 2,
-    borderColor: 'white',
+    // borderColor: 'white',
     marginTop: 5,
   },
   profileName: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
   },
   buttonContainer: {
-    marginTop: 100,
+    marginTop: 30,
     width: width * 0.85,
     paddingBottom: 30,
   },

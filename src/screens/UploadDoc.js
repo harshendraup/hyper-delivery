@@ -75,7 +75,7 @@ const UploadDoc = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Next"
-            onPress={() => navigation.navigate('TabNavigator')}
+            // onPress={() => navigation.navigate('TabNavigator')}
           />
         </View>
       </ScrollView>
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-    paddingHorizontal: 10, // Optional: for some spacing
+    // marginBottom: 20,
+    // paddingHorizontal: 10, // Optional: for some spacing
   },
   backButton: {
     padding: 10,
@@ -117,12 +117,12 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     alignItems: 'center',
-    paddingTop: 25,
+    // paddingTop: 25,
     justifyContent: 'space-between',
-    marginTop: 30,
+    // marginTop: 30,
   },
   uploadContainer: {
-    width: '100%',
+    width: width*85,
     marginTop: 20,
     alignItems: 'center',
     marginHorizontal:54,
@@ -138,12 +138,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    width:width*0.85
+    // marginTop: 40,
     // marginHorizontal: 50,
   },
   uploadButton: {
     height: 180,
-    width: 350,
+    width: width*0.85,
     borderColor: '#409C59',
     borderWidth: 1,
     borderRadius: 10,
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish',
   },
   buttonContainer: {
-    paddingTop: 70,
+    paddingTop: 30,
     width: width * 0.85,
     paddingBottom: 30,
   },

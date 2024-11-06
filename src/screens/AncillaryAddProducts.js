@@ -116,7 +116,7 @@ const AncillaryAddProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Enter Stock"
+            label="Stock"
             value={Stock}
             onChangeText={setStock}
             keyboardType="email-address"

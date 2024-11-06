@@ -143,7 +143,7 @@ const AddProducts = () => {
             onSelect={() => {}}
           />
           <FloatingLabelInput
-            label="Enter Stock"
+            label="Stock"
             value={Stock}
             onChangeText={setStock}
             keyboardType="email-address"
@@ -165,7 +165,7 @@ const AddProducts = () => {
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>Product Image</Text>
+          <Text style={styles.uploadText}>Product Images</Text>
           <Image
             source={ProductImage}
             style={{width: '100%', alignItems: 'center', borderRadius: 10}}
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    width: '100%',
+    width: '90%',
     marginVertical: 10,
   },
   checkboxWrapper: {
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     width: '11%',
     height: '85%',
   },
-  checkbox: {
+  checkbox: {marginBottom:10
     // transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {

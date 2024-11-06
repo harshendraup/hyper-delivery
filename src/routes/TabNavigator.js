@@ -16,6 +16,7 @@ import profileg from '../asset/icons/profileg.png';
 import home from '../asset/icons/home.png';
 import homeg from '../asset/icons/homeg.png';
 import Product from '../asset/icons/Product.png';
+import ProductsSVG from '../asset/SVG/Products';
 import Productg from '../asset/icons/Productg.png';
 
 const Tab = createBottomTabNavigator();
@@ -51,7 +52,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? homeg : home}
-              style={{width: 30, height: 30}}
+              style={{width: 22, height: 22}}
             />
           ),
         }}
@@ -63,7 +64,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? Productg : Product}
-              style={{width: 30, height: 30}}
+              style={{width: 25, height: 25}}
             />
           ),
         }}
@@ -75,7 +76,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? ordersg : orders}
-              style={{width: 30, height: 30}}
+              style={{width: 25, height: 25}}
             />
           ),
         }}
@@ -87,7 +88,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? bellg : bell}
-              style={{width: 30, height: 30}}
+              style={{width: 25, height: 25}}
             />
           ),
         }}
@@ -99,7 +100,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? profileg : profile}
-              style={{width: 30, height: 30}}
+              style={{width: 25, height: 25}}
             />
           ),
         }}

@@ -83,7 +83,7 @@ const StoreDetails = () => {
               onPress={() => {
                 /* Open date picker logic here */
               }}>
-              <Image source={Calender} style={{width: 30, height: 30}} />
+              <Image source={Calender} style={{width: 20, height: 20}} />
             </TouchableOpacity>
           </View>
         </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   buttonContainer: {
-    paddingTop: 150,
+    paddingTop: 50,
     width: width * 0.85,
   },
 
