@@ -93,12 +93,12 @@ const StoreDetails = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
-              <Text style={styles.uploadButtonText}>Upload Image</Text>
+              <Text style={styles.uploadButtonText}>Upload Documents</Text>
             </TouchableOpacity>
             <Text style={styles.topText}>Product image</Text>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={uploadcloud} />
-              <Text style={styles.uploadButtonText}>Upload Image</Text>
+              <Text style={styles.uploadButtonText}>Upload Product Image</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -199,9 +199,9 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   uploadButtonText: {
-    fontSize: 1,
+    fontSize: 14,
     fontWeight: '600',
-    color: 'rgba(51, 51, 51, 1)',
+    color: 'black',
     textAlign: 'center',
     fontFamily: 'Mulish',
     marginTop: 4,
