@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 25,
+    // paddingTop: 20,
   },
   uploadContainer: {
     width: width * 0.85,

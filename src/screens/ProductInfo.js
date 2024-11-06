@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     height: height * 0.3,
     width: width,
     borderRadius: 10,
-    marginTop: -30,
+    // marginTop: -30,
   },
   wrapper: {},
   slide: {
@@ -295,15 +295,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   detailSection: {
-    marginHorizontal: 26,
-    marginTop: -20,
+    marginHorizontal: 46,
+    // marginTop: -20,
   },
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 10,
-    paddingHorizontal: 15, // Add padding to the left and right
+    // paddingHorizontal: 15, // Add padding to the left and right
     paddingVertical: 8, // Add vertical padding for some extra space
     shadowColor: '#000',
     shadowOffset: {
@@ -322,26 +322,30 @@ const styles = StyleSheet.create({
   },
   ratingBadge: {
     backgroundColor: 'rgba(64, 156, 89, 1)',
-    height: height * 0.03,
-    width: width * 0.25, // Adjust width for padding
+    height: height * 0.03, // Keep the height responsive
+    width: 'auto', // Let the width adjust based on content
+    minWidth: width * 0.2, // Add a minimum width to ensure enough space
     borderRadius: 5,
-    paddingHorizontal: 10, // Add horizontal padding inside the badge
-    paddingVertical: 3, // Add vertical padding inside the badge
+    paddingHorizontal: 10,
+    // paddingVertical: 3,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Ensure the text is centered within the badge
+    justifyContent: 'center',
   },
+
   ratingText: {
     fontSize: 12,
     fontWeight: 'bold',
     color: 'white',
-    marginLeft: 3,
+    marginLeft: 3, // Optional, for slight spacing between text and stars
   },
+
   ratingStars: {
     textAlign: 'center',
     fontSize: 12,
     color: 'white',
   },
+
   subHeading: {
     fontSize: 18,
     fontWeight: 'bold',
