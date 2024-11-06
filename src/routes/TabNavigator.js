@@ -52,7 +52,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? homeg : home}
-              style={{width: 22, height: 22}}
+              style={{width: 20, height: 20}} // Standardized icon size
             />
           ),
         }}
@@ -64,7 +64,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? Productg : Product}
-              style={{width: 25, height: 25}}
+              style={{width: 20, height: 20}} // Standardized icon size
             />
           ),
         }}
@@ -76,7 +76,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? ordersg : orders}
-              style={{width: 25, height: 25}}
+              style={{width: 20, height: 20}} // Standardized icon size
             />
           ),
         }}
@@ -88,7 +88,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? bellg : bell}
-              style={{width: 25, height: 25}}
+              style={{width: 20, height: 20}} // Standardized icon size
             />
           ),
         }}
@@ -100,7 +100,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? profileg : profile}
-              style={{width: 25, height: 25}}
+              style={{width: 20, height: 20}} // Standardized icon size
             />
           ),
         }}
