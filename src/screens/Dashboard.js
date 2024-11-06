@@ -215,10 +215,11 @@ const styles = StyleSheet.create({
   },
   topText: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
     width: width * 0.5,
-    color: 'black',
-    fontWeight: '700',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
 
 tileContainer: {
@@ -264,7 +265,7 @@ tileIcon: {
 
 tileTitle: {
   fontFamily: 'Mulish',
-  fontSize: 18,
+  fontSize: 14,
   fontWeight: '600',
   textAlign: 'center',
   color: '#333333',
@@ -286,10 +287,11 @@ tileData: {
     paddingHorizontal: 10,
   },
   listTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 18,
+    fontWeight: '600',
+    fontFamily: 'Inter',
     marginBottom: 10,
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
     paddingHorizontal: 10,
   },
   listIcon: {
@@ -312,9 +314,10 @@ tileData: {
     marginBottom: 4,
   },
   orderId: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333333',
+    fontSize: 12,
+    fontWeight: '400',
+    fontFamily: 'Musilsh',
+    color: 'rgba(0, 0, 0, 1)',
   },
   newBadge: {
     backgroundColor: '#2039B7',
@@ -324,12 +327,16 @@ tileData: {
     marginLeft: 8,
   },
   badgeText: {
-    color: 'white',
-    fontSize: 12,
+    color: 'rgba(255, 255, 255, 1)',
+    fontSize: 10,
+    fontWeight: '600',
+    fontFamily: 'Mulish',
   },
   orderDate: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 12,
+    color: 'rgba(79, 79, 79, 1)',
+    fontWeight: '400',
+    fontFamily: 'Mulish',
   },
   orderPrice: {
     fontSize: 16,

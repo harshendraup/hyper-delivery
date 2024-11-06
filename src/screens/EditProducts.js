@@ -233,8 +233,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginRight: 40,
     flex: 1,
@@ -272,9 +273,10 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   uploadText: {
-    fontSize: 20,
+    fontSize: 18,
     marginBottom: 10,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   uploadRow: {
@@ -294,9 +296,13 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   uploadButtonText: {
-    fontSize: 16,
-    color: 'gray',
+    fontSize: 15,
+    fontWeight: '600',
+    color: 'rgba(51, 51, 51, 1)',
     textAlign: 'center',
+    fontFamily: 'Mulish',
+    marginTop: 4,
+    marginBottom: 6,
   },
   buttonContainer: {
     paddingTop: 10,
@@ -314,28 +320,30 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    width: '90%',
+    width: '100%',
     marginVertical: 10,
     // Add any additional spacing or layout styles here if needed
   },
   checkboxWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1, // Black border
-    borderColor: 'black', // Black border color
-    borderRadius: 5, // Optional: rounded corners for the border
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
     padding: 1,
-    marginLeft: 3,
-    width: '13%',
-    height: '90%', // Padding to ensure the border doesn't touch the checkbox or text directly
+    marginRight: 1,
+    width: '11%',
+    height: '85%', // Padding to ensure the border doesn't touch the checkbox or text directly
   },
   checkbox: {
     // Optional: Customize the checkbox size if you want it larger
     transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {
-    fontSize: 16,
-    color: 'black',
-    marginLeft: 10, // Spacing between checkbox and text
+    fontSize: 15,
+    color: 'rgba(51, 51, 51, 1)',
+    marginLeft: 10,
+    fontWeight: '600',
+    fontFamily: 'Mulish', // Spacing between checkbox and text
   },
 });

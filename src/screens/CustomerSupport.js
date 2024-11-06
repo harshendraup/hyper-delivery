@@ -94,8 +94,9 @@ const CustomerSupport = () => {
         <Text
           style={{
             fontWeight: '700',
-            fontSize: 20,
-            color: 'black',
+            fontSize: 16,
+            color: 'rgba(51, 51, 51, 1)',
+            fontFamily: 'Inter',
           }}>
           Customer Support
         </Text>
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginRight: 10,
-    color:'black',
+    color: 'black',
   },
   sendButton: {
     width: 40,

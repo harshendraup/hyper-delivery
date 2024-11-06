@@ -201,18 +201,21 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontSize: 22,
-    color: 'black',
-    fontWeight: 'bold',
+    color: 'rgbs(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
   subText: {
     fontSize: 16,
     color: 'black',
   },
   subsubText: {
-    fontSize: 12,
-    color: 'black',
+    fontSize: 13,
+    color: 'rgba(0, 0, 0, 1)',
     paddingBottom: 20,
     textAlign: 'center',
+    fontWeight: '400',
+    fontFamily: 'Inter',
   },
   inputContainer: {
     width: width * 0.85,

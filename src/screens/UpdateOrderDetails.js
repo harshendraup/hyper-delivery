@@ -166,7 +166,7 @@ const UpdateOrderDetails = () => {
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Summary</Text>
+          <Text style={styles.summaryTitle}>Summery</Text>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Amount</Text>
             <Text style={styles.summaryValue}>$ 6800</Text>
@@ -280,9 +280,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
     color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     marginRight: 40,
     flex: 1,
     textAlign: 'center',
@@ -315,6 +316,7 @@ const styles = StyleSheet.create({
   orderTitle: {
     fontSize: 12,
     fontWeight: '300',
+    fontFamily: 'Mulish',
     color: 'rgba(79, 79, 79, 1)',
     marginBottom: 5,
     lineHeight: 15,
@@ -323,6 +325,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: 'rgba(0, 0, 0, 1)',
+    fontFamily: 'Mulish',
     marginBottom: 5,
     lineHeight: 17,
   },
@@ -365,14 +368,16 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'left',
     lineHeight: 19,
+    fontFamily: 'Inter',
     color: 'rgba(0, 0, 0, 1)',
   },
   deliveryText: {
     fontSize: 14,
     fontWeight: '400',
+    fontFamily: 'Inter',
     marginLeft: 3,
     marginTop: 3,
-    color: 'rgba(0, 0, 0, 0.7)',
+    color: 'rgba(89, 95, 116, 1)',
     flex: 1,
   },
   deliveryInfoContainer: {
@@ -384,8 +389,9 @@ const styles = StyleSheet.create({
   },
   deliveryDateText: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, 0.7)',
+    fontWeight: '600',
+    color: 'rgba(89, 95, 116, 1)',
+    fontFamily: 'Inter',
     marginTop: 4,
     textAlign: 'left',
     flex: 1,
@@ -399,9 +405,9 @@ const styles = StyleSheet.create({
   },
   consumerTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
-    lineHeight: 20.63,
-    marginRight: 95,
+    fontWeight: '600',
+    marginRight: 35,
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
     marginVertical: 10,
@@ -485,7 +491,8 @@ const styles = StyleSheet.create({
   },
   summaryTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(0, 0, 0, 1)',
     marginBottom: 10,
   },
@@ -498,20 +505,24 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     color: 'rgba(112, 112, 112, 1)',
+    fontFamily: 'Inter',
   },
   summaryValue: {
     fontSize: 15,
     fontWeight: '400',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   summaryLabelBold: {
     fontSize: 18,
     fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   summaryValueBold: {
     fontSize: 18,
     fontWeight: '700',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   buttonContainer: {
@@ -592,8 +603,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   feedbackTitle: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: 'rgba(255, 255, 255, 1)',
+    fontSize: 19,
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
 });

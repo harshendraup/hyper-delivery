@@ -304,17 +304,18 @@ const styles = StyleSheet.create({
   },
   topText: {
     textAlign: 'center',
-    fontSize: 24,
-    width: width * 0.5,
-    color: 'black',
-    fontWeight: '700',
+    fontSize: 18,
+    width: '70px',
+    height: '22px',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
     marginVertical: 10,
-    
   },
   tabButton: {
     padding: 10,
@@ -328,11 +329,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#409C59',
   },
   selectedButtonText: {
-    color: 'white',
+    color: 'rgba(255, 255, 255, 1)',
   },
   tabButtonText: {
-    color: 'black',
-    fontWeight: '600',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '400',
+    fontFamily: 'Inter',
+    fontSize: 11,
     textAlign: 'center',
   },
   addButton: {
@@ -340,7 +343,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     alignSelf: 'flex-end',
-    width: '35%',
+    width: '40%',
     marginRight: 15,
     alignItems: 'center',
   },
@@ -354,8 +357,10 @@ const styles = StyleSheet.create({
     height: 20, // Adjust height as needed
   },
   addButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: 'rgba(255, 255, 255, 1)',
+    fontWeight: '600',
+    fontFamily: 'Inter',
+    fontSize: 14,
     textAlign: 'center',
   },
   productList: {
@@ -400,13 +405,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   productTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: 'black',
+    fontSize: 12,
+    fontWeight: '300',
+    fontFamily: 'Mulish',
+    color: 'rgba(79, 79, 79, 1)',
   },
   productSubtitle: {
     fontSize: 14,
-    color: 'gray',
+    color: 'rgba(0, 0, 0, 1)',
+    fontWeight: '500',
+    fontFamily: 'Mulish',
   },
   waitText: {
     color: 'black',
@@ -446,5 +454,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-

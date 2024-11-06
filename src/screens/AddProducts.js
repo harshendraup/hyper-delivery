@@ -159,7 +159,7 @@ const AddProducts = () => {
               />
             </View>
             <Text style={styles.checkboxLabel}>
-              Does this product require a prescription & License?
+              Does this product require a prescription{'\n'} & License?
             </Text>
           </View>
         </View>
@@ -168,7 +168,7 @@ const AddProducts = () => {
           <Text style={styles.uploadText}>Product Image</Text>
           <Image
             source={ProductImage}
-            style={{width: '100%', alignItems: 'center'}}
+            style={{width: '100%', alignItems: 'center', borderRadius: 10}}
           />
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
@@ -212,8 +212,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginRight: 40,
     flex: 1,
@@ -251,9 +252,10 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   uploadText: {
-    fontSize: 20,
+    fontSize: 18,
     marginBottom: 10,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
   },
   uploadRow: {
@@ -273,9 +275,9 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   uploadButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
     textAlign: 'center',
     fontFamily: 'Mulish',
     marginTop: 4,
@@ -288,7 +290,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    width: '90%',
+    width: '100%',
     marginVertical: 10,
   },
   checkboxWrapper: {
@@ -298,16 +300,18 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 5,
     padding: 1,
-    marginLeft: 3,
-    width: '13%',
-    height: '90%',
+    marginRight: 1,
+    width: '11%',
+    height: '85%',
   },
   checkbox: {
     transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {
-    fontSize: 16,
-    color: 'black',
+    fontSize: 15,
+    color: 'rgba(51, 51, 51, 1)',
     marginLeft: 10,
+    fontWeight: '600',
+    fontFamily: 'Mulish',
   },
 });

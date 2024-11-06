@@ -146,16 +146,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'black',
     fontWeight: 'bold',
+    fontFamily: 'Inter',
   },
   subText: {
     fontSize: 16,
     color: 'black',
+    fontFamily: 'Inter',
   },
   subsubText: {
     fontSize: 12,
     color: 'black',
     textAlign: 'center',
     paddingBottom: 20,
+    fontFamily: 'Inter',
   },
   swiperContainer: {
     height: height * 0.3,
@@ -207,5 +210,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600',
     color: '#000',
+    fontFamily: 'Inter',
   },
 });

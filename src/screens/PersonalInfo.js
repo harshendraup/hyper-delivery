@@ -213,21 +213,24 @@ const styles = StyleSheet.create({
     fontWeight: '600', // Set font weight to 600
     lineHeight: 15.06, // Set line height to 15.06px
     textAlign: 'center', // Center-align text
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
   },
   uploadButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
     textAlign: 'center',
     fontFamily: 'Mulish',
     marginTop: 4,
     marginBottom: 6,
   },
   buttonContainer: {
-    paddingTop: 10,
-    width: width * 0.85,
-    paddingBottom: 30,
+    paddingTop: 14,
+    width: width * 0.99,
+    paddingBottom: 14,
+    paddingRight: 20,
+    paddingLeft: 20,
+    backgroundColor: 'rgbs(64, 156, 89, 1)',
   },
   greenButton: {
     width: '100%',
@@ -245,10 +248,13 @@ const styles = StyleSheet.create({
   },
   topText: {
     textAlign: 'left',
-    fontSize: 17,
-    width: width * 0.85,
-    color: 'black',
-    marginBottom: 40,
+    fontSize: 16,
+    fontWeight: '400',
+    width: '169px',
+    height: '22px',
+    color: 'rgba(51, 51, 51, 1)',
+    marginBottom: 20,
+    fontFamily: 'Mulish',
   },
   addressInput: {
     height: 100,

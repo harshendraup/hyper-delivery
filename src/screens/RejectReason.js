@@ -107,9 +107,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: '700',
     color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     marginRight: 40,
     flex: 1,
     textAlign: 'center',

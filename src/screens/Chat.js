@@ -208,7 +208,15 @@ const Chat = () => {
                   <Text style={styles.orderId}>Order ID: {order.id}</Text>
                   <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
-                <Text style={{color: 'black'}}>Where are you?</Text>
+                <Text
+                  style={{
+                    color: 'rgba(151, 151, 151, 1)',
+                    fontFamily: 'Inter',
+                    fontWeight: '400',
+                    fontSize: 11,
+                  }}>
+                  Where are you?
+                </Text>
               </View>
             </View>
           ))}
@@ -249,10 +257,11 @@ const styles = StyleSheet.create({
   buttonImage: {width: 45, height: 45, marginRight: 10},
   listContainer: {width: '100%', paddingHorizontal: 10},
   listTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '700',
     marginBottom: 10,
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     textAlign: 'center',
   },
   listItem: {
@@ -272,13 +281,20 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   orderDate: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: 11,
+    color: 'rgba(151, 151, 151, 1)',
     textAlign: 'right',
+    fontFamily: 'Inter',
+    fontWeight: '600',
     flex: 1,
     marginRight: 20,
   },
-  orderId: {fontSize: 16, fontWeight: '700', color: '#333333'},
+  orderId: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: 'rgba(0, 0, 0, 1)',
+    fontFamily: 'Inter',
+  },
 });
 
 export default Chat;

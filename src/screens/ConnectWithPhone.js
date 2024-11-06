@@ -165,14 +165,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   bottomText: {
-    fontSize: 12,
-    color: '#409C59',
+    fontSize: 10,
+    color: 'rgba(64, 156, 89, 1)',
     paddingBottom: 5,
+    fontFamily: 'Inter',
   },
   bottomTextHelp: {
-    fontSize: 12,
-    color: '#409C59',
+    fontSize: 10,
+    color: 'rgba(64, 156, 89, 1)',
     paddingBottom: 5,
+    fontFamily: 'Inter',
+    fontWeight: '700',
   },
   scrollContainer: {
     justifyContent: 'space-between',
@@ -199,12 +202,15 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontSize: 22,
-    color: 'black',
-    fontWeight: 'bold',
+    color: 'rgba(51, 51, 51, 1)',
+    fontWeight: '600',
+    fontFamily: 'Inter',
   },
   subText: {
-    fontSize: 16,
+    fontSize: 15,
     color: 'black',
+    fontFamily: 'Inter',
+    fontWeight: '400',
   },
   subsubText: {
     fontSize: 12,

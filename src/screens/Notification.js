@@ -247,7 +247,13 @@ const Notification = () => {
                     {order.date} {order.time}
                   </Text>
                 </View>
-                <Text style={{color: 'black'}}>
+                <Text
+                  style={{
+                    color: 'rgba(79, 79, 79, 1)',
+                    fontWeight: '400',
+                    fontFamily: 'Inter',
+                    fontSize: 12,
+                  }}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Text>
               </View>
@@ -287,10 +293,11 @@ const styles = StyleSheet.create({
   backButtonImage: {width: 24, height: 24},
   listContainer: {width: '100%', paddingHorizontal: 10},
   listTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 18,
+    fontWeight: '600',
     marginBottom: 10,
-    color: '#333333',
+    color: 'rgba(51, 51, 51, 1)',
+    fontFamily: 'Inter',
     textAlign: 'center',
   },
   listIcon: {width: 24, height: 24, marginRight: 10},
@@ -315,17 +322,29 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#666',
     textAlign: 'right',
+    fontFamily: 'Mulish',
+    fontWeight: '400',
     flex: 1,
     marginRight: 20,
   },
-  orderId: {fontSize: 12, fontWeight: '500', color: '#333333'},
+  orderId: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: 'rgba(0, 0, 0, 1)',
+    fontFamily: 'Mulish',
+  },
   newBadge: {
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 2,
     marginLeft: 8,
   },
-  badgeText: {color: 'white', fontSize: 12},
+  badgeText: {
+    color: 'rgba(255, 255, 255, 1)',
+    fontSize: 10,
+    fontFamily: 'Mulish',
+    fontWeight: '600',
+  },
 });
 
 export default Notification;

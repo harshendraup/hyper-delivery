@@ -37,7 +37,7 @@ const ApprovalWaiting = () => {
             fontSize: 16,
             fontWeight: 'light',
             textAlign: 'center',
-            color: 'black',
+            color: 'rgba(51, 51, 51, 1)',
           }}>
           Contact Us
         </Text>
@@ -50,6 +50,7 @@ const ApprovalWaiting = () => {
               fontSize: 16,
               fontWeight: 'light',
               textAlign: 'center',
+              color: 'rgba(51, 51, 51, 1)',
             }}>
             {'\t'}or
           </Text>
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   },
   contact: {
     fontSize: 16,
-    color: '#409C59',
+    color: 'rgbs(64, 156, 89, 1)',
     textDecorationLine: 'underline',
     marginVertical: 5,
     textAlign: 'center',
