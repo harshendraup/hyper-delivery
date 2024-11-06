@@ -159,12 +159,10 @@ const Products = () => {
           <Text style={styles.badgeText}>In Stock</Text>
         </View>
       </View>
-      <Text style={styles.productTitle}>{product.title}</Text>
+      <Text style={styles.productTitle}>HYBRID</Text>
       <Text style={styles.productSubtitle}>
-        {product.subtitle}
-        <Text style={styles.waitText}>{     '        '}
-          {product.wight}g
-        </Text>
+        Walker Kush{'          '}
+        <Text>{product.wight}g</Text>
       </Text>
 
       <View style={styles.priceContainer}>
