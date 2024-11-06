@@ -320,28 +320,27 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    width: '100%',
+    width: '90%',
     marginVertical: 10,
-    // Add any additional spacing or layout styles here if needed
   },
   checkboxWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-   
+
     padding: 1,
     marginRight: 1,
     width: '11%',
-    height: '85%', // Padding to ensure the border doesn't touch the checkbox or text directly
+    height: '85%',
   },
   checkbox: {
-    // Optional: Customize the checkbox size if you want it larger
-    transform: [{scaleX: 1.5}, {scaleY: 1.5}],
+    marginBottom: 10,
+    // transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {
     fontSize: 15,
     color: 'rgba(51, 51, 51, 1)',
     marginLeft: 10,
     fontWeight: '600',
-    fontFamily: 'Mulish', // Spacing between checkbox and text
+    fontFamily: 'Mulish',
   },
 });
