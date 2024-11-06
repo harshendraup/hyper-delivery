@@ -11,7 +11,7 @@ const Splash = () => {
     setIsMounted(true);
     const timer = setTimeout(() => {
       if (isMounted) {
-        navigation.navigate('SelectLanguage');
+        navigation.navigate('Onboarding');
       }
     }, 1000); // Navigate after 1 second
 

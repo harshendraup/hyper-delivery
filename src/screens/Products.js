@@ -13,8 +13,8 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import chat from '../asset/icons/chat.png';
 import dashboard from '../asset/icons/dashboard.png';
-import edit from '../asset/icons/edit.png';
-import bin from '../asset/icons/bin.png';
+import edit from '../asset/SVG/Edit.png';
+import bin from '../asset/SVG/Delete.png';
 import stock from '../asset/stock.png'; // Add your stock image import here
 import plus from '../asset/icons/plus.png';
 
