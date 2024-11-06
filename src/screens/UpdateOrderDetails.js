@@ -23,6 +23,7 @@ import Download from '../asset/icons/solar_download-bold.png';
 import star from '../asset/icons/star.png';
 import CommonTextInput from '../component/TextInput';
 import CommonButton from '../component/button';
+import StarSVG from '../asset/SVG/Start';
 
 const {width} = Dimensions.get('window');
 
@@ -104,9 +105,7 @@ const UpdateOrderDetails = () => {
               <Text style={styles.strikethroughPrice}>₹ 10,499</Text>
             </View>
           </View>
-          <View style={styles.ratingContainer}>
-            <Image source={ratingImage} style={styles.ratingImage} />
-          </View>
+          
         </View>
         <View style={styles.deliveryContainer}>
           <View style={styles.deliveryTitleContainer}>
@@ -199,6 +198,17 @@ const UpdateOrderDetails = () => {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.ratingContainer}>
+          <Text style={styles.ratingTitle}>Rating to Courier Service</Text>
+          <View style={styles.starsContainer}>
+            <StarSVG />
+            <StarSVG />
+            <StarSVG />
+            <StarSVG />
+            <StarSVG />
+          </View>
+        </View>
+
         <View style={styles.feedbackContainer}>
           <Text style={styles.feedbackTitle}>Share your feedback</Text>
           <View style={{position: 'relative', width: width * 0.78}}>
@@ -213,7 +223,6 @@ const UpdateOrderDetails = () => {
                 height: 70, // Adjust height as needed
               }}
             />
-            
           </View>
         </View>
         <CommonButton
@@ -242,13 +251,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1,
   },
-  ratingContainer: {
-    position: 'absolute',
-    right: 1,
-    top: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+ 
   ratingImage: {
     width: 42.27,
     height: 44,
@@ -556,7 +559,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 50,
+    marginBottom: 10,
   },
 
   invoiceButton: {
@@ -598,5 +601,27 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '600',
     fontFamily: 'Inter',
+  },
+  ratingContainer: {
+    alignItems: 'left', // Left aligns all content inside this container
+    // marginTop: 10,
+    marginBottom: 20, // Adds space between the previous element and this one
+    marginLeft: -100,
+  },
+
+  ratingTitle: {
+    color: 'black',
+    fontSize: 19,
+    fontWeight: '600',
+    fontFamily: 'Inter',
+    textAlign: 'left', // Ensures the text aligns to the left
+    marginBottom: 7, // Adds space between the text and stars
+  },
+
+  starsContainer: {
+    flexDirection: 'row', // Keeps the stars in a row horizontally
+    justifyContent: 'flex-start', // Aligns stars to the left
+    alignItems: 'center',
+    gap:10, // Centers stars vertically in the row
   },
 });
