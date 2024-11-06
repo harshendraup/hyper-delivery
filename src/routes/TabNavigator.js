@@ -7,17 +7,17 @@ import Orders from '../screens/Orders';
 import Profile from '../screens/Profile';
 import Notification from '../screens/Notification';
 
-import bell from '../asset/icons/bell.png';
-import bellg from '../asset/icons/bellg.png';
-import orders from '../asset/icons/orders.png';
-import ordersg from '../asset/icons/ordersg.png';
-import profile from '../asset/icons/profile.png';
-import profileg from '../asset/icons/profileg.png';
-import home from '../asset/icons/home.png';
-import homeg from '../asset/icons/homeg.png';
-import Product from '../asset/icons/Product.png';
+import bell from '../asset/SVG/bell.png';
+import bellg from '../asset/SVG/BellG.png';
+import orders from '../asset/SVG/Orders.png';
+import ordersg from '../asset/SVG/OrdersG.png';
+import profile from '../asset/SVG/Profile.png';
+import profileg from '../asset/SVG/ProfileG.png';
+import home from '../asset/SVG/Icon.png';
+import homeg from '../asset/SVG/HomeG.png';
+import Product from '../asset/SVG/Products.png';
 import ProductsSVG from '../asset/SVG/Products';
-import Productg from '../asset/icons/Productg.png';
+import Productg from '../asset/SVG/ProductsG.png';
 
 const Tab = createBottomTabNavigator();
 
