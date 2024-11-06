@@ -37,7 +37,7 @@ const recentOrders = [
     date: '2024-10-01',
     time: '10:30 AM',
     isNew: true,
-    price: 29.99, // example price
+    price: 29, // example price
   },
   {
     id: '12346',
