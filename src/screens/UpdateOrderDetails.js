@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1,
   },
- 
+
   ratingImage: {
     width: 42.27,
     height: 44,
@@ -603,10 +603,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
   },
   ratingContainer: {
-    alignItems: 'left', // Left aligns all content inside this container
-    // marginTop: 10,
-    marginBottom: 20, // Adds space between the previous element and this one
-    marginLeft: -100,
+    alignItems: 'flex-start', // Aligns content to the left
+    marginBottom: 20, // Space below the rating section
+    width: '100%', // Ensure the container spans the full width of the screen
   },
 
   ratingTitle: {
@@ -614,14 +613,14 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '600',
     fontFamily: 'Inter',
-    textAlign: 'left', // Ensures the text aligns to the left
-    marginBottom: 7, // Adds space between the text and stars
+    textAlign: 'left', // Ensures the rating title text is left-aligned
+    marginBottom: 7, // Space between the title and the stars
   },
 
   starsContainer: {
     flexDirection: 'row', // Keeps the stars in a row horizontally
     justifyContent: 'flex-start', // Aligns stars to the left
     alignItems: 'center',
-    gap:10, // Centers stars vertically in the row
+    gap: 5, // Optional: to give some space between the stars
   },
 });
