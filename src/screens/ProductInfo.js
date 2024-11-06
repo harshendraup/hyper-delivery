@@ -402,7 +402,7 @@ const styles = StyleSheet.create({
 
   paginationStyle: {
     position: 'absolute',
-    bottom: -13, // Adjusted value to bring dots under the image and not overlap
+    bottom: -10, // Adjusted value to bring dots under the image and not overlap
     left: 0,
     right: 0,
     flexDirection: 'row',
