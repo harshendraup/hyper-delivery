@@ -25,6 +25,7 @@ import f9 from '../asset/faces/Ellipse9.png';
 import f10 from '../asset/faces/Ellipse10.png';
 import f11 from '../asset/faces/Ellipse11.png';
 import f12 from '../asset/faces/Ellipse12.png';
+import WhiteArrowSVG from '../asset/SVG/WhiteArrow';
 // Additional example icon
 
 const {width} = Dimensions.get('window');
@@ -193,7 +194,7 @@ const Chat = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButton}>
-            <Image source={backArrow} style={styles.backButtonImage} />
+            <WhiteArrowSVG/>
           </TouchableOpacity>
         </View>
 
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: -20,
   },
   backButton: {
     padding: 10,
@@ -241,8 +242,10 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.25,
     shadowRadius: 6,
+    width: 33,
+    height: 35,
   },
-  backButtonImage: {width: 24, height: 24},
+  // backButtonImage: {width: 24, height: 24},
   buttonImage: {width: 45, height: 45, marginRight: 10},
   listContainer: {width: '100%', paddingHorizontal: 10},
   listTitle: {
