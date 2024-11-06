@@ -203,7 +203,7 @@ const EditProducts = () => {
           }>
           <CommonButton
             title="Next"
-            onPress={() => navigation.navigate('BusinessDetails')}
+            onPress={() => navigation.navigate('TabNavigator')}
           />
         </View>
       </ScrollView>
