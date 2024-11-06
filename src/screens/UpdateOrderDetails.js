@@ -201,7 +201,7 @@ const UpdateOrderDetails = () => {
 
         <View style={styles.feedbackContainer}>
           <Text style={styles.feedbackTitle}>Share your feedback</Text>
-          <View style={{position: 'relative', width: 280}}>
+          <View style={{position: 'relative', width: width*0.78}}>
             <CommonTextInput
               placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
               style={{
