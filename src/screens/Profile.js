@@ -39,9 +39,7 @@ const Profile = () => {
   ];
 
   const handlePress = route => {
-    // Navigate to the specified route
     if (route === 'Logout') {
-      // Handle logout logic here
       console.log('Logging out...');
     } else {
       navigation.navigate(route);
@@ -84,8 +82,8 @@ const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},
   scrollContainer: {alignItems: 'center', paddingTop: 25},
   semiCircle: {
-    width: 430,
-    height: height * 0.3, // Increased height to 50% of the parent container's height
+    width: '100%',
+    height: height * 0.35, // Adjusting semi-circle height to 35% of screen height
     backgroundColor: '#409C59',
     borderBottomLeftRadius: width / 2,
     borderBottomRightRadius: width / 2,
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     overflow: 'hidden',
-    marginTop: -30,
+    marginTop: -40, // Reduced margin to prevent overflow on smaller screens
   },
 
   profileLabel: {
@@ -104,9 +102,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: width * 0.2, // Dynamically setting image width (20% of screen width)
+    height: width * 0.2, // Dynamically setting image height (20% of screen width)
+    borderRadius: width * 0.1, // Dynamically setting border radius to keep the image round
     marginBottom: 10,
     borderWidth: 2,
     borderColor: 'white',
@@ -121,14 +119,14 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   menuContainer: {
-    width: '80%',
+    width: '85%', // Adjusting container width to ensure it looks good on all screens
     marginTop: 20,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
+    padding: 18, // Reduced padding to ensure better spacing on smaller screens
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
