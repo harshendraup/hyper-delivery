@@ -319,7 +319,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'black',
     fontFamily: 'Inter',
-
   },
   productMin: {
     fontSize: 15,
@@ -394,9 +393,16 @@ const styles = StyleSheet.create({
     width: 16, // Set the icon width
     height: 16, // Set the icon height
   },
+  // swiperContainer: {
+  //   height: height * 0.3,
+  //   width: width,
+  //   borderRadius: 10,
+  //   position: 'relative', // Add this so that pagination can be positioned under the swiper
+  // },
+
   paginationStyle: {
     position: 'absolute',
-    bottom: -15, // Position the dots just below the image
+    bottom: -13, // Adjusted value to bring dots under the image and not overlap
     left: 0,
     right: 0,
     flexDirection: 'row',
@@ -410,8 +416,8 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Makes the dot circular
     margin: 5,
     borderWidth: 1.5,
-    borderColor: '#409C59',
-    backgroundColor: 'transparent', // Inactive dot color (green)background: #409C59;
+    borderColor: '#409C59', // Border color for inactive dots
+    backgroundColor: 'transparent', // Inactive dot color (green) - transparent background
   },
 
   activeDotStyle: {

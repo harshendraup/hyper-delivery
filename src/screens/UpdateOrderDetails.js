@@ -171,7 +171,7 @@ const UpdateOrderDetails = () => {
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Summery</Text>
+          <Text style={styles.summaryTitle}>Summary</Text>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Amount</Text>
             <Text style={styles.summaryValue}>$ 6800</Text>
@@ -609,6 +609,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
   },
   ratingContainer: {
+    marginVertical: 20,
     alignItems: 'flex-start', // Aligns content to the left
     marginBottom: 20, // Space below the rating section
     width: '100%', // Ensure the container spans the full width of the screen
@@ -620,14 +621,15 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Inter',
     textAlign: 'left', // Ensures the rating title text is left-aligned
-    marginBottom: 7, // Space between the title and the stars
+    marginBottom: 15, // Space between the title and the stars
   },
 
   starsContainer: {
     flexDirection: 'row', // Keeps the stars in a row horizontally
     justifyContent: 'flex-start', // Aligns stars to the left
     alignItems: 'center',
-    gap: 5, // Optional: to give some space between the stars
+    gap: 6,
+    marginBottom: 7, // Optional: to give some space between the stars
   },
   hybridWithRatingRow: {
     flexDirection: 'row', // Align children horizontally

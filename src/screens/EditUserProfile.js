@@ -103,7 +103,7 @@ const EditUserProfile = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title="Update Profile"
-            onPress={() => navigation.navigate('UploadDoc')}
+            // onPress={() => navigation.navigate('UploadDoc')}
           />
         </View>
       </ScrollView>
