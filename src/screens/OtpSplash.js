@@ -2,6 +2,7 @@ import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import logo from '../asset/OTPsend.png';
+import OtpSplashSVG from '../asset/SVG/OtpSplash';
 
 const OtpSplash = () => {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ const OtpSplash = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('OTPEnter')}>
-        <Image source={logo} style={styles.logo} />
+        <OtpSplashSVG />
       </TouchableOpacity>
     </View>
   );

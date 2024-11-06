@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     alignItems: 'center',
+    marginHorizontal:54,
   },
   uploadText: {
     fontSize: 20,
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
+    // marginHorizontal: 50,
   },
   uploadButton: {
     height: 180,
@@ -186,9 +188,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
     fontFamily: 'Inter',
-    color: 'rgba(51, 51, 51, 1)',
+    color: '#333333', //
     marginRight: 40,
     flex: 1, // Allow the title to take remaining space
     textAlign: 'center', // Center the title if needed

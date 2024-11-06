@@ -125,7 +125,7 @@ const ConnectWithPhone = () => {
 
         <View style={styles.buttonContainer}>
           <GreenButton
-            title="Continue"
+            title="Next"
             onPress={() => navigation.navigate('OtpSplash')}
           />
           <View style={styles.separatorContainer}>
@@ -201,9 +201,9 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   boldText: {
-    fontSize: 22,
-    color: 'rgba(51, 51, 51, 1)',
-    fontWeight: '600',
+    fontSize: 24,
+    color: 'black',
+    fontWeight: '700',
     fontFamily: 'Inter',
   },
   subText: {

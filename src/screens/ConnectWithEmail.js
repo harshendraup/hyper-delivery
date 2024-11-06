@@ -201,8 +201,8 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontSize: 22,
-    color: 'rgbs(51, 51, 51, 1)',
-    fontWeight: '600',
+    color: '#33333',
+    fontWeight: '900',
     fontFamily: 'Inter',
   },
   subText: {

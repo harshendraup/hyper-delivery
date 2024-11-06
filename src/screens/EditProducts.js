@@ -190,7 +190,7 @@ const EditProducts = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={styles.uploadButton}
-              onPress={() => handleUpload('Front')}>
+              >
               <Image source={uploadcloud} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>

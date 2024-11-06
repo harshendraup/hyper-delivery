@@ -84,7 +84,7 @@ const OTPEnter = () => {
         </View>
         <View style={styles.buttonContainer}>
           <GreenButton
-            title="Continue"
+            title="Next"
             onPress={() => navigation.navigate('PersonalInfo')}
           />
         </View>

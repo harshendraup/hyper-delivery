@@ -18,7 +18,7 @@ import FloatingLabelInput from '../component/TextInput'; // Import the FloatingL
 import backbutton from '../asset/backbutton.png';
 import Ellipse12 from '../asset/faces/Ellipse3.png';
 import CommonButton from '../component/button';
-
+import Calender from '../asset/icons/calender.png'
 const {width, height} = Dimensions.get('window');
 
 const EditUserProfile = () => {
@@ -38,6 +38,13 @@ const EditUserProfile = () => {
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
+        {/* <View style={styles.semiCircle}>
+          
+          <Text style={styles.profileLabel}>Edit Profile</Text>
+          <Image source={Ellipse12} style={styles.profileImage} />
+          <Text style={styles.profileName}>Your Name</Text>
+          <Text style={styles.profileEmail}>email@example.com</Text>
+        </View> */}
         <View style={styles.semiCircle}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -84,7 +91,11 @@ const EditUserProfile = () => {
               onPress={() => {
                 /* Open date picker logic here */
               }}>
-              <FontAwesome name="calendar" size={20} color="#409C59" />
+              <Image
+                source={Calender}
+                style={{width: 30, height: 30}}
+              />
+              
             </TouchableOpacity>
           </View>
         </View>
@@ -103,9 +114,10 @@ const EditUserProfile = () => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},
   scrollContainer: {alignItems: 'center', paddingTop: 25},
+  
   semiCircle: {
     width: '100%',
-    height: height * 0.3,
+    height: height * 0.35, // Adjusting semi-circle height to 35% of screen height
     backgroundColor: '#409C59',
     borderBottomLeftRadius: width / 2,
     borderBottomRightRadius: width / 2,
@@ -113,14 +125,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     overflow: 'hidden',
-    marginTop: -30,
+    marginTop: -40, // Reduced margin to prevent overflow on smaller screens
   },
+
   profileLabel: {
     position: 'absolute',
     top: 20,
     fontSize: 16,
     color: 'rgba(255, 255, 255, 1)',
     fontWeight: '700',
+  },
+  profileImage: {
+    width: width * 0.2, // Dynamically setting image width (20% of screen width)
+    height: width * 0.2, // Dynamically setting image height (20% of screen width)
+    borderRadius: width * 0.1, // Dynamically setting border radius to keep the image round
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: 'white',
+    marginTop: 5,
   },
   profileName: {
     fontSize: 22,
@@ -139,14 +161,7 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     paddingBottom: 30,
   },
-  profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginBottom: 10,
-    borderWidth: 2,
-    borderColor: '#fff',
-  },
+ 
   inputContainer: {
     width: '80%',
     marginTop: 20,

@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     height: '85%',
   },
   checkbox: {
-    transform: [{scaleX: 1.5}, {scaleY: 1.5}],
+    // transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {
     fontSize: 15,
