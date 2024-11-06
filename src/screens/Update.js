@@ -22,7 +22,7 @@ import pickupIcon from '../asset/icons/pickuploc.png';
 import deliveryIcon from '../asset/icons/deliveryloc.png';
 import orderIcon from '../asset/icons/orderId.png';
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const Update = () => {
   const navigation = useNavigation();
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'rgba(51, 51, 51, 1)',
-    marginRight: 40,
+    // marginRight: 40,
     flex: 1,
     textAlign: 'center',
   },
@@ -157,9 +157,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   mapImage: {
-    width: 350,
-    height: 397,
+    width: width*0.9,
+    height: height*0.75,
     borderRadius: 30,
+
   },
   locationContainer: {
     width: '100%',

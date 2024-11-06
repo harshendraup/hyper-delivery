@@ -54,7 +54,7 @@ const formatDate = dateString => {
   const month = date.toLocaleString('en-US', {month: 'short'}).replace('.', '');
   const year = date.getFullYear();
 
-  return `${day}/${month}/${year}`;
+  return `${year}/${month}/${day}`;
 };
 
 const OrderDetails = ({route}) => {
@@ -217,10 +217,10 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     position: 'absolute',
-    right: 10,
+    right: 1,
     top: 10,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   ratingImage: {
     width: 42.27,
@@ -329,6 +329,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     flex: 1,
     lineHeight: 19,
+    textAlign:'left',
     color: 'rgba(0, 0, 0, 1)',
   },
   deliveryText: {

@@ -62,7 +62,7 @@ const formatDate = dateString => {
   const month = date.toLocaleString('en-US', {month: 'short'}).replace('.', '');
   const year = date.getFullYear();
 
-  return `${day}/${month}/${year}`;
+  return `${year}/${month}/${day}`;
 };
 
 const UpdateOrderDetails = () => {
@@ -95,9 +95,10 @@ const UpdateOrderDetails = () => {
           <Image source={image} style={styles.orderImage} />
           <View style={styles.textContainer}>
             <Text style={styles.orderTitle}>HYBRID</Text>
-            <Text style={styles.orderText}>
-              Walker Kush {'                                           '}50g
-            </Text>
+            <View style={styles.deliveryInfoContainer}>
+              <Text style={styles.orderText}>Walker Kush</Text>
+              <Text style={styles.orderText}>50g</Text>
+            </View>
             <View style={styles.priceContainer}>
               <Text style={styles.orderPrice}>$65.00</Text>
               <Text style={styles.strikethroughPrice}>₹ 10,499.00</Text>
@@ -118,6 +119,7 @@ const UpdateOrderDetails = () => {
               <Image source={edit} style={styles.editButtonImage} />
             </TouchableOpacity>
           </View>
+
           <View style={styles.deliveryInfoContainer}>
             <Text style={styles.deliveryDateText}>Praveen Reddy - #ID1234</Text>
             <Text style={styles.deliveryDateText}>12/Nov/2024</Text>
@@ -199,7 +201,7 @@ const UpdateOrderDetails = () => {
 
         <View style={styles.feedbackContainer}>
           <Text style={styles.feedbackTitle}>Share your feedback</Text>
-          <View style={{position: 'relative', width: 330}}>
+          <View style={{position: 'relative', width: 280}}>
             <CommonTextInput
               placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
               style={{
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     position: 'absolute',
-    right: 10,
+    right: 1,
     top: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -332,7 +334,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     color: 'rgba(41, 73, 8, 1)',
-    marginBottom: 10,
+    // marginBottom: 10,
     lineHeight: 23,
     marginRight: 10,
   },
@@ -361,6 +363,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     flex: 1,
+    textAlign: 'left',
     lineHeight: 19,
     color: 'rgba(0, 0, 0, 1)',
   },
@@ -377,13 +380,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     marginBottom: 10,
+    textAlign: 'left',
   },
   deliveryDateText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: 'rgba(0, 0, 0, 0.7)',
     marginTop: 4,
-    textAlign: 'right',
+    textAlign: 'left',
     flex: 1,
   },
   editButton: {
