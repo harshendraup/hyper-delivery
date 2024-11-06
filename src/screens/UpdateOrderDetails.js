@@ -63,7 +63,7 @@ const formatDate = dateString => {
   const month = date.toLocaleString('en-US', {month: 'short'}).replace('.', '');
   const year = date.getFullYear();
 
-  return `${year}/${month}/${day}`;
+  return `${day}/${month}/${year}`;
 };
 
 const UpdateOrderDetails = () => {
@@ -95,7 +95,14 @@ const UpdateOrderDetails = () => {
         <View style={styles.detailsContainer}>
           <Image source={image} style={styles.orderImage} />
           <View style={styles.textContainer}>
-            <Text style={styles.orderTitle}>HYBRID</Text>
+            <View style={styles.hybridWithRatingRow}>
+              <Text style={styles.orderTitle}>HYBRID</Text>
+              <View style={styles.ratingWrapper}>
+                <Image source={ratingImage} style={styles.ratingImageSmall} />
+                <Text style={styles.ratingTextSmall}></Text>
+              </View>
+            </View>
+
             <View style={styles.deliveryInfoContainer}>
               <Text style={styles.orderText}>Walker Kush</Text>
               <Text style={styles.orderText}>50g</Text>
@@ -103,10 +110,6 @@ const UpdateOrderDetails = () => {
             <View style={styles.priceContainer}>
               <Text style={styles.orderPrice}>$65</Text>
               <Text style={styles.strikethroughPrice}>₹ 10,499</Text>
-            </View>
-            <View style={styles.ratingContainer}>
-              <Image source={ratingImage} style={styles.ratingImage} />
-              <Text style={styles.ratingText}></Text>
             </View>
           </View>
         </View>
@@ -625,5 +628,35 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start', // Aligns stars to the left
     alignItems: 'center',
     gap: 5, // Optional: to give some space between the stars
+  },
+  hybridWithRatingRow: {
+    flexDirection: 'row', // Align children horizontally
+    justifyContent: 'space-between', // Space out the text and rating wrapper
+    alignItems: 'center', // Vertically center both elements
+    width: '100%', // Ensure it takes full width
+  },
+
+  ratingWrapper: {marginBottom:-22,
+    marginEnd:-8,
+    flexDirection: 'row', // Align rating icon and text horizontally
+    alignItems: 'center', // Vertically align the image and text
+  },
+
+  ratingImageSmall: {
+    width: 42.27,
+    height: 44,
+    padding: 5,
+    borderRadius: 5,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+
+  ratingTextSmall: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: 'rgba(0, 0, 0, 1)',
   },
 });

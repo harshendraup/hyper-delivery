@@ -54,7 +54,7 @@ const formatDate = dateString => {
   const month = date.toLocaleString('en-US', {month: 'short'}).replace('.', '');
   const year = date.getFullYear();
 
-  return `${year}/${month}/${day}`;
+ return `${day}/${month}/${year}`;
 };
 
 const OrderDetails = ({route}) => {
