@@ -193,8 +193,14 @@ const Chat = () => {
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={styles.backButton}>
-            <WhiteArrowSVG/>
+            style={styles.backButton}
+            activeOpacity={0.7} // Slight feedback on press
+          >
+            <Image
+              source={backArrow}
+              style={{width: 16, height: 16}}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
         </View>
 
@@ -242,7 +248,7 @@ const styles = StyleSheet.create({
     marginBottom: -20,
   },
   backButton: {
-    padding: 10,
+    padding: 10, // Adjust padding for larger clickable area
     backgroundColor: '#409C59',
     borderRadius: 5,
     elevation: 5,
@@ -250,8 +256,10 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.25,
     shadowRadius: 6,
-    width: 33,
-    height: 35,
+    width: 45, // Set a fixed width
+    height: 45, // Set a fixed height
+    justifyContent: 'center', // Ensure image is centered
+    alignItems: 'center', // Center the image
   },
   // backButtonImage: {width: 24, height: 24},
   buttonImage: {width: 45, height: 45, marginRight: 10},
