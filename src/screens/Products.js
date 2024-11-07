@@ -175,6 +175,7 @@ const Products = () => {
         <TouchableOpacity style={styles.deleteButton}>
           <Image source={bin} style={styles.backButtonImage} />
         </TouchableOpacity>
+        <View style={styles.buttonDivider} />
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => navigation.navigate('EditProducts')}>
@@ -374,11 +375,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: '48%', // Two tiles in a row
     height: 250, // Keep the previous height (adjustable as needed)
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
+    borderWidth: 0.5, // Set border width
+    borderColor: '#CCCCCC', // Set border color
   },
 
   imageContainer: {
@@ -448,7 +446,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
-    marginHorizontal: 13,
+    marginHorizontal: 22,
   },
   editButton: {
     padding: 10,
@@ -461,5 +459,12 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  buttonDivider: {
+    height: '70%', // Take up full height of the container
+    width: 1, // Adjust width as needed for line thickness
+    backgroundColor: '#CCCCCC', // Line color (light grey)
+    marginHorizontal: 10,
+    marginTop:5 // Optional, add space between the buttons and the divider
   },
 });

@@ -12,7 +12,9 @@ import {
   TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icons
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import Calender from './path/to/your/calendar-icon'; // Path to your calendar icon// Import FontAwesome icons
 
 import FloatingLabelInput from '../component/TextInput'; // Import the FloatingLabelInput component
 import backbutton from '../asset/backbutton.png';
@@ -29,7 +31,24 @@ const EditUserProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
+const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+const [selectedDate, setSelectedDate] = useState(null); // Store selected date
 
+// Show Date Picker
+const showDatePicker = () => {
+  setDatePickerVisible(true);
+};
+
+// Hide Date Picker
+const hideDatePicker = () => {
+  setDatePickerVisible(false);
+};
+
+// Handle Date Picked
+const handleConfirm = date => {
+  setSelectedDate(date); // Set the selected date
+  hideDatePicker(); // Close the picker
+};
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -82,21 +101,27 @@ const EditUserProfile = () => {
           <View style={styles.inputWithIcon}>
             <FloatingLabelInput
               label="Date of Birth"
-              // value={email}
-              // onChangeText={setEmail}
-              // keyboardType="email-address"
+              value={selectedDate ? selectedDate.toDateString() : ''} // Show the selected date in the input
+              editable={false} // Make the input uneditable directly, only change through date picker
             />
             <TouchableOpacity
               style={styles.calendarIcon}
-              onPress={() => {
-                /* Open date picker logic here */
-              }}>
+              onPress={showDatePicker} // Open the date picker on press
+            >
               <Image
-                source={Calender}
+                source={Calender} // Path to your calendar icon
                 style={{width: 30, height: 30}}
               />
-              
             </TouchableOpacity>
+
+            {/* DatePicker Modal */}
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleConfirm} // Handle selected date
+              onCancel={hideDatePicker} // Handle cancel
+              date={selectedDate || new Date()} // Default to current date if no date selected
+            />
           </View>
         </View>
 

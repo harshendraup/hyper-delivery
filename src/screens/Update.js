@@ -15,8 +15,8 @@ import CommonButton from '../component/button';
 import map from '../asset/map.png';
 import profilePic from '../asset/faces/Ellipse1.png';
 import profilePic1 from '../asset/faces/Ellipse12.png';
-import messageIcon from '../asset/messangeIcon.png';
-import phoneIcon from '../asset/callIcon.png';
+import messageIcon from '../asset/icons/messangeIcon.png';
+import phoneIcon from '../asset/icons/callIcon.png';
 import star from '../asset/icons/star.png';
 import pickupIcon from '../asset/icons/pickuploc.png';
 import deliveryIcon from '../asset/icons/deliveryloc.png';
@@ -158,10 +158,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   mapImage: {
-    width: width*0.83,
-    height: height*0.83,
+    width: width*0.85,
+    height: height*0.65,
     borderRadius: 30,
-
+marginBottom: 10,
   },
   locationContainer: {
     width: '100%',
@@ -288,11 +288,12 @@ const styles = StyleSheet.create({
   profileRight: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap:-20,
   },
   iconButton: {
-    marginLeft: 15,
-    width: 40,
-    height: 40,
+    // marginLeft: 1,
+    width: 50,
+    height: 50,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -307,8 +308,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white', // Optional: to ensure icons stand out against background
   },
   icon: {
-    width: 50, // Adjusted width to fit the icons properly
-    height: 50, // Adjusted height for proper aspect ratio
+    width: 60, // Adjusted width to fit the icons properly
+    height: 60, // Adjusted height for proper aspect ratio
     resizeMode: 'contain',
     marginTop: 10, // Ensures the icons scale appropriately
   },
