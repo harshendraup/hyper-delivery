@@ -57,7 +57,8 @@ const Onboarding = () => {
         <View style={styles.topSection}>
           <View style={styles.touchable}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('TabNavigator')}>
+              // onPress={() => navigation.navigate('TabNavigator')}
+              >
               <Image source={logo} style={styles.logo} />
             </TouchableOpacity>
             <View>
