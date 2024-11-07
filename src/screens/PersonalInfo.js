@@ -12,7 +12,7 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import uploadcloud from '../asset/uploadcloud.png';
+import Cloud from '../asset/SVG/Cloud.png';
 
 const {width} = Dimensions.get('window');
 
@@ -60,8 +60,7 @@ const PersonalInfo = () => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <Text style={styles.topText}>
-          Fill Your Personal Information Or Register With Your Social
-          Account
+          Fill Your Personal Information Or Register With Your Social Account
         </Text>
 
         <View style={styles.inputContainer}>
@@ -96,12 +95,12 @@ const PersonalInfo = () => {
           />
         </View>
 
-          <Text style={styles.uploadText}>Upload Documents</Text>
+        <Text style={styles.uploadText}>Upload Documents</Text>
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
-                <Image source={uploadcloud} />
+                <Image source={Cloud} style={styles.CloudIcon} />
                 <Text style={styles.uploadButtonText}>Front</Text>
                 <Text style={styles.uploadButtonSubtext}>
                   Upload & Scan passport / driver's license
@@ -110,7 +109,7 @@ const PersonalInfo = () => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
-                <Image source={uploadcloud} />
+                <Image source={Cloud} style={styles.CloudIcon} />
                 <Text style={styles.uploadButtonText}>Back</Text>
                 <Text style={styles.uploadButtonSubtext}>
                   Upload & Scan passport / driver's license
@@ -168,8 +167,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: 'transparent',
   },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTop: 30, // Add space between icon and text
+  },
   uploadContainer: {
-    width: width * 0.70,
+    width: width * 0.7,
     marginTop: 20,
     // marginRight: 20,
     alignItems: 'center',
@@ -250,7 +255,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 16,
     fontWeight: '400',
-    width: width*0.80,
+    width: width * 0.8,
     height: '22px',
     color: 'rgba(51, 51, 51, 1)',
     marginBottom: 20,

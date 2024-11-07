@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import getStuff from '../asset/getStuff.png';
+import Getweed from '../asset/SVG/Getweed.png';
 
 const {width} = Dimensions.get('window');
 
@@ -64,7 +64,7 @@ const OTPEnter = () => {
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
-        <Image source={getStuff} style={styles.logo} />
+        <Image source={Getweed} style={styles.logo} />
         <Text style={styles.title}>Enter OTP</Text>
         <Text style={styles.subTitle}>
           A 6 Digit Code Has Been Sent To{'\n'}+123456789

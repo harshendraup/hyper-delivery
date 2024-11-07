@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
-import backbutton from '../asset/backbutton.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import ProductImage from '../asset/ProductImage.png';
-import uploadcloud from '../asset/uploadcloud.png';
+import Cloud from '../asset/SVG/Cloud.png';
 import CheckBox from '@react-native-community/checkbox'; // Import CheckBox
 import Accordion from '../component/Accordion'; // Import Accordion component
 
@@ -172,7 +172,7 @@ const AddProducts = () => {
           />
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
-              <Image source={uploadcloud} />
+              <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>
           </View>
@@ -230,6 +230,12 @@ const styles = StyleSheet.create({
   floatingLabelContainer: {
     position: 'relative',
     marginVertical: 10,
+  },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTop: 5, // Add space between icon and text
   },
   floatingLabel: {
     position: 'absolute',
@@ -296,13 +302,14 @@ const styles = StyleSheet.create({
   checkboxWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-   
+
     padding: 1,
     marginRight: 1,
     width: '11%',
     height: '85%',
   },
-  checkbox: {marginBottom:10
+  checkbox: {
+    marginBottom: 10,
     // transform: [{scaleX: 1.5}, {scaleY: 1.5}],
   },
   checkboxLabel: {

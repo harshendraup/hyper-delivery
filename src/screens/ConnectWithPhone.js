@@ -19,7 +19,8 @@ import Email from '../asset/SVG/Email';
 import Facebook from '../asset/SVG/Facebook';
 import Google from '../asset/SVG/Google';
 import GetstartwithFace from '../asset/SVG/ScanFace';
-import tri from '../asset/tri.png';
+import Flag from '../asset/SVG/Flag.png';
+import Dropdown from '../asset/SVG/Dropdown.png';
 import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
@@ -97,10 +98,11 @@ const ConnectWithPhone = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Image source={tri} style={styles.triangleIcon} />
+          <Image source={Flag} style={styles.triangleIcon} />
+          <Image source={Dropdown} style={styles.dropdownIcon} />
           <TextInput
             style={styles.input}
-            placeholder="Phone Number"
+            placeholder="Mobile Number"
             keyboardType="phone-pad"
             maxLength={10}
           />
@@ -230,8 +232,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   triangleIcon: {
-    width: 80,
-    height: 20,
+    width: 40,
+    height: 30,
+    marginRight: 10,
+  },
+  dropdownIcon: {
+    width: 20,
+    height: 12,
     marginRight: 10,
   },
   input: {

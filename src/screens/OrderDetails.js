@@ -10,11 +10,11 @@ import {
   TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import backbutton from '../asset/backbutton.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import ratingImage from '../asset/rating.png';
-import edit from '../asset/icons/edit.png';
+import edit from '../asset/SVG/Edit.png';
 import Licence from '../asset/Licence.png';
-import note from '../asset/note.png';
+import note from '../asset/SVG/Noteicon.png';
 
 const {width} = Dimensions.get('window');
 
@@ -54,7 +54,7 @@ const formatDate = dateString => {
   const month = date.toLocaleString('en-US', {month: 'short'}).replace('.', '');
   const year = date.getFullYear();
 
- return `${day}/${month}/${year}`;
+  return `${day}/${month}/${year}`;
 };
 
 const OrderDetails = ({route}) => {
@@ -121,7 +121,7 @@ const OrderDetails = ({route}) => {
           <Text style={styles.deliveryText}>{order.contactNumber}</Text>
           <Text style={styles.deliveryText}>{order.deliveryAddress}</Text>
         </View>
-        <View style={{width:'100%'      }}>
+        <View style={{width: '100%'}}>
           <Text style={styles.consumerTitle}>
             Required Document by Consumer
           </Text>
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: 'Inter',
     lineHeight: 19,
-    textAlign:'left',
+    textAlign: 'left',
     color: 'rgba(0, 0, 0, 1)',
   },
   deliveryText: {
@@ -363,14 +363,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   editButtonImage: {
-    width: 16,
+    width: 18,
     height: 18,
   },
   consumerTitle: {
     fontSize: 17,
     fontWeight: '600',
     // marginRight: 35,
-    marginLeft:-7,
+    marginLeft: -7,
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
@@ -428,8 +428,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   noteImage: {
-    width: 24, // Adjust as needed
-    height: 24, // Adjust as needed
+    width: 20, // Adjust as needed
+    height: 20, // Adjust as needed
     marginRight: 10,
   },
   noteContent: {

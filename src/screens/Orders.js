@@ -11,8 +11,8 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import chat from '../asset/icons/chat.png';
-import dashboard from '../asset/icons/dashboard.png';
+import chat from '../asset/SVG/Chaticon.png';
+import dashboard from '../asset/SVG/Dashboard.png';
 import image1 from '../asset/orderPics/image1.png';
 import image4 from '../asset/orderPics/image4.png';
 import image5 from '../asset/orderPics/image5.png';
@@ -166,7 +166,6 @@ const recentOrders = [
     deliveryAddress: '38, MG Road, Surat, Gujarat, 395003',
   },
 ];
-
 
 const Orders = () => {
   const navigation = useNavigation();

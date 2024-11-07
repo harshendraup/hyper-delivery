@@ -11,13 +11,13 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import chat from '../asset/icons/chat.png';
-import dashboard from '../asset/icons/dashboard.png';
-import earningsIcon from '../asset/icons/earnings.png';
-import orderIcon from '../asset/icons/order.png';
-import ordersIcon from '../asset/icons/orders.png';
-import productsIcon from '../asset/icons/products.png';
-import salesIcon from '../asset/icons/sales.png';
+import chat from '../asset/SVG/Chaticon.png';
+import Dashboardbutton from '../asset/SVG/Dashboard.png';
+import earningsIcon from '../asset/SVG/Earningicon.png';
+import orderIcon from '../asset/SVG/Ordersicon.png';
+import ordersIcon from '../asset/SVG/Orders.png';
+import productsIcon from '../asset/SVG/Productsicon.png';
+import salesIcon from '../asset/SVG/Salesicon.png';
 
 const {width} = Dimensions.get('window');
 
@@ -31,94 +31,92 @@ const Dashboard = () => {
     {icon: salesIcon, title: 'Total Sales', data: '200'},
   ];
 
-const recentOrders = [
-  {
-    id: '12345',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    isNew: true,
-    price: 29,
-  },
-  {
-    id: '12346',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    isNew: false,
-    price: 19,
-  },
-  {
-    id: '12347',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    isNew: true,
-    price: 34,
-  },
-  {
-    id: '1235',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    isNew: true,
-    price: 22,
-  },
-  {
-    id: '1236',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    isNew: false,
-    price: 18,
-  },
-  {
-    id: '1237',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    isNew: true,
-    price: 39,
-  },
-  {
-    id: '123',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    isNew: true,
-    price: 25,
-  },
-  {
-    id: '12w3',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    isNew: false,
-    price: 15,
-  },
-  {
-    id: '12573',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    isNew: true,
-    price: 28,
-  },
-  {
-    id: '12384',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    isNew: true,
-    price: 32,
-  },
-  {
-    id: '12304',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    isNew: false,
-    price: 20,
-  },
-  {
-    id: '1234',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    isNew: true,
-    price: 27,
-  },
-];
-
-
+  const recentOrders = [
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      isNew: true,
+      price: 29,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      isNew: false,
+      price: 19,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      isNew: true,
+      price: 34,
+    },
+    {
+      id: '1235',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      isNew: true,
+      price: 22,
+    },
+    {
+      id: '1236',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      isNew: false,
+      price: 18,
+    },
+    {
+      id: '1237',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      isNew: true,
+      price: 39,
+    },
+    {
+      id: '123',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      isNew: true,
+      price: 25,
+    },
+    {
+      id: '12w3',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      isNew: false,
+      price: 15,
+    },
+    {
+      id: '12573',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      isNew: true,
+      price: 28,
+    },
+    {
+      id: '12384',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      isNew: true,
+      price: 32,
+    },
+    {
+      id: '12304',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      isNew: false,
+      price: 20,
+    },
+    {
+      id: '1234',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      isNew: true,
+      price: 27,
+    },
+  ];
 
   return (
     <KeyboardAvoidingView
@@ -133,7 +131,7 @@ const recentOrders = [
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.backButton, styles.shadow]}>
-            <Image source={dashboard} style={styles.backButtonImage} />
+            <Image source={Dashboardbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
           <Text style={styles.topText}>Dashboard</Text>
           <TouchableOpacity
@@ -224,65 +222,65 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
   },
 
-tileContainer: {
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between', // Distribute tiles evenly
-  width: '100%',
-  paddingHorizontal: 10,
-  paddingVertical: 10,
-  marginBottom: 20,
-},
+  tileContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between', // Distribute tiles evenly
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 20,
+  },
 
-tile: {
-  backgroundColor: 'white',
-  borderRadius: 10,
-  width: width * 0.45,
-  height: 120,
-  alignItems: 'center',  // Center content horizontally
-  justifyContent: 'center',  // Center content vertically
-  paddingVertical: 10,
-  marginBottom: 10,
-  borderWidth: 1,
-  borderColor: '#e0e0e0',
-  shadowColor: '#000',
-  shadowOffset: {width: 0, height: 4},
-  shadowOpacity: 0.3,
-  shadowRadius: 6,
-  elevation: 5,
-},
+  tile: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: width * 0.45,
+    height: 120,
+    alignItems: 'center', // Center content horizontally
+    justifyContent: 'center', // Center content vertically
+    paddingVertical: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+  },
 
-tileHeader: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: 8,
-},
+  tileHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+  },
 
-tileIcon: {
-  width: 25,
-  height: 25,
-  marginRight: 8,
-},
+  tileIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+  },
 
-tileTitle: {
-  fontFamily: 'Mulish',
-  fontSize: 14,
-  fontWeight: '600',
-  textAlign: 'center',
-  color: '#333333',
-},
+  tileTitle: {
+    fontFamily: 'Mulish',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: '#333333',
+  },
 
-tileData: {
-  fontFamily: 'Mulish',
-  fontSize: 24,
-  fontWeight: '700',
-  lineHeight: 36,
-  letterSpacing: 1,
-  color: '#333333',
-  textAlign: 'center',  // Horizontal text centering
-  justifyContent: 'center',  // Ensure vertical centering if needed
-},
+  tileData: {
+    fontFamily: 'Mulish',
+    fontSize: 24,
+    fontWeight: '700',
+    lineHeight: 36,
+    letterSpacing: 1,
+    color: '#333333',
+    textAlign: 'center', // Horizontal text centering
+    justifyContent: 'center', // Ensure vertical centering if needed
+  },
 
   listContainer: {
     width: '100%',
@@ -297,8 +295,8 @@ tileData: {
     paddingHorizontal: 10,
   },
   listIcon: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
     marginRight: 10,
   },
   listItem: {

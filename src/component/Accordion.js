@@ -2,6 +2,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import arrow from '../asset/icons/arrow.png'; // Adjust the path as necessary
+import Dropdown from '../asset/SVG/Dropdown.png';
 
 const Accordion = ({title, items, onSelect, isOpen, toggle}) => {
   return (
@@ -9,7 +10,7 @@ const Accordion = ({title, items, onSelect, isOpen, toggle}) => {
       <TouchableOpacity style={styles.accordionHeader} onPress={toggle}>
         <View style={styles.accordionInput}>
           <Text style={styles.accordionTitle}>{title}</Text>
-          <Image source={arrow} style={styles.arrowIcon} />
+          <Image source={Dropdown} style={styles.arrowIcon} />
         </View>
       </TouchableOpacity>
       {isOpen && (
@@ -48,8 +49,8 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   arrowIcon: {
-    width: 20,
-    height: 20,
+    width: 17,
+    height: 10,
   },
   accordionContent: {
     position: 'absolute',

@@ -11,12 +11,12 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import chat from '../asset/icons/chat.png';
-import dashboard from '../asset/icons/dashboard.png';
+import chat from '../asset/SVG/Chaticon.png';
+import Dashboardbutton from '../asset/SVG/Dashboard.png';
 import edit from '../asset/SVG/Edit.png';
 import bin from '../asset/SVG/Delete.png';
 import stock from '../asset/stock.png'; // Add your stock image import here
-import plus from '../asset/icons/plus.png';
+import plus from '../asset/SVG/Plusicon.png';
 
 const {width} = Dimensions.get('window');
 
@@ -198,7 +198,7 @@ const Products = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.backButton, styles.shadow]}>
-            <Image source={dashboard} style={styles.backButtonImage} />
+            <Image source={Dashboardbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
           <Text style={styles.topText}>Products</Text>
           <TouchableOpacity
@@ -353,8 +353,8 @@ const styles = StyleSheet.create({
   },
   addButtonImage: {
     marginRight: 5, // Space between image and text
-    width: 20, // Adjust width as needed
-    height: 20, // Adjust height as needed
+    width: 15, // Adjust width as needed
+    height: 15, // Adjust height as needed
   },
   addButtonText: {
     color: 'rgba(255, 255, 255, 1)',
@@ -465,6 +465,6 @@ const styles = StyleSheet.create({
     width: 1, // Adjust width as needed for line thickness
     backgroundColor: '#CCCCCC', // Line color (light grey)
     marginHorizontal: 10,
-    marginTop:5 // Optional, add space between the buttons and the divider
+    marginTop: 5, // Optional, add space between the buttons and the divider
   },
 });

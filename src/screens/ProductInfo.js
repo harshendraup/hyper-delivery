@@ -10,7 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import backbutton from '../asset/backbutton.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import {Card, Text, Chip} from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import girlBag from '../asset/yellow.png';
@@ -260,6 +260,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 4,
   },
+  backButtonImage: {
+    width: 40,
+    height: 40,
+    marginTop: 10,
+  },
   inactiveText: {
     textAlign: 'center',
     width: width * 0.35,
@@ -426,4 +431,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#409C59', // Active dot color (dark green)
   },
 });
-

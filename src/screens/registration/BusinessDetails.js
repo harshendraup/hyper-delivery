@@ -12,10 +12,10 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import uploadcloud from '../../asset/uploadcloud.png';
-import backbutton from '../../asset/backbutton.png';
+import Cloud from '../../asset/SVG/Cloud.png';
+import Backbutton from '../../asset/SVG/Backbutton.png';
 import Accordion from '../../component/Accordion';
-import Clock from '../../asset/icons/clock.png';
+import Clock from '../../asset/SVG/Clock.png';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
@@ -40,8 +40,6 @@ const FloatingLabelInput = ({label, value, onChangeText, icon}) => {
     </View>
   );
 };
-
-
 
 const BusinessDetails = () => {
   const navigation = useNavigation();
@@ -77,7 +75,7 @@ const BusinessDetails = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButton}>
-            <Image source={backbutton} style={styles.backButtonImage} />
+            <Image source={Backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
         </View>
 
@@ -142,7 +140,7 @@ const BusinessDetails = () => {
                       },
                     ]}>
                     <Text style={styles.uploadButtonText}>
-                      <Image source={uploadcloud} />
+                      <Image source={Cloud} style={styles.CloudIcon} />
                       {'\n'}
                       {'\n'}
                       Upload Form
@@ -206,7 +204,7 @@ const BusinessDetails = () => {
                       },
                     ]}>
                     <Text style={styles.uploadButtonText}>
-                      <Image source={uploadcloud} />
+                      <Image source={Cloud} style={styles.CloudIcon} />
                       {'\n'}
                       {'\n'}
                       Upload Logo
@@ -220,7 +218,7 @@ const BusinessDetails = () => {
                 <View style={styles.uploadRow}>
                   <TouchableOpacity style={styles.uploadButtonThree}>
                     <Text style={styles.uploadButtonText}>
-                      <Image source={uploadcloud} />
+                      <Image source={Cloud} style={styles.CloudIcon} />
                       {'\n'}
                       {'\n'}
                       Outside
@@ -228,7 +226,7 @@ const BusinessDetails = () => {
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.uploadButtonThree}>
                     <Text style={styles.uploadButtonText}>
-                      <Image source={uploadcloud} />
+                      <Image source={Cloud} style={styles.CloudIcon} />
                       {'\n'}
                       {'\n'}
                       Inside
@@ -236,7 +234,7 @@ const BusinessDetails = () => {
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.uploadButtonThree}>
                     <Text style={styles.uploadButtonText}>
-                      <Image source={uploadcloud} />
+                      <Image source={Cloud} style={styles.CloudIcon} />
                       {'\n'}
                       {'\n'}Menu
                     </Text>
@@ -266,6 +264,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 25,
+  },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTopS: 30, // Add space between icon and text
   },
   backButtonContainer: {
     position: 'absolute', // Set position to absolute
@@ -379,7 +383,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center', // Ensure buttons are vertically centered
     width: '100%',
-    gap:5
+    gap: 5,
   },
   uploadButton: {
     height: 120,
@@ -437,5 +441,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
-
