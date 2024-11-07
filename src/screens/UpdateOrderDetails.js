@@ -12,15 +12,14 @@ import {
   Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import backbutton from '../asset/backbutton.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import ratingImage from '../asset/rating.png';
 import edit from '../asset/icons/edit.png';
 import Licence from '../asset/Licence.png';
-import note from '../asset/note.png';
+import note from '../asset/SVG/Noteicon.png';
 import image from '../asset/orderPics/image1.png';
 import invoice from '../asset/Invoicebutton.png';
 import Download from '../asset/icons/solar_download-bold.png';
-import star from '../asset/icons/star.png';
 import CommonTextInput from '../component/TextInput';
 import CommonButton from '../component/button';
 import StarSVG from '../asset/SVG/Start';
@@ -638,8 +637,9 @@ const styles = StyleSheet.create({
     width: '100%', // Ensure it takes full width
   },
 
-  ratingWrapper: {marginBottom:-22,
-    marginEnd:-8,
+  ratingWrapper: {
+    marginBottom: -22,
+    marginEnd: -8,
     flexDirection: 'row', // Align rating icon and text horizontally
     alignItems: 'center', // Vertically align the image and text
   },

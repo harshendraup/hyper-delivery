@@ -12,15 +12,15 @@ import {
   TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'; 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 // import Calender from './path/to/your/calendar-icon'; // Path to your calendar icon// Import FontAwesome icons
 
 import FloatingLabelInput from '../component/TextInput'; // Import the FloatingLabelInput component
-import backbutton from '../asset/backbutton.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import Ellipse12 from '../asset/faces/Ellipse3.png';
 import CommonButton from '../component/button';
-import Calender from '../asset/icons/calender.png'
+import Calender from '../asset/SVG/Calender.png';
 const {width, height} = Dimensions.get('window');
 
 const EditUserProfile = () => {
@@ -31,24 +31,24 @@ const EditUserProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
-const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-const [selectedDate, setSelectedDate] = useState(null); // Store selected date
+  const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null); // Store selected date
 
-// Show Date Picker
-const showDatePicker = () => {
-  setDatePickerVisible(true);
-};
+  // Show Date Picker
+  const showDatePicker = () => {
+    setDatePickerVisible(true);
+  };
 
-// Hide Date Picker
-const hideDatePicker = () => {
-  setDatePickerVisible(false);
-};
+  // Hide Date Picker
+  const hideDatePicker = () => {
+    setDatePickerVisible(false);
+  };
 
-// Handle Date Picked
-const handleConfirm = date => {
-  setSelectedDate(date); // Set the selected date
-  hideDatePicker(); // Close the picker
-};
+  // Handle Date Picked
+  const handleConfirm = date => {
+    setSelectedDate(date); // Set the selected date
+    hideDatePicker(); // Close the picker
+  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -139,7 +139,7 @@ const handleConfirm = date => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},
   scrollContainer: {alignItems: 'center', paddingTop: 25},
-  
+
   semiCircle: {
     width: '100%',
     height: height * 0.35, // Adjusting semi-circle height to 35% of screen height
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     paddingBottom: 30,
   },
- 
+
   inputContainer: {
     width: '80%',
     marginTop: 20,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   backButtonImage: {
     width: 45,
-    height: 45,
+    height: 50,
   },
 
   // Styling for the Date of Birth input and calendar icon

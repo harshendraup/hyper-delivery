@@ -13,7 +13,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import chatIcon from '../asset/icons/chat.png';
 import dashboardIcon from '../asset/icons/dashboard.png';
-import ordersIcon from '../asset/icons/orders.png';
+import ordersIcon from '../asset/SVG/Orders.png';
 
 const {width} = Dimensions.get('window');
 
@@ -21,150 +21,149 @@ const Notification = () => {
   const navigation = useNavigation();
 
   // Updated recentOrders with status instead of isNew
-const recentOrders = [
-  {
-    id: '12345',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    price: '$50',
-    status: 'New Orders',
-  },
-  {
-    id: '12346',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    price: '$75',
-    status: 'Cancelled',
-  },
-  {
-    id: '12347',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    price: '$100',
-    status: 'Completed',
-  },
-  {
-    id: '12348',
-    date: '04-10-2024',
-    time: '02:00 PM',
-    price: '$60',
-    status: 'New Orders',
-  },
-  {
-    id: '12345',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    price: '$50',
-    status: 'New Orders',
-  },
-  {
-    id: '12346',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    price: '$75',
-    status: 'Cancelled',
-  },
-  {
-    id: '12347',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    price: '$100',
-    status: 'Completed',
-  },
-  {
-    id: '12348',
-    date: '04-10-2024',
-    time: '02:00 PM',
-    price: '$60',
-    status: 'New Orders',
-  },
-  {
-    id: '12345',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    price: '$50',
-    status: 'New Orders',
-  },
-  {
-    id: '12346',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    price: '$75',
-    status: 'Cancelled',
-  },
-  {
-    id: '12347',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    price: '$100',
-    status: 'Completed',
-  },
-  {
-    id: '12348',
-    date: '04-10-2024',
-    time: '02:00 PM',
-    price: '$60',
-    status: 'New Orders',
-  },
-  {
-    id: '12345',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    price: '$50',
-    status: 'New Orders',
-  },
-  {
-    id: '12346',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    price: '$75',
-    status: 'Cancelled',
-  },
-  {
-    id: '12347',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    price: '$100',
-    status: 'Completed',
-  },
-  {
-    id: '12348',
-    date: '04-10-2024',
-    time: '02:00 PM',
-    price: '$60',
-    status: 'New Orders',
-  },
-  {
-    id: '12345',
-    date: '01-10-2024',
-    time: '10:30 AM',
-    price: '$50',
-    status: 'New Orders',
-  },
-  {
-    id: '12346',
-    date: '02-10-2024',
-    time: '11:00 AM',
-    price: '$75',
-    status: 'Cancelled',
-  },
-  {
-    id: '12347',
-    date: '03-10-2024',
-    time: '01:00 PM',
-    price: '$100',
-    status: 'Completed',
-  },
-  {
-    id: '12348',
-    date: '04-10-2024',
-    time: '02:00 PM',
-    price: '$60',
-    status: 'New Orders',
-  },
-  // Add more orders as needed...
-];
-
+  const recentOrders = [
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      status: 'New Orders',
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      status: 'Cancelled',
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      status: 'Completed',
+    },
+    {
+      id: '12348',
+      date: '04-10-2024',
+      time: '02:00 PM',
+      price: '$60',
+      status: 'New Orders',
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      status: 'New Orders',
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      status: 'Cancelled',
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      status: 'Completed',
+    },
+    {
+      id: '12348',
+      date: '04-10-2024',
+      time: '02:00 PM',
+      price: '$60',
+      status: 'New Orders',
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      status: 'New Orders',
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      status: 'Cancelled',
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      status: 'Completed',
+    },
+    {
+      id: '12348',
+      date: '04-10-2024',
+      time: '02:00 PM',
+      price: '$60',
+      status: 'New Orders',
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      status: 'New Orders',
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      status: 'Cancelled',
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      status: 'Completed',
+    },
+    {
+      id: '12348',
+      date: '04-10-2024',
+      time: '02:00 PM',
+      price: '$60',
+      status: 'New Orders',
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      status: 'New Orders',
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      status: 'Cancelled',
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      status: 'Completed',
+    },
+    {
+      id: '12348',
+      date: '04-10-2024',
+      time: '02:00 PM',
+      price: '$60',
+      status: 'New Orders',
+    },
+    // Add more orders as needed...
+  ];
 
   // Function to determine badge color (same as in Orders component)
   const getBadgeStyle = status => {
@@ -273,7 +272,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     textAlign: 'center',
   },
-  listIcon: {width: 24, height: 24, marginRight: 10},
+  listIcon: {width: 20, height: 20, marginRight: 10},
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',

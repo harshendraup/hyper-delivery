@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
-import backbutton from '../asset/backbutton.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import ProductImage from '../asset/ProductImage.png';
-import uploadcloud from '../asset/uploadcloud.png';
+import Cloud from '../asset/SVG/Cloud.png';
 import CheckBox from '@react-native-community/checkbox'; // Import CheckBox
 import Accordion from '../component/Accordion'; // Import Accordion component
 
@@ -139,7 +139,7 @@ const AncillaryAddProducts = () => {
 
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
-              <Image source={uploadcloud} />
+              <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>
           </View>
@@ -213,6 +213,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 18,
     backgroundColor: 'transparent',
+  },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTop: 5, // Add space between icon and text
   },
   uploadContainer: {
     width: width * 0.85,

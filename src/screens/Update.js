@@ -18,9 +18,9 @@ import profilePic1 from '../asset/faces/Ellipse12.png';
 import messageIcon from '../asset/icons/messangeIcon.png';
 import phoneIcon from '../asset/icons/callIcon.png';
 import star from '../asset/icons/star.png';
-import pickupIcon from '../asset/icons/pickuploc.png';
-import deliveryIcon from '../asset/icons/deliveryloc.png';
-import orderIcon from '../asset/icons/orderId.png';
+import pickupIcon from '../asset/SVG/Pickupicon.png';
+import deliveryIcon from '../asset/SVG/Deliveryicon.png';
+import orderIcon from '../asset/SVG/Id.png';
 
 const {width, height} = Dimensions.get('window');
 
@@ -158,10 +158,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   mapImage: {
-    width: width*0.85,
-    height: height*0.65,
+    width: width * 0.85,
+    height: height * 0.65,
     borderRadius: 30,
-marginBottom: 10,
+    marginBottom: 10,
   },
   locationContainer: {
     width: '100%',
@@ -268,7 +268,7 @@ marginBottom: 10,
   },
   orderIcon: {
     width: 20,
-    height: 20,
+    height: 25,
     marginRight: 10,
   },
   orderIdHeading: {
@@ -288,7 +288,7 @@ marginBottom: 10,
   profileRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap:-20,
+    gap: -20,
   },
   iconButton: {
     // marginLeft: 1,

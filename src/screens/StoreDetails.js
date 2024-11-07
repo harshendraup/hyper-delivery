@@ -14,8 +14,8 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
 import backbutton from '../asset/backbutton.png';
-import uploadcloud from '../asset/uploadcloud.png';
-import Calender from '../asset/icons/Location.png'; // Import the calendar icon
+import Cloud from '../asset/SVG/Cloud.png';
+import Location from '../asset/SVG/Loc.png'; // Import the calendar icon
 
 const {width} = Dimensions.get('window');
 
@@ -83,7 +83,7 @@ const StoreDetails = () => {
               onPress={() => {
                 /* Open date picker logic here */
               }}>
-              <Image source={Calender} style={{width: 20, height: 20}} />
+              <Image source={Location} style={{width: 20, height: 20}} />
             </TouchableOpacity>
           </View>
         </View>
@@ -92,12 +92,12 @@ const StoreDetails = () => {
           <Text style={styles.topText}>Shop Documents</Text>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
-              <Image source={uploadcloud} />
+              <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>Upload Documents</Text>
             </TouchableOpacity>
             <Text style={styles.topText}>Product image</Text>
             <TouchableOpacity style={styles.uploadButton}>
-              <Image source={uploadcloud} />
+              <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>Upload Product Image</Text>
             </TouchableOpacity>
           </View>
@@ -142,6 +142,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTop: 30, // Add space between icon and text
   },
   title: {
     fontSize: 18,

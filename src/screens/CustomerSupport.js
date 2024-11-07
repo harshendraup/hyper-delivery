@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import sendButton from '../asset/icons/sendButton.png';
+import sendButton from '../asset/SVG/Send.png';
 import {useNavigation} from '@react-navigation/native';
 import backArrow from '../asset/icons/backArrow.png';
-import call from '../asset/icons/call.png';
+import call from '../asset/SVG/Call.png';
 import Ellipse3 from '../asset/faces/Ellipse3.png';
 import Ellipse11 from '../asset/faces/Ellipse11.png';
 
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   backButtonImage: {
     width: 12, // Smaller width
-    height: 14, // Smaller height
+    height: 12, // Smaller height
   },
   messageList: {
     flex: 1,
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   sendButton: {
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
   },
   profileImage: {
     width: 40,

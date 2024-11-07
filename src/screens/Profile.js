@@ -15,13 +15,13 @@ import {useNavigation} from '@react-navigation/native';
 // Import icons
 import chat from '../asset/icons/chat.png';
 import dashboard from '../asset/icons/dashboard.png';
-import editIcon from '../asset/icons/person.png';
-import storeIcon from '../asset/icons/store.png';
-import earningsIcon from '../asset/icons/EarnIcon.png';
-import privacyIcon from '../asset/icons/privacy.png';
-import supportIcon from '../asset/icons/support.png';
-import greenArrow from '../asset/icons/greenArrow.png';
-import logoutIcon from '../asset/icons/logout.png';
+import editIcon from '../asset/SVG/Editicon.png';
+import storeIcon from '../asset/SVG/Editstoreicon.png';
+import earningsIcon from '../asset/SVG/Earningicon.png';
+import privacyIcon from '../asset/SVG/Privacyicon.png';
+import supportIcon from '../asset/SVG/Customersupport.png';
+import greenArrow from '../asset/SVG/Greenarrow.png';
+import logoutIcon from '../asset/SVG/Logout.png';
 import Ellipse12 from '../asset/faces/Ellipse3.png';
 
 const {width, height} = Dimensions.get('window');
@@ -32,8 +32,18 @@ const Profile = () => {
   const menuItems = [
     {label: 'Edit Profile', icon: editIcon, route: 'EditUserProfile'},
     {label: 'Edit Store Details', icon: storeIcon, route: 'StoreDetails'},
-    {label: 'Earnings', icon: earningsIcon, route: 'Earnings'},
-    {label: 'Privacy Policy', icon: privacyIcon, route: 'PrivacyPolicy'},
+    {
+      label: 'Earnings',
+      icon: earningsIcon,
+      route: 'Earnings',
+      iconStyle: styles.earningsIcon,
+    },
+    {
+      label: 'Privacy Policy',
+      icon: privacyIcon,
+      route: 'PrivacyPolicy',
+      iconStyle: styles.privacyIcon,
+    },
     {label: 'Customer Support', icon: supportIcon, route: 'CustomerSupport'},
     {label: 'Logout', icon: logoutIcon, route: 'TabNavigator'},
   ];
@@ -67,7 +77,10 @@ const Profile = () => {
               key={index}
               style={styles.menuItem}
               onPress={() => handlePress(item.route)}>
-              <Image source={item.icon} style={styles.menuIcon} />
+              <Image
+                source={item.icon}
+                style={[styles.menuIcon, item.iconStyle]} // Apply conditional styling
+              />
               <Text style={styles.menuText}>{item.label}</Text>
               <Image source={greenArrow} style={styles.arrowIcon} />
             </TouchableOpacity>
@@ -93,7 +106,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: -40, // Reduced margin to prevent overflow on smaller screens
   },
-
   profileLabel: {
     position: 'absolute',
     top: 20,
@@ -106,8 +118,6 @@ const styles = StyleSheet.create({
     height: width * 0.2, // Dynamically setting image height (20% of screen width)
     borderRadius: width * 0.1, // Dynamically setting border radius to keep the image round
     marginBottom: 10,
-    // borderWidth: 2,
-    // borderColor: 'white',
   },
   profileName: {
     fontSize: 22,
@@ -134,8 +144,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e0e0e0',
   },
   menuIcon: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
     marginRight: 15,
   },
   menuText: {
@@ -147,7 +157,16 @@ const styles = StyleSheet.create({
   },
   arrowIcon: {
     width: 10,
-    height: 16,
+    height: 17,
+  },
+  earningsIcon: {
+    width: 25, // Custom size for earnings icon
+    height: 25,
+    marginRight: 10,
+  },
+  privacyIcon: {
+    width: 19, // Custom size for privacy icon
+    height: 24,
   },
 });
 

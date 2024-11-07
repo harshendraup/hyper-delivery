@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
-import rejectbackbutton from '../asset/rejectbackbutton.png';
+import backArrow from '../asset/icons/backArrow.png';
 
 const {width} = Dimensions.get('window');
 
@@ -54,8 +54,14 @@ const RejectReason = () => {
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={styles.backButton}>
-            <Image source={rejectbackbutton} style={styles.backButtonImage} />
+            style={styles.backButton}
+            activeOpacity={0.7} // Slight feedback on press
+          >
+            <Image
+              source={backArrow}
+              style={{width: 16, height: 16}}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
           <Text style={styles.title}>Reject Reason</Text>
         </View>
@@ -116,7 +122,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   backButton: {
-    padding: 10,
+    padding: 10, // Adjust padding for larger clickable area
+    backgroundColor: '#409C59',
+    borderRadius: 5,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    width: 40, // Set a fixed width
+    height: 40, // Set a fixed height
+    justifyContent: 'center', // Ensure image is centered
+    alignItems: 'center', // Center the image
+    marginLeft: 10,
   },
   backButtonImage: {
     width: 45,

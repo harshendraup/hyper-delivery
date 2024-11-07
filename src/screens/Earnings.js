@@ -11,9 +11,9 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import chat from '../asset/icons/chat.png';
-import earningsIcon from '../asset/icons/EarnIcon.png';
-import ordersIcon from '../asset/icons/earn.png';
+import chat from '../asset/SVG/Chaticon.png';
+import earningsIcon from '../asset/SVG/Earningicon.png';
+import ordersIcon from '../asset/SVG/Pay.png';
 // import backbutton from '../asset/backbutton.png';
 import Backbutton from '../asset/SVG/Back';
 // import backbutton from '../asset/icons/Group.svg';
@@ -27,135 +27,134 @@ const Earnings = () => {
     {icon: earningsIcon, title: 'Total Earning', data: '$5000'},
   ];
 
- const recentOrders = [
-   {
-     id: '12345',
-     date: '01-10-2024',
-     time: '10:30 AM',
-     price: '$50',
-     isNew: true,
-   },
-   {
-     id: '12346',
-     date: '02-10-2024',
-     time: '11:00 AM',
-     price: '$75',
-     isNew: false,
-   },
-   {
-     id: '12347',
-     date: '03-10-2024',
-     time: '01:00 PM',
-     price: '$100',
-     isNew: true,
-   },
-   {
-     id: '12345',
-     date: '01-10-2024',
-     time: '10:30 AM',
-     price: '$50',
-     isNew: true,
-   },
-   {
-     id: '12346',
-     date: '02-10-2024',
-     time: '11:00 AM',
-     price: '$75',
-     isNew: false,
-   },
-   {
-     id: '12347',
-     date: '03-10-2024',
-     time: '01:00 PM',
-     price: '$100',
-     isNew: true,
-   },
-   {
-     id: '12345',
-     date: '01-10-2024',
-     time: '10:30 AM',
-     price: '$50',
-     isNew: true,
-   },
-   {
-     id: '12346',
-     date: '02-10-2024',
-     time: '11:00 AM',
-     price: '$75',
-     isNew: false,
-   },
-   {
-     id: '12347',
-     date: '03-10-2024',
-     time: '01:00 PM',
-     price: '$100',
-     isNew: true,
-   },
-   {
-     id: '12345',
-     date: '01-10-2024',
-     time: '10:30 AM',
-     price: '$50',
-     isNew: true,
-   },
-   {
-     id: '12346',
-     date: '02-10-2024',
-     time: '11:00 AM',
-     price: '$75',
-     isNew: false,
-   },
-   {
-     id: '12347',
-     date: '03-10-2024',
-     time: '01:00 PM',
-     price: '$100',
-     isNew: true,
-   },
-   {
-     id: '12345',
-     date: '01-10-2024',
-     time: '10:30 AM',
-     price: '$50',
-     isNew: true,
-   },
-   {
-     id: '12346',
-     date: '02-10-2024',
-     time: '11:00 AM',
-     price: '$75',
-     isNew: false,
-   },
-   {
-     id: '12347',
-     date: '03-10-2024',
-     time: '01:00 PM',
-     price: '$100',
-     isNew: true,
-   },
-   {
-     id: '12345',
-     date: '01-10-2024',
-     time: '10:30 AM',
-     price: '$50',
-     isNew: true,
-   },
-   {
-     id: '12346',
-     date: '02-10-2024',
-     time: '11:00 AM',
-     price: '$75',
-     isNew: false,
-   },
-   {
-     id: '12347',
-     date: '03-10-2024',
-     time: '01:00 PM',
-     price: '$100',
-     isNew: true,
-   },
- ];
-
+  const recentOrders = [
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      isNew: true,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      isNew: false,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      isNew: true,
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      isNew: true,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      isNew: false,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      isNew: true,
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      isNew: true,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      isNew: false,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      isNew: true,
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      isNew: true,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      isNew: false,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      isNew: true,
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      isNew: true,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      isNew: false,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      isNew: true,
+    },
+    {
+      id: '12345',
+      date: '01-10-2024',
+      time: '10:30 AM',
+      price: '$50',
+      isNew: true,
+    },
+    {
+      id: '12346',
+      date: '02-10-2024',
+      time: '11:00 AM',
+      price: '$75',
+      isNew: false,
+    },
+    {
+      id: '12347',
+      date: '03-10-2024',
+      time: '01:00 PM',
+      price: '$100',
+      isNew: true,
+    },
+  ];
 
   return (
     <KeyboardAvoidingView
@@ -326,8 +325,8 @@ const styles = StyleSheet.create({
     textAlign: 'left', // Center the payment history title
   },
   listIcon: {
-    width: 24,
-    height: 24,
+    width: 25,
+    height: 26,
     marginRight: 10,
   },
   listItem: {
@@ -362,4 +361,3 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish',
   },
 });
-

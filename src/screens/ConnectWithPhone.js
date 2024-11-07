@@ -12,7 +12,7 @@ import {
   Keyboard,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import logo from '../asset/logo.png';
+import logo from '../asset/SVG/Logo.png';
 import Apple from '../asset/SVG/Apple'; // Import SVG components
 import Phone from '../asset/SVG/Call';
 import Email from '../asset/SVG/Email';
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 70,
-    height: 70,
+    width: 50,
+    height: 50,
     marginRight: 10,
     marginTop: 40,
   },

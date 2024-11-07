@@ -12,7 +12,7 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import uploadcloud from '../asset/uploadcloud.png';
+import Cloud from '../asset/SVG/Cloud.png';
 import Accordion from '../component/Accordion';
 
 const {width} = Dimensions.get('window');
@@ -120,7 +120,7 @@ const ContactUsForm = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
-                <Image source={uploadcloud} />
+                <Image source={Cloud} style={styles.CloudIcon} />
                 <Text style={styles.uploadButtonText}>Front</Text>
                 <Text style={styles.uploadButtonSubtext}>
                   Upload & Scan passport / driver's license
@@ -129,7 +129,7 @@ const ContactUsForm = () => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
-                <Image source={uploadcloud} />
+                <Image source={Cloud} style={styles.CloudIcon} />
                 <Text style={styles.uploadButtonText}>Back</Text>
                 <Text style={styles.uploadButtonSubtext}>
                   Upload & Scan passport / driver's license
@@ -161,6 +161,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 25,
+  },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTop: 5, // Add space between icon and text
   },
   inputContainer: {
     width: width * 0.85,

@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import React, {useEffect, useState, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import uploadcloud from '../asset/uploadcloud.png';
-import backbutton from '../asset/backbutton.png';
+import Cloud from '../asset/SVG/Cloud.png';
+import backbutton from '../asset/SVG/Backbutton.png';
 import CommonButton from '../component/button';
 
 const {width} = Dimensions.get('window');
@@ -57,14 +57,14 @@ const UploadDoc = () => {
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
-              <Image source={uploadcloud} />
+              <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>
                 Front{'\n'}
                 {'\n'}Upload & Scan passport / driver's license
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
-              <Image source={uploadcloud} />
+              <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>
                 Back{'\n'}
                 {'\n'}Upload & Scan passport / driver's license
@@ -122,10 +122,16 @@ const styles = StyleSheet.create({
     // marginTop: 30,
   },
   uploadContainer: {
-    width: width*85,
+    width: width * 85,
     marginTop: 20,
     alignItems: 'center',
-    marginHorizontal:54,
+    marginHorizontal: 54,
+  },
+  CloudIcon: {
+    width: 20, // Set the width of the icon
+    height: 20, // Set the height of the icon
+    resizeMode: 'contain', // Ensures the icon maintains its aspect ratio
+    marginTop: 5, // Add space between icon and text
   },
   uploadText: {
     fontSize: 20,
@@ -138,13 +144,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width:width*0.85
+    width: width * 0.85,
     // marginTop: 40,
     // marginHorizontal: 50,
   },
   uploadButton: {
     height: 180,
-    width: width*0.85,
+    width: width * 0.85,
     borderColor: '#409C59',
     borderWidth: 1,
     borderRadius: 10,

@@ -5,11 +5,11 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
-import logo from '../asset/logo.png';
+import logo from '../asset/SVG/Logo.png';
 import girlBag from '../asset/girlBag.png';
 import girlWeb from '../asset/girlWeb.png';
 import guyPhoto from '../asset/guyPhoto.png';
@@ -48,17 +48,15 @@ const Onboarding = () => {
   const navigation = useNavigation();
 
   return (
-    
     <View style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          // keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        // keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}>
         <View style={styles.topSection}>
           <View style={styles.touchable}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('TabNavigator')}
-              >
+              onPress={() => navigation.navigate('TabNavigator')}>
               <Image source={logo} style={styles.logo} />
             </TouchableOpacity>
             <View>
@@ -109,8 +107,8 @@ const Onboarding = () => {
         <Text style={styles.subsubText}>
           By continuing you agree to our{'\n'}Terms of use and privacy
         </Text>
-    </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -139,8 +137,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logo: {
-    width: 65,
-    height: 65,
+    width: 45,
+    height: 45,
     marginRight: 10,
   },
   boldText: {

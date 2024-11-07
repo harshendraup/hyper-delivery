@@ -1,7 +1,7 @@
 import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import logo from '../asset/splash.png'; 
+import logo from '../asset/SVG/Logo.png';
 
 const Splash = () => {
   const navigation = useNavigation();
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // Change to your desired background color
   },
   logo: {
-    width: 400, // Adjust the width as necessary
-    height: 400, // Adjust the height as necessary
+    width: 100, // Adjust the width as necessary
+    height: 100, // Adjust the height as necessary
     marginBottom: 20, // Spacing between image and text
   },
 });

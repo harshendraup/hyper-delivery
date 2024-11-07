@@ -12,9 +12,9 @@ import {
   Keyboard,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import logo from '../asset/logo.png';
+import logo from '../asset/SVG/Logo.png';
 
-import tri from '../asset/tri.png';
+import tri from '../asset/SVG/Flag.png';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
 // Import SVG components directly
@@ -194,8 +194,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 70,
-    height: 70,
+    width: 50,
+    height: 50,
     marginRight: 10,
     marginTop: 40,
   },
