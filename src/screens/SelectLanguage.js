@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -20,13 +21,18 @@ const GreenButton = ({title, onPress}) => (
 );
 
 const SelectLanguage = () => {
+  const {t, i18n} = useTranslation();
   const navigation = useNavigation();
 
   // State to track which language button is selected
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const handleLanguageSelect = language => {
-    setSelectedLanguage(language); // Set the selected language
+    // Change the language only if it's different from the current one
+    if (i18n.language !== language) {
+      i18n.changeLanguage(language); // Change language using i18next
+      setSelectedLanguage(language); // Update the state to reflect the selected language
+    }
   };
 
   return (
@@ -38,25 +44,54 @@ const SelectLanguage = () => {
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
-        <Text style={styles.topText}>Select Language</Text>
+        <Text style={styles.topText}>{t('select_lang')}</Text>
 
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
-            {['عربي', 'English'].map(language => (
+            {['ar', 'en'].map(languageCode => (
               <TouchableOpacity
-                key={language}
+                key={languageCode}
                 style={[
                   styles.uploadButton,
-                  selectedLanguage === language && styles.selectedButton,
+                  selectedLanguage === languageCode && styles.selectedButton, // Highlight selected button
                 ]}
-                onPress={() => handleLanguageSelect(language)}>
+                onPress={() => handleLanguageSelect(languageCode)}>
                 <View style={styles.uploadButtonContent}>
                   <Text
                     style={[
                       styles.uploadButtonSubtext,
-                      language === 'عربي' && styles.largeText,
+                      languageCode === 'ar' && styles.largeText,
                     ]}>
-                    {language}
+                    {languageCode === 'ar' ? 'عربي' : 'English'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <View style={styles.uploadRow}>
+            {['ru', 'he'].map(languageCode => (
+              <TouchableOpacity
+                key={languageCode}
+                style={[
+                  styles.uploadButton,
+                  selectedLanguage === languageCode && styles.selectedButton, // Highlight selected button
+                ]}
+                onPress={() => handleLanguageSelect(languageCode)}>
+                <View style={styles.uploadButtonContent}>
+                  <Text
+                    style={[
+                      styles.uploadButtonSubtext,
+                      languageCode === 'ar' && styles.largeText,
+                      languageCode === 'he' && styles.largeText, // Increase font size for Hebrew too
+                    ]}>
+                    {languageCode === 'ar'
+                      ? 'عربي'
+                      : languageCode === 'en'
+                      ? 'English'
+                      : languageCode === 'ru'
+                      ? 'Русский'
+                      : 'עברית'}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -66,7 +101,7 @@ const SelectLanguage = () => {
 
         <View style={styles.buttonContainer}>
           <GreenButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('Onboarding')}
           />
         </View>
@@ -94,8 +129,9 @@ const styles = StyleSheet.create({
   },
   uploadRow: {
     flexDirection: 'row',
-    gap: 10,
     justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: 10, // Add margin between rows
   },
   uploadButton: {
     height: 130,
@@ -105,7 +141,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 8,
     backgroundColor: '#ecf6ee',
   },
   selectedButton: {
@@ -120,7 +155,7 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
   largeText: {
-    fontSize: 30, // Increase font size for Arabic text
+    fontSize: 30, // Increase font size for Arabic and Hebrew text
   },
   buttonContainer: {
     paddingTop: 10,

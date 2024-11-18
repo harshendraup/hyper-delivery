@@ -11,7 +11,7 @@ const Splash = () => {
     setIsMounted(true);
     const timer = setTimeout(() => {
       if (isMounted) {
-        navigation.navigate('Onboarding');
+        navigation.navigate('SelectLanguage');
       }
     }, 1000); // Navigate after 1 second
 
@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // Change to your desired background color
   },
   logo: {
+    width: 100, // Adjust the width as necessary
+    height: 100, // Adjust the height as necessary
     width: 100, // Adjust the width as necessary
     height: 100, // Adjust the height as necessary
     marginBottom: 20, // Spacing between image and text
