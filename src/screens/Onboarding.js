@@ -20,7 +20,9 @@ import Facebook from '../asset/SVG/Facebook';
 import Google from '../asset/SVG/Google';
 import GetstartwithFace from '../asset/SVG/ScanFace';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 import Language from '../utils/Language';
+import i18next from '../services/i18next';
 
 const {width, height} = Dimensions.get('window');
 
@@ -45,7 +47,7 @@ const CustomButton = ({title, onPress}) => {
 };
 
 const Onboarding = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation(); const {t} = useTranslation();
 
   return (
     <View style={styles.container}>

@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
 const {width} = Dimensions.get('window');
 
 const GreenButton = ({title, onPress}) => (

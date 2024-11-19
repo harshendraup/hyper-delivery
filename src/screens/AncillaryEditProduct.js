@@ -145,7 +145,8 @@ const AncillaryEditProduct = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={[styles.uploadButton]}
-              onPress={() => handleUpload('Front')}>
+              // onPress={() => handleUpload('Front')}
+              >
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>

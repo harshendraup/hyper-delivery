@@ -320,6 +320,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     color: 'rgba(0, 0, 0, 1)',
     fontFamily: 'Mulish',
-    fontWeight: '500',
+    
   },
 });

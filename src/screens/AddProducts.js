@@ -12,6 +12,9 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
 import CommonButton from '../component/button';
 import backbutton from '../asset/SVG/Backbutton.png';
 import ProductImage from '../asset/ProductImage.png';

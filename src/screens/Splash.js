@@ -42,8 +42,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 100, // Adjust the width as necessary
     height: 100, // Adjust the height as necessary
-    width: 100, // Adjust the width as necessary
-    height: 100, // Adjust the height as necessary
     marginBottom: 20, // Spacing between image and text
   },
 });
