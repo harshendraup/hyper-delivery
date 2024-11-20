@@ -16,6 +16,9 @@ import Cloud from '../../asset/SVG/Cloud.png';
 import Backbutton from '../../asset/SVG/Backbutton.png';
 import Accordion from '../../component/Accordion';
 import Clock from '../../asset/SVG/Clock.png';
+import Language from '../../utils/Language';
+import i18next from '../../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
@@ -43,7 +46,7 @@ const FloatingLabelInput = ({label, value, onChangeText, icon}) => {
 
 const BusinessDetails = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -64,192 +67,188 @@ const BusinessDetails = () => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
-        <View style={styles.backButtonContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}>
-            <Image source={Backbutton} style={styles.backButtonImage} />
-          </TouchableOpacity>
-        </View>
+    style={styles.container}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+  >
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={styles.backButtonContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Image source={Backbutton} style={styles.backButtonImage} />
+        </TouchableOpacity>
+      </View>
 
-        <Text style={styles.topText}>Registration</Text>
-        <View style={styles.toggleContainer}>
-          <TouchableOpacity
-            style={[styles.toggleButton, !isBankDetails && styles.activeToggle]}
-            onPress={() => setIsBankDetails(false)}>
-            <Text
-              style={[
-                styles.toggleButtonText,
-                !isBankDetails ? styles.activeText : styles.inactiveText,
-              ]}>
-              Business Details
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.toggleButton, isBankDetails && styles.activeToggle]}
-            onPress={() => setIsBankDetails(true)}>
-            <Text
-              style={[
-                styles.toggleButtonText,
-                isBankDetails ? styles.activeText : styles.inactiveText,
-              ]}>
-              Bank Details
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <Text style={styles.topText}>{t('registration')}</Text>
+      <View style={styles.toggleContainer}>
+        <TouchableOpacity
+          style={[styles.toggleButton, !isBankDetails && styles.activeToggle]}
+          onPress={() => setIsBankDetails(false)}
+        >
+          <Text
+            style={[
+              styles.toggleButtonText,
+              !isBankDetails ? styles.activeText : styles.inactiveText,
+            ]}
+          >
+            {t('business_details')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.toggleButton, isBankDetails && styles.activeToggle]}
+          onPress={() => setIsBankDetails(true)}
+        >
+          <Text
+            style={[
+              styles.toggleButtonText,
+              isBankDetails ? styles.activeText : styles.inactiveText,
+            ]}
+          >
+            {t('bank_details')}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
-        <View style={styles.inputContainer}>
-          {isBankDetails ? (
-            <>
-              <FloatingLabelInput
-                label="Account Number"
-                value={accountNumber}
-                onChangeText={setAccountNumber}
-              />
-              <FloatingLabelInput
-                label="Account holder Name"
-                value={HolderName}
-                onChangeText={setHolderName}
-              />
-              <FloatingLabelInput
-                label="Bank Name"
-                value={bankName}
-                onChangeText={setBankName}
-              />
-              <FloatingLabelInput
-                label="Ifsc Code"
-                value={sortCode}
-                onChangeText={setSortCode}
-              />
-              <View style={styles.uploadContainer}>
-                <Text style={styles.uploadText}>Account Approval From</Text>
-                <View style={styles.uploadRow}>
-                  <TouchableOpacity
-                    style={[
-                      styles.uploadButton,
-                      {
-                        alignItems: 'center', // Ensure buttons are vertically centered
-                        width: '100%',
-                      },
-                    ]}>
-                    <Text style={styles.uploadButtonText}>
-                      <Image source={Cloud} style={styles.CloudIcon} />
-                      {'\n'}
-                      {'\n'}
-                      Upload Form
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+      <View style={styles.inputContainer}>
+        {isBankDetails ? (
+          <>
+            <FloatingLabelInput
+              label={t('account_number')}
+              value={accountNumber}
+              onChangeText={setAccountNumber}
+            />
+            <FloatingLabelInput
+              label={t('account_holder_name')}
+              value={HolderName}
+              onChangeText={setHolderName}
+            />
+            <FloatingLabelInput
+              label={t('bank_name')}
+              value={bankName}
+              onChangeText={setBankName}
+            />
+            <FloatingLabelInput
+              label={t('ifsc_code')}
+              value={sortCode}
+              onChangeText={setSortCode}
+            />
+            <View style={styles.uploadContainer}>
+              <Text style={styles.uploadText}>{t('account_approval_form')}</Text>
+              <View style={styles.uploadRow}>
+                <TouchableOpacity
+                  style={[
+                    styles.uploadButton,
+                    {
+                      alignItems: 'center', // Ensure buttons are vertically centered
+                      width: '100%',
+                    },
+                  ]}
+                >
+                  <Text style={styles.uploadButtonText}>
+                    <Image source={Cloud} style={styles.CloudIcon} />
+                    {'\n'}
+                    {'\n'}
+                    {t('upload_form')}
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <View style={styles.buttonContainer}>
-                <GreenButton
-                  title="Next"
-                  onPress={() => navigation.navigate('ApprovalWaitng')}
-                />
-              </View>
-            </>
-          ) : (
-            <>
-              <FloatingLabelInput
-                label="Business Name"
-                value={firstName}
-                onChangeText={setFirstName}
-              />
-              <FloatingLabelInput
-                label="Phone number"
-                value={lastName}
-                onChangeText={setLastName}
-              />
-              <FloatingLabelInput
-                label="About"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-              />
-              <FloatingLabelInput
-                label="Timing of shop"
-                value={dob}
-                onChangeText={setDob}
-                icon={Clock} // Pass the Clock icon as a prop
-              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <GreenButton title={t('next')} onPress={() => navigation.navigate('ApprovalWaitng')} />
+            </View>
+          </>
+        ) : (
+          <>
+            <FloatingLabelInput
+              label={t('business_name')}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+            <FloatingLabelInput
+              label={t('phone_number')}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+            <FloatingLabelInput
+              label={t('about')}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+            />
+            <FloatingLabelInput
+              label={t('shop_timing')}
+              value={dob}
+              onChangeText={setDob}
+              icon={Clock} // Pass the Clock icon as a prop
+            />
 
-              <Accordion
-                title="Open days at shop"
-                items={['day 1', 'day 2', 'day 3']}
-                isOpen={selectDayOpen}
-                toggle={() => setselectDayOpen(!selectDayOpen)}
-                onSelect={() => {}}
-              />
-              {/* <FloatingLabelInput
-                label="Open days at shop"
-                value={day}
-                onChangeText={setDay}
-              /> */}
-              <View style={styles.uploadContainer}>
-                <Text style={styles.uploadText}>Store Logo</Text>
-                <View style={styles.uploadRow}>
-                  <TouchableOpacity
-                    style={[
-                      styles.uploadButton,
-                      {
-                        alignItems: 'center', // Ensure buttons are vertically centered
-                        width: '100%',
-                      },
-                    ]}>
-                    <Text style={styles.uploadButtonText}>
-                      <Image source={Cloud} style={styles.CloudIcon} />
-                      {'\n'}
-                      {'\n'}
-                      Upload Logo
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+            <Accordion
+              title={t('shop_open_days')}
+              items={['day 1', 'day 2', 'day 3']}
+              isOpen={selectDayOpen}
+              toggle={() => setselectDayOpen(!selectDayOpen)}
+              onSelect={() => {}}
+            />
+            <View style={styles.uploadContainer}>
+              <Text style={styles.uploadText}>{t('store_logo')}</Text>
+              <View style={styles.uploadRow}>
+                <TouchableOpacity
+                  style={[
+                    styles.uploadButton,
+                    {
+                      alignItems: 'center', // Ensure buttons are vertically centered
+                      width: '100%',
+                    },
+                  ]}
+                >
+                  <Text style={styles.uploadButtonText}>
+                    <Image source={Cloud} style={styles.CloudIcon} />
+                    {'\n'}
+                    {'\n'}
+                    {t('upload_logo')}
+                  </Text>
+                </TouchableOpacity>
               </View>
+            </View>
 
-              <View style={styles.uploadContainer}>
-                <Text style={styles.uploadText}>Business Images</Text>
-                <View style={styles.uploadRow}>
-                  <TouchableOpacity style={styles.uploadButtonThree}>
-                    <Text style={styles.uploadButtonText}>
-                      <Image source={Cloud} style={styles.CloudIcon} />
-                      {'\n'}
-                      {'\n'}
-                      Outside
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.uploadButtonThree}>
-                    <Text style={styles.uploadButtonText}>
-                      <Image source={Cloud} style={styles.CloudIcon} />
-                      {'\n'}
-                      {'\n'}
-                      Inside
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.uploadButtonThree}>
-                    <Text style={styles.uploadButtonText}>
-                      <Image source={Cloud} style={styles.CloudIcon} />
-                      {'\n'}
-                      {'\n'}Menu
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <GreenButton
-                  title="Next"
-                  onPress={() => setIsBankDetails(true)}
-                />
+            <View style={styles.uploadContainer}>
+              <Text style={styles.uploadText}>{t('business_images')}</Text>
+              <View style={styles.uploadRow}>
+                <TouchableOpacity style={styles.uploadButtonThree}>
+                  <Text style={styles.uploadButtonText}>
+                    <Image source={Cloud} style={styles.CloudIcon} />
+                    {'\n'}
+                    {'\n'}
+                    {t('outside')}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.uploadButtonThree}>
+                  <Text style={styles.uploadButtonText}>
+                    <Image source={Cloud} style={styles.CloudIcon} />
+                    {'\n'}
+                    {'\n'}
+                    {t('inside')}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.uploadButtonThree}>
+                  <Text style={styles.uploadButtonText}>
+                    <Image source={Cloud} style={styles.CloudIcon} />
+                    {'\n'}
+                    {'\n'}
+                    {t('menu')}
+                  </Text>
+                </TouchableOpacity>
               </View>
-            </>
-          )}
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+              <GreenButton title={t('next')} onPress={() => setIsBankDetails(true)} />
+            </View>
+          </>
+        )}
+      </View>
+    </ScrollView>
+  </KeyboardAvoidingView>
   );
 };
 

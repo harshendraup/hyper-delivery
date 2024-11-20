@@ -22,6 +22,9 @@ import GetstartwithFace from '../asset/SVG/ScanFace';
 import Flag from '../asset/SVG/Flag.png';
 import Dropdown from '../asset/SVG/Dropdown.png';
 import {useNavigation} from '@react-navigation/native';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
@@ -54,6 +57,7 @@ const GreenButton = ({title, onPress}) => {
 
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -146,7 +150,7 @@ const ConnectWithPhone = () => {
         </View>
 
         <Text style={styles.subsubText}>
-          By continuing you agree to our{'\n'}Terms of use and privacy
+        {t('terms_and_conditions')} {'\n'}{t('terms_and_conditions1')}
         </Text>
       </ScrollView>
     </KeyboardAvoidingView>

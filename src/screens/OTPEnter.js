@@ -14,6 +14,9 @@ import {
 import React, {useEffect, useState, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Getweed from '../asset/SVG/Getweed.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -25,6 +28,7 @@ const GreenButton = ({title, onPress}) => (
 
 const OTPEnter = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputRefs = Array.from({length: 6}, () => createRef());
 
@@ -65,9 +69,9 @@ const OTPEnter = () => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <Image source={Getweed} style={styles.logo} />
-        <Text style={styles.title}>Enter OTP</Text>
+        <Text style={styles.title}>{t('enter_otp')}</Text>
         <Text style={styles.subTitle}>
-          A 6 Digit Code Has Been Sent To{'\n'}+123456789
+          {t('otp_sent_message')}{'\n'}+123456789
         </Text>
         <View style={styles.otpContainer}>
           {otp.map((digit, index) => (
@@ -84,17 +88,17 @@ const OTPEnter = () => {
         </View>
         <View style={styles.buttonContainer}>
           <GreenButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('PersonalInfo')}
           />
         </View>
         <View style={styles.containerText}>
-          <Text style={styles.bottomText}>Send me code on Whatsapp!</Text>
+          <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
         </View>
         <View style={styles.containerText}>
-          <Text style={styles.bottomText}>4 OTP is left!</Text>
+          <Text style={styles.bottomText}>{t('otp_left')}</Text>
         </View>
-        <Text style={styles.subsubText}>Auto verifying you OTP in (00:13)</Text>
+        <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
       </ScrollView>
     </KeyboardAvoidingView>
   );

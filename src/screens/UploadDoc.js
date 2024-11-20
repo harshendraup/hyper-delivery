@@ -15,11 +15,15 @@ import {useNavigation} from '@react-navigation/native';
 import Cloud from '../asset/SVG/Cloud.png';
 import backbutton from '../asset/SVG/Backbutton.png';
 import CommonButton from '../component/button';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const UploadDoc = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -52,29 +56,29 @@ const UploadDoc = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.title}>Upload Document</Text>
+          <Text style={styles.title}>{t('upload_documents')}</Text>
         </View>
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>
-                Front{'\n'}
-                {'\n'}Upload & Scan passport / driver's license
+                {t('front')}{'\n'}
+                {'\n'}{t('upload_and_scan')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>
-                Back{'\n'}
-                {'\n'}Upload & Scan passport / driver's license
+              {t('back')}{'\n'}
+                {'\n'}{t('upload_and_scan')}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.buttonContainer}>
           <CommonButton
-            title="Next"
+            title={t('next')}
             // onPress={() => navigation.navigate('TabNavigator')}
           />
         </View>

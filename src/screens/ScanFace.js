@@ -15,11 +15,15 @@ import React, {useEffect, useState, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Scanface from '../asset/SVG/Scan.png';
 import CommonButton from '../component/button';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const ScanFace = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -46,13 +50,13 @@ const ScanFace = () => {
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Scan Face</Text>
+        <Text style={styles.title}>{t('scanface')}</Text>
         <View style={styles.imageContainer}>
           <Image source={Scanface} style={styles.logo} />
         </View>
         <View style={styles.buttonContainer}>
           <CommonButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('UploadDoc')}
           />
         </View>

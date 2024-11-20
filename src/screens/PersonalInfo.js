@@ -13,6 +13,9 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Cloud from '../asset/SVG/Cloud.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -44,6 +47,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const PersonalInfo = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -60,33 +64,33 @@ const PersonalInfo = () => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <Text style={styles.topText}>
-          Fill Your Personal Information Or Register With Your Social Account
+          {t('personal_info_title')}
         </Text>
 
         <View style={styles.inputContainer}>
           <FloatingLabelInput
-            label="First Name"
+            label={t('first_name')}
             value={firstName}
             onChangeText={setFirstName}
           />
           <FloatingLabelInput
-            label="Last Name"
+            label={t('last_name')}
             value={lastName}
             onChangeText={setLastName}
           />
           <FloatingLabelInput
-            label="Email"
+            label={t('email')}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Date of Birth (YYYY-MM-DD)"
+            label={t('dob')}
             value={dob}
             onChangeText={setDob}
           />
           <FloatingLabelInput
-            label="Address"
+            label={t('address')}
             value={address}
             onChangeText={setAddress}
             multiline
@@ -95,24 +99,24 @@ const PersonalInfo = () => {
           />
         </View>
 
-        <Text style={styles.uploadText}>Upload Documents</Text>
+        <Text style={styles.uploadText}>{t('upload_documents')}</Text>
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={Cloud} style={styles.CloudIcon} />
-                <Text style={styles.uploadButtonText}>Front</Text>
+                <Text style={styles.uploadButtonText}>{t('front')}</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / driver's license
+                  {t('upload_and_scan')}
                 </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={Cloud} style={styles.CloudIcon} />
-                <Text style={styles.uploadButtonText}>Back</Text>
+                <Text style={styles.uploadButtonText}>{t('back')}</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / driver's license
+                {t('upload_and_scan')}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -121,7 +125,7 @@ const PersonalInfo = () => {
 
         <View style={styles.buttonContainer}>
           <GreenButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('BusinessDetails')}
           />
         </View>

@@ -17,11 +17,15 @@ import edit from '../asset/SVG/Edit.png';
 import bin from '../asset/SVG/Delete.png';
 import stock from '../asset/stock.png'; // Add your stock image import here
 import plus from '../asset/SVG/Plusicon.png';
+import Language from '../../utils/Language';
+import i18next from '../../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const Products = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [activeTab, setActiveTab] = useState('active');
 
   const products = [
@@ -156,7 +160,7 @@ const Products = () => {
       <View style={styles.imageContainer}>
         <Image source={stock} style={styles.productImage} />
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>In Stock</Text>
+          <Text style={styles.badgeText}>{t('inStock')}</Text>
         </View>
       </View>
       <Text style={styles.productTitle}>HYBRID</Text>
@@ -187,84 +191,77 @@ const Products = () => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={[styles.backButton, styles.shadow]}>
-            <Image source={Dashboardbutton} style={styles.backButtonImage} />
-          </TouchableOpacity>
-          <Text style={styles.topText}>Products</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Chat')}
-            style={[styles.backButton, styles.shadow]}>
-            <Image source={chat} style={styles.backButtonImage} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonRow}>
-          <TouchableOpacity
-            style={[
-              styles.tabButton,
-              activeTab === 'active' && styles.selectedButton,
-            ]}
-            onPress={() => setActiveTab('active')}>
-            <Text
-              style={[
-                styles.tabButtonText,
-                activeTab === 'active' && styles.selectedButtonText,
-              ]}>
-              Active
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.tabButton,
-              activeTab === 'inactive' && styles.selectedButton,
-            ]}
-            onPress={() => setActiveTab('inactive')}>
-            <Text
-              style={[
-                styles.tabButtonText,
-                activeTab === 'inactive' && styles.selectedButtonText,
-              ]}>
-              Inactive
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.tabButton,
-              activeTab === 'deleted' && styles.selectedButton,
-            ]}
-            onPress={() => setActiveTab('deleted')}>
-            <Text
-              style={[
-                styles.tabButtonText,
-                activeTab === 'deleted' && styles.selectedButtonText,
-              ]}>
-              Deleted
-            </Text>
-          </TouchableOpacity>
-        </View>
+    style={styles.container}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+  >
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={styles.headerContainer}>
         <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => navigation.navigate('AddProducts')}>
-          <View style={styles.addButtonContent}>
-            <Image source={plus} style={styles.addButtonImage} />
-            <Text style={styles.addButtonText}>Add Products</Text>
-          </View>
+          onPress={() => navigation.goBack()}
+          style={[styles.backButton, styles.shadow]}
+        >
+          <Image source={Dashboardbutton} style={styles.backButtonImage} />
         </TouchableOpacity>
-
-        <View style={styles.productList}>
-          {products.map(renderProductTile)}
+        <Text style={styles.topText}>{t('product')}</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Chat')}
+          style={[styles.backButton, styles.shadow]}
+        >
+          <Image source={chat} style={styles.backButtonImage} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={[styles.tabButton, activeTab === 'active' && styles.selectedButton]}
+          onPress={() => setActiveTab('active')}
+        >
+          <Text
+            style={[styles.tabButtonText, activeTab === 'active' && styles.selectedButtonText]}
+          >
+            {t('active')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tabButton, activeTab === 'inactive' && styles.selectedButton]}
+          onPress={() => setActiveTab('inactive')}
+        >
+          <Text
+            style={[styles.tabButtonText, activeTab === 'inactive' && styles.selectedButtonText]}
+          >
+            {t('inactive')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tabButton, activeTab === 'deleted' && styles.selectedButton]}
+          onPress={() => setActiveTab('deleted')}
+        >
+          <Text
+            style={[styles.tabButtonText, activeTab === 'deleted' && styles.selectedButtonText]}
+          >
+            {t('deleted')}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddProducts')}
+      >
+        <View style={styles.addButtonContent}>
+          <Image source={plus} style={styles.addButtonImage} />
+          <Text style={styles.addButtonText}>{t('addProduct')}</Text>
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </TouchableOpacity>
+
+      <View style={styles.productList}>
+        {products.map(renderProductTile)}
+      </View>
+    </ScrollView>
+  </KeyboardAvoidingView>
   );
 };
 

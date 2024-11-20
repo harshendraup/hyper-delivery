@@ -9,9 +9,13 @@ import {
 } from 'react-native';
 import connect from '../asset/connect.png';
 import {useNavigation} from '@react-navigation/native';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const ApprovalWaiting = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const handleWhatsAppPress = () => {
     Linking.openURL('https://wa.me/your-number'); // Replace with your WhatsApp number
   };
@@ -26,11 +30,10 @@ const ApprovalWaiting = () => {
         <Image source={connect} style={styles.image} />
       </TouchableOpacity>
       <View style={styles.textContainer}>
-        <Text style={styles.heading}>Nice to meet you at get weed.</Text>
+        <Text style={styles.heading}>{t('nice_to_meet')}</Text>
         <Text style={styles.subtext}>
-          Please wait for approval. Your registration is completed, and
-          our{'\n'}
-          representative will contact you soon.
+         {t('wait_for_approval')}{'\n'}
+          {t('wait_for_approval1')}
         </Text>
         <Text
           style={{
@@ -39,11 +42,11 @@ const ApprovalWaiting = () => {
             textAlign: 'center',
             color: 'rgba(51, 51, 51, 1)',
           }}>
-          Contact Us
+          {t('contact_us')}
         </Text>
         <View style={styles.row}>
           <TouchableOpacity onPress={handleWhatsAppPress}>
-            <Text style={styles.contact}>WhatsApp</Text>
+            <Text style={styles.contact}>{t('whatsapp')}</Text>
           </TouchableOpacity>
           <Text
             style={{
@@ -52,10 +55,10 @@ const ApprovalWaiting = () => {
               textAlign: 'center',
               color: 'rgba(51, 51, 51, 1)',
             }}>
-            {'\t'}or
+            {'\t'}{t('or')}
           </Text>
           <TouchableOpacity onPress={handleEmailPress}>
-            <Text style={styles.contact}>{'\t'}Email</Text>
+            <Text style={styles.contact}>{'\t'}{t('Email')}</Text>
           </TouchableOpacity>
         </View>
       </View>

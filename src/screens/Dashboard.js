@@ -18,17 +18,21 @@ import orderIcon from '../asset/SVG/Ordersicon.png';
 import ordersIcon from '../asset/SVG/Orders.png';
 import productsIcon from '../asset/SVG/Productsicon.png';
 import salesIcon from '../asset/SVG/Salesicon.png';
+import Language from '../../utils/Language';
+import i18next from '../../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const Dashboard = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation(); // useTranslation hook to handle translations
 
   const tilesData = [
-    {icon: earningsIcon, title: 'Total Earnings', data: '$5000'},
-    {icon: orderIcon, title: 'Total Orders', data: '150'},
-    {icon: productsIcon, title: 'Total Products', data: '300'},
-    {icon: salesIcon, title: 'Total Sales', data: '200'},
+    {icon: earningsIcon, title: t('totalEarning'), data: '$5000'},
+    {icon: orderIcon, title: t('totalOrders'), data: '150'},
+    {icon: productsIcon, title: t('totalProducts'), data: '300'},
+    {icon: salesIcon, title: t('totalSales'), data: '200'},
   ];
 
   const recentOrders = [
@@ -133,7 +137,7 @@ const Dashboard = () => {
             style={[styles.backButton, styles.shadow]}>
             <Image source={Dashboardbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.topText}>Dashboard</Text>
+          <Text style={styles.topText}>{t('dashboard')}</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat')}
             style={[styles.backButton, styles.shadow]}>
@@ -154,16 +158,18 @@ const Dashboard = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Recent Orders</Text>
+          <Text style={styles.listTitle}>{t('recentOrders')}</Text>
           {recentOrders.map(order => (
             <View key={order.id} style={styles.listItem}>
               <Image source={ordersIcon} style={styles.listIcon} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
-                  <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                  <Text style={styles.orderId}>
+                    {t('orderId')}: {order.id}
+                  </Text>
                   {order.isNew && (
                     <View style={styles.newBadge}>
-                      <Text style={styles.badgeText}>New Order</Text>
+                      <Text style={styles.badgeText}>{t('newOrder')}</Text>
                     </View>
                   )}
                 </View>

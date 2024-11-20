@@ -20,9 +20,9 @@ import Facebook from '../asset/SVG/Facebook';
 import Google from '../asset/SVG/Google';
 import GetstartwithFace from '../asset/SVG/ScanFace';
 import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
 import Language from '../utils/Language';
 import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
@@ -47,7 +47,8 @@ const CustomButton = ({title, onPress}) => {
 };
 
 const Onboarding = () => {
-  const navigation = useNavigation(); const {t} = useTranslation();
+  const navigation = useNavigation(); 
+  const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -63,10 +64,10 @@ const Onboarding = () => {
             </TouchableOpacity>
             <View>
               <Text style={styles.boldText}>
-                {Language.english.onboarding.letsstart}
+              {t('start')}
               </Text>
               <Text style={styles.subText}>
-                Welcome, Please Enter Your Details!
+                {t('welcome')}
               </Text>
             </View>
           </View>
@@ -107,7 +108,7 @@ const Onboarding = () => {
           <CustomButton title="Get Started with Face" onPress={() => {}} />
         </View>
         <Text style={styles.subsubText}>
-          By continuing you agree to our{'\n'}Terms of use and privacy
+          {t('terms_and_conditions')} {'\n'}{t('terms_and_conditions1')}
         </Text>
       </ScrollView>
     </View>

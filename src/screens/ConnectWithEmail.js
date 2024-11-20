@@ -24,6 +24,9 @@ import Email from '../asset/SVG/Email';
 import Facebook from '../asset/SVG/Facebook';
 import Google from '../asset/SVG/Google';
 import GetstartwithFace from '../asset/SVG/ScanFace';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
@@ -69,6 +72,7 @@ const CustomButton = ({title, onPress}) => {
 
 const ConnectWithEmail = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [email, setEmail] = useState('');
 
   useEffect(() => {
@@ -146,7 +150,7 @@ const ConnectWithEmail = () => {
         </View>
 
         <Text style={styles.subsubText}>
-          By continuing you agree to our Terms{'\n'}of use and Privacy Policy
+        {t('terms_and_conditions')} {'\n'}{t('terms_and_conditions1')}
         </Text>
       </ScrollView>
     </KeyboardAvoidingView>
