@@ -23,6 +23,7 @@ const {width} = Dimensions.get('window');
 
 const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
   const [isFocused, setIsFocused] = useState(false);
+  const {t} = useTranslation(); // Destructure to get the t function
 
   return (
     <View style={styles.floatingLabelContainer}>
@@ -42,7 +43,7 @@ const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onOpen} style={styles.openButton}>
-          <Text style={styles.openButtonText}>Open</Text>
+          <Text style={styles.openButtonText}>{t('open')}</Text>
         </TouchableOpacity>
       </View>
     </View>

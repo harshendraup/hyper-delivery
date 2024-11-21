@@ -180,8 +180,7 @@ const Orders = () => {
         return {backgroundColor: '#409C59'};
       case t('neworders'):
         return {backgroundColor: '#2039B7'};
-      default:
-        return {backgroundColor: '#e0e0e0'};
+      
     }
   };
 
