@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
@@ -151,11 +152,13 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontFamily: 'Inter',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   subText: {
     fontSize: 16,
     color: 'black',
     fontFamily: 'Inter',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   subsubText: {
     fontSize: 12,
