@@ -18,8 +18,8 @@ import orderIcon from '../asset/SVG/Ordersicon.png';
 import ordersIcon from '../asset/SVG/Orders.png';
 import productsIcon from '../asset/SVG/Productsicon.png';
 import salesIcon from '../asset/SVG/Salesicon.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
 import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');

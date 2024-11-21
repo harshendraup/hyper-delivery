@@ -18,6 +18,9 @@ import ProductImage from '../asset/ProductImage.png';
 import Cloud from '../asset/SVG/Cloud.png';
 import CheckBox from '@react-native-community/checkbox'; // Import CheckBox
 import Accordion from '../component/Accordion'; // Import Accordion component
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -44,6 +47,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const AncillaryAddProducts = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [ProductName, setProductName] = useState('');
   const [pricePerGram, setPricePerGram] = useState('');
   const [ProductDetails, setProductDetails] = useState('');
@@ -80,7 +84,7 @@ const AncillaryAddProducts = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.title}>Add Products</Text>
+          <Text style={styles.title}>{t('addProduct')}</Text>
         </View>
 
         <View style={styles.inputContainer}>
@@ -89,7 +93,7 @@ const AncillaryAddProducts = () => {
             keyboardType="email-address"
           /> */}
           <Accordion
-            title="Cannabis Type"
+            title={t('cannabis_type')}
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
@@ -97,26 +101,26 @@ const AncillaryAddProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Product Name"
+            label={t('product_name')}
             value={ProductName}
             onChangeText={setProductName}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Price"
+            label={t('price')}
             value={pricePerGram}
             onChangeText={setPricePerGram}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Product Details"
+            label={t('product_details')}
             value={ProductDetails}
             onChangeText={setProductDetails}
             keyboardType="email-address"
           />
 
           <FloatingLabelInput
-            label="Stock"
+            label={t('stock')}
             value={Stock}
             onChangeText={setStock}
             keyboardType="email-address"
@@ -129,18 +133,18 @@ const AncillaryAddProducts = () => {
               onValueChange={setIsPrescriptionRequired}
             />
             <Text style={styles.checkboxLabel}>
-              Does this product require a prescription & License?
+            {t('requires_prescription_and_license')}
             </Text>
           </View>
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>Product Image</Text>
+          <Text style={styles.uploadText}>{t('product_images')}</Text>
 
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
-              <Text style={styles.uploadButtonText}>Upload Image</Text>
+              <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -150,7 +154,7 @@ const AncillaryAddProducts = () => {
             ([styles.buttonContainer], {width: '85%', alignItems: 'center'})
           }>
           <CommonButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('EditProducts')}
           />
         </View>

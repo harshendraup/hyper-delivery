@@ -12,9 +12,9 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
 import Language from '../utils/Language';
 import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 import CommonButton from '../component/button';
 import backbutton from '../asset/SVG/Backbutton.png';
 import ProductImage from '../asset/ProductImage.png';
@@ -47,6 +47,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const AddProducts = () => {
   const navigation = useNavigation();
+   const {t} = useTranslation();
   const [ProductName, setProductName] = useState('');
   const [pricePerGram, setPricePerGram] = useState('');
   const [ProductDetails, setProductDetails] = useState('');
@@ -86,13 +87,13 @@ const AddProducts = () => {
           <Text
             style={styles.title}
             onPress={() => navigation.navigate('AncillaryAddProducts')}>
-            Add Products
+           {t('addProduct')}
           </Text>
         </View>
 
         <View style={styles.inputContainer}>
           <Accordion
-            title="Cannabis Type"
+            title={t('cannabis_type')}
             items={['Medical', 'Oil', 'Power', 'Ancillary']}
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
@@ -100,19 +101,19 @@ const AddProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Product Name"
+            label={t('product_name')}
             value={ProductName}
             onChangeText={setProductName}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Price Per Gram"
+            label={t('price_per_gram')}
             value={pricePerGram}
             onChangeText={setPricePerGram}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Product Details"
+            label={t('product_details')}
             value={ProductDetails}
             onChangeText={setProductDetails}
             keyboardType="email-address"
@@ -120,7 +121,7 @@ const AddProducts = () => {
 
           {/* Accordion for Cannabis Type */}
           <Accordion
-            title="Project Category"
+            title={t('projectCategory')}
             items={['Category 1', 'Category 2', 'Category 3']}
             isOpen={projectCategoryOpen}
             toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
@@ -128,25 +129,25 @@ const AddProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Enter Lanzer (Range 10 to 28)"
+            label={t('enter_lanzer_range')}
             value={lanzer}
             onChangeText={handleLanzerChange}
           />
           <FloatingLabelInput
-            label="Enter CBD"
+            label={t('cbd')}
             value={Cbd}
             onChangeText={setCbd}
             keyboardType="email-address"
           />
           <Accordion
-            title="Cannabis Form"
+            title={t('cannabisForm')}
             items={['Form 1', 'Form 2', 'Form 3']} // Replace with actual items
             isOpen={Cannabisform}
             toggle={() => setCannabisform(!Cannabisform)}
             onSelect={() => {}}
           />
           <FloatingLabelInput
-            label="Stock"
+            label={t('stock')}
             value={Stock}
             onChangeText={setStock}
             keyboardType="email-address"
@@ -162,13 +163,13 @@ const AddProducts = () => {
               />
             </View>
             <Text style={styles.checkboxLabel}>
-              Does this product require a prescription & License?
+            {t('requires_prescription_and_license')}
             </Text>
           </View>
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>Product Images</Text>
+          <Text style={styles.uploadText}>{t('product_images')}</Text>
           <Image
             source={ProductImage}
             style={{width: '100%', alignItems: 'center', borderRadius: 10}}
@@ -176,7 +177,7 @@ const AddProducts = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
-              <Text style={styles.uploadButtonText}>Upload Image</Text>
+              <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -186,7 +187,7 @@ const AddProducts = () => {
             styles.buttonContainer,
             {width: '85%', alignItems: 'center'},
           ]}>
-          <CommonButton title="Next" onPress={() => {}} />
+          <CommonButton title={t('next')} onPress={() => {}} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

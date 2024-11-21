@@ -21,6 +21,7 @@ import image7 from '../asset/orderPics/image7.png';
 import image8 from '../asset/orderPics/image8.png';
 import image9 from '../asset/orderPics/image9.png';
 import image10 from '../asset/orderPics/image10.png';
+import { t } from 'i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -173,11 +174,11 @@ const Orders = () => {
   // Function to determine badge color
   const getBadgeStyle = status => {
     switch (status) {
-      case 'Cancelled':
+      case t('cancelled'):
         return {backgroundColor: '#AA1A1A'};
-      case 'Completed':
+      case t('completed'):
         return {backgroundColor: '#409C59'};
-      case 'New Orders':
+      case t('neworders'):
         return {backgroundColor: '#2039B7'};
       default:
         return {backgroundColor: '#e0e0e0'};
@@ -199,7 +200,7 @@ const Orders = () => {
             style={[styles.backButton, styles.shadow]}>
             <Image source={dashboard} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.topText}> My Orders</Text>
+          <Text style={styles.topText}> {t('my_orders')}</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat')}
             style={[styles.backButton, styles.shadow]}>
@@ -219,7 +220,7 @@ const Orders = () => {
               <Image source={order.image} style={styles.listIcon} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
-                  <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                  <Text style={styles.orderId}>{t('order_id')}: {order.id}</Text>
                   <View style={[styles.newBadge, getBadgeStyle(order.status)]}>
                     <Text style={styles.badgeText}>{order.status}</Text>
                   </View>

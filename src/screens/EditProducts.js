@@ -19,6 +19,9 @@ import backbutton from '../asset/SVG/Backbutton.png';
 import ProductImage from '../asset/ProductImage.png';
 import Cloud from '../asset/SVG/Cloud.png';
 import CheckBox from '@react-native-community/checkbox'; // Import CheckBox
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -49,6 +52,7 @@ const EditProducts = () => {
   const [Cannabisform, setCannabisform] = useState(false);
   const [Status, setStatus] = useState(false); // State for Boats and Animals accordion
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [ProductName, setProductName] = useState('');
   const [pricePerGram, setPricePerGram] = useState('');
   const [ProductDetails, setProductDetails] = useState('');
@@ -86,13 +90,13 @@ const EditProducts = () => {
           <Text
             style={styles.title}
             onPress={() => navigation.navigate('AncillaryEditProduct')}>
-            Edit Products
+            {t('editproducts')}
           </Text>
         </View>
 
         <View style={styles.inputContainer}>
           <Accordion
-            title="Cannabis Type"
+            title={t('cannabis_type')}
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
@@ -100,25 +104,25 @@ const EditProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Product Name"
+            label={t('product_name')}
             value={ProductName}
             onChangeText={setProductName}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Price Per Gram"
+            label={t('price_per_gram')}
             value={pricePerGram}
             onChangeText={setPricePerGram}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Product Details"
+            label={t('product_details')}
             value={ProductDetails}
             onChangeText={setProductDetails}
             keyboardType="email-address"
           />
           <Accordion
-            title="Project Category"
+            title={t('projectCategory')}
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={projectCategoryOpen}
             toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
@@ -126,18 +130,18 @@ const EditProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Enter Lanzer (Range 10 to 28)"
+            label={t('enter_lanzer_range')}
             value={lanzer}
             onChangeText={handleLanzerChange}
           />
           <FloatingLabelInput
-            label="Enter CBD"
+            label={t('cbd')}
             value={Cbd}
             onChangeText={setCbd}
             keyboardType="email-address"
           />
           <Accordion
-            title="Cannabis Type"
+            title={t('cannabisForm')}
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Cannabisform}
             toggle={() => setCannabisform(!Cannabisform)}
@@ -145,7 +149,7 @@ const EditProducts = () => {
           />
 
           <FloatingLabelInput
-            label="Enter Stock"
+            label={t('stock')}
             value={Stock}
             onChangeText={setStock}
             keyboardType="email-address"
@@ -157,7 +161,7 @@ const EditProducts = () => {
             keyboardType="email-address"
           /> */}
           <Accordion
-            title="Status"
+            title={t('status')}
             items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
             isOpen={Status}
             toggle={() => setStatus(!Status)}
@@ -173,13 +177,13 @@ const EditProducts = () => {
               />
             </View>
             <Text style={styles.checkboxLabel}>
-              Does this product require a prescription & License?
+            {t('requires_prescription_and_license')}
             </Text>
           </View>
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>Product Image</Text>
+          <Text style={styles.uploadText}>{t('product_images')}</Text>
           <Image
             source={ProductImage}
             style={{
@@ -191,7 +195,7 @@ const EditProducts = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
-              <Text style={styles.uploadButtonText}>Upload Image</Text>
+              <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -201,7 +205,7 @@ const EditProducts = () => {
             ([styles.buttonContainer], {width: '85%', alignItems: 'center'})
           }>
           <CommonButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('TabNavigator')}
           />
         </View>

@@ -20,11 +20,15 @@ import Strength from '../asset/icons/bicep.png';
 import clarity_license from '../asset/icons/clarity_license-line.png';
 import mdi_drug from '../asset/icons/mdi_drug.png';
 import CommonButton from '../component/button';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
 const ProductInfo = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [inStock, outOfStock] = useState(false);
 
   return (
@@ -44,7 +48,7 @@ const ProductInfo = () => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.topText}>Product Info</Text>
+        <Text style={styles.topText}>{t('product_info')}</Text>
         <Card style={styles.card}>
           <Card.Content>
             <View style={styles.swiperContainer}>
@@ -84,7 +88,7 @@ const ProductInfo = () => {
 
             <View style={styles.detailSection}>
               <View style={styles.ratingContainer}>
-                <Text style={styles.productHeading}>Product Title</Text>
+                <Text style={styles.productHeading}>{t('product_name')}</Text>
                 <View style={styles.ratingBadge}>
                   <Text style={styles.ratingText}>4.9 </Text>
                   <Text style={styles.ratingText}>({671})</Text>
@@ -94,9 +98,7 @@ const ProductInfo = () => {
 
               <Text style={styles.subHeading}>$189/gm</Text>
               <Text style={styles.productDescription}>
-                Lorem ipsum dolor sit amet, consec tetur adi pis cing elit.
-                Vivamus lacinia odio vitae vesti bulum.Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                {t('description')}
               </Text>
 
               {/* Chips Section */}
@@ -108,14 +110,14 @@ const ProductInfo = () => {
                     <Image source={clarity_license} style={styles.icon} />
                   )}
                   textStyle={styles.chipText}>
-                  required License
+                  {t('required License')}
                 </Chip>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
                   icon={() => <Image source={mdi_drug} style={styles.icon} />}
                   textStyle={styles.chipText}>
-                  Medical Drug
+                  {t('Medical Drug')}
                 </Chip>
                 <Chip
                   mode="outlined"
@@ -137,17 +139,17 @@ const ProductInfo = () => {
                   style={styles.chip}
                   icon={() => <Image source={Strength} style={styles.icon} />}
                   textStyle={styles.chipText}>
-                  Strength 1
+                  {t('Strength')}
                 </Chip>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
                   textStyle={styles.chipText}>
-                  Stain Type: Sativa
+                  {t('Stain')}
                 </Chip>
               </View>
             </View>
-            <Text style={styles.productMin}>Minimum Quantity: 10 gm</Text>
+            <Text style={styles.productMin}>{t('quantity_warning')}</Text>
 
             <View
               style={[
@@ -165,7 +167,7 @@ const ProductInfo = () => {
                     styles.toggleButtonText,
                     !inStock ? styles.activeText : styles.inactiveText,
                   ]}>
-                  In Stock
+                  {t('availability')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -179,7 +181,7 @@ const ProductInfo = () => {
                     styles.toggleButtonText,
                     inStock ? styles.activeTextRed : styles.inactiveText,
                   ]}>
-                  Out of Stock
+                 {t('outofstock')}
                 </Text>
               </TouchableOpacity>
             </View>

@@ -17,8 +17,8 @@ import edit from '../asset/SVG/Edit.png';
 import bin from '../asset/SVG/Delete.png';
 import stock from '../asset/stock.png'; // Add your stock image import here
 import plus from '../asset/SVG/Plusicon.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
 import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
