@@ -26,18 +26,12 @@ import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
-const CustomButton = ({title, onPress}) => {
-  // Directly render the SVG components as JSX
+const CustomButton = ({icon: Icon, title, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
-        {/* Conditionally render the correct SVG icon */}
-        {title === 'Get Started with Phone' && <Phone />}
-        {title === 'Get Started with Email' && <Email />}
-        {title === 'Get Started with Google' && <Google />}
-        {title === 'Get Started with Apple' && <Apple />}
-        {title === 'Get Started with Facebook' && <Facebook />}
-        {title === 'Get Started with Face' && <GetstartwithFace />}
+        {/* Render the passed SVG icon as a component */}
+        {Icon && <Icon />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
         </View>
@@ -62,13 +56,9 @@ const Onboarding = () => {
               onPress={() => navigation.navigate('TabNavigator')}>
               <Image source={logo} style={styles.logo} />
             </TouchableOpacity>
-            <View>
-              <Text style={styles.boldText}>
-              {t('start')}
-              </Text>
-              <Text style={styles.subText}>
-                {t('welcome')}
-              </Text>
+            <View >
+              <Text style={styles.boldText}>{t('start')}</Text>
+              <Text style={styles.subText}>{t('welcome')}</Text>
             </View>
           </View>
 
@@ -95,20 +85,31 @@ const Onboarding = () => {
 
         <View style={styles.buttonContainer}>
           <CustomButton
-            title="Get Started with Phone"
+            icon={Phone}
+            title={t('phone')}
             onPress={() => navigation.navigate('ConnectWithPhone')}
           />
+          <CustomButton icon={Google} title={t('google')} onPress={() => {}} />
           <CustomButton
-            title="Get Started with Email"
+            icon={Facebook}
+            title={t('facebook')}
+            onPress={() => {}}
+          />
+          <CustomButton icon={Apple} title={t('apple')} onPress={() => {}} />
+          <CustomButton
+            icon={Email}
+            title={t('Get_email')}
             onPress={() => navigation.navigate('ConnectWithEmail')}
           />
-          <CustomButton title="Get Started with Google" onPress={() => {}} />
-          <CustomButton title="Get Started with Apple" onPress={() => {}} />
-          <CustomButton title="Get Started with Facebook" onPress={() => {}} />
-          <CustomButton title="Get Started with Face" onPress={() => {}} />
+          <CustomButton
+            icon={GetstartwithFace}
+            title={t('face')}
+            onPress={() => navigation.navigate('ScanFace')}
+          />
         </View>
         <Text style={styles.subsubText}>
-          {t('terms_and_conditions')} {'\n'}{t('terms_and_conditions1')}
+          {t('terms_and_conditions')} {'\n'}
+          {t('terms_and_conditions1')}
         </Text>
       </ScrollView>
     </View>
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+    width: '80%',
   },
   logo: {
     width: 45,

@@ -51,17 +51,12 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   );
 };
 
-const CustomButton = ({title, onPress}) => {
-  // Render the correct SVG component based on the title
+const CustomButton = ({icon: Icon, title, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
-        {/* Conditionally render the correct SVG icon */}
-        {title === 'Get Started with Google' && <Google />}
-        {title === 'Get Started with Phone No.' && <Phone />}
-        {title === 'Get Started with Apple' && <Apple />}
-        {title === 'Get Started with Facebook' && <Facebook />}
-        {title === 'Get Started with Face' && <GetstartwithFace />}
+        {/* Render the passed SVG icon as a component */}
+        {Icon && <Icon />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
         </View>
@@ -108,10 +103,8 @@ const ConnectWithEmail = () => {
         <View style={styles.topSection}>
           <View style={styles.touchable}>
             <View style={{width: '100%', alignItems: 'flex-start'}}>
-              <Text style={styles.boldText}>Let's Start!</Text>
-              <Text style={styles.subText}>
-                Welcome, Please Enter Your Details!
-              </Text>
+              <Text style={styles.boldText}>{t('start')}</Text>
+              <Text style={styles.subText}>{t('welcome')}</Text>
             </View>
           </View>
           <Image source={logo} style={styles.logo} />
@@ -119,7 +112,7 @@ const ConnectWithEmail = () => {
 
         <View style={styles.inputContainer}>
           <FloatingLabelInput
-            label="Enter Email"
+            label={t('email')}
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
@@ -128,29 +121,44 @@ const ConnectWithEmail = () => {
 
         <View style={styles.buttonContainer}>
           <CommonButton
-            title="Next"
+            title={t('next')}
             onPress={() => navigation.navigate('ScanFace')}
           />
           <View style={styles.separatorContainer}>
             <View style={styles.separator} />
-            <Text style={styles.orText}>or</Text>
+            <Text style={styles.orText}>{t("or")}</Text>
             <View style={styles.separator} />
           </View>
         </View>
 
         <View style={styles.buttonContainer}>
           <CustomButton
-            title="Get Started with Phone No."
+            icon={Phone}
+            title={t('phone')}
             onPress={() => navigation.navigate('ConnectWithPhone')}
           />
-          <CustomButton title="Get Started with Google" onPress={() => {}} />
-          <CustomButton title="Get Started with Facebook" onPress={() => {}} />
-          <CustomButton title="Get Started with Apple" onPress={() => {}} />
-          <CustomButton title="Get Started with Face" onPress={() => {}} />
+          <CustomButton icon={Google} title={t('google')} onPress={() => {}} />
+          <CustomButton
+            icon={Facebook}
+            title={t('facebook')}
+            onPress={() => {}}
+          />
+          <CustomButton icon={Apple} title={t('apple')} onPress={() => {}} />
+          <CustomButton
+            icon={Email}
+            title={t('Get_email')}
+            onPress={() => navigation.navigate('ConnectWithEmail')}
+          />
+          <CustomButton
+            icon={GetstartwithFace}
+            title={t('face')}
+            onPress={() => navigation.navigate('ScanFace')}
+          />
         </View>
 
         <Text style={styles.subsubText}>
-        {t('terms_and_conditions')} {'\n'}{t('terms_and_conditions1')}
+          {t('terms_and_conditions')} {'\n'}
+          {t('terms_and_conditions1')}
         </Text>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -192,9 +200,9 @@ const styles = StyleSheet.create({
   touchable: {
     flexDirection: 'row',
     marginBottom: 20,
-    width: '100%', // Ensures it takes full width
-    alignItems: 'flex-start', // Aligns the items at the start
-    marginLeft: 60,
+    width: '90%', // Ensures it takes full width
+    alignItems: 'center', // Aligns the items at the start
+    marginLeft: 40,
   },
 
   logo: {
