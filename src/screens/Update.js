@@ -51,8 +51,8 @@ const Update = () => {
           <View style={styles.profileLeft}>
             <Image source={profilePic} style={styles.profilePic} />
             <View style={styles.profileTextContainer}>
-              <Text style={styles.profileName}>Amit Patel</Text>
-              <Text style={styles.profileIdentity}>Courier</Text>
+              <Text style={styles.profileName}>{t('Amitpatel')}</Text>
+              <Text style={styles.profileIdentity}>{t('Courier')}</Text>
               <View style={styles.ratingContainer}>
                 {[...Array(5)].map((_, index) => (
                   <Image source={star} style={styles.starIcon} key={index} />
@@ -74,8 +74,8 @@ const Update = () => {
           <View style={styles.profileLeft}>
             <Image source={profilePic1} style={styles.profilePic} />
             <View style={styles.profileTextContainer}>
-              <Text style={styles.profileName}>Richa Kushwa</Text>
-              <Text style={styles.profileIdentity}>Customer</Text>
+              <Text style={styles.profileName}>{t('Richakushwa')}</Text>
+              <Text style={styles.profileIdentity}>{t('Customer')}</Text>
               <View style={styles.ratingContainer}>
                 {[...Array(5)].map((_, index) => (
                   <Image source={star} style={styles.starIcon} key={index} />
@@ -98,14 +98,14 @@ const Update = () => {
             <Image source={pickupIcon} style={styles.locationIcon} />
             <Text style={styles.locationText}>{t('pickup')}:</Text>
           </View>
-          <Text style={styles.addressText}>123 Main St.</Text>
+          <Text style={styles.addressText}>{t('adress')}</Text>
           <View style={styles.rectangleImage} />
 
           <View style={styles.locationRow}>
             <Image source={deliveryIcon} style={styles.locationIcon} />
             <Text style={styles.locationText}>{t('delivery')}:</Text>
           </View>
-          <Text style={styles.addressText}>456 Elm St.</Text>
+          <Text style={styles.addressText}>{t('adress1')}</Text>
         </View>
 
         <View style={styles.orderIdContainer}>

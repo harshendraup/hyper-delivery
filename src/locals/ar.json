@@ -86,6 +86,7 @@
   "delivery_details": "تفاصيل التوصيل",
   "contact_details": "تفاصيل الاتصال",
   "contact_us_message": "لوريم إيبسوم دولور سيت أميت، كونسيكتيتور أديباسينغ إيليت. نونك فيولوبتي لابيرو إت",
+  "notificatio_message":"لوريم إيبسوم دولور سيت أميت، كونسيكتيتور أديبيسيسينغ إليت.",
   "enter_product_details": "أدخل تفاصيل المنتج",
   "product_image": "صورة المنتج",
   "product_status": "حالة المنتج",
@@ -257,5 +258,11 @@
   "EditStoreDetails": "تعديل تفاصيل المتجر",
   "Earnings": "الأرباح",
   "PrivacyPolicy": "سياسة الخصوصية",
-  "CustomerSupport": "دعم العملاء"
+  "CustomerSupport": "دعم العملاء",
+  "Amitpatel": "أميت باتيل",
+"Courier": "شركة التوصيل",
+"Richakushwa": "ريشا كوشوا",
+"Customer": "العميل",
+"adress": "123 الشارع الرئيسي",
+"adress1": "456 شارع إلم"
 }

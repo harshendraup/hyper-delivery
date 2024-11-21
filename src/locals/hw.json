@@ -86,6 +86,7 @@
   "delivery_details": "פרטי משלוח",
   "contact_details": "פרטי יצירת קשר",
   "contact_us_message": "לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית. ננק וולוטפטה ליברו את",
+  "notificatio_message":" לורם איפסום דולור סיט אמאט, קונסקקטור אדיפיסיצינג אליט.",
   "enter_product_details": "הזן פרטי מוצר",
   "product_image": "תמונת מוצר",
   "product_status": "סטטוס מוצר",
@@ -257,5 +258,11 @@
   "EditStoreDetails": "ערוך פרטי חנות",
   "Earnings": "הכנסות",
   "PrivacyPolicy": "מדיניות פרטיות",
-  "CustomerSupport": "תמיכה בלקוחות"
+  "CustomerSupport": "תמיכה בלקוחות",
+  "Amitpatel": "אמיט פאטל",
+"Courier": "שליח",
+"Richakushwa": "ריצ'א קושווה",
+"Customer": "לקוח",
+"adress": "123 רחוב הראשי",
+"adress1": "456 רחוב אלם"
 }

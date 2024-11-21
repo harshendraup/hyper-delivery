@@ -87,6 +87,7 @@
   "delivery_details": "Детали доставки",
   "contact_details": "Контактные данные",
   "contact_us_message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et",
+  "notificatio_message":"Лорем ипсум долор сит амет, консектетур адиписцингу елит.",
   "enter_product_details": "Введите детали товара",
   "product_image": "Изображение товара",
   "product_status": "Статус товара",
@@ -258,5 +259,11 @@
   "EditStoreDetails": "Редактировать данные магазина",
   "Earnings": "Заработок",
   "PrivacyPolicy": "Политика конфиденциальности",
-  "CustomerSupport": "Служба поддержки"
+  "CustomerSupport": "Служба поддержки",
+  "Amitpatel": "Амит Патель",
+"Courier": "Курьер",
+"Richakushwa": "Рича Кушва",
+"Customer": "Клиент",
+"adress": "123 Главная улица",
+"adress1": "456 Вязовая улица",
 }

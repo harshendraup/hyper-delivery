@@ -229,7 +229,7 @@ const Notification = () => {
                     fontFamily: 'Inter',
                     fontSize: 12,
                   }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  {t('notificatio_message')}
                 </Text>
               </View>
             </View>

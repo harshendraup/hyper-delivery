@@ -87,6 +87,7 @@
   "delivery_details": "Delivery Details",
   "contact_details": "Contact Details",
   "contact_us_message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et",
+  "notificatio_message":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   "enter_product_details": "Enter Product details",
   "product_image": "Product Image",
   "product_status": "Product Status",
@@ -260,5 +261,11 @@
 "EditStoreDetails":"Edit Store Details",
 "Earnings":"Earnings",
 "PrivacyPolicy":"Privacy Policy",
-"CustomerSupport":"CustomerSupport"
+"CustomerSupport":"CustomerSupport",
+"Amitpatel":"Amit Patel",
+"Courier":"Courier",
+"Richakushwa":"Richa Kushwa",
+"Customer":"Customer",
+"adress":"123 Main St.",
+"adress1":"456 Elm St."
 }
