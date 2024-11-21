@@ -52,10 +52,10 @@ const Onboarding = () => {
         showsVerticalScrollIndicator={false}>
         <View style={styles.topSection}>
           <View style={styles.touchable}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.navigate('TabNavigator')}>
+            </TouchableOpacity> */}
               <Image source={logo} style={styles.logo} />
-            </TouchableOpacity>
             <View >
               <Text style={styles.boldText}>{t('start')}</Text>
               <Text style={styles.subText}>{t('welcome')}</Text>

@@ -31,7 +31,7 @@ const {width} = Dimensions.get('window');
 
 const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
   const [isFocused, setIsFocused] = useState(false);
-
+const {t} = useTranslation();
   return (
     <View style={styles.floatingLabelContainer}>
       <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
@@ -50,7 +50,7 @@ const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onOpen} style={styles.openButton}>
-          <Text style={styles.openButtonText}>Open</Text>
+          <Text style={styles.openButtonText}>{t('open')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -98,7 +98,7 @@ const UpdateOrderDetails = () => {
           <Image source={image} style={styles.orderImage} />
           <View style={styles.textContainer}>
             <View style={styles.hybridWithRatingRow}>
-              <Text style={styles.orderTitle}>HYBRID</Text>
+              <Text style={styles.orderTitle}>{t('hybrid')}</Text>
               <View style={styles.ratingWrapper}>
                 <Image source={ratingImage} style={styles.ratingImageSmall} />
                 <Text style={styles.ratingTextSmall}></Text>
@@ -106,7 +106,7 @@ const UpdateOrderDetails = () => {
             </View>
 
             <View style={styles.deliveryInfoContainer}>
-              <Text style={styles.orderText}>Walker Kush</Text>
+              <Text style={styles.orderText}>{t('walker_kush')}</Text>
               <Text style={styles.orderText}>50g</Text>
             </View>
             <View style={styles.priceContainer}>
@@ -138,9 +138,7 @@ const UpdateOrderDetails = () => {
           </Text>
         </View>
         <View style={{width: '100%'}}>
-          <Text style={styles.consumerTitle}>
-          {t('required')}
-          </Text>
+          <Text style={styles.consumerTitle}>{t('required')}</Text>
           <FloatingLabelInput
             label={t('license')}
             value={uploadedLicense}
@@ -166,9 +164,7 @@ const UpdateOrderDetails = () => {
           <Image source={note} style={styles.noteImage} />
           <View style={styles.noteContent}>
             <Text style={styles.noteTitle}>{t('note')}</Text>
-            <Text style={styles.noteText}>
-            {t('note_description')}
-            </Text>
+            <Text style={styles.noteText}>{t('note_description')}</Text>
           </View>
         </View>
         <View style={styles.summaryContainer}>
@@ -182,7 +178,9 @@ const UpdateOrderDetails = () => {
             <Text style={styles.summaryValue}>$ 800</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>{t('delivery_partner_fees')}</Text>
+            <Text style={styles.summaryLabel}>
+              {t('delivery_partner_fees')}
+            </Text>
             <Text style={styles.summaryValue}>$ 100</Text>
           </View>
           <View style={styles.summaryItem}>
@@ -228,6 +226,7 @@ const UpdateOrderDetails = () => {
                 borderRadius: 10,
                 paddingLeft: 10, // Add padding to ensure the text doesn't touch the border
                 height: 70, // Adjust height as needed
+                textAlign: Platform.OS === 'ios' ? 'left' : 'left',
               }}
             />
           </View>
@@ -411,6 +410,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
     // marginVertical: 10,
   },
   floatingLabelContainer: {
@@ -478,12 +478,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginBottom: 5,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   noteText: {
     fontSize: 14,
     color: 'rgba(51, 51, 51, 1)',
     fontFamily: 'Inter',
     fontWeight: '500',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   summaryContainer: {
     marginTop: 20,
@@ -496,6 +498,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(0, 0, 0, 1)',
     marginBottom: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   summaryItem: {
     flexDirection: 'row',

@@ -212,7 +212,9 @@ const Notification = () => {
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
                   <View style={styles.orderIdBadgeContainer}>
-                    <Text style={styles.orderId}>{t('order_id')}: {order.id}</Text>
+                    <Text style={styles.orderId}>
+                      {t('order_id')}: {order.id}
+                    </Text>
                     <View
                       style={[styles.newBadge, getBadgeStyle(order.status)]}>
                       <Text style={styles.badgeText}>{order.status}</Text>
@@ -228,6 +230,7 @@ const Notification = () => {
                     fontWeight: '400',
                     fontFamily: 'Inter',
                     fontSize: 12,
+                    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
                   }}>
                   {t('notificatio_message')}
                 </Text>

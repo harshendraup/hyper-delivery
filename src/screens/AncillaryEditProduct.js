@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
     color: 'rgba(51, 51, 51, 1)',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   uploadRow: {
     flexDirection: 'column',

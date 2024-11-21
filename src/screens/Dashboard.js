@@ -133,7 +133,7 @@ const Dashboard = () => {
         keyboardShouldPersistTaps="handled">
         <View style={styles.headerContainer}>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            // onPress={() => navigation.goBack()}
             style={[styles.backButton, styles.shadow]}>
             <Image source={Dashboardbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: 'rgba(51, 51, 51, 1)',
     paddingHorizontal: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   listIcon: {
     width: 20,

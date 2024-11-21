@@ -6,7 +6,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  Image,
+  Image,Platform
 } from 'react-native';
 import sendButton from '../asset/SVG/Send.png';
 import {useNavigation} from '@react-navigation/native';
@@ -101,6 +101,7 @@ const CustomerSupport = () => {
             fontSize: 16,
             color: 'rgba(51, 51, 51, 1)',
             fontFamily: 'Inter',
+            
           }}>
           {t('customer_support')}
         </Text>
@@ -227,6 +228,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 10,
     color: 'black',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   sendButton: {
     width: 45,

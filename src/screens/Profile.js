@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Lato',
     flex: 1,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   arrowIcon: {
     width: 10,

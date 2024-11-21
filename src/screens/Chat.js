@@ -214,7 +214,9 @@ const Chat = () => {
               <Image source={order.image} style={styles.buttonImage} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
-                  <Text style={styles.orderId}>{t('order_id')}: {order.id}</Text>
+                  <Text style={styles.orderId}>
+                    {t('order_id')}: {order.id}
+                  </Text>
                   <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
                 <Text
@@ -223,8 +225,9 @@ const Chat = () => {
                     fontFamily: 'Inter',
                     fontWeight: '400',
                     fontSize: 11,
+                    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
                   }}>
-                  Where are you?
+                  {t('whereAreYou')}
                 </Text>
               </View>
             </View>

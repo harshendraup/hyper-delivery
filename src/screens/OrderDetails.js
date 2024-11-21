@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
+  Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import backbutton from '../asset/SVG/Backbutton.png';
@@ -88,9 +89,9 @@ const OrderDetails = ({route}) => {
         <View style={styles.detailsContainer}>
           <Image source={order.image} style={styles.orderImage} />
           <View style={styles.textContainer}>
-            <Text style={styles.orderTitle}>HYBRID</Text>
+            <Text style={styles.orderTitle}>{t('hybrid')}</Text>
             <View style={styles.deliveryInfoContainer}>
-              <Text style={styles.orderText}>Walker Kush</Text>
+              <Text style={styles.orderText}>{t('walker_kush')}</Text>
               <Text style={styles.orderText}>50g</Text>
             </View>
             <View style={styles.priceContainer}>
@@ -379,6 +380,7 @@ const styles = StyleSheet.create({
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
     // marginVertical: 8,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   floatingLabelContainer: {
     position: 'relative',
@@ -445,12 +447,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginBottom: 5,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   noteText: {
     fontSize: 14,
     color: 'rgba(51, 51, 51, 1)',
     fontFamily: 'Inter',
     fontWeight: '500',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   summaryContainer: {
     marginTop: 20,
@@ -463,6 +467,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(0, 0, 0, 1)',
     marginBottom: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   summaryItem: {
     flexDirection: 'row',
