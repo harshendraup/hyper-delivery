@@ -17,14 +17,18 @@ import ordersIcon from '../asset/SVG/Pay.png';
 // import backbutton from '../asset/backbutton.png';
 import Backbutton from '../asset/SVG/Back';
 // import backbutton from '../asset/icons/Group.svg';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const Earnings = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   const tilesData = [
-    {icon: earningsIcon, title: 'Total Earning', data: '$5000'},
+    {icon: earningsIcon, title: t('total_earning'), data: '$5000'},
   ];
 
   const recentOrders = [
@@ -171,7 +175,7 @@ const Earnings = () => {
             style={[styles.backButton, styles.shadow]}>
             <Backbutton />
           </TouchableOpacity>
-          <Text style={styles.topText}>Earning</Text>
+          <Text style={styles.topText}>{t('earning')}</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat')}
             style={[styles.backButton, styles.shadow]}>
@@ -192,12 +196,12 @@ const Earnings = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Payment History</Text>
+          <Text style={styles.listTitle}>{t('Paymenthistory')}</Text>
           {recentOrders.map(order => (
             <View key={order.id} style={styles.listItem}>
               <Image source={ordersIcon} style={styles.listIcon} />
               <View style={styles.orderInfo}>
-                <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                <Text style={styles.orderId}>{t('order_id')}: {order.id}</Text>
                 <Text style={styles.orderDate}>
                   {order.date} {order.time}
                 </Text>

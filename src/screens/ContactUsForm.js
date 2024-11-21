@@ -14,6 +14,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Cloud from '../asset/SVG/Cloud.png';
 import Accordion from '../component/Accordion';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -45,6 +48,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const ContactUsForm = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -63,50 +67,50 @@ const ContactUsForm = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
-        <Text style={styles.topText}>Contact Us Form</Text>
+        <Text style={styles.topText}>{t('contact')}</Text>
 
         <View style={styles.inputContainer}>
           <FloatingLabelInput
-            label="First Name"
+            label={t('first_name')}
             value={firstName}
             onChangeText={setFirstName}
           />
           <FloatingLabelInput
-            label="Last Name"
+            label={t('last_name')}
             value={lastName}
             onChangeText={setLastName}
           />
           <FloatingLabelInput
-            label="Email"
+            label={t('Email')}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Phone Number"
+            label={t('phone_number')}
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             keyboardType="email-address"
           />
           <FloatingLabelInput
-            label="Date of Birth (YYYY-MM-DD)"
+            label={t('dob')}
             value={dob}
             onChangeText={setDob}
           />
           <Accordion
-            title="User Type"
+            title={t('User Type')}
             items={['Type 1', 'Type 2', 'Type 3']} // Replace with actual items
             isOpen={userType}
             toggle={() => setUserType(!userType)}
             onSelect={() => {}}
           />
           <FloatingLabelInput
-            label="Id number"
+            label={t('Idno')}
             value={idNumber}
             onChangeText={setIdNumber}
           />
           <FloatingLabelInput
-            label="Description"
+            label={t('description1')}
             value={description}
             onChangeText={setDescription}
             multiline
@@ -116,23 +120,23 @@ const ContactUsForm = () => {
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>Upload Documents</Text>
+          <Text style={styles.uploadText}>{t('upload_documents')}</Text>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={Cloud} style={styles.CloudIcon} />
-                <Text style={styles.uploadButtonText}>Front</Text>
+                <Text style={styles.uploadButtonText}>{t('front')}</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / driver's license
+                  {t('upload_and_scan')}
                 </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.uploadButton}>
               <View style={styles.uploadButtonContent}>
                 <Image source={Cloud} style={styles.CloudIcon} />
-                <Text style={styles.uploadButtonText}>Back</Text>
+                <Text style={styles.uploadButtonText}>{t('back')}</Text>
                 <Text style={styles.uploadButtonSubtext}>
-                  Upload & Scan passport / driver's license
+                {t('upload_and_scan')}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -141,7 +145,7 @@ const ContactUsForm = () => {
 
         <View style={styles.buttonContainer}>
           <GreenButton
-            title="Next"
+            title={t('next')}
             // onPress={() => navigation.navigate('TabNavigator')}
           />
         </View>

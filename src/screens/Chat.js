@@ -25,6 +25,9 @@ import f9 from '../asset/faces/Ellipse9.png';
 import f10 from '../asset/faces/Ellipse10.png';
 import f11 from '../asset/faces/Ellipse11.png';
 import f12 from '../asset/faces/Ellipse12.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 // Additional example icon
 
@@ -42,7 +45,7 @@ const getRandomImage = () => {
 
 const Chat = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   // Updated recentOrders with random images
   const recentOrders = [
     {
@@ -205,13 +208,13 @@ const Chat = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Chats</Text>
+          <Text style={styles.listTitle}>{t('chats')}</Text>
           {recentOrders.map((order, index) => (
             <View key={`${order.id}-${index}`} style={styles.listItem}>
               <Image source={order.image} style={styles.buttonImage} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
-                  <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                  <Text style={styles.orderId}>{t('order_id')}: {order.id}</Text>
                   <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
                 <Text

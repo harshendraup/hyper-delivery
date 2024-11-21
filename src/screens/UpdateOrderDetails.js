@@ -23,6 +23,9 @@ import Download from '../asset/icons/solar_download-bold.png';
 import CommonTextInput from '../component/TextInput';
 import CommonButton from '../component/button';
 import StarSVG from '../asset/SVG/Start';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -67,7 +70,7 @@ const formatDate = dateString => {
 
 const UpdateOrderDetails = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   // State variables for uploaded documents
   const [uploadedLicense, setUploadedLicense] = useState('');
   const [uploadedID, setUploadedID] = useState('');
@@ -89,7 +92,7 @@ const UpdateOrderDetails = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.title}>Order Details</Text>
+          <Text style={styles.title}>{t('order_details')}</Text>
         </View>
         <View style={styles.detailsContainer}>
           <Image source={image} style={styles.orderImage} />
@@ -114,7 +117,7 @@ const UpdateOrderDetails = () => {
         </View>
         <View style={styles.deliveryContainer}>
           <View style={styles.deliveryTitleContainer}>
-            <Text style={styles.deliveryTitle}>Delivery Address:</Text>
+            <Text style={styles.deliveryTitle}>{t('delivery_address')}:</Text>
             <TouchableOpacity
               style={styles.editButton}
               onPress={() => {
@@ -136,25 +139,25 @@ const UpdateOrderDetails = () => {
         </View>
         <View style={{width: '100%'}}>
           <Text style={styles.consumerTitle}>
-            Required Document by Consumer
+          {t('required')}
           </Text>
           <FloatingLabelInput
-            label="Uploaded License *"
+            label={t('license')}
             value={uploadedLicense}
             onChangeText={setUploadedLicense}
           />
           <FloatingLabelInput
-            label="Uploaded ID Card *"
+            label={t('id_card')}
             value={uploadedID}
             onChangeText={setUploadedID}
           />
           <FloatingLabelInput
-            label="Uploaded Prescription *"
+            label={t('prescription')}
             value={uploadedPrescription}
             onChangeText={setUploadedPrescription}
           />
           <FloatingLabelInput
-            label="Face Scan *"
+            label={t('face_scan')}
             value={uploadedFaceScan}
             onChangeText={setUploadedFaceScan}
           />
@@ -162,49 +165,48 @@ const UpdateOrderDetails = () => {
         <View style={styles.noteContainer}>
           <Image source={note} style={styles.noteImage} />
           <View style={styles.noteContent}>
-            <Text style={styles.noteTitle}>Note</Text>
+            <Text style={styles.noteTitle}>{t('note')}</Text>
             <Text style={styles.noteText}>
-              Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis.
+            {t('note_description')}
             </Text>
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Summary</Text>
+          <Text style={styles.summaryTitle}>{t('order_summary')}</Text>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Amount</Text>
+            <Text style={styles.summaryLabel}>{t('amount')}</Text>
             <Text style={styles.summaryValue}>$ 6800</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Tax</Text>
+            <Text style={styles.summaryLabel}>{t('tax')}</Text>
             <Text style={styles.summaryValue}>$ 800</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Delivery partner fees</Text>
+            <Text style={styles.summaryLabel}>{t('delivery_partner_fees')}</Text>
             <Text style={styles.summaryValue}>$ 100</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabelBold}>Grand total</Text>
+            <Text style={styles.summaryLabelBold}>{t('grand_total')}</Text>
             <Text style={styles.summaryValueBold}>$ 6100</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Cash Round Off</Text>
+            <Text style={styles.summaryLabel}>{t('cash_round_off')}</Text>
             <Text style={styles.summaryValue}>$ -0.08</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabelBold}>Receivable</Text>
+            <Text style={styles.summaryLabelBold}>{t('receivable')}</Text>
             <Text style={styles.summaryValueBold}>$ 78</Text>
           </View>
         </View>
         <View style={styles.invoiceButtonContainer}>
           <TouchableOpacity style={styles.invoiceButton}>
-            <Text style={styles.invoiceButtonText}>Download Invoice</Text>
+            <Text style={styles.invoiceButtonText}>{t('order_invoice')}</Text>
             <Image source={Download} style={styles.downloadIcon} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.ratingContainer}>
-          <Text style={styles.ratingTitle}>Rating to Courier Service</Text>
+          <Text style={styles.ratingTitle}>{t('rating_courier_service')}</Text>
           <View style={styles.starsContainer}>
             <StarSVG />
             <StarSVG />
@@ -215,10 +217,10 @@ const UpdateOrderDetails = () => {
         </View>
 
         <View style={styles.feedbackContainer}>
-          <Text style={styles.feedbackTitle}>Share your feedback</Text>
+          <Text style={styles.feedbackTitle}>{t('customer_feedback')}</Text>
           <View style={{position: 'relative', width: width * 0.78}}>
             <CommonTextInput
-              placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
+              placeholder={t('feedback_message')} // This is necessary to ensure the input field has a placeholder space.
               style={{
                 borderColor: 'white',
                 borderWidth: 1,
@@ -231,7 +233,7 @@ const UpdateOrderDetails = () => {
           </View>
         </View>
         <CommonButton
-          title="Go to Home"
+          title={t('gohome')}
           onPress={() => navigation.navigate('TabNavigator', {screen: 'Home'})}
         />
       </ScrollView>

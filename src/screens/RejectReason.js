@@ -14,6 +14,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
 import backArrow from '../asset/icons/backArrow.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -39,6 +42,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const RejectReason = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [Heading, setHeading] = useState('');
   const [Description, setDescription] = useState('');
 
@@ -63,17 +67,17 @@ const RejectReason = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text style={styles.title}>Reject Reason</Text>
+          <Text style={styles.title}>{t('reject_reason')}</Text>
         </View>
 
         <View style={styles.inputContainer}>
           <FloatingLabelInput
-            label="Heading"
+            label={t('heading')}
             value={Heading}
             onChangeText={setHeading}
           />
           <FloatingLabelInput
-            label="Description"
+            label={t('description1')}
             value={Description}
             onChangeText={setDescription}
             multiline
@@ -84,7 +88,7 @@ const RejectReason = () => {
       </ScrollView>
 
       <View style={styles.buttonContainer}>
-        <CommonButton title="Submit" onPress={() => {}} />
+        <CommonButton title={t('submit')} onPress={() => {}} />
       </View>
     </KeyboardAvoidingView>
   );

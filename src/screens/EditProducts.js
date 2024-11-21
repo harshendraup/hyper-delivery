@@ -104,7 +104,7 @@ const EditProducts = () => {
           />
 
           <FloatingLabelInput
-            label={t('product_name')}
+            label={t('product1')}
             value={ProductName}
             onChangeText={setProductName}
             keyboardType="email-address"

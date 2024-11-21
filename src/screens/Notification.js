@@ -14,12 +14,15 @@ import {useNavigation} from '@react-navigation/native';
 import chatIcon from '../asset/icons/chat.png';
 import dashboardIcon from '../asset/icons/dashboard.png';
 import ordersIcon from '../asset/SVG/Orders.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const Notification = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   // Updated recentOrders with status instead of isNew
   const recentOrders = [
     {
@@ -168,11 +171,11 @@ const Notification = () => {
   // Function to determine badge color (same as in Orders component)
   const getBadgeStyle = status => {
     switch (status) {
-      case 'Cancelled':
+      case t('cancelled'):
         return {backgroundColor: '#AA1A1A'};
-      case 'Completed':
+      case t('completed'):
         return {backgroundColor: '#409C59'};
-      case 'New Orders':
+      case t('neworders'):
         return {backgroundColor: '#2039B7'};
       default:
         return {backgroundColor: '#2039B7'};
@@ -202,14 +205,14 @@ const Notification = () => {
         </View> */}
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Notification</Text>
+          <Text style={styles.listTitle}>{t('notification')}</Text>
           {recentOrders.map((order, index) => (
             <View key={`${order.id}-${index}`} style={styles.listItem}>
               <Image source={ordersIcon} style={styles.listIcon} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
                   <View style={styles.orderIdBadgeContainer}>
-                    <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                    <Text style={styles.orderId}>{t('order_id')}: {order.id}</Text>
                     <View
                       style={[styles.newBadge, getBadgeStyle(order.status)]}>
                       <Text style={styles.badgeText}>{order.status}</Text>

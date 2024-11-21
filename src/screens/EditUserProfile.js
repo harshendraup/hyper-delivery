@@ -21,11 +21,14 @@ import backbutton from '../asset/SVG/Backbutton.png';
 import Ellipse12 from '../asset/faces/Ellipse3.png';
 import CommonButton from '../component/button';
 import Calender from '../asset/SVG/Calender.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 const {width, height} = Dimensions.get('window');
 
 const EditUserProfile = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   const [name, setName] = useState('');
   const [id, setId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -70,7 +73,7 @@ const EditUserProfile = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.profileLabel}>Edit Profile</Text>
+          <Text style={styles.profileLabel}>{t('edit_profile')}</Text>
           <Image source={Ellipse12} style={styles.profileImage} />
           <Text style={styles.profileName}>Your Name</Text>
           <Text style={styles.profileEmail}>email@example.com</Text>
@@ -79,19 +82,19 @@ const EditUserProfile = () => {
         {/* Floating label inputs */}
         <View style={styles.inputContainer}>
           <FloatingLabelInput
-            label="Name"
+            label={t('name')}
             value={name}
             onChangeText={setName}
           />
-          <FloatingLabelInput label="ID" value={id} onChangeText={setId} />
+          <FloatingLabelInput label={t('id')} value={id} onChangeText={setId} />
           <FloatingLabelInput
-            label="Phone Number"
+            label={t('phone_number')}
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             keyboardType="phone-pad"
           />
           <FloatingLabelInput
-            label="Email"
+            label={t('Email')}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -100,7 +103,7 @@ const EditUserProfile = () => {
           {/* Custom input for Date of Birth with Calendar Icon inside */}
           <View style={styles.inputWithIcon}>
             <FloatingLabelInput
-              label="Date of Birth"
+              label={t('dob')}
               value={selectedDate ? selectedDate.toDateString() : ''} // Show the selected date in the input
               editable={false} // Make the input uneditable directly, only change through date picker
             />
@@ -127,7 +130,7 @@ const EditUserProfile = () => {
 
         <View style={styles.buttonContainer}>
           <CommonButton
-            title="Update Profile"
+            title={t('Updateprofile')}
             // onPress={() => navigation.navigate('UploadDoc')}
           />
         </View>
