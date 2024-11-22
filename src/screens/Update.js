@@ -22,11 +22,15 @@ import star from '../asset/icons/star.png';
 import pickupIcon from '../asset/SVG/Pickupicon.png';
 import deliveryIcon from '../asset/SVG/Deliveryicon.png';
 import orderIcon from '../asset/SVG/Id.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
 const Update = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const orderId = '#123456';
 
   return (
@@ -40,7 +44,7 @@ const Update = () => {
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled">
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Update</Text>
+          <Text style={styles.title}>{t('update')}</Text>
         </View>
 
         <Image source={map} style={styles.mapImage} />
@@ -49,8 +53,8 @@ const Update = () => {
           <View style={styles.profileLeft}>
             <Image source={profilePic} style={styles.profilePic} />
             <View style={styles.profileTextContainer}>
-              <Text style={styles.profileName}>Amit Patel</Text>
-              <Text style={styles.profileIdentity}>Courier</Text>
+              <Text style={styles.profileName}>{t('Amitpatel')}</Text>
+              <Text style={styles.profileIdentity}>{t('Courier')}</Text>
               <View style={styles.ratingContainer}>
                 {[...Array(5)].map((_, index) => (
                   <Image source={star} style={styles.starIcon} key={index} />
@@ -72,8 +76,8 @@ const Update = () => {
           <View style={styles.profileLeft}>
             <Image source={profilePic1} style={styles.profilePic} />
             <View style={styles.profileTextContainer}>
-              <Text style={styles.profileName}>Richa Kushwa</Text>
-              <Text style={styles.profileIdentity}>Customer</Text>
+              <Text style={styles.profileName}>{t('Richakushwa')}</Text>
+              <Text style={styles.profileIdentity}>{t('Customer')}</Text>
               <View style={styles.ratingContainer}>
                 {[...Array(5)].map((_, index) => (
                   <Image source={star} style={styles.starIcon} key={index} />
@@ -94,22 +98,22 @@ const Update = () => {
         <View style={styles.locationContainer}>
           <View style={styles.locationRow}>
             <Image source={pickupIcon} style={styles.locationIcon} />
-            <Text style={styles.locationText}>Pickup Location:</Text>
+            <Text style={styles.locationText}>{t('pickup')}:</Text>
           </View>
-          <Text style={styles.addressText}>123 Main St.</Text>
+          <Text style={styles.addressText}>{t('adress')}</Text>
           <View style={styles.rectangleImage} />
 
           <View style={styles.locationRow}>
             <Image source={deliveryIcon} style={styles.locationIcon} />
-            <Text style={styles.locationText}>Delivery Location:</Text>
+            <Text style={styles.locationText}>{t('delivery')}:</Text>
           </View>
-          <Text style={styles.addressText}>456 Elm St.</Text>
+          <Text style={styles.addressText}>{t('adress1')}</Text>
         </View>
 
         <View style={styles.orderIdContainer}>
           <View style={styles.orderRow}>
             <Image source={orderIcon} style={styles.orderIcon} />
-            <Text style={styles.orderIdHeading}>Order ID</Text>
+            <Text style={styles.orderIdHeading}>{t('order_id')}</Text>
           </View>
           <Text style={styles.orderIdText}>{orderId}</Text>
         </View>
@@ -117,7 +121,7 @@ const Update = () => {
 
       <View style={styles.buttonContainer}>
         <CommonButton
-          title="Next"
+          title={t('next')}
           onPress={() => navigation.navigate('UpdateOrderDetails')}
         />
       </View>
@@ -202,6 +206,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: 30,
     marginBottom: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   rectangleImage: {
     width: 3,

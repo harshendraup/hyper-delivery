@@ -11,6 +11,9 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 // Import icons
 import chat from '../asset/icons/chat.png';
@@ -29,24 +32,24 @@ const {width, height} = Dimensions.get('window');
 
 const Profile = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   const menuItems = [
-    {label: 'Edit Profile', icon: editIcon, route: 'EditUserProfile'},
-    {label: 'Edit Store Details', icon: storeIcon, route: 'StoreDetails'},
+    {label: t('EditProfile'), icon: editIcon, route: 'EditUserProfile'},
+    {label: t('EditStoreDetails'), icon: storeIcon, route: 'StoreDetails'},
     {
-      label: 'Earnings',
+      label: t('Earnings'),
       icon: earningsIcon,
       route: 'Earnings',
       iconStyle: styles.earningsIcon,
     },
     {
-      label: 'Privacy Policy',
+      label: t('PrivacyPolicy'),
       icon: privacyIcon,
       route: 'PrivacyPolicy',
       iconStyle: styles.privacyIcon,
     },
-    {label: 'Customer Support', icon: supportIcon, route: 'CustomerSupport'},
-    {label: 'Logout', icon: logoutIcon, route: 'TabNavigator'},
+    {label: t('CustomerSupport'), icon: supportIcon, route: 'CustomerSupport'},
+    {label: t('Logout'), icon: logoutIcon, route: 'TabNavigator'},
   ];
 
   const handlePress = route => {
@@ -67,10 +70,10 @@ const Profile = () => {
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
         <View style={styles.semiCircle}>
-          <Text style={styles.profileLabel}>Profile</Text>
+          <Text style={styles.profileLabel}>{t('Profile')}</Text>
           <Image source={Ellipse12} style={styles.profileImage} />
-          <Text style={styles.profileName}>Your Name</Text>
-          <Text style={styles.profileEmail}>email@example.com</Text>
+          <Text style={styles.profileName}>{t('profileName')}</Text>
+          <Text style={styles.profileEmail}>{t('profileEmail')}</Text>
         </View>
 
         <View style={styles.menuContainer}>
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: Platform.OS === 'ios'?'600':'800',
     fontFamily: 'Lato',
     flex: 1,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   arrowIcon: {
     width: 10,

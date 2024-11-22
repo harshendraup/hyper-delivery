@@ -24,12 +24,15 @@ import Download from '../asset/icons/solar_download-bold.png';
 import CommonTextInput from '../component/TextInput';
 import CommonButton from '../component/button';
 import StarSVG from '../asset/SVG/Start';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
   const [isFocused, setIsFocused] = useState(false);
-
+const {t} = useTranslation();
   return (
     <View style={styles.floatingLabelContainer}>
       <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
@@ -48,7 +51,7 @@ const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onOpen} style={styles.openButton}>
-          <Text style={styles.openButtonText}>Open</Text>
+          <Text style={styles.openButtonText}>{t('open')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -68,7 +71,7 @@ const formatDate = dateString => {
 
 const UpdateOrderDetails = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   // State variables for uploaded documents
   const [uploadedLicense, setUploadedLicense] = useState('');
   const [uploadedID, setUploadedID] = useState('');
@@ -91,13 +94,13 @@ const UpdateOrderDetails = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.title}>Order Details</Text>
+          <Text style={styles.title}>{t('order_details')}</Text>
         </View>
         <View style={styles.detailsContainer}>
           <Image source={image} style={styles.orderImage} />
           <View style={styles.textContainer}>
             <View style={styles.hybridWithRatingRow}>
-              <Text style={styles.orderTitle}>HYBRID</Text>
+              <Text style={styles.orderTitle}>{t('hybrid')}</Text>
               <View style={styles.ratingWrapper}>
                 <Image source={ratingImage} style={styles.ratingImageSmall} />
                 <Text style={styles.ratingTextSmall}></Text>
@@ -105,7 +108,7 @@ const UpdateOrderDetails = () => {
             </View>
 
             <View style={styles.deliveryInfoContainer}>
-              <Text style={styles.orderText}>Walker Kush</Text>
+              <Text style={styles.orderText}>{t('walker_kush')}</Text>
               <Text style={styles.orderText}>50g</Text>
             </View>
             <View style={styles.priceContainer}>
@@ -116,7 +119,7 @@ const UpdateOrderDetails = () => {
         </View>
         <View style={styles.deliveryContainer}>
           <View style={styles.deliveryTitleContainer}>
-            <Text style={styles.deliveryTitle}>Delivery Address:</Text>
+            <Text style={styles.deliveryTitle}>{t('delivery_address')}:</Text>
             <TouchableOpacity
               style={styles.editButton}
               onPress={() => {
@@ -137,26 +140,24 @@ const UpdateOrderDetails = () => {
           </Text>
         </View>
         <View style={{width: '100%'}}>
-          <Text style={styles.consumerTitle}>
-            Required Document by Consumer
-          </Text>
+          <Text style={styles.consumerTitle}>{t('required')}</Text>
           <FloatingLabelInput
-            label="Uploaded License *"
+            label={t('license')}
             value={uploadedLicense}
             onChangeText={setUploadedLicense}
           />
           <FloatingLabelInput
-            label="Uploaded ID Card *"
+            label={t('id_card')}
             value={uploadedID}
             onChangeText={setUploadedID}
           />
           <FloatingLabelInput
-            label="Uploaded Prescription *"
+            label={t('prescription')}
             value={uploadedPrescription}
             onChangeText={setUploadedPrescription}
           />
           <FloatingLabelInput
-            label="Face Scan *"
+            label={t('face_scan')}
             value={uploadedFaceScan}
             onChangeText={setUploadedFaceScan}
           />
@@ -164,49 +165,48 @@ const UpdateOrderDetails = () => {
         <View style={styles.noteContainer}>
           <Image source={note} style={styles.noteImage} />
           <View style={styles.noteContent}>
-            <Text style={styles.noteTitle}>Note</Text>
-            <Text style={styles.noteText}>
-              Porem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis.
-            </Text>
+            <Text style={styles.noteTitle}>{t('note')}</Text>
+            <Text style={styles.noteText}>{t('note_description')}</Text>
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Summary</Text>
+          <Text style={styles.summaryTitle}>{t('order_summary')}</Text>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Amount</Text>
+            <Text style={styles.summaryLabel}>{t('amount')}</Text>
             <Text style={styles.summaryValue}>$ 6800</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Tax</Text>
+            <Text style={styles.summaryLabel}>{t('tax')}</Text>
             <Text style={styles.summaryValue}>$ 800</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Delivery partner fees</Text>
+            <Text style={styles.summaryLabel}>
+              {t('delivery_partner_fees')}
+            </Text>
             <Text style={styles.summaryValue}>$ 100</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabelBold}>Grand total</Text>
+            <Text style={styles.summaryLabelBold}>{t('grand_total')}</Text>
             <Text style={styles.summaryValueBold}>$ 6100</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Cash Round Off</Text>
+            <Text style={styles.summaryLabel}>{t('cash_round_off')}</Text>
             <Text style={styles.summaryValue}>$ -0.08</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabelBold}>Receivable</Text>
+            <Text style={styles.summaryLabelBold}>{t('receivable')}</Text>
             <Text style={styles.summaryValueBold}>$ 78</Text>
           </View>
         </View>
         <View style={styles.invoiceButtonContainer}>
           <TouchableOpacity style={styles.invoiceButton}>
-            <Text style={styles.invoiceButtonText}>Download Invoice</Text>
+            <Text style={styles.invoiceButtonText}>{t('order_invoice')}</Text>
             <Image source={Download} style={styles.downloadIcon} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.ratingContainer}>
-          <Text style={styles.ratingTitle}>Rating to Courier Service</Text>
+          <Text style={styles.ratingTitle}>{t('rating_courier_service')}</Text>
           <View style={styles.starsContainer}>
             <StarSVG />
             <StarSVG />
@@ -217,10 +217,10 @@ const UpdateOrderDetails = () => {
         </View>
 
         <View style={styles.feedbackContainer}>
-          <Text style={styles.feedbackTitle}>Share your feedback</Text>
+          <Text style={styles.feedbackTitle}>{t('customer_feedback')}</Text>
           <View style={{position: 'relative', width: width * 0.78}}>
             <CommonTextInput
-              placeholder="Tell us what you liked." // This is necessary to ensure the input field has a placeholder space.
+              placeholder={t('feedback_message')} // This is necessary to ensure the input field has a placeholder space.
               style={{
                 borderColor: 'white',
                 borderWidth: 1,
@@ -228,12 +228,13 @@ const UpdateOrderDetails = () => {
                 borderRadius: 10,
                 paddingLeft: 10, // Add padding to ensure the text doesn't touch the border
                 height: 70, // Adjust height as needed
+                textAlign: Platform.OS === 'ios' ? 'left' : 'left',
               }}
             />
           </View>
         </View>
         <CommonButton
-          title="Go to Home"
+          title={t('gohome')}
           onPress={() => navigation.navigate('TabNavigator', {screen: 'Home'})}
         />
       </ScrollView>
@@ -412,6 +413,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     padding: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
     // marginVertical: 10,
   },
   floatingLabelContainer: {
@@ -479,12 +481,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(51, 51, 51, 1)',
     marginBottom: 5,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   noteText: {
     fontSize: 14,
     color: 'rgba(51, 51, 51, 1)',
     fontFamily: 'Inter',
     fontWeight: '500',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   summaryContainer: {
     marginTop: 20,
@@ -497,6 +501,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     color: 'rgba(0, 0, 0, 1)',
     marginBottom: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   summaryItem: {
     flexDirection: 'row',

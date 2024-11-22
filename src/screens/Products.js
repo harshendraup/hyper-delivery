@@ -164,9 +164,9 @@ const Products = () => {
           <Text style={styles.badgeText}>{t('inStock')}</Text>
         </View>
       </View>
-      <Text style={styles.productTitle}>HYBRID</Text>
+      <Text style={styles.productTitle}>{t('hybrid')}</Text>
       <Text style={styles.productSubtitle}>
-        Walker Kush{'          '}
+        {t('walker_kush')}{'          '}
         <Text>{product.wight}g</Text>
       </Text>
 
@@ -204,7 +204,7 @@ const Products = () => {
     >
       <View style={styles.headerContainer}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          // onPress={() => navigation.goBack()}
           style={[styles.backButton, styles.shadow]}
         >
           <Image source={Dashboardbutton} style={styles.backButtonImage} />
@@ -413,6 +413,7 @@ const styles = StyleSheet.create({
     color: 'rgba(79, 79, 79, 1)',
     marginLeft: 10,
     marginTop: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   productSubtitle: {
     fontSize: 14,
@@ -420,27 +421,27 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Mulish',
     marginLeft: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
-  waitText: {
-    color: 'black',
-    textAlign: 'right',
-    marginLeft: 10,
-  },
+
   priceContainer: {
     flexDirection: 'row',
     marginTop: 10,
     marginLeft: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   priceText: {
     fontSize: 16,
     color: 'green',
     fontWeight: 'bold',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   discountedPriceText: {
     fontSize: 14,
     color: 'gray',
     textDecorationLine: 'line-through',
     marginLeft: 10,
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   buttonContainer: {
     flexDirection: 'row',

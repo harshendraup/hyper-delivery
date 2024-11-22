@@ -25,8 +25,10 @@ import f9 from '../asset/faces/Ellipse9.png';
 import f10 from '../asset/faces/Ellipse10.png';
 import f11 from '../asset/faces/Ellipse11.png';
 import f12 from '../asset/faces/Ellipse12.png';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 // Additional example icon
 
 const {width} = Dimensions.get('window');
@@ -43,7 +45,7 @@ const getRandomImage = () => {
 
 const Chat = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   // Updated recentOrders with random images
   const recentOrders = [
     {
@@ -207,13 +209,15 @@ const Chat = () => {
         </View>
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Chats</Text>
+          <Text style={styles.listTitle}>{t('chats')}</Text>
           {recentOrders.map((order, index) => (
             <View key={`${order.id}-${index}`} style={styles.listItem}>
               <Image source={order.image} style={styles.buttonImage} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
-                  <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                  <Text style={styles.orderId}>
+                    {t('order_id')}: {order.id}
+                  </Text>
                   <Text style={styles.orderDate}>{order.time}</Text>
                 </View>
                 <Text
@@ -222,8 +226,9 @@ const Chat = () => {
                     fontFamily: 'Inter',
                     fontWeight: '400',
                     fontSize: 11,
+                    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
                   }}>
-                  Where are you?
+                  {t('whereAreYou')}
                 </Text>
               </View>
             </View>
@@ -253,7 +258,7 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 10, // Adjust padding for larger clickable area
     backgroundColor: '#409C59',
-    borderRadius: 5,
+    borderRadius: 10,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4},

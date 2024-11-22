@@ -189,7 +189,7 @@ const BusinessDetails = () => {
 
             <Accordion
               title={t('shop_open_days')}
-              items={['day 1', 'day 2', 'day 3']}
+              items={[t('1'), t('2'), t('3')]}
               isOpen={selectDayOpen}
               toggle={() => setselectDayOpen(!selectDayOpen)}
               onSelect={() => {}}
@@ -298,6 +298,7 @@ const styles = StyleSheet.create({
   toggleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center', // Ensures vertical centering of children (like the button)
     width: width * 0.85,
     marginBottom: 15,
     backgroundColor: '#409C59',
@@ -307,6 +308,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 8,
     alignItems: 'center',
+    justifyContent: 'center', // Centers content inside the button
     borderRadius: 30,
     marginHorizontal: 5,
   },
@@ -333,6 +335,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 5,
   },
+
   inputContainer: {
     width: width * 0.85,
   },
@@ -379,6 +382,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'rgba(51, 51, 51, 1)',
     fontFamily: 'Inter',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   uploadRow: {
     flexDirection: 'row',

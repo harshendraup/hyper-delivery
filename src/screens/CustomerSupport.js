@@ -16,6 +16,9 @@ import backArrow from '../asset/icons/backArrow.png';
 import call from '../asset/SVG/Call.png';
 import Ellipse3 from '../asset/faces/Ellipse3.png';
 import Ellipse11 from '../asset/faces/Ellipse11.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const randomResponses = [
   'How can I assist you today?',
@@ -41,6 +44,7 @@ const CustomerSupport = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   const sendMessage = () => {
     if (inputValue.trim()) {
@@ -100,8 +104,9 @@ const CustomerSupport = () => {
             fontSize: 16,
             color: 'rgba(51, 51, 51, 1)',
             fontFamily: 'Inter',
+            
           }}>
-          Customer Support
+          {t('customer_support')}
         </Text>
         <TouchableOpacity
           onPress={() => navigation.navigate('ContactUsForm')}
@@ -122,7 +127,7 @@ const CustomerSupport = () => {
           style={styles.textInput}
           value={inputValue}
           onChangeText={setInputValue}
-          placeholder="Type your message..."
+          placeholder={t('message')}
           placeholderTextColor="black"
         />
         <TouchableOpacity onPress={sendMessage}>
@@ -227,6 +232,7 @@ const styles = StyleSheet.create({
     padding:Platform.OS === 'ios' ? 14:10,
     marginRight: 10,
     color: 'black',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   sendButton: {
     width: 45,

@@ -94,14 +94,14 @@ const AncillaryAddProducts = () => {
           /> */}
           <Accordion
             title={t('cannabis_type')}
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            items={[t('1'), t('2'), t('3')]} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
             onSelect={() => {}}
           />
 
           <FloatingLabelInput
-            label={t('product_name')}
+            label={t('product1')}
             value={ProductName}
             onChangeText={setProductName}
             keyboardType="email-address"
@@ -233,6 +233,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
     color: 'rgba(51, 51, 51, 1)',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
   uploadRow: {
     flexDirection: 'column',

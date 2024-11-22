@@ -15,12 +15,15 @@ import {useNavigation} from '@react-navigation/native';
 import chatIcon from '../asset/icons/chat.png';
 import dashboardIcon from '../asset/icons/dashboard.png';
 import ordersIcon from '../asset/SVG/Orders.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
 const Notification = () => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   // Updated recentOrders with status instead of isNew
   const recentOrders = [
     {
@@ -28,140 +31,140 @@ const Notification = () => {
       date: '01-10-2024',
       time: '10:30 AM',
       price: '$50',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12346',
       date: '02-10-2024',
       time: '11:00 AM',
       price: '$75',
-      status: 'Cancelled',
+      status: t('cancelled'),
     },
     {
       id: '12347',
       date: '03-10-2024',
       time: '01:00 PM',
       price: '$100',
-      status: 'Completed',
+      status: t('completed'),
     },
     {
       id: '12348',
       date: '04-10-2024',
       time: '02:00 PM',
       price: '$60',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12345',
       date: '01-10-2024',
       time: '10:30 AM',
       price: '$50',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12346',
       date: '02-10-2024',
       time: '11:00 AM',
       price: '$75',
-      status: 'Cancelled',
+      status: t('cancelled'),
     },
     {
       id: '12347',
       date: '03-10-2024',
       time: '01:00 PM',
       price: '$100',
-      status: 'Completed',
+      status: t('completed'),
     },
     {
       id: '12348',
       date: '04-10-2024',
       time: '02:00 PM',
       price: '$60',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12345',
       date: '01-10-2024',
       time: '10:30 AM',
       price: '$50',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12346',
       date: '02-10-2024',
       time: '11:00 AM',
       price: '$75',
-      status: 'Cancelled',
+      status: t('cancelled'),
     },
     {
       id: '12347',
       date: '03-10-2024',
       time: '01:00 PM',
       price: '$100',
-      status: 'Completed',
+      status: t('completed'),
     },
     {
       id: '12348',
       date: '04-10-2024',
       time: '02:00 PM',
       price: '$60',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12345',
       date: '01-10-2024',
       time: '10:30 AM',
       price: '$50',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12346',
       date: '02-10-2024',
       time: '11:00 AM',
       price: '$75',
-      status: 'Cancelled',
+      status: t('cancelled'),
     },
     {
       id: '12347',
       date: '03-10-2024',
       time: '01:00 PM',
       price: '$100',
-      status: 'Completed',
+      status: t('completed'),
     },
     {
       id: '12348',
       date: '04-10-2024',
       time: '02:00 PM',
       price: '$60',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12345',
       date: '01-10-2024',
       time: '10:30 AM',
       price: '$50',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     {
       id: '12346',
       date: '02-10-2024',
       time: '11:00 AM',
       price: '$75',
-      status: 'Cancelled',
+      status: t('cancelled'),
     },
     {
       id: '12347',
       date: '03-10-2024',
       time: '01:00 PM',
       price: '$100',
-      status: 'Completed',
+      status: t('completed'),
     },
     {
       id: '12348',
       date: '04-10-2024',
       time: '02:00 PM',
       price: '$60',
-      status: 'New Orders',
+      status: t('neworders'),
     },
     // Add more orders as needed...
   ];
@@ -169,11 +172,11 @@ const Notification = () => {
   // Function to determine badge color (same as in Orders component)
   const getBadgeStyle = status => {
     switch (status) {
-      case 'Cancelled':
+      case t('cancelled'):
         return {backgroundColor: '#AA1A1A'};
-      case 'Completed':
+      case t('completed'):
         return {backgroundColor: '#409C59'};
-      case 'New Orders':
+      case t('neworders'):
         return {backgroundColor: '#2039B7'};
       default:
         return {backgroundColor: '#2039B7'};
@@ -204,14 +207,16 @@ const Notification = () => {
         </View> */}
 
         <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>Notification</Text>
+          <Text style={styles.listTitle}>{t('notification')}</Text>
           {recentOrders.map((order, index) => (
             <View key={`${order.id}-${index}`} style={styles.listItem}>
               <Image source={ordersIcon} style={styles.listIcon} />
               <View style={styles.orderInfo}>
                 <View style={styles.orderIdContainer}>
                   <View style={styles.orderIdBadgeContainer}>
-                    <Text style={styles.orderId}>Order ID: {order.id}</Text>
+                    <Text style={styles.orderId}>
+                      {t('order_id')}: {order.id}
+                    </Text>
                     <View
                       style={[styles.newBadge, getBadgeStyle(order.status)]}>
                       <Text style={styles.badgeText}>{order.status}</Text>
@@ -227,8 +232,9 @@ const Notification = () => {
                     fontWeight: '400',
                     fontFamily: 'Inter',
                     fontSize: 12,
+                    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
                   }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  {t('notificatio_message')}
                 </Text>
               </View>
             </View>

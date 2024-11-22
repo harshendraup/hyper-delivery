@@ -17,6 +17,9 @@ import CommonButton from '../component/button';
 import backbutton from '../asset/backbutton.png';
 import Cloud from '../asset/SVG/Cloud.png';
 import Location from '../asset/SVG/Loc.png'; // Import the calendar icon
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 
@@ -42,6 +45,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const StoreDetails = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [shopName, setShopName] = useState('');
   const [shopAddress, setShopAddress] = useState('');
 
@@ -61,12 +65,12 @@ const StoreDetails = () => {
             style={styles.backButton}>
             <Image source={backbutton} style={styles.backButtonImage} />
           </TouchableOpacity>
-          <Text style={styles.title}>Store Details</Text>
+          <Text style={styles.title}>{t('store_details')}</Text>
         </View>
 
         <View style={styles.inputContainer}>
           <FloatingLabelInput
-            label="Shop Name"
+            label={t('shopname')}
             value={shopName}
             onChangeText={setShopName}
             keyboardType="default"
@@ -75,7 +79,7 @@ const StoreDetails = () => {
           {/* Shop Address input with calendar icon */}
           <View style={styles.inputWithIcon}>
             <FloatingLabelInput
-              label="Shop Address"
+              label={t('shop_address')}
               value={shopAddress}
               onChangeText={setShopAddress}
               keyboardType="default"
@@ -91,23 +95,23 @@ const StoreDetails = () => {
         </View>
 
         <View style={styles.uploadContainer}>
-          <Text style={styles.topText}>Shop Documents</Text>
+          <Text style={styles.topText}>{t('shop_documents')}</Text>
           <View style={styles.uploadRow}>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
-              <Text style={styles.uploadButtonText}>Upload Documents</Text>
+              <Text style={styles.uploadButtonText}>{t('upload_documents')}</Text>
             </TouchableOpacity>
-            <Text style={styles.topText}>Product image</Text>
+            <Text style={styles.topText}>{t('Productimage')}</Text>
             <TouchableOpacity style={styles.uploadButton}>
               <Image source={Cloud} style={styles.CloudIcon} />
-              <Text style={styles.uploadButtonText}>Upload Product Image</Text>
+              <Text style={styles.uploadButtonText}>{t('Uploadproduct')}</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.buttonContainer}>
           <CommonButton
-            title="Save Shop"
+            title={t('Save')}
             onPress={() => navigation.navigate('')} // Add the proper navigation here
           />
         </View>
