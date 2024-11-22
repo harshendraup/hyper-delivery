@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import chat from '../asset/SVG/Chaticon.png';
@@ -195,6 +196,7 @@ const Products = () => {
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
   >
+    <SafeAreaView>
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       keyboardShouldPersistTaps="handled"
@@ -261,6 +263,7 @@ const Products = () => {
         {products.map(renderProductTile)}
       </View>
     </ScrollView>
+    </SafeAreaView>
   </KeyboardAvoidingView>
   );
 };
@@ -341,7 +344,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: 'flex-end',
     width: '40%',
-    marginRight: 15,
+    // marginRight: 1,
     alignItems: 'center',
   },
   addButtonContent: {

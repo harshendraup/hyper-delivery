@@ -10,6 +10,7 @@ import {
   ScrollView,
   TextInput,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Language from '../utils/Language';
@@ -74,6 +75,7 @@ const AddProducts = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
@@ -190,6 +192,7 @@ const AddProducts = () => {
           <CommonButton title={t('next')} onPress={() => {}} />
         </View>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

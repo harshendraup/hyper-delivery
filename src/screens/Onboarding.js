@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
@@ -46,6 +48,7 @@ const Onboarding = () => {
 
   return (
     <View style={styles.container}>
+      <SafeAreaView>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         // keyboardShouldPersistTaps="handled"
@@ -112,6 +115,7 @@ const Onboarding = () => {
           {t('terms_and_conditions1')}
         </Text>
       </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
@@ -212,7 +216,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight:Platform.OS === 'ios' ?'600':'800',
     color: '#000',
     fontFamily: 'Inter',
   },

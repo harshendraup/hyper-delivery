@@ -10,6 +10,7 @@ import {
   Platform,
   ScrollView,
   Keyboard,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import logo from '../asset/SVG/Logo.png';
@@ -80,6 +81,7 @@ const ConnectWithPhone = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
@@ -167,6 +169,7 @@ const ConnectWithPhone = () => {
           {t('terms_and_conditions1')}
         </Text>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

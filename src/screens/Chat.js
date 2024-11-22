@@ -25,6 +25,7 @@ import f9 from '../asset/faces/Ellipse9.png';
 import f10 from '../asset/faces/Ellipse10.png';
 import f11 from '../asset/faces/Ellipse11.png';
 import f12 from '../asset/faces/Ellipse12.png';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Additional example icon
 
@@ -186,6 +187,7 @@ const Chat = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
@@ -228,6 +230,7 @@ const Chat = () => {
           ))}
         </View>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

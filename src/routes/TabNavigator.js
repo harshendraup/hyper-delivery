@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Image} from 'react-native';
+import {Image, Platform} from 'react-native';
 import Dashboard from '../screens/Dashboard';
 import Products from '../screens/Products';
 import Orders from '../screens/Orders';
@@ -29,7 +29,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: '#409C59',
         tabBarInactiveTintColor: '#061E14',
         tabBarStyle: {
-          height: 50,
+          height:Platform.OS ==='ios'?80: 50,
           backgroundColor: '#fff',
           width: '100%',
           elevation: 10,

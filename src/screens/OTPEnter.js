@@ -10,6 +10,7 @@ import {
   Keyboard,
   Image,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -64,6 +65,7 @@ const OTPEnter = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
@@ -100,6 +102,7 @@ const OTPEnter = () => {
         </View>
         <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

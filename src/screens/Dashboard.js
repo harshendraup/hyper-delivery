@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import chat from '../asset/SVG/Chaticon.png';
@@ -127,6 +128,7 @@ const Dashboard = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
@@ -182,6 +184,7 @@ const Dashboard = () => {
           ))}
         </View>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

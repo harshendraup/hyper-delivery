@@ -10,6 +10,7 @@ import {
   ScrollView,
   TextInput,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Cloud from '../asset/SVG/Cloud.png';
@@ -59,6 +60,7 @@ const PersonalInfo = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
@@ -130,6 +132,7 @@ const PersonalInfo = () => {
           />
         </View>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
@@ -235,7 +238,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 14,
-    width: width * 0.99,
+    width: width * 0.97,
     paddingBottom: 14,
     paddingRight: 20,
     paddingLeft: 20,

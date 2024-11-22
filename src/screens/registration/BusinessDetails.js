@@ -10,6 +10,7 @@ import {
   ScrollView,
   TextInput,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
@@ -71,6 +72,7 @@ const BusinessDetails = () => {
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
   >
+    <SafeAreaView>
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       keyboardShouldPersistTaps="handled"
@@ -248,6 +250,7 @@ const BusinessDetails = () => {
         )}
       </View>
     </ScrollView>
+    </SafeAreaView>
   </KeyboardAvoidingView>
   );
 };
