@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   subsubText: {
     fontSize: 14,
-    color: 'rgbs(143, 145, 149, 1)',
+    color: 'rgb(143, 145, 149, 1)',
     textAlign: 'center',
     paddingBottom: 20,
     marginTop: 20,
