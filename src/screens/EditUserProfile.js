@@ -75,8 +75,8 @@ const EditUserProfile = () => {
           </TouchableOpacity>
           <Text style={styles.profileLabel}>{t('edit_profile')}</Text>
           <Image source={Ellipse12} style={styles.profileImage} />
-          <Text style={styles.profileName}>Your Name</Text>
-          <Text style={styles.profileEmail}>email@example.com</Text>
+          <Text style={styles.profileName}>{t('profileName')}</Text>
+          <Text style={styles.profileEmail}>{t('profileEmail')}</Text>
         </View>
 
         {/* Floating label inputs */}

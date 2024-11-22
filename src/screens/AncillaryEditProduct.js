@@ -93,7 +93,7 @@ const AncillaryEditProduct = () => {
         <View style={styles.inputContainer}>
           <Accordion
             title={t('cannabis_type')}
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            items={[t('1'), t('2'), t('3')]} // Replace with actual items
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
             onSelect={() => {}}
@@ -126,7 +126,7 @@ const AncillaryEditProduct = () => {
           /> */}
           <Accordion
             title={t('status')}
-            items={['Category 1', 'Category 2', 'Category 3']} // Replace with actual items
+            items={[t('1'), t('2'), t('3')]} // Replace with actual items
             isOpen={Status}
             toggle={() => setStatus(!Status)}
             onSelect={() => {}}

@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 10, // Adjust padding for larger clickable area
     backgroundColor: '#409C59',
-    borderRadius: 5,
+    borderRadius: 10,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4},

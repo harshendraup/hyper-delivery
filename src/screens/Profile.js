@@ -70,8 +70,8 @@ const Profile = () => {
         <View style={styles.semiCircle}>
           <Text style={styles.profileLabel}>{t('Profile')}</Text>
           <Image source={Ellipse12} style={styles.profileImage} />
-          <Text style={styles.profileName}>Your Name</Text>
-          <Text style={styles.profileEmail}>email@example.com</Text>
+          <Text style={styles.profileName}>{t('profileName')}</Text>
+          <Text style={styles.profileEmail}>{t('profileEmail')}</Text>
         </View>
 
         <View style={styles.menuContainer}>

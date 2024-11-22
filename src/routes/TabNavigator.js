@@ -18,10 +18,14 @@ import homeg from '../asset/SVG/HomeG.png';
 import Product from '../asset/SVG/Products.png';
 import ProductsSVG from '../asset/SVG/Products';
 import Productg from '../asset/SVG/ProductsG.png';
+import Language from '../utils/Language';
+import i18next from '../services/i18next';
+import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -46,7 +50,7 @@ const TabNavigator = () => {
         },
       }}>
       <Tab.Screen
-        name="Home"
+        name={t('home')}
         component={Dashboard}
         options={{
           tabBarIcon: ({focused}) => (
@@ -58,7 +62,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Products"
+        name={t('products')}
         component={Products}
         options={{
           tabBarIcon: ({focused}) => (
@@ -70,7 +74,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="My Orders"
+        name={t('my_orders')}
         component={Orders}
         options={{
           tabBarIcon: ({focused}) => (
@@ -82,7 +86,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Notification"
+        name={t('notification')}
         component={Notification}
         options={{
           tabBarIcon: ({focused}) => (
@@ -94,7 +98,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name={t('profile')}
         component={Profile}
         options={{
           tabBarIcon: ({focused}) => (

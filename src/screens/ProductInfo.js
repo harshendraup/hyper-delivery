@@ -96,7 +96,7 @@ const ProductInfo = () => {
                 </View>
               </View>
 
-              <Text style={styles.subHeading}>$189/gm</Text>
+              <Text style={styles.subHeading}>{t('price_gm')}</Text>
               <Text style={styles.productDescription}>
                 {t('description')}
               </Text>

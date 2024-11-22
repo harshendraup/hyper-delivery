@@ -187,7 +187,7 @@ const BusinessDetails = () => {
 
             <Accordion
               title={t('shop_open_days')}
-              items={['day 1', 'day 2', 'day 3']}
+              items={[t('1'), t('2'), t('3')]}
               isOpen={selectDayOpen}
               toggle={() => setselectDayOpen(!selectDayOpen)}
               onSelect={() => {}}

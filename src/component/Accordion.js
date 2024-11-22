@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
+    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
   },
 });
 

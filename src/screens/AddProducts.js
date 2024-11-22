@@ -94,7 +94,7 @@ const AddProducts = () => {
         <View style={styles.inputContainer}>
           <Accordion
             title={t('cannabis_type')}
-            items={['Medical', 'Oil', 'Power', 'Ancillary']}
+            items={[t('medical'), t('oil'), t('power'), t('ancillary')]}
             isOpen={Cannabistype}
             toggle={() => setCannabistype(!Cannabistype)}
             onSelect={() => {}}
@@ -122,7 +122,7 @@ const AddProducts = () => {
           {/* Accordion for Cannabis Type */}
           <Accordion
             title={t('projectCategory')}
-            items={['Category 1', 'Category 2', 'Category 3']}
+            items={[t('1'), t('2'), t('3')]}
             isOpen={projectCategoryOpen}
             toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
             onSelect={() => {}}
@@ -141,7 +141,7 @@ const AddProducts = () => {
           />
           <Accordion
             title={t('cannabisForm')}
-            items={['Form 1', 'Form 2', 'Form 3']} // Replace with actual items
+            items={[t('1'), t('2'), t('3')]} // Replace with actual items
             isOpen={Cannabisform}
             toggle={() => setCannabisform(!Cannabisform)}
             onSelect={() => {}}
