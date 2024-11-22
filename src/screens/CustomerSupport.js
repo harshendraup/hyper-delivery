@@ -7,6 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import sendButton from '../asset/SVG/Send.png';
 import {useNavigation} from '@react-navigation/native';
@@ -85,6 +87,7 @@ const CustomerSupport = () => {
 
   return (
     <View style={styles.container}>
+      <SafeAreaView>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -126,6 +129,7 @@ const CustomerSupport = () => {
           <Image source={sendButton} style={styles.sendButton} />
         </TouchableOpacity>
       </View>
+      </SafeAreaView>
     </View>
   );
 };
@@ -220,7 +224,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 20,
-    padding: 10,
+    padding:Platform.OS === 'ios' ? 14:10,
     marginRight: 10,
     color: 'black',
   },

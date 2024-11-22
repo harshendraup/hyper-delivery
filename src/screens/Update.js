@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../component/button';
@@ -29,6 +30,7 @@ const Update = () => {
   const orderId = '#123456';
 
   return (
+    <SafeAreaView style={{ flex: 1 }}>
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -120,6 +122,7 @@ const Update = () => {
         />
       </View>
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

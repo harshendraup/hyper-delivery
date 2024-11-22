@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import backbutton from '../asset/SVG/Backbutton.png';
@@ -69,6 +70,7 @@ const OrderDetails = ({route}) => {
 
   return (
     <View style={styles.container}>
+      <SafeAreaView>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
@@ -196,6 +198,7 @@ const OrderDetails = ({route}) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };

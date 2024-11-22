@@ -10,6 +10,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import backbutton from '../asset/SVG/Backbutton.png';
@@ -78,8 +79,9 @@ const UpdateOrderDetails = () => {
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // Adjust as needed
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} 
     >
+      <SafeAreaView>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
@@ -235,6 +237,7 @@ const UpdateOrderDetails = () => {
           onPress={() => navigation.navigate('TabNavigator', {screen: 'Home'})}
         />
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };

@@ -23,6 +23,7 @@ import supportIcon from '../asset/SVG/Customersupport.png';
 import greenArrow from '../asset/SVG/Greenarrow.png';
 import logoutIcon from '../asset/SVG/Logout.png';
 import Ellipse12 from '../asset/faces/Ellipse3.png';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const {width, height} = Dimensions.get('window');
 
@@ -61,6 +62,7 @@ const Profile = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <SafeAreaView>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
@@ -79,7 +81,7 @@ const Profile = () => {
               onPress={() => handlePress(item.route)}>
               <Image
                 source={item.icon}
-                style={[styles.menuIcon, item.iconStyle]} // Apply conditional styling
+                style={[styles.menuIcon, item.iconStyle]} 
               />
               <Text style={styles.menuText}>{item.label}</Text>
               <Image source={greenArrow} style={styles.arrowIcon} />
@@ -87,6 +89,7 @@ const Profile = () => {
           ))}
         </View>
       </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 18,
     color: 'rgba(51, 51, 51, 1)',
-    fontWeight: '600',
+    fontWeight: Platform.OS === 'ios'?'600':'800',
     fontFamily: 'Lato',
     flex: 1,
   },
