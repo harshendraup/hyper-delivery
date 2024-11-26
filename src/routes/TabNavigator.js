@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image, Platform} from 'react-native';
-import Dashboard from '../screens/Dashboard';
-import Products from '../screens/Products';
-import Orders from '../screens/Orders';
-import Profile from '../screens/Profile';
-import Notification from '../screens/Notification';
+import Dashboard from '../screens/dashboard/Dashboard';
+import Products from '../screens/products/Products';
+import Orders from '../screens/orders/Orders';
+import Profile from '../screens/profile/Profile';
+import Notification from '../screens/notification/Notification';
 
 import bell from '../asset/SVG/bell.png';
 import bellg from '../asset/SVG/BellG.png';
