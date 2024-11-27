@@ -22,6 +22,7 @@ import CheckBox from '@react-native-community/checkbox'; // Import CheckBox
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import DocumentPicker from 'react-native-document-picker';
 
 const {width} = Dimensions.get('window');
 
@@ -61,6 +62,29 @@ const AncillaryEditProduct = () => {
   const [selectedType, setSelectedType] = useState('');
   const [lanzer, setLanzer] = useState('');
   const [isPrescriptionRequired, setIsPrescriptionRequired] = useState(false); // State for checkbox
+  const [selectedFileName, setSelectedFileName] = useState('');
+
+  const handleFileSelection = async () => {
+    try {
+      // Open the file picker
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+      });
+      
+      // Handle the selected file
+      console.log(res);
+      setSelectedFileName(res[0].name);
+      // You can process the file here, for example, uploading it or saving the file path.
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // If the user cancels the picker
+        console.log('User cancelled the file picker');
+      } else {
+        // Handle other errors
+        console.error('File picker error: ', err);
+      }
+    }
+  };
 
   const handleLanzerChange = Number => {
     const numericValue = parseInt(Number, 10);
@@ -149,10 +173,13 @@ const AncillaryEditProduct = () => {
           <View style={styles.uploadRow}>
             <TouchableOpacity
               style={[styles.uploadButton]}
-              // onPress={() => handleUpload('Front')}
+              onPress={handleFileSelection}
               >
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
+              {selectedFileName ? (
+              <Text style={styles.selectedFileName}>{selectedFileName}</Text>
+            ) : null}
             </TouchableOpacity>
           </View>
         </View>
@@ -289,5 +316,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     marginLeft: 10, // Spacing between checkbox and text
+  },
+  selectedFileName: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#333', // Choose a color that fits your design
+    marginTop: 5, // Adds space between the upload and the file name
+    textAlign: 'center', // Centers the file name text
   },
 });

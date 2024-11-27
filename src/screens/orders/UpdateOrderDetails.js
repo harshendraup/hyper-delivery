@@ -27,17 +27,42 @@ import StarSVG from '../../asset/SVG/Start';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import DocumentPicker from 'react-native-document-picker';
 
 const {width} = Dimensions.get('window');
 
 const FloatingLabelInput = ({label, value, onChangeText, onOpen}) => {
   const [isFocused, setIsFocused] = useState(false);
-const {t} = useTranslation();
+  const {t} = useTranslation(); // Destructure to get the t function
+
+  const handleFileSelection = async () => {
+    try {
+      // Open the file picker
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+      });
+      
+      // Handle the selected file
+      console.log(res);
+      onChangeText(res[0].name); 
+      // You can process the file here, for example, uploading it or saving the file path.
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // If the user cancels the picker
+        console.log('User cancelled the file picker');
+      } else {
+        // Handle other errors
+        console.error('File picker error: ', err);
+      }
+    }
+  };
+
   return (
     <View style={styles.floatingLabelContainer}>
       <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
         {label}
       </Text>
+      
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -45,12 +70,14 @@ const {t} = useTranslation();
           onChangeText={onChangeText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          editable={false} // Make the TextInput non-editable
         />
+        {value ? <Text style={styles.documentName}>{value}</Text> : null}
         <TouchableOpacity>
           <Image source={Licence} style={styles.LicenceImage} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={onOpen} style={styles.openButton}>
+        <TouchableOpacity onPress={handleFileSelection} style={styles.openButton}>
           <Text style={styles.openButtonText}>{t('open')}</Text>
         </TouchableOpacity>
       </View>
@@ -669,4 +696,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'rgba(0, 0, 0, 1)',
   },
+  documentName: {
+    fontSize: 12,
+    position: 'absolute',
+    marginTop: 15,
+    left: 10,
+    color: 'black',
+    width: '40%', // Ensure it takes up the full width of the parent container
+  }
 });

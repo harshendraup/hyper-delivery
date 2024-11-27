@@ -20,6 +20,7 @@ import Location from '../../asset/SVG/Loc.png'; // Import the calendar icon
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import DocumentPicker from 'react-native-document-picker';
 
 const {width} = Dimensions.get('window');
 
@@ -48,6 +49,31 @@ const StoreDetails = () => {
   const {t} = useTranslation();
   const [shopName, setShopName] = useState('');
   const [shopAddress, setShopAddress] = useState('');
+  const [upload_documents, setupload_documents] = useState('');
+  const [Uploadproduct, setUploadproduct] = useState('');
+
+  const handleFileSelection = async (type) => {
+    try {
+      // Open the file picker
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+      });
+      
+      if (type === 'upload_documents') {
+        setupload_documents(res[0].name); // Store the selected front document name
+      } else {
+        setUploadproduct(res[0].name); // Store the selected back document name
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // If the user cancels the picker
+        console.log('User cancelled the file picker');
+      } else {
+        // Handle other errors
+        console.error('File picker error: ', err);
+      }
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -97,14 +123,20 @@ const StoreDetails = () => {
         <View style={styles.uploadContainer}>
           <Text style={styles.topText}>{t('shop_documents')}</Text>
           <View style={styles.uploadRow}>
-            <TouchableOpacity style={styles.uploadButton}>
+            <TouchableOpacity style={styles.uploadButton}  onPress={() => handleFileSelection('upload_documents')}>
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>{t('upload_documents')}</Text>
+              {upload_documents ? (
+                    <Text style={styles.selectedFileName}>{upload_documents}</Text>
+                  ) : null}
             </TouchableOpacity>
             <Text style={styles.topText}>{t('Productimage')}</Text>
-            <TouchableOpacity style={styles.uploadButton}>
+            <TouchableOpacity style={styles.uploadButton}  onPress={() => handleFileSelection('Uploadproduct')}>
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>{t('Uploadproduct')}</Text>
+              {Uploadproduct ? (
+                    <Text style={styles.selectedFileName}>{Uploadproduct}</Text>
+                  ) : null}
             </TouchableOpacity>
           </View>
         </View>
@@ -234,6 +266,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     top: '35%',
+  },
+  selectedFileName: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#333', // Choose a color that fits your design
+    marginTop: 5, // Adds space between the upload and the file name
+    textAlign: 'center', // Centers the file name text
   },
 });
 

@@ -14,9 +14,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import DocumentPicker from 'react-native-document-picker';
 
 const {width} = Dimensions.get('window');
 
@@ -54,84 +53,116 @@ const PersonalInfo = () => {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
+  const [frontFileName, setFrontFileName] = useState('');
+  const [backFileName, setBackFileName] = useState('');
+
+  const handleFileSelection = async (type) => {
+    try {
+      // Open the file picker
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+      });
+      
+      // Handle the selected file and update the state based on type
+      if (type === 'front') {
+        setFrontFileName(res[0].name); // Store the selected front document name
+      } else {
+        setBackFileName(res[0].name); // Store the selected back document name
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // If the user cancels the file picker
+        console.log('User cancelled the file picker');
+      } else {
+        // Handle other errors
+        console.error('File picker error: ', err);
+      }
+    }
+  };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
-        <Text style={styles.topText}>
-          {t('personal_info_title')}
-        </Text>
+      <SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <Text style={styles.topText}>
+            {t('personal_info_title')}
+          </Text>
 
-        <View style={styles.inputContainer}>
-          <FloatingLabelInput
-            label={t('first_name')}
-            value={firstName}
-            onChangeText={setFirstName}
-          />
-          <FloatingLabelInput
-            label={t('last_name')}
-            value={lastName}
-            onChangeText={setLastName}
-          />
-          <FloatingLabelInput
-            label={t('email')}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-          />
-          <FloatingLabelInput
-            label={t('dob')}
-            value={dob}
-            onChangeText={setDob}
-          />
-          <FloatingLabelInput
-            label={t('address')}
-            value={address}
-            onChangeText={setAddress}
-            multiline
-            numberOfLines={3}
-            style={styles.addressInput}
-          />
-        </View>
-
-        <Text style={styles.uploadText}>{t('upload_documents')}</Text>
-        <View style={styles.uploadContainer}>
-          <View style={styles.uploadRow}>
-            <TouchableOpacity style={styles.uploadButton}>
-              <View style={styles.uploadButtonContent}>
-                <Image source={Cloud} style={styles.CloudIcon} />
-                <Text style={styles.uploadButtonText}>{t('front')}</Text>
-                <Text style={styles.uploadButtonSubtext}>
-                  {t('upload_and_scan')}
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.uploadButton}>
-              <View style={styles.uploadButtonContent}>
-                <Image source={Cloud} style={styles.CloudIcon} />
-                <Text style={styles.uploadButtonText}>{t('back')}</Text>
-                <Text style={styles.uploadButtonSubtext}>
-                {t('upload_and_scan')}
-                </Text>
-              </View>
-            </TouchableOpacity>
+          <View style={styles.inputContainer}>
+            <FloatingLabelInput
+              label={t('first_name')}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+            <FloatingLabelInput
+              label={t('last_name')}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+            <FloatingLabelInput
+              label={t('email')}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+            />
+            <FloatingLabelInput
+              label={t('dob')}
+              value={dob}
+              onChangeText={setDob}
+            />
+            <FloatingLabelInput
+              label={t('address')}
+              value={address}
+              onChangeText={setAddress}
+              multiline
+              numberOfLines={3}
+              style={styles.addressInput}
+            />
           </View>
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <GreenButton
-            title={t('next')}
-            onPress={() => navigation.navigate('BusinessDetails')}
-          />
-        </View>
-      </ScrollView>
+          <Text style={styles.uploadText}>{t('upload_documents')}</Text>
+          <View style={styles.uploadContainer}>
+            <View style={styles.uploadRow}>
+              <TouchableOpacity style={styles.uploadButton} onPress={() => handleFileSelection('front')}>
+                <View style={styles.uploadButtonContent}>
+                  <Image source={Cloud} style={styles.CloudIcon} />
+                  <Text style={styles.uploadButtonText}>{t('front')}</Text>
+                  <Text style={styles.uploadButtonSubtext}>
+                    {t('upload_and_scan')}
+                  </Text>
+                  {frontFileName ? (
+                    <Text style={styles.selectedFileName}>{frontFileName}</Text>
+                  ) : null}
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.uploadButton} onPress={() => handleFileSelection('back')}>
+                <View style={styles.uploadButtonContent}>
+                  <Image source={Cloud} style={styles.CloudIcon} />
+                  <Text style={styles.uploadButtonText}>{t('back')}</Text>
+                  <Text style={styles.uploadButtonSubtext}>
+                    {t('upload_and_scan')}
+                  </Text>
+                  {backFileName ? (
+                    <Text style={styles.selectedFileName}>{backFileName}</Text>
+                  ) : null}
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <GreenButton
+              title={t('next')}
+              onPress={() => navigation.navigate('BusinessDetails')}
+            />
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
@@ -208,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Centers content horizontally
   },
   uploadButton: {
-    height: 130,
+    height: 150,
     width: 165,
     borderColor: '#409C59',
     borderWidth: 1,
@@ -276,5 +307,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 18,
     backgroundColor: 'transparent',
+  },
+  selectedFileName: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#333', // Choose a color that fits your design
+    marginTop: 5, // Adds space between the upload and the file name
+    textAlign: 'center', // Centers the file name text
   },
 });

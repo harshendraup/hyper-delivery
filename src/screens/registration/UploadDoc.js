@@ -10,7 +10,7 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
-import React, {useEffect, useState, createRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
 import backbutton from '../../asset/SVG/Backbutton.png';
@@ -18,12 +18,39 @@ import CommonButton from '../../component/button';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import DocumentPicker from 'react-native-document-picker';
 
 const {width} = Dimensions.get('window');
 
 const UploadDoc = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const [frontFileName, setFrontFileName] = useState('');
+  const [backFileName, setBackFileName] = useState('');
+
+  const handleFileSelection = async (type) => {
+    try {
+      // Open the file picker
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+      });
+      
+      // Handle the selected file and update the state based on type
+      if (type === 'front') {
+        setFrontFileName(res[0].name); // Store the selected front document name
+      } else {
+        setBackFileName(res[0].name); // Store the selected back document name
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // If the user cancels the file picker
+        console.log('User cancelled the file picker');
+      } else {
+        // Handle other errors
+        console.error('File picker error: ', err);
+      }
+    }
+  };
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -60,19 +87,25 @@ const UploadDoc = () => {
         </View>
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
-            <TouchableOpacity style={styles.uploadButton}>
+            <TouchableOpacity style={styles.uploadButton} onPress={() => handleFileSelection('front')}>
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>
                 {t('front')}{'\n'}
                 {'\n'}{t('upload_and_scan')}
               </Text>
+              {frontFileName ? (
+                    <Text style={styles.selectedFileName}>{frontFileName}</Text>
+                  ) : null}
             </TouchableOpacity>
-            <TouchableOpacity style={styles.uploadButton}>
+            <TouchableOpacity style={styles.uploadButton} onPress={() => handleFileSelection('back')}>
               <Image source={Cloud} style={styles.CloudIcon} />
               <Text style={styles.uploadButtonText}>
               {t('back')}{'\n'}
                 {'\n'}{t('upload_and_scan')}
               </Text>
+              {backFileName ? (
+                    <Text style={styles.selectedFileName}>{backFileName}</Text>
+                  ) : null}
             </TouchableOpacity>
           </View>
         </View>
@@ -236,5 +269,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 20,
     marginTop: 20,
+  },
+  selectedFileName: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#333', // Choose a color that fits your design
+    marginTop: 5, // Adds space between the upload and the file name
+    textAlign: 'center', // Centers the file name text
   },
 });
