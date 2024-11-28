@@ -5,21 +5,17 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   Image,
-  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import ActiveProductTile from '../../component/ActiveProductTile'; // Import the new ActiveProductTile component
 import chat from '../../asset/SVG/Chaticon.png';
 import Dashboardbutton from '../../asset/SVG/Dashboard.png';
-import edit from '../../asset/SVG/Edit.png';
-import bin from '../../asset/SVG/Delete.png';
-import stock from '../../asset/stock.png'; // Add your stock image import here
 import plus from '../../asset/SVG/Plusicon.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
@@ -29,6 +25,27 @@ const Products = () => {
   const {t} = useTranslation();
   const [activeTab, setActiveTab] = useState('active');
 
+  
+ const renderTabContent = () => {
+   switch (activeTab) {
+    //  case t('new_order'):
+    //    return <NewOrder />;
+
+    //  case t('active'):
+    //    return <ActiveOrder />;
+    //  case t('delivered_success'):
+    //    return <Delivered />;
+    //  case 'new_order':
+    //    return <NewOrder />;
+    //  case 'active':
+    //    return <ActiveOrder />;
+    //  case 'delivered':
+    //    return <Delivered />;
+    //  default:
+    //    return <NewOrder />;
+   }
+ };
+
   const products = [
     {
       id: 1,
@@ -37,8 +54,6 @@ const Products = () => {
       wight: '110',
       price: 100,
       discountedPrice: 120,
-      image: 'image_url_1',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 2,
@@ -47,8 +62,6 @@ const Products = () => {
       wight: 110,
       price: 150,
       discountedPrice: 170,
-      image: 'image_url_2',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 3,
@@ -58,7 +71,6 @@ const Products = () => {
       price: 200,
       discountedPrice: 250,
       image: 'image_url_3',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 4,
@@ -68,7 +80,6 @@ const Products = () => {
       price: 80,
       discountedPrice: 100,
       image: 'image_url_4',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 21,
@@ -78,7 +89,6 @@ const Products = () => {
       price: 100,
       discountedPrice: 120,
       image: 'image_url_1',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 22,
@@ -88,7 +98,6 @@ const Products = () => {
       price: 150,
       discountedPrice: 170,
       image: 'image_url_2',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 23,
@@ -98,7 +107,6 @@ const Products = () => {
       price: 200,
       discountedPrice: 250,
       image: 'image_url_3',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 24,
@@ -108,7 +116,6 @@ const Products = () => {
       price: 80,
       discountedPrice: 100,
       image: 'image_url_4',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 11,
@@ -118,7 +125,6 @@ const Products = () => {
       price: 100,
       discountedPrice: 120,
       image: 'image_url_1',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 12,
@@ -128,7 +134,6 @@ const Products = () => {
       price: 150,
       discountedPrice: 170,
       image: 'image_url_2',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 13,
@@ -138,7 +143,6 @@ const Products = () => {
       price: 200,
       discountedPrice: 250,
       image: 'image_url_3',
-      stockImage: stock, // Add stock image URL
     },
     {
       id: 14,
@@ -148,123 +152,83 @@ const Products = () => {
       price: 80,
       discountedPrice: 100,
       image: 'image_url_4',
-      stockImage: stock, // Add stock image URL
     },
-    // Add more products as needed
+    // Add more products here
   ];
 
-  const renderProductTile = product => (
-    <TouchableOpacity
-      key={product.id}
-      style={styles.productTile}
-      onPress={() => navigation.navigate('ProductInfo')}>
-      <View style={styles.imageContainer}>
-        <Image source={stock} style={styles.productImage} />
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{t('inStock')}</Text>
-        </View>
-      </View>
-      <Text style={styles.productTitle}>{t('hybrid')}</Text>
-      <Text style={styles.productSubtitle}>
-        {t('walker_kush')}{'          '}
-        <Text>{product.wight}g</Text>
-      </Text>
+  const handleDelete = productId => {
+    console.log('Deleting product with id:', productId);
+  };
 
-      <View style={styles.priceContainer}>
-        <Text style={styles.priceText}>${product.price}</Text>
-        <Text style={styles.discountedPriceText}>
-          ${product.discountedPrice}
-        </Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.deleteButton}>
-          <Image source={bin} style={styles.backButtonImage} />
-        </TouchableOpacity>
-        <View style={styles.buttonDivider} />
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => navigation.navigate('EditProducts')}>
-          <Image source={edit} style={styles.backButtonImage} />
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
-  );
+  const handleEdit = productId => {
+    navigation.navigate('EditProducts', {productId});
+  };
 
   return (
     <KeyboardAvoidingView
-    style={styles.container}
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-  >
-    <SafeAreaView>
-    <ScrollView
-      contentContainerStyle={styles.scrollContainer}
-      keyboardShouldPersistTaps="handled"
-      showsVerticalScrollIndicator={false}
-    >
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          // onPress={() => navigation.goBack()}
-          style={[styles.backButton, styles.shadow]}
-        >
-          <Image source={Dashboardbutton} style={styles.backButtonImage} />
-        </TouchableOpacity>
-        <Text style={styles.topText}>{t('product')}</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Chat')}
-          style={[styles.backButton, styles.shadow]}
-        >
-          <Image source={chat} style={styles.backButtonImage} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.buttonRow}>
-        <TouchableOpacity
-          style={[styles.tabButton, activeTab === 'active' && styles.selectedButton]}
-          onPress={() => setActiveTab('active')}
-        >
-          <Text
-            style={[styles.tabButtonText, activeTab === 'active' && styles.selectedButtonText]}
-          >
-            {t('active')}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tabButton, activeTab === 'inactive' && styles.selectedButton]}
-          onPress={() => setActiveTab('inactive')}
-        >
-          <Text
-            style={[styles.tabButtonText, activeTab === 'inactive' && styles.selectedButtonText]}
-          >
-            {t('inactive')}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tabButton, activeTab === 'deleted' && styles.selectedButton]}
-          onPress={() => setActiveTab('deleted')}
-        >
-          <Text
-            style={[styles.tabButtonText, activeTab === 'deleted' && styles.selectedButtonText]}
-          >
-            {t('deleted')}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('AddProducts')}
-      >
-        <View style={styles.addButtonContent}>
-          <Image source={plus} style={styles.addButtonImage} />
-          <Text style={styles.addButtonText}>{t('addProduct')}</Text>
-        </View>
-      </TouchableOpacity>
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+      <SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.headerContainer}>
+            <TouchableOpacity style={[styles.backButton, styles.shadow]}>
+              <Image source={Dashboardbutton} style={styles.backButtonImage} />
+            </TouchableOpacity>
+            <Text style={styles.topText}>{t('product')}</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Chat')}
+              style={[styles.backButton, styles.shadow]}>
+              <Image source={chat} style={styles.backButtonImage} />
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.productList}>
-        {products.map(renderProductTile)}
-      </View>
-    </ScrollView>
-    </SafeAreaView>
-  </KeyboardAvoidingView>
+          <View style={styles.buttonRow}>
+            {[t('active'), t('inactive'), t('deleted')].map((tab, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.tabButton,
+                  activeTab === tab && styles.selectedButton,
+                ]}
+                onPress={() => setActiveTab(tab)}>
+                <Text
+                  style={[
+                    styles.tabButtonText,
+                    activeTab === tab && styles.selectedButtonText,
+                  ]}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => navigation.navigate('AddProducts')}>
+            <View style={styles.addButtonContent}>
+              <Image source={plus} style={styles.addButtonImage} />
+              <Text style={styles.addButtonText}>{t('addProduct')}</Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.productList}>
+            {products.map(product => (
+              <ActiveProductTile
+                key={product.id}
+                product={product}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+              />
+            ))}
+            {renderTabContent()}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -315,7 +279,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
-    marginVertical: 10,
+    marginBottom: 15,
   },
   tabButton: {
     padding: 10,
@@ -332,9 +296,8 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 1)',
   },
   tabButtonText: {
-    color: 'rgba(51, 51, 51, 1)', //border: 1px solid #EFEFEFEE
+    color: 'rgba(51, 51, 51, 1)',
     fontWeight: '400',
-    fontFamily: 'Inter',
     fontSize: 11,
     textAlign: 'center',
   },
@@ -342,9 +305,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#409C59',
     paddingVertical: 10,
     borderRadius: 10,
+    marginBottom:7,
     alignSelf: 'flex-end',
     width: '40%',
-    // marginRight: 1,
     alignItems: 'center',
   },
   addButtonContent: {
@@ -369,103 +332,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
-  productTile: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-    marginVertical: 10,
-    width: '48%', // Two tiles in a row
-    height: 250, // Keep the previous height (adjustable as needed)
-    borderWidth: 0.5, // Set border width
-    borderColor: '#CCCCCC', // Set border color
-  },
-
-  imageContainer: {
-    width: '100%',
-    height: '45%', // Image occupies 40% of the tile height
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    overflow: 'hidden', // Ensure image corners are rounded
-  },
-  productImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover', // Ensures the image fills the container
-  },
-
-  badge: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    backgroundColor: '#409C59',
-    padding: 5,
-    borderRadius: 5,
-    zIndex: 1,
-  },
-  badgeText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 12,
-  },
-  productTitle: {
-    fontSize: 12,
-    fontWeight: '300',
-    fontFamily: 'Mulish',
-    color: 'rgba(79, 79, 79, 1)',
-    marginLeft: 10,
-    marginTop: 10,
-    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
-  },
-  productSubtitle: {
-    fontSize: 14,
-    color: 'rgba(0, 0, 0, 1)',
-    fontWeight: '500',
-    fontFamily: 'Mulish',
-    marginLeft: 10,
-    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
-  },
-
-  priceContainer: {
-    flexDirection: 'row',
-    marginTop: 10,
-    marginLeft: 10,
-    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
-  },
-  priceText: {
-    fontSize: 16,
-    color: 'green',
-    fontWeight: 'bold',
-    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
-  },
-  discountedPriceText: {
-    fontSize: 14,
-    color: 'gray',
-    textDecorationLine: 'line-through',
-    marginLeft: 10,
-    textAlign: Platform.OS === 'ios' ? 'left' : 'left',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    marginHorizontal: 22,
-  },
-  editButton: {
-    padding: 10,
-    borderRadius: 5,
-  },
-  deleteButton: {
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  buttonDivider: {
-    height: '70%', // Take up full height of the container
-    width: 1, // Adjust width as needed for line thickness
-    backgroundColor: '#CCCCCC', // Line color (light grey)
-    marginHorizontal: 10,
-    marginTop: 5, // Optional, add space between the buttons and the divider
-  },
 });
+
