@@ -1,53 +1,35 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Keyboard,
-  Image,
-  TextInput,
-  SafeAreaView,
-} from 'react-native';
-import React, {useEffect, useState, createRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState, useEffect, createRef } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Keyboard, Image, TextInput, SafeAreaView } from 'react-native';
+import { fetchOtp } from "../../Redux/Slice/Otpslice"; // Assuming it's in otpSlice.js
+import { fetchMobile } from "../../Redux/Slice/Mobileslice"; // Assuming it's in mobileSlice.js
 import Getweed from '../../asset/SVG/Getweed.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const GreenButton = ({title, onPress}) => (
-  <TouchableOpacity style={styles.greenButton} onPress={onPress}>
+const GreenButton = ({ title, onPress, disabled }) => (
+  <TouchableOpacity style={[styles.greenButton, disabled && { backgroundColor: '#d3d3d3' }]} onPress={onPress} disabled={disabled}>
     <Text style={styles.greenButtonText}>{title}</Text>
   </TouchableOpacity>
 );
 
 const OTPEnter = () => {
   const navigation = useNavigation();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const inputRefs = Array.from({length: 6}, () => createRef());
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data } = useSelector((state) => state.mobile);
+  const inputRefs = Array.from({ length: 6 }, () => createRef());
 
+  const { isLoading, isError, errorMessage } = useSelector(state => state.otp);
+  
+  const mobileData = JSON.stringify(data)
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {},
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {},
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
+    console.log("Mobile Data:", mobileData); // Log mobileData to verify user_id is present
+  }, [mobileData]);
 
   const handleInputChange = (text, index) => {
     const newOtp = [...otp];
@@ -58,50 +40,86 @@ const OTPEnter = () => {
     if (text && index < 5) {
       inputRefs[index + 1].current.focus();
     }
+    // Focus the previous input if text is cleared
+    if (!text && index > 0) {
+      inputRefs[index - 1].current.focus();
+    }
   };
+
+  const handleOtpVerification = async () => {
+    // dispatch(fetchMobile(JSON.stringify(data)));
+    const otpString = otp.join(''); // Join OTP digits to form a string
+    
+    // Ensure user_id and mobileData OTP are available
+    if (!mobileData.otp || !mobileData.user_id) {
+      console.log("User ID not available or mobile verification failed.");
+      return;
+    }
+
+    // Compare entered OTP with the OTP from mobileData
+    if (otpString !== mobileData.otp) {
+      console.log("OTP does not match the one sent.");
+      // You can add an error message here to inform the user
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      dispatch(fetchOtp({ otp: otpString, user_id: mobileData.user_id }));
+      navigation.navigate('PersonalInfo'); // Navigate to the next screen after successful OTP verification
+    } catch (error) {
+      console.log("OTP verification failed:", error);
+      setIsSubmitting(false); // Reset submitting state on failure
+    }
+  };
+
+  const isOtpValid = otp.every(digit => digit !== ''); // Check if all OTP digits are filled
+  const isButtonDisabled = isSubmitting || !isOtpValid || !mobileData?.user_id;
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
-        <Image source={Getweed} style={styles.logo} />
-        <Text style={styles.title}>{t('enter_otp')}</Text>
-        <Text style={styles.subTitle}>
-          {t('otp_sent_message')}{'\n'}+123456789
-        </Text>
-        <View style={styles.otpContainer}>
-          {otp.map((digit, index) => (
-            <TextInput
-              key={index}
-              style={styles.otpInput}
-              value={digit}
-              onChangeText={text => handleInputChange(text, index)}
-              keyboardType="numeric"
-              maxLength={1}
-              ref={inputRefs[index]}
+      <SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <Image source={Getweed} style={styles.logo} />
+          <Text style={styles.title}>{t('enter_otp')}</Text>
+          <Text style={styles.subTitle}>
+            {t('otp_sent_message')}{'\n'}+123456789
+          </Text>
+          <View style={styles.otpContainer}>
+            {otp.map((digit, index) => (
+              <TextInput
+                key={index}
+                style={styles.otpInput}
+                value={digit}
+                onChangeText={text => handleInputChange(text, index)}
+                keyboardType="numeric"
+                maxLength={1}
+                ref={inputRefs[index]}
+              />
+            ))}
+          </View>
+          {isError && <Text style={styles.errorText}>{errorMessage}</Text>}
+          <View style={styles.buttonContainer}>
+            <GreenButton
+              title={t('next')}
+              onPress={handleOtpVerification}
+              value={isButtonDisabled}
             />
-          ))}
-        </View>
-        <View style={styles.buttonContainer}>
-          <GreenButton
-            title={t('next')}
-            onPress={() => navigation.navigate('PersonalInfo')}
-          />
-        </View>
-        <View style={styles.containerText}>
-          <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
-        </View>
-        <View style={styles.containerText}>
-          <Text style={styles.bottomText}>{t('otp_left')}</Text>
-        </View>
-        <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
-      </ScrollView>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.bottomText}>{t('otp_left')}</Text>
+          </View>
+          <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
@@ -195,5 +213,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     marginTop: 20,
     fontFamily: 'Roboto',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });

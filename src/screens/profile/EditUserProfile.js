@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,142 +9,161 @@ import {
   Platform,
   ScrollView,
   Image,
-  TextInput,
+  Alert,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-// import Calender from './path/to/your/calendar-icon'; // Path to your calendar icon// Import FontAwesome icons
-
-import FloatingLabelInput from '../../component/TextInput'; // Import the FloatingLabelInput component
+import FloatingLabelInput from '../../component/TextInput';
 import backbutton from '../../asset/SVG/Backbutton.png';
 import Ellipse12 from '../../asset/faces/Ellipse3.png';
 import CommonButton from '../../component/button';
 import Calender from '../../asset/SVG/Calender.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
-import {useTranslation} from 'react-i18next';
-const {width, height} = Dimensions.get('window');
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfile, resetProfileState } from '../../Redux/Slice/Profileupdateslice';
+import { useTranslation } from 'react-i18next';
+
+const { width, height } = Dimensions.get('window');
 
 const EditUserProfile = () => {
   const navigation = useNavigation();
-  const {t} = useTranslation();
-  const [name, setName] = useState('');
-  const [id, setId] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [dob, setDob] = useState('');
+  const { t } = useTranslation();
+
+  // Initialize profile data state
+  const [profileData, setProfileData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    dob: '',
+  });
+
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null); // Store selected date
+  const [selectedDate, setSelectedDate] = useState(null);
 
-  // Show Date Picker
-  const showDatePicker = () => {
-    setDatePickerVisible(true);
+  const dispatch = useDispatch();
+  const { profile, loading, error, success } = useSelector((state) => state.profileUpdate);
+
+  useEffect(() => {
+    console.log('Updated Profile:', profile);
+  }, [profile]);  // This will run whenever profile changes
+  
+  // Handle date picker visibility
+  const showDatePicker = () => setDatePickerVisible(true);
+  const hideDatePicker = () => setDatePickerVisible(false);
+
+  // Handle date selection
+  const handleConfirm = (date) => {
+    setSelectedDate(date);
+    setProfileData({ ...profileData, dob: date.toISOString().split('T')[0] }); // Format to YYYY-MM-DD
+    hideDatePicker();
   };
 
-  // Hide Date Picker
-  const hideDatePicker = () => {
-    setDatePickerVisible(false);
+  const handleSubmit = () => {
+    dispatch(updateProfile(profileData))
+      .then(() => {
+        // Show success message using alert
+        Alert.alert(
+          "Success",
+          t('Profile updated successfully!'),
+          [{ text: "OK", onPress: () => {
+            // Optionally navigate or reset states here
+            navigation.goBack(); // To go back to the previous screen after update
+          }}]
+        );
+      })
+      .catch((error) => {
+        // Handle error if needed
+        Alert.alert("Error", t('Failed to update profile.'));
+      });
   };
 
-  // Handle Date Picked
-  const handleConfirm = date => {
-    setSelectedDate(date); // Set the selected date
-    hideDatePicker(); // Close the picker
-  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}>
-        {/* <View style={styles.semiCircle}>
-          
-          <Text style={styles.profileLabel}>Edit Profile</Text>
-          <Image source={Ellipse12} style={styles.profileImage} />
-          <Text style={styles.profileName}>Your Name</Text>
-          <Text style={styles.profileEmail}>email@example.com</Text>
-        </View> */}
-        <View style={styles.semiCircle}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}>
-            <Image source={backbutton} style={styles.backButtonImage} />
-          </TouchableOpacity>
-          <Text style={styles.profileLabel}>{t('edit_profile')}</Text>
-          <Image source={Ellipse12} style={styles.profileImage} />
-          <Text style={styles.profileName}>{t('profileName')}</Text>
-          <Text style={styles.profileEmail}>{t('profileEmail')}</Text>
-        </View>
-
-        {/* Floating label inputs */}
-        <View style={styles.inputContainer}>
-          <FloatingLabelInput
-            label={t('name')}
-            value={name}
-            onChangeText={setName}
-          />
-          <FloatingLabelInput label={t('id')} value={id} onChangeText={setId} />
-          <FloatingLabelInput
-            label={t('phone_number')}
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            keyboardType="phone-pad"
-          />
-          <FloatingLabelInput
-            label={t('Email')}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-          />
-
-          {/* Custom input for Date of Birth with Calendar Icon inside */}
-          <View style={styles.inputWithIcon}>
-            <FloatingLabelInput
-              label={t('dob')}
-              value={selectedDate ? selectedDate.toDateString() : ''} // Show the selected date in the input
-              editable={false} // Make the input uneditable directly, only change through date picker
-            />
-            <TouchableOpacity
-              style={styles.calendarIcon}
-              onPress={showDatePicker} // Open the date picker on press
-            >
-              <Image
-                source={Calender} // Path to your calendar icon
-                style={{width: 30, height: 30}}
-              />
+      <SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.semiCircle}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+              <Image source={backbutton} style={styles.backButtonImage} />
             </TouchableOpacity>
+            <Text style={styles.profileLabel}>{t('edit_profile')}</Text>
+            <Image source={Ellipse12} style={styles.profileImage} />
+            {/* Display updated name and email from Redux */}
+            <Text style={styles.profileName}>{profile ? profileData.name : t('profileName')}</Text>
+            <Text style={styles.profileEmail}>{profile ? profileData.email : t('profileEmail')}</Text>
+          </View>
 
-            {/* DatePicker Modal */}
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              onConfirm={handleConfirm} // Handle selected date
-              onCancel={hideDatePicker} // Handle cancel
-              date={selectedDate || new Date()} // Default to current date if no date selected
+          {/* Floating label inputs */}
+          <View style={styles.inputContainer}>
+            <FloatingLabelInput
+              label={t('name')}
+              value={profileData.name}
+              onChangeText={(text) => setProfileData({ ...profileData, name: text })}
+            />
+            <FloatingLabelInput
+              label={t('phone_number')}
+              value={profileData.phone}
+              onChangeText={(text) => setProfileData({ ...profileData, phone: text })}
+              keyboardType="phone-pad"
+            />
+            <FloatingLabelInput
+              label={t('Email')}
+              value={profileData.email}
+              onChangeText={(text) => setProfileData({ ...profileData, email: text })}
+              keyboardType="email-address"
+            />
+
+            {/* Custom input for Date of Birth with Calendar Icon inside */}
+            <View style={styles.inputWithIcon}>
+              <FloatingLabelInput
+                label={t('dob')}
+                value={selectedDate ? selectedDate.toDateString() : ''}
+                editable={false} // Make the input uneditable directly, only change through date picker
+              />
+              <TouchableOpacity
+                style={styles.calendarIcon}
+                onPress={showDatePicker}>
+                <Image source={Calender} style={{ width: 30, height: 30 }} />
+              </TouchableOpacity>
+
+              {/* DatePicker Modal */}
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+                date={selectedDate || new Date()}
+              />
+            </View>
+          </View>
+
+          {/* Submit Button */}
+          <View style={styles.buttonContainer}>
+            <CommonButton
+              title={t('Updateprofile')}
+              onPress={handleSubmit}
+              disabled={loading}
             />
           </View>
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <CommonButton
-            title={t('Updateprofile')}
-            // onPress={() => navigation.navigate('UploadDoc')}
-          />
-        </View>
-      </ScrollView>
+          {/* Feedback Messages */}
+          {loading && <Text>Loading...</Text>}
+          {success && <Text style={{ color: 'green' }}>Profile updated successfully!</Text>}
+          {error && <Text style={{ color: 'red' }}>{error}</Text>}
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
-  scrollContainer: {alignItems: 'center', paddingTop: 25},
+  container: { flex: 1, backgroundColor: 'white' },
+  scrollContainer: { alignItems: 'center', paddingTop: 25 },
 
   semiCircle: {
     width: '100%',
@@ -167,32 +186,27 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   profileImage: {
-    width: width * 0.2, // Dynamically setting image width (20% of screen width)
-    height: width * 0.2, // Dynamically setting image height (20% of screen width)
-    borderRadius: width * 0.1, // Dynamically setting border radius to keep the image round
+    width: width * 0.2,
+    height: width * 0.2,
+    borderRadius: width * 0.1,
     marginBottom: 10,
-    borderWidth: 2,
-    // borderColor: 'white',
     marginTop: 5,
   },
   profileName: {
     fontSize: 22,
     color: 'rgba(255, 255, 255, 1)',
     fontWeight: '700',
-    fontFamily: 'Inter',
   },
   profileEmail: {
     fontSize: 12,
     color: 'rgba(255, 255, 255, 1)',
     fontWeight: '500',
-    fontFamily: 'Inter',
   },
   buttonContainer: {
     marginTop: 30,
     width: width * 0.83,
     paddingBottom: 30,
   },
-
   inputContainer: {
     width: '80%',
     marginTop: 20,
@@ -207,21 +221,9 @@ const styles = StyleSheet.create({
     width: 45,
     height: 50,
   },
-
-  // Styling for the Date of Birth input and calendar icon
   inputWithIcon: {
     position: 'relative',
     marginVertical: 10,
-  },
-  input: {
-    height: 60,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    fontSize: 18,
-    backgroundColor: 'transparent',
-    color: 'black', // Add space for the icon inside the input
   },
   calendarIcon: {
     position: 'absolute',

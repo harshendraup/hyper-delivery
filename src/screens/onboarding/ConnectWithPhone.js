@@ -11,8 +11,9 @@ import {
   ScrollView,
   Keyboard,
   SafeAreaView,
+  Modal,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from '../../asset/SVG/Logo.png';
 import Apple from '../../asset/SVG/Apple'; // Import SVG components
 import Phone from '../../asset/SVG/Call';
@@ -26,6 +27,8 @@ import {useNavigation} from '@react-navigation/native';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMobile, resetError } from "../../Redux/Slice/Mobileslice";
 
 const {width, height} = Dimensions.get('window');
 
@@ -54,7 +57,11 @@ const GreenButton = ({title, onPress}) => {
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const { isLoading, data, isError, errorMessage } = useSelector((state) => state.mobile);
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -75,6 +82,38 @@ const ConnectWithPhone = () => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
+  const handlePhoneSubmit = async () => {
+    if (mobileNumber.length === 10) {
+      // Dispatch the fetchMobile action and wait for the result
+      try {
+        dispatch(fetchMobile(mobileNumber));
+        // Show the modal
+        setModalVisible(true);
+
+        // Wait for 10 seconds before navigating to the next screen
+        setTimeout(() => {
+          // After 10 seconds, navigate to the OTP splash screen
+          navigation.navigate('OtpSplash');
+        }, 10000); // 10 seconds = 10000 milliseconds
+
+      } catch (error) {
+        // Handle error during dispatch or API call
+        alert("Failed to send OTP. Please try again.");
+      }
+    } else {
+      alert("Please enter a valid mobile number.");
+    }
+  };
+  
+  
+  useEffect(() => {
+    if (isError) {
+      alert(errorMessage); // Show the error message when API call fails
+      dispatch(resetError()); // Reset error after showing it
+    }
+  }, [isError, errorMessage, dispatch]);
+
 
   return (
     <KeyboardAvoidingView
@@ -107,6 +146,8 @@ const ConnectWithPhone = () => {
             placeholder={t('mobile_no')}
             keyboardType="phone-pad"
             maxLength={10}
+            value={mobileNumber}
+              onChangeText={setMobileNumber}
           />
         </View>
 
@@ -129,8 +170,8 @@ const ConnectWithPhone = () => {
 
         <View style={styles.buttonContainer}>
           <GreenButton
-            title={t('next')}
-            onPress={() => navigation.navigate('OtpSplash')}
+           title={isLoading ? 'Sending OTP...' : t('next')}
+           onPress={handlePhoneSubmit} // Only handle the submit logic here
           />
           <View style={styles.separatorContainer}>
             <View style={styles.separator} />
@@ -168,6 +209,25 @@ const ConnectWithPhone = () => {
           {t('terms_and_conditions')} {'\n'}
           {t('terms_and_conditions1')}
         </Text>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(true)}>
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>Fetched Data</Text>
+                <Text style={styles.modalText}>
+                  {`Fetched Data: ${JSON.stringify(data)}`}
+                </Text>
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={() => setModalVisible(false)}>
+                  <Text style={styles.modalButtonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
       </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
@@ -339,5 +399,40 @@ const styles = StyleSheet.create({
     backgroundColor: '#409C59', // Divider color, adjust as needed
     marginLeft:5, 
     marginRight:5// Space between the icon and divider
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+  },
+  modalContent: {
+    width: width * 0.8,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 14,
+    marginBottom: 20,
+    color: '#000',
+    textAlign: 'center',
+  },
+  modalButton: {
+    backgroundColor: '#409C59',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
