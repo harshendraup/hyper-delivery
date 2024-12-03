@@ -119,8 +119,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   scrollContainer: {
-    justifyContent: 'space-between',
+    marginTop:-100,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   uploadContainer: {
     width: width * 0.85,
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   uploadRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: width * 0.85,
+    width: '70%',
     gap: 10,
     marginVertical: 5, // Add margin between rows
   },

@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CommonButton from '../../component/button';
-import map from '../../asset/map.png';
+// import map from '../../asset/map.png';
 import profilePic from '../../asset/faces/Ellipse1.png';
 import profilePic1 from '../../asset/faces/Ellipse12.png';
 import messageIcon from '../../asset/icons/messangeIcon.png';
@@ -25,6 +25,7 @@ import orderIcon from '../../asset/SVG/Id.png';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import Map from '../../component/Map'
 
 const {width, height} = Dimensions.get('window');
 
@@ -33,99 +34,123 @@ const Update = () => {
   const {t} = useTranslation();
   const orderId = '#123456';
 
+const customMarkers = [
+  {
+    latitude: 37.78825,
+    longitude: -122.4324,
+    title: 'Marker 1',
+    description: 'This is marker 1',
+  },
+  {
+    latitude: 37.78835,
+    longitude: -122.4334,
+    title: 'Marker 2',
+    description: 'This is marker 2',
+  },
+];
+
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
-        <View style={styles.headerContainer}>
-          <Text style={styles.title}>{t('update')}</Text>
-        </View>
+    <SafeAreaView style={{flex: 1}}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled">
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>{t('update')}</Text>
+          </View>
+          <Map
+            region={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            markers={customMarkers} // Pass custom markers to the map
+          />
+          {/* <Image source={map} style={styles.mapImage} /> */}
 
-        <Image source={map} style={styles.mapImage} />
-
-        <View style={styles.profileContainer}>
-          <View style={styles.profileLeft}>
-            <Image source={profilePic} style={styles.profilePic} />
-            <View style={styles.profileTextContainer}>
-              <Text style={styles.profileName}>{t('Amitpatel')}</Text>
-              <Text style={styles.profileIdentity}>{t('Courier')}</Text>
-              <View style={styles.ratingContainer}>
-                {[...Array(5)].map((_, index) => (
-                  <Image source={star} style={styles.starIcon} key={index} />
-                ))}
+          <View style={styles.profileContainer}>
+            <View style={styles.profileLeft}>
+              <Image source={profilePic} style={styles.profilePic} />
+              <View style={styles.profileTextContainer}>
+                <Text style={styles.profileName}>{t('Amitpatel')}</Text>
+                <Text style={styles.profileIdentity}>{t('Courier')}</Text>
+                <View style={styles.ratingContainer}>
+                  {[...Array(5)].map((_, index) => (
+                    <Image source={star} style={styles.starIcon} key={index} />
+                  ))}
+                </View>
               </View>
             </View>
-          </View>
-          <View style={styles.profileRight}>
-            <TouchableOpacity style={styles.iconButton}>
-              <Image source={messageIcon} style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <Image source={phoneIcon} style={styles.icon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.profileContainer}>
-          <View style={styles.profileLeft}>
-            <Image source={profilePic1} style={styles.profilePic} />
-            <View style={styles.profileTextContainer}>
-              <Text style={styles.profileName}>{t('Richakushwa')}</Text>
-              <Text style={styles.profileIdentity}>{t('Customer')}</Text>
-              <View style={styles.ratingContainer}>
-                {[...Array(5)].map((_, index) => (
-                  <Image source={star} style={styles.starIcon} key={index} />
-                ))}
-              </View>
+            <View style={styles.profileRight}>
+              <TouchableOpacity style={styles.iconButton}>
+                <Image source={messageIcon} style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.iconButton}>
+                <Image source={phoneIcon} style={styles.icon} />
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.profileRight}>
-            <TouchableOpacity style={styles.iconButton}>
-              <Image source={messageIcon} style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <Image source={phoneIcon} style={styles.icon} />
-            </TouchableOpacity>
+
+          <View style={styles.profileContainer}>
+            <View style={styles.profileLeft}>
+              <Image source={profilePic1} style={styles.profilePic} />
+              <View style={styles.profileTextContainer}>
+                <Text style={styles.profileName}>{t('Richakushwa')}</Text>
+                <Text style={styles.profileIdentity}>{t('Customer')}</Text>
+                <View style={styles.ratingContainer}>
+                  {[...Array(5)].map((_, index) => (
+                    <Image source={star} style={styles.starIcon} key={index} />
+                  ))}
+                </View>
+              </View>
+            </View>
+            <View style={styles.profileRight}>
+              <TouchableOpacity style={styles.iconButton}>
+                <Image source={messageIcon} style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.iconButton}>
+                <Image source={phoneIcon} style={styles.icon} />
+              </TouchableOpacity>
+            </View>
           </View>
+
+          <View style={styles.locationContainer}>
+            <View style={styles.locationRow}>
+              <Image source={pickupIcon} style={styles.locationIcon} />
+              <Text style={styles.locationText}>{t('pickup')}:</Text>
+            </View>
+            <Text style={styles.addressText}>{t('adress')}</Text>
+            <View style={styles.rectangleImage} />
+
+            <View style={styles.locationRow}>
+              <Image source={deliveryIcon} style={styles.locationIcon} />
+              <Text style={styles.locationText}>{t('delivery')}:</Text>
+            </View>
+            <Text style={styles.addressText}>{t('adress1')}</Text>
+          </View>
+
+          <View style={styles.orderIdContainer}>
+            <View style={styles.orderRow}>
+              <Image source={orderIcon} style={styles.orderIcon} />
+              <Text style={styles.orderIdHeading}>{t('order_id')}</Text>
+            </View>
+            <Text style={styles.orderIdText}>{orderId}</Text>
+          </View>
+        </ScrollView>
+
+        <View style={styles.buttonContainer}>
+          <CommonButton
+            title={t('next')}
+            onPress={() => navigation.navigate('UpdateOrderDetails')}
+          />
         </View>
-
-        <View style={styles.locationContainer}>
-          <View style={styles.locationRow}>
-            <Image source={pickupIcon} style={styles.locationIcon} />
-            <Text style={styles.locationText}>{t('pickup')}:</Text>
-          </View>
-          <Text style={styles.addressText}>{t('adress')}</Text>
-          <View style={styles.rectangleImage} />
-
-          <View style={styles.locationRow}>
-            <Image source={deliveryIcon} style={styles.locationIcon} />
-            <Text style={styles.locationText}>{t('delivery')}:</Text>
-          </View>
-          <Text style={styles.addressText}>{t('adress1')}</Text>
-        </View>
-
-        <View style={styles.orderIdContainer}>
-          <View style={styles.orderRow}>
-            <Image source={orderIcon} style={styles.orderIcon} />
-            <Text style={styles.orderIdHeading}>{t('order_id')}</Text>
-          </View>
-          <Text style={styles.orderIdText}>{orderId}</Text>
-        </View>
-      </ScrollView>
-
-      <View style={styles.buttonContainer}>
-        <CommonButton
-          title={t('next')}
-          onPress={() => navigation.navigate('UpdateOrderDetails')}
-        />
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
