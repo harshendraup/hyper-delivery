@@ -12,7 +12,7 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
 import {useTranslation} from 'react-i18next';
 import DocumentPicker from 'react-native-document-picker';
@@ -53,8 +53,59 @@ const PersonalInfo = () => {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
-  const [frontFileName, setFrontFileName] = useState('');
-  const [backFileName, setBackFileName] = useState('');
+  const [frontFile, setFrontFile] = useState(null); // Store the front file data
+  const [backFile, setBackFile] = useState(null);   // Store the back file data
+  const route = useRoute(); // Access route parameters
+  const { user_id } = route.params; // Get the user_id passed from the previous screen
+
+  useEffect(() => {
+    console.log("Received person user_id:", user_id);  // Log or use the user_id as needed
+  }, [user_id]);
+
+  const handleSubmit = async () => {
+    if (!frontFile || !backFile) {
+      alert("Please upload both documents.");
+      return;
+    }
+
+    const formdata = new FormData();
+    formdata.append("first_name", firstName);
+    formdata.append("last_name", lastName);
+    formdata.append("email", email);
+    formdata.append("dob", dob);
+    formdata.append("address", address);
+    formdata.append("user_id", user_id);  
+    formdata.append("document_front", {
+      uri: frontFile.uri,
+      name: frontFile.name,
+      type: frontFile.type,
+    });
+    formdata.append("document_back", {
+      uri: backFile.uri,
+      name: backFile.name,
+      type: backFile.type,
+    });
+
+    try {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data", // Change to multipart/form-data for file uploads
+        },
+        body: formdata,
+      };
+      const response = await fetch(
+        "https://getweed.stgserver.site/api/v1/shop/update-shop",
+        requestOptions
+      );
+      const result = await response.text();
+      navigation.navigate("BusinessDetails");
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleFileSelection = async (type) => {
     try {
@@ -65,9 +116,9 @@ const PersonalInfo = () => {
       
       // Handle the selected file and update the state based on type
       if (type === 'front') {
-        setFrontFileName(res[0].name); // Store the selected front document name
+        setFrontFile(res[0]); // Store the selected front document
       } else {
-        setBackFileName(res[0].name); // Store the selected back document name
+        setBackFile(res[0]); // Store the selected back document
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -136,8 +187,8 @@ const PersonalInfo = () => {
                   <Text style={styles.uploadButtonSubtext}>
                     {t('upload_and_scan')}
                   </Text>
-                  {frontFileName ? (
-                    <Text style={styles.selectedFileName}>{frontFileName}</Text>
+                  {frontFile ? (
+                    <Text style={styles.selectedFileName}>{frontFile.name}</Text>
                   ) : null}
                 </View>
               </TouchableOpacity>
@@ -148,8 +199,8 @@ const PersonalInfo = () => {
                   <Text style={styles.uploadButtonSubtext}>
                     {t('upload_and_scan')}
                   </Text>
-                  {backFileName ? (
-                    <Text style={styles.selectedFileName}>{backFileName}</Text>
+                  {backFile ? (
+                    <Text style={styles.selectedFileName}>{backFile.name}</Text>
                   ) : null}
                 </View>
               </TouchableOpacity>
@@ -159,7 +210,7 @@ const PersonalInfo = () => {
           <View style={styles.buttonContainer}>
             <GreenButton
               title={t('next')}
-              onPress={() => navigation.navigate('BusinessDetails')}
+              onPress={handleSubmit}
             />
           </View>
         </ScrollView>
@@ -167,6 +218,7 @@ const PersonalInfo = () => {
     </KeyboardAvoidingView>
   );
 };
+
 
 export default PersonalInfo;
 
@@ -203,6 +255,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     fontSize: 18,
+    color:'black',
     backgroundColor: 'transparent',
   },
   CloudIcon: {
@@ -306,6 +359,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     fontSize: 18,
+    color:"black",
     backgroundColor: 'transparent',
   },
   selectedFileName: {

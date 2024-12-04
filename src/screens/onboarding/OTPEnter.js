@@ -97,7 +97,8 @@ const OTPEnter = () => {
       .then((responseData) => {
         console.log("Response Data: ", JSON.stringify(responseData));
         if (responseData.status === "success") { // Assuming 'status' is returned
-          navigation.navigate("PersonalInfo");
+          const userId = responseData.data.user_id;
+          navigation.navigate("PersonalInfo", { user_id: userId });
         } else {
           Alert.alert("Invalid OTP", "The OTP you entered is incorrect.");
         }
