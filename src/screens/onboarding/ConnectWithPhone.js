@@ -77,29 +77,37 @@ const ConnectWithPhone = () => {
     };
   }, []);
 
-  const handleSubmit =() =>{
-    if(!phoneNumber){
-      console.log("please enter a phone number ")
+  const handleSubmit = () => {
+    if (!phoneNumber) {
+      console.log("Please enter a phone number");
       return;
     }
-    fetch("https://getweed.stgserver.site/api/v1/shop/start-phone-verification",{
+  
+    fetch("https://getweed.stgserver.site/api/v1/shop/start-phone-verification", {
       method: "POST",
-      headers:{
+      headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body:JSON.stringify({
-        phone: phoneNumber
+      body: JSON.stringify({
+        phone: phoneNumber,
       }),
     })
-    .then((response) => response.json())
-    .then((responeData) =>{
-      console.log("Response Data: ", JSON.stringify(responeData))
-    })
-    .catch((error) =>{
-      console.error("Error:", error)
-    })
-  }
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Response Data: ", JSON.stringify(responseData));
+        const userId = responseData.data.user_id;
+        if (userId) {
+          navigation.navigate('OtpSplash', { user_id: userId });  // Pass the user_id to OtpSplash
+        } else {
+          console.error('User ID not found in response');
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+  
 
   return (
     <KeyboardAvoidingView

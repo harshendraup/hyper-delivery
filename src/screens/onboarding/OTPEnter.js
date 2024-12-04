@@ -11,43 +11,47 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  Alert,
 } from 'react-native';
-import React, {useEffect, useState, createRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, { useEffect, useState, createRef } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Getweed from '../../asset/SVG/Getweed.png';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const GreenButton = ({title, onPress}) => (
-  <TouchableOpacity style={styles.greenButton} onPress={onPress}>
+const GreenButton = ({ title, onPress, disabled }) => (
+  <TouchableOpacity
+    style={[styles.greenButton, { opacity: disabled ? 0.5 : 1 }]}
+    onPress={onPress}
+    disabled={disabled}
+  >
     <Text style={styles.greenButtonText}>{title}</Text>
   </TouchableOpacity>
 );
 
 const OTPEnter = () => {
   const navigation = useNavigation();
-  const {t} = useTranslation();
+  const route = useRoute();
+  const { user_id } = route.params;
+  const { t } = useTranslation();
+
+  if (!user_id) {
+    console.log("User ID is missing");
+    return;
+  }
+
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const inputRefs = Array.from({length: 6}, () => createRef());
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);  // Disable button initially
+  const inputRefs = Array.from({ length: 6 }, () => createRef());
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {},
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {},
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
+    // Check if OTP is complete and valid
+    const isOtpValid = otp.every(digit => digit !== '');
+    setIsButtonDisabled(!isOtpValid); // Enable button if OTP is valid
+  }, [otp]);
 
   const handleInputChange = (text, index) => {
     const newOtp = [...otp];
@@ -60,54 +64,100 @@ const OTPEnter = () => {
     }
   };
 
+  const handleKeyPress = (e, index) => {
+    if (e.nativeEvent.key === 'Backspace' && otp[index] === '') {
+      // Move focus to the previous input if the current input is empty and Backspace is pressed
+      if (index > 0) {
+        inputRefs[index - 1].current.focus();
+      }
+    }
+  };
+
+  const handleSubmit = () => {
+    if (isButtonDisabled) {
+      return;
+    }
+    
+    if (!otp) {
+      console.log("Please enter OTP");
+      return;
+    }
+    fetch("https://getweed.stgserver.site/api/v1/shop/otp-verification", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        otp: otp.join(''),
+        user_id: user_id, // Pass the user_id received from the previous screen
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Response Data: ", JSON.stringify(responseData));
+        if (responseData.status === "success") { // Assuming 'status' is returned
+          navigation.navigate("PersonalInfo");
+        } else {
+          Alert.alert("Invalid OTP", "The OTP you entered is incorrect.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
-        <Image source={Getweed} style={styles.logo} />
-        <Text style={styles.title}>{t('enter_otp')}</Text>
-        <Text style={styles.subTitle}>
-          {t('otp_sent_message')}{'\n'}+123456789
-        </Text>
-        <View style={styles.otpContainer}>
-          {otp.map((digit, index) => (
-            <TextInput
-              key={index}
-              style={styles.otpInput}
-              value={digit}
-              onChangeText={text => handleInputChange(text, index)}
-              keyboardType="numeric"
-              maxLength={1}
-              ref={inputRefs[index]}
+      <SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <Image source={Getweed} style={styles.logo} />
+          <Text style={styles.title}>{t('enter_otp')}</Text>
+          <Text style={styles.subTitle}>
+            {t('otp_sent_message')}{'\n'}+123456789
+          </Text>
+          <View style={styles.otpContainer}>
+            {otp.map((digit, index) => (
+              <TextInput
+                key={index}
+                style={styles.otpInput}
+                value={digit}
+                onChangeText={text => handleInputChange(text, index)}
+                onKeyPress={e => handleKeyPress(e, index)}
+                keyboardType="numeric"
+                maxLength={1}
+                ref={inputRefs[index]}
+              />
+            ))}
+          </View>
+          <View style={styles.buttonContainer}>
+            <GreenButton
+              title={t('next')}
+              onPress={handleSubmit}
+              disabled={isButtonDisabled}
             />
-          ))}
-        </View>
-        <View style={styles.buttonContainer}>
-          <GreenButton
-            title={t('next')}
-            onPress={() => navigation.navigate('PersonalInfo')}
-          />
-        </View>
-        <View style={styles.containerText}>
-          <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
-        </View>
-        <View style={styles.containerText}>
-          <Text style={styles.bottomText}>{t('otp_left')}</Text>
-        </View>
-        <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
-      </ScrollView>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.bottomText}>{t('otp_left')}</Text>
+          </View>
+          <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
 export default OTPEnter;
+
 
 const styles = StyleSheet.create({
   container: {
