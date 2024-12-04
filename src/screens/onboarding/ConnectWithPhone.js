@@ -12,7 +12,7 @@ import {
   Keyboard,
   SafeAreaView,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from '../../asset/SVG/Logo.png';
 import Apple from '../../asset/SVG/Apple'; // Import SVG components
 import Phone from '../../asset/SVG/Call';
@@ -54,6 +54,7 @@ const GreenButton = ({title, onPress}) => {
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -75,6 +76,30 @@ const ConnectWithPhone = () => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
+  const handleSubmit =() =>{
+    if(!phoneNumber){
+      console.log("please enter a phone number ")
+      return;
+    }
+    fetch("https://getweed.stgserver.site/api/v1/shop/start-phone-verification",{
+      method: "POST",
+      headers:{
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({
+        phone: phoneNumber
+      }),
+    })
+    .then((response) => response.json())
+    .then((responeData) =>{
+      console.log("Response Data: ", JSON.stringify(responeData))
+    })
+    .catch((error) =>{
+      console.error("Error:", error)
+    })
+  }
 
   return (
     <KeyboardAvoidingView
@@ -107,6 +132,11 @@ const ConnectWithPhone = () => {
             placeholder={t('mobile_no')}
             keyboardType="phone-pad"
             maxLength={10}
+            value={phoneNumber}
+            onChangeText={(text) => {
+              console.log("Updating phone number to: ", text); 
+              setPhoneNumber(text);
+            }}
           />
         </View>
 
@@ -130,7 +160,9 @@ const ConnectWithPhone = () => {
         <View style={styles.buttonContainer}>
           <GreenButton
             title={t('next')}
-            onPress={() => navigation.navigate('OtpSplash')}
+            // onPress={() => navigation.navigate('OtpSplash')}
+            // onPress={()=>{console.log("phone number" ,phoneNumber)}}
+            onPress={handleSubmit}
           />
           <View style={styles.separatorContainer}>
             <View style={styles.separator} />
