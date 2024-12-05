@@ -17,8 +17,6 @@ import CommonButton from '../../component/button';
 import backbutton from '../../asset/backbutton.png';
 import Cloud from '../../asset/SVG/Cloud.png';
 import Location from '../../asset/SVG/Loc.png'; // Import the calendar icon
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
 import DocumentPicker from 'react-native-document-picker';
 

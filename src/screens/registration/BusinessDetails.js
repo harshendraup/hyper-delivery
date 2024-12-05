@@ -65,6 +65,7 @@ const BusinessDetails = () => {
   const [uploadLogo, setuploadLogo] = useState('');
   const [outside, setoutside] = useState('');
   const [inside, setinside] = useState('');
+  const [accordionOpen, setAccordionOpen] = useState(false);
 
   const handleFileSelection = async (type) => {
     try {
@@ -102,16 +103,16 @@ const BusinessDetails = () => {
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-      >
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
         <SafeAreaView>
           <ScrollView
             contentContainerStyle={styles.scrollContainer}
             keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
+            showsVerticalScrollIndicator={false}>
             <View style={styles.backButtonContainer}>
-              <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={styles.backButton}>
                 <Image source={Backbutton} style={styles.backButtonImage} />
               </TouchableOpacity>
             </View>
@@ -119,28 +120,30 @@ const BusinessDetails = () => {
             <Text style={styles.topText}>{t('registration')}</Text>
             <View style={styles.toggleContainer}>
               <TouchableOpacity
-                style={[styles.toggleButton, !isBankDetails && styles.activeToggle]}
-                onPress={() => setIsBankDetails(false)}
-              >
+                style={[
+                  styles.toggleButton,
+                  !isBankDetails && styles.activeToggle,
+                ]}
+                onPress={() => setIsBankDetails(false)}>
                 <Text
                   style={[
                     styles.toggleButtonText,
                     !isBankDetails ? styles.activeText : styles.inactiveText,
-                  ]}
-                >
+                  ]}>
                   {t('business_details')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.toggleButton, isBankDetails && styles.activeToggle]}
-                onPress={() => setIsBankDetails(true)}
-              >
+                style={[
+                  styles.toggleButton,
+                  isBankDetails && styles.activeToggle,
+                ]}
+                onPress={() => setIsBankDetails(true)}>
                 <Text
                   style={[
                     styles.toggleButtonText,
                     isBankDetails ? styles.activeText : styles.inactiveText,
-                  ]}
-                >
+                  ]}>
                   {t('bank_details')}
                 </Text>
               </TouchableOpacity>
@@ -170,7 +173,9 @@ const BusinessDetails = () => {
                     onChangeText={setSortCode}
                   />
                   <View style={styles.uploadContainer}>
-                    <Text style={styles.uploadText}>{t('account_approval_form')}</Text>
+                    <Text style={styles.uploadText}>
+                      {t('account_approval_form')}
+                    </Text>
                     <View style={styles.uploadRow}>
                       <TouchableOpacity
                         style={[
@@ -179,8 +184,8 @@ const BusinessDetails = () => {
                             alignItems: 'center', // Ensure buttons are vertically centered
                             width: '100%',
                           },
-                        ]} onPress={() => handleFileSelection('upload_form')}
-                      >
+                        ]}
+                        onPress={() => handleFileSelection('upload_form')}>
                         <Text style={styles.uploadButtonText}>
                           <Image source={Cloud} style={styles.CloudIcon} />
                           {'\n'}
@@ -188,13 +193,18 @@ const BusinessDetails = () => {
                           {t('upload_form')}
                         </Text>
                         {selectedFileName ? (
-                          <Text style={styles.selectedFileName}>{selectedFileName}</Text>
+                          <Text style={styles.selectedFileName}>
+                            {selectedFileName}
+                          </Text>
                         ) : null}
                       </TouchableOpacity>
                     </View>
                   </View>
                   <View style={styles.buttonContainer}>
-                    <GreenButton title={t('next')} onPress={() => navigation.navigate('ApprovalWaitng')} />
+                    <GreenButton
+                      title={t('next')}
+                      onPress={() => navigation.navigate('ApprovalWaitng')}
+                    />
                   </View>
                 </>
               ) : (
@@ -223,11 +233,24 @@ const BusinessDetails = () => {
                   />
 
                   <Accordion
-                    title={t('shop_open_days')}
-                    items={[t('1'), t('2'), t('3')]}
-                    isOpen={selectDayOpen}
-                    toggle={() => setselectDayOpen(!selectDayOpen)}
-                    onSelect={() => { }}
+                    title={t('weekly')}
+                    items={[
+                      {item: t('daily')},
+                      {item: t('weekly')},
+                      {item: t('yearly')},
+                    ]}
+                    isOpen={accordionOpen}
+                    toggle={() => setAccordionOpen(!accordionOpen)}
+                    onSelect={item => console.log(item)}
+                    noShift={true}
+                    borderColor="#409C59"
+                    width="100%"
+                    style={{
+                      zIndex: 2,
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                    }}
                   />
                   <View style={styles.uploadContainer}>
                     <Text style={styles.uploadText}>{t('store_logo')}</Text>
@@ -239,8 +262,8 @@ const BusinessDetails = () => {
                             alignItems: 'center', // Ensure buttons are vertically centered
                             width: '100%',
                           },
-                        ]} onPress={() => handleFileSelection('upload_logo')}
-                      >
+                        ]}
+                        onPress={() => handleFileSelection('upload_logo')}>
                         <Text style={styles.uploadButtonText}>
                           <Image source={Cloud} style={styles.CloudIcon} />
                           {'\n'}
@@ -248,16 +271,22 @@ const BusinessDetails = () => {
                           {t('upload_logo')}
                         </Text>
                         {uploadLogo ? (
-                          <Text style={styles.selectedFileName}>{uploadLogo}</Text>
+                          <Text style={styles.selectedFileName}>
+                            {uploadLogo}
+                          </Text>
                         ) : null}
                       </TouchableOpacity>
                     </View>
                   </View>
 
                   <View style={styles.uploadContainer}>
-                    <Text style={styles.uploadText}>{t('business_images')}</Text>
+                    <Text style={styles.uploadText}>
+                      {t('business_images')}
+                    </Text>
                     <View style={styles.uploadRow}>
-                      <TouchableOpacity style={styles.uploadButtonThree} onPress={() => handleFileSelection('outside')}>
+                      <TouchableOpacity
+                        style={styles.uploadButtonThree}
+                        onPress={() => handleFileSelection('outside')}>
                         <Text style={styles.uploadButtonText}>
                           <Image source={Cloud} style={styles.CloudIcon} />
                           {'\n'}
@@ -268,7 +297,9 @@ const BusinessDetails = () => {
                           <Text style={styles.selectedFileName}>{outside}</Text>
                         ) : null}
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.uploadButtonThree} onPress={() => handleFileSelection('inside')}>
+                      <TouchableOpacity
+                        style={styles.uploadButtonThree}
+                        onPress={() => handleFileSelection('inside')}>
                         <Text style={styles.uploadButtonText}>
                           <Image source={Cloud} style={styles.CloudIcon} />
                           {'\n'}
@@ -279,7 +310,9 @@ const BusinessDetails = () => {
                           <Text style={styles.selectedFileName}>{inside}</Text>
                         ) : null}
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.uploadButtonThree} onPress={() => handleFileSelection('menu')}>
+                      <TouchableOpacity
+                        style={styles.uploadButtonThree}
+                        onPress={() => handleFileSelection('menu')}>
                         <Text style={styles.uploadButtonText}>
                           <Image source={Cloud} style={styles.CloudIcon} />
                           {'\n'}
@@ -291,7 +324,10 @@ const BusinessDetails = () => {
                         ) : null}
                       </TouchableOpacity>
                     </View>
-                    <GreenButton title={t('next')} onPress={() => setIsBankDetails(true)} />
+                    <GreenButton
+                      title={t('next')}
+                      onPress={() => setIsBankDetails(true)}
+                    />
                   </View>
                 </>
               )}
