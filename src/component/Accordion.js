@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import arrow from '../asset/SVG/blackarrow.png'; // Adjust the path as necessary
+import arrow from '../asset/SVG/blackarrow.png';
 
 const Accordion = ({
   title,
@@ -9,22 +9,21 @@ const Accordion = ({
   isOpen,
   toggle,
   noShift = false,
-  borderColor = '#AFAFAF', // Default border color (you can pass any color here)
-  width = '100%', // Default width is 100%, can be customized by passing a value
+  borderColor = '#AFAFAF',
+  width = '100%',
 }) => {
   const [flashedItemIndex, setFlashedItemIndex] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(title); // Initially, display the title in the header
+  const [selectedItem, setSelectedItem] = useState(title);
 
   const handleItemClick = (item, index) => {
-    // Flash the clicked item for 300ms
     setFlashedItemIndex(index);
-    setSelectedItem(item.item); // Update the selected item in the header
+    setSelectedItem(item.item);
     onSelect(item.item);
 
     setTimeout(() => {
-      setFlashedItemIndex(null); // Reset flash after 300ms
-      toggle(); // Close the accordion after selection
-    }, 300); // Flash duration
+      setFlashedItemIndex(null);
+      toggle();
+    }, 300);
   };
 
   const renderAccordionContent = () => (
@@ -32,7 +31,7 @@ const Accordion = ({
       style={[
         styles.accordionContent,
         isOpen && styles.accordionContentOpen,
-        {borderColor: borderColor, width: width}, // Apply the width prop here
+        {borderColor: borderColor, width: width},
       ]}>
       {items.map((item, index) => (
         <TouchableOpacity
@@ -40,9 +39,8 @@ const Accordion = ({
           onPress={() => handleItemClick(item, index)}
           style={[
             styles.accordionItemContainer,
-            flashedItemIndex === index && styles.itemFlashed, // Apply flash effect
+            flashedItemIndex === index && styles.itemFlashed,
           ]}>
-          {/* Display selectedIcon only when the item is flashed, otherwise use the regular icon */}
           <Image
             source={flashedItemIndex === index ? item.selectedIcon : item.icon}
             style={styles.itemIcon}
@@ -55,25 +53,22 @@ const Accordion = ({
 
   return (
     <View style={[styles.accordionContainer, {width: width}]}>
-      {/* Apply width to the container */}
       <TouchableOpacity style={styles.accordionHeader} onPress={toggle}>
         <View
           style={[
             styles.accordionInput,
             isOpen && styles.accordionInputOpen,
-            {borderColor: borderColor, width: width}, // Apply width to the header
+            {borderColor: borderColor, width: width},
           ]}>
           <Text style={styles.accordionTitle}>{selectedItem}</Text>
           <Image source={arrow} style={styles.arrowIcon} />
         </View>
       </TouchableOpacity>
       {noShift ? (
-        // If noShift is true, apply absolute positioning for the dropdown
         <View style={styles.dropdownWrapper}>
           {isOpen && renderAccordionContent()}
         </View>
       ) : (
-        // Regular Accordion that shifts layout when opened
         isOpen && renderAccordionContent()
       )}
     </View>
@@ -91,7 +86,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1, // Default border width
+    borderWidth: 1,
     borderRadius: 10,
     padding: 15,
     backgroundColor: 'white',
@@ -109,9 +104,9 @@ const styles = StyleSheet.create({
     height: 10,
   },
   accordionContent: {
-    width: '100%', // Default width, will be overridden by the prop
+    width: '100%',
     backgroundColor: 'white',
-    borderWidth: 1, // Default border width
+    borderWidth: 1,
   },
   accordionContentOpen: {
     borderTopLeftRadius: 0,
@@ -129,7 +124,7 @@ const styles = StyleSheet.create({
   itemIcon: {
     width: 20,
     height: 20,
-    marginRight: 10, // Space between icon and text
+    marginRight: 10,
   },
   accordionItem: {
     fontSize: 16,
@@ -140,13 +135,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     opacity: 1,
   },
-  // Styles for when noShift is enabled (absolute positioning for dropdown effect)
   dropdownWrapper: {
     position: 'absolute',
-    top: '100%', // Position the dropdown right below the header
+    top: '100%',
     left: 0,
     right: 0,
-    zIndex: 1, // Ensure it appears above other content
+    zIndex: 1,
   },
 });
 

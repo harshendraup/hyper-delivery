@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -13,15 +13,8 @@ import {useNavigation} from '@react-navigation/native';
 import backbutton from '../../asset/SVG/Backbutton.png';
 import {Card, Text, Chip} from 'react-native-paper';
 import Swiper from 'react-native-swiper';
-import girlBag from '../../asset/yellow.png';
-import girlWeb from '../../asset/yellow.png';
-import guyPhoto from '../../asset/yellow.png';
-import Strength from '../../asset/icons/bicep.png';
-import clarity_license from '../../asset/icons/clarity_license-line.png';
-import mdi_drug from '../../asset/icons/mdi_drug.png';
-import CommonButton from '../../component/button';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
+import {useRoute} from '@react-navigation/native';
+
 import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
@@ -29,7 +22,45 @@ const {width, height} = Dimensions.get('window');
 const ProductInfo = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const [inStock, outOfStock] = useState(false);
+  const {productId} = useRoute().params; // Get the productId from navigation params
+  const [inStock, setInStock] = useState(false);
+  const [productDetails, setProductDetails] = useState(null);
+
+  // Fetch product details on component mount
+  useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append('Accept', 'application/json');
+    myHeaders.append(
+      'Authorization',
+      'Bearer 7|8rxbtzGo3erCTYbpdpELhxKMHoxwU7aEaU9T1jvFb3ff8636',
+    );
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+
+    fetch(
+      `https://getweed.stgserver.site/api/v1/shop/product-details/${productId}`, // Use the productId here
+      requestOptions,
+    )
+      .then(response => response.json())
+      .then(result => {
+        console.log(result); // You can see the result here, use it to populate your state
+        setProductDetails(result.data); // Set the product details in state
+      })
+      .catch(error => console.error(error));
+  }, [productId]); // Ensure the effect runs whenever the productId changes
+
+  // Render the component only if productDetails is available
+  if (!productDetails) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <KeyboardAvoidingView
@@ -56,39 +87,39 @@ const ProductInfo = () => {
                 style={styles.wrapper}
                 autoplay
                 autoplayTimeout={3}
-                showsButtons={false} // Hide buttons
-                showsPagination={true} // Show pagination (dots)
-                loop={true} // Enable loop
-                paginationStyle={styles.paginationStyle} // Position the dots
-                dotStyle={styles.dotStyle} // Style for inactive dots (green)
-                activeDotStyle={styles.activeDotStyle} // Style for active dot (dark green)
-              >
-                <View style={styles.slide}>
-                  <View style={styles.imageContainer}>
-                    <Image
-                      source={girlBag}
-                      style={[styles.image, styles.imageRadius]}
-                    />
+                showsButtons={false}
+                showsPagination={true}
+                loop={true}
+                paginationStyle={styles.paginationStyle}
+                dotStyle={styles.dotStyle}
+                activeDotStyle={styles.activeDotStyle}>
+                {/* Check if images exist and render them */}
+                {productDetails.images &&
+                Array.isArray(productDetails.images) &&
+                productDetails.images.length > 0 ? (
+                  productDetails.images.map((image, index) => (
+                    <View key={index} style={styles.slide}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={{
+                            uri: `https://getweed.stgserver.site/storage/${image.image}`,
+                          }}
+                          style={[styles.image, styles.imageRadius]}
+                        />
+                      </View>
+                    </View>
+                  ))
+                ) : (
+                  <View style={styles.slide}>
+                    <Text>No images available</Text>
                   </View>
-                </View>
-                <View style={styles.slide}>
-                  <Image
-                    source={guyPhoto}
-                    style={[styles.image, styles.imageRadius]}
-                  />
-                </View>
-                <View style={styles.slide}>
-                  <Image
-                    source={girlWeb}
-                    style={[styles.image, styles.imageRadius]}
-                  />
-                </View>
+                )}
               </Swiper>
             </View>
 
             <View style={styles.detailSection}>
               <View style={styles.ratingContainer}>
-                <Text style={styles.productHeading}>{t('product_name')}</Text>
+                <Text style={styles.productHeading}>{productDetails.name}</Text>
                 <View style={styles.ratingBadge}>
                   <Text style={styles.ratingText}>4.9 </Text>
                   <Text style={styles.ratingText}>({671})</Text>
@@ -98,92 +129,60 @@ const ProductInfo = () => {
 
               <Text style={styles.subHeading}>{t('price_gm')}</Text>
               <Text style={styles.productDescription}>
-                {t('description')}
+                {productDetails.details}
               </Text>
 
-              {/* Chips Section */}
               <View style={styles.chipContainer}>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
-                  icon={() => (
-                    <Image source={clarity_license} style={styles.icon} />
-                  )}
                   textStyle={styles.chipText}>
-                  {t('required License')}
-                </Chip>
-                <Chip
-                  mode="outlined"
-                  style={styles.chip}
-                  icon={() => <Image source={mdi_drug} style={styles.icon} />}
-                  textStyle={styles.chipText}>
-                  {t('Medical Drug')}
+                  CBD: {productDetails.cbd_content}%
                 </Chip>
                 <Chip
                   mode="outlined"
                   style={styles.chip}
                   textStyle={styles.chipText}>
-                  THC: 18%
-                </Chip>
-                <Chip
-                  mode="outlined"
-                  style={styles.chip}
-                  textStyle={styles.chipText}>
-                  CBD: 18
+                  {t('Stock Quantity')}: {productDetails.stock_quantity}
                 </Chip>
               </View>
 
-              <View style={styles.chipContainer}>
-                <Chip
-                  mode="outlined"
-                  style={styles.chip}
-                  icon={() => <Image source={Strength} style={styles.icon} />}
-                  textStyle={styles.chipText}>
-                  {t('Strength')}
-                </Chip>
-                <Chip
-                  mode="outlined"
-                  style={styles.chip}
-                  textStyle={styles.chipText}>
-                  {t('Stain')}
-                </Chip>
-              </View>
-            </View>
-            <Text style={styles.productMin}>{t('quantity_warning')}</Text>
+              <Text style={styles.productMin}>{t('quantity_warning')}</Text>
 
-            <View
-              style={[
-                styles.toggleContainer,
-                {backgroundColor: inStock ? 'red' : '#409C59'},
-              ]}>
-              <TouchableOpacity
+              <View
                 style={[
-                  styles.toggleButton,
-                  !inStock ? styles.activeToggle : styles.inactiveToggle,
-                ]}
-                onPress={() => outOfStock(false)}>
-                <Text
+                  styles.toggleContainer,
+                  {backgroundColor: inStock ? 'red' : '#409C59'},
+                ]}>
+                <TouchableOpacity
                   style={[
-                    styles.toggleButtonText,
-                    !inStock ? styles.activeText : styles.inactiveText,
-                  ]}>
-                  {t('availability')}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.toggleButton,
-                  inStock ? styles.activeToggleRed : styles.inactiveToggle,
-                ]}
-                onPress={() => outOfStock(true)}>
-                <Text
+                    styles.toggleButton,
+                    !inStock ? styles.activeToggle : styles.inactiveToggle,
+                  ]}
+                  onPress={() => setInStock(false)}>
+                  <Text
+                    style={[
+                      styles.toggleButtonText,
+                      !inStock ? styles.activeText : styles.inactiveText,
+                    ]}>
+                    {t('availability')}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
                   style={[
-                    styles.toggleButtonText,
-                    inStock ? styles.activeTextRed : styles.inactiveText,
-                  ]}>
-                 {t('outofstock')}
-                </Text>
-              </TouchableOpacity>
+                    styles.toggleButton,
+                    inStock ? styles.activeToggleRed : styles.inactiveToggle,
+                  ]}
+                  onPress={() => setInStock(true)}>
+                  <Text
+                    style={[
+                      styles.toggleButtonText,
+                      inStock ? styles.activeTextRed : styles.inactiveText,
+                    ]}>
+                    {t('outofstock')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </Card.Content>
         </Card>
@@ -191,6 +190,7 @@ const ProductInfo = () => {
     </KeyboardAvoidingView>
   );
 };
+
 
 export default ProductInfo;
 
@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20, // Apply marginHorizontal here
     alignItems: 'center',
     width: '90%',
+    backgroundColor: '#ffffff',
   },
   toggleContainer: {
     flexDirection: 'row',
@@ -309,6 +310,7 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingHorizontal: '7%',
     alignItems: 'center',
     marginVertical: 10,
     paddingVertical: 8,
@@ -332,8 +334,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'black',
     fontFamily: 'Inter',
-    marginHorizontal: 46,
+    // marginHorizontal: 46,
     marginTop: 10,
+    paddingHorizontal: '7%',
   },
   ratingBadge: {
     backgroundColor: 'rgba(64, 156, 89, 1)',
@@ -365,6 +368,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     marginTop: -5,
     marginBottom: 5,
+    paddingHorizontal: '7%',
   },
   productDescription: {
     fontSize: 13,
@@ -372,12 +376,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     marginTop: 5,
     marginBottom: 10,
+    paddingHorizontal: '7%',
   },
   chipContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap', // Allow chips to wrap if they don't fit in a single row
     justifyContent: 'flex-start',
     marginVertical: -2,
+    paddingHorizontal: '5%',
   },
   chip: {
     backgroundColor: 'transparent',
@@ -400,21 +406,14 @@ const styles = StyleSheet.create({
     width: 16, // Set the icon width
     height: 16, // Set the icon height
   },
-  // swiperContainer: {
-  //   height: height * 0.3,
-  //   width: width,
-  //   borderRadius: 10,
-  //   position: 'relative', // Add this so that pagination can be positioned under the swiper
-  // },
 
   paginationStyle: {
     position: 'absolute',
     bottom: -10, // Adjusted value to bring dots under the image and not overlap
-    left: 0,
+    left: 90,
     right: 0,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    
   },
 
   dotStyle: {
