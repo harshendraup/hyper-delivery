@@ -54,11 +54,8 @@ const AncillaryAddProducts = () => {
   const [ProductDetails, setProductDetails] = useState('');
   const [Cbd, setCbd] = useState('');
   const [Stock, setStock] = useState('');
-  const [lanzer, setLanzer] = useState('');
   const [isPrescriptionRequired, setIsPrescriptionRequired] = useState(false);
   const [Cannabistype, setCannabistype] = useState(false); // State for Boats and Animals accordion
-  const [Cannabisform, setCannabisform] = useState(false); // State for Boats and Animals accordion
-  const [projectCategoryOpen, setProjectCategoryOpen] = useState(false); // State for Project Category accordion
   const [selectedFileName, setSelectedFileName] = useState('');
 
   const handleFileSelection = async () => {
@@ -67,32 +64,18 @@ const AncillaryAddProducts = () => {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles], // You can customize the file types here
       });
-      
-      // Handle the selected file
       console.log(res);
       setSelectedFileName(res[0].name);
-      // You can process the file here, for example, uploading it or saving the file path.
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        // If the user cancels the picker
         console.log('User cancelled the file picker');
       } else {
-        // Handle other errors
         console.error('File picker error: ', err);
       }
     }
   };
 
-  const handleLanzerChange = Number => {
-    const numericValue = parseInt(Number, 10);
-    if (
-      Number === '' ||
-      (!isNaN(numericValue) && numericValue >= 10 && numericValue <= 28)
-    ) {
-      setLanzer(Number);
-    }
-  };
-
+ 
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -112,10 +95,6 @@ const AncillaryAddProducts = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          {/* <FloatingLabelInput
-            label="Cannabis Type"
-            keyboardType="email-address"
-          /> */}
           <Accordion
             title={t('cannabis_type')}
             items={[t('1'), t('2'), t('3')]} // Replace with actual items

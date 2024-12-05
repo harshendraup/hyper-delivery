@@ -67,10 +67,10 @@ const BusinessDetails = () => {
   const [inside, setinside] = useState('');
   const [accordionOpen, setAccordionOpen] = useState(false);
   const route = useRoute();
-  const { user_id } = route.params; 
+  const { user_id } = route.params;
 
   useEffect(() => {
-    console.log("Received business details:", user_id);  // Log or use the user_id as needed
+    console.log('Received business details:', user_id);  // Log or use the user_id as needed
   }, [user_id]);
 
   // const handleSubmit = async () => {
@@ -101,9 +101,9 @@ const BusinessDetails = () => {
   //     name: menu.name,
   //     type: menu.type,
   //   });
-  
+
   //    // Debugging line to log the FormData
-  
+
   //   try {
   //     const requestOptions = {
   //       method: "POST",
@@ -119,10 +119,10 @@ const BusinessDetails = () => {
   //       requestOptions
   //     );
   //     console.log("dataaaa---->");
-      
+
   //     const result = await response.text();
   //     console.log('Response:', result); // Log the response
-      
+
   //     if (response.ok) {
   //       console.log('Request successful');
   //       setIsBankDetails(true);
@@ -135,81 +135,115 @@ const BusinessDetails = () => {
   // };
 
   const handleSubmit = () => {
+     if (
+       !selectedFileName &&
+       !selectedFileName.uri &&
+       !selectedFileName.name &&
+       !selectedFileName.type
+     ) {
+       alert('Please select a valid account approval file!');
+       return;
+     }
     const formdata = new FormData();
-    formdata.append("account_approval_form", {
+    formdata.append('account_approval_form', {
           uri: selectedFileName.uri,
           name: selectedFileName.name,
           type: selectedFileName.type,
-        })
-    fetch("https://getweed.stgserver.site/api/v1/shop/update-shop-detail", {
-      method: "POST",
+        });
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-bank-detail', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
       body: JSON.stringify({
         user_id: user_id,
-        account_number:accountNumber,
-        bank_name:bankName,
-        account_holder_name:HolderName, 
-        ifsc_code:sortCode,
-        account_approval_form:formdata
+        account_number: accountNumber,
+        bank_name: bankName,
+        account_holder_name: HolderName,
+        ifsc_code: sortCode,
+        account_approval_form: formdata,
       }),
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("Response Data: ", JSON.stringify(responseData));
-        // navigation.navigate('ApprovalWaitng')
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response Data: ', JSON.stringify(responseData));
+        navigation.navigate('ApprovalWaitng')
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(error => {
+        console.error('Error:', error);
       });
   };
 
   const handleNext = () => {
+     if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
+    alert('Please fill in all the required details!');
+    return;
+  }
+
+  if (!uploadLogo && !uploadLogo.uri && !uploadLogo.name && !uploadLogo.type) {
+    alert('Please select a valid logo image!');
+    return;
+  }
+
+  if (!outside && !outside.uri && !outside.name && !outside.type) {
+    alert('Please select a valid outside image!');
+    return;
+  }
+
+  if (!inside && !inside.uri && !inside.name && !inside.type) {
+    alert('Please select a valid inside image!');
+    return;
+  }
+
+  if (!menu && !menu.uri && !menu.name && !menu.type) {
+    alert('Please select a valid menu image!');
+    return;
+  }
     const formdata = new FormData();
-    formdata.append("business_name", firstName);
-    formdata.append("phone", lastName);
-    formdata.append("about", email);
-    // formdata.append("shop_timing", dob);
-    formdata.append("open_days", selectDayOpen);
-    formdata.append("user_id", user_id);
-    formdata.append("store_logo", {
+    formdata.append('business_name', firstName);
+    formdata.append('phone', lastName);
+    formdata.append('about', email);
+    formdata.append("shop_timing", dob);
+    formdata.append('open_days', selectDayOpen);
+    formdata.append('user_id', user_id);
+    formdata.append('store_logo', {
       uri: uploadLogo.uri,
       name: uploadLogo.name,
       type: uploadLogo.type,
     });
-    formdata.append("business_outside_image", {
+    formdata.append('business_outside_image', {
       uri: outside.uri,
       name: outside.name,
       type: outside.type,
     });
-    formdata.append("business_inside_image", {
+    formdata.append('business_inside_image', {
       uri: inside.uri,
       name: inside.name,
       type: inside.type,
     });
-    formdata.append("menu_image", {
+    formdata.append('menu_image', {
       uri: menu.uri,
       name: menu.name,
       type: menu.type,
     });
-    fetch("https://getweed.stgserver.site/api/v1/shop/update-shop-detail", {
-      method: "POST",
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data", // Change to multipart/form-data for file uploads
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data', // Change to multipart/form-data for file uploads
       },
       body:formdata,
     })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log("Response Data: ", JSON.stringify(responseData));
+        console.log('Response Data: ', JSON.stringify(responseData));
         setIsBankDetails(true);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
+      setIsBankDetails(true);
   };
 
 
@@ -237,7 +271,7 @@ const BusinessDetails = () => {
         console.error('File picker error: ', err);
       }
     }
-  }
+  };
 
     const GreenButton = ({ title, onPress }) => (
       <TouchableOpacity style={styles.greenButton} onPress={onPress}>
@@ -587,6 +621,7 @@ const BusinessDetails = () => {
       justifyContent: 'space-between', // Ensure the icon is on the right
     },
     input: {
+      color:'black',
       flex: 1,
       fontSize: 18,
       paddingRight: 30, // Make room for the icon on the right

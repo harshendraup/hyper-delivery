@@ -9,8 +9,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Keyboard,
-  SafeAreaView,
+  Keyboard,Alert,
+  SafeAreaView,Modal,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import logo from '../../asset/SVG/Logo.png';
@@ -54,7 +54,7 @@ const GreenButton = ({title, onPress}) => {
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -79,136 +79,145 @@ const ConnectWithPhone = () => {
 
   const handleSubmit = () => {
     if (!phoneNumber) {
-      console.log("Please enter a phone number");
+      console.log('Please enter a phone number');
       return;
     }
-  
-    fetch("https://getweed.stgserver.site/api/v1/shop/start-phone-verification", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+
+    fetch(
+      'https://getweed.stgserver.site/api/v1/shop/start-phone-verification',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,
+        }),
       },
-      body: JSON.stringify({
-        phone: phoneNumber,
-      }),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("Response Data: ", JSON.stringify(responseData));
+    )
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response Data: ', JSON.stringify(responseData));
         const userId = responseData.data.user_id;
-        if (userId) {
-          navigation.navigate('OtpSplash', { user_id: userId });  // Pass the user_id to OtpSplash
+        const otp = responseData.data.otp; // Assuming the OTP is returned in the response
+
+        if (otp) {
+          // Show OTP in alert
+          Alert.alert('OTP', `Your OTP is: ${otp}`, [
+            {
+              text: 'OK',
+              onPress: () =>
+                navigation.navigate('OtpSplash', {user_id: userId}),
+            },
+          ]);
         } else {
-          console.error('User ID not found in response');
+          console.error('OTP not found in response');
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(error => {
+        console.error('Error:', error);
       });
   };
-  
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
-        <View style={styles.topSection}>
-          <View style={styles.touchable}>
-            <View style={{width: '100%', alignItems: 'flex-start'}}>
+      <SafeAreaView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled">
+          <View style={styles.topSection}>
+            <View style={styles.touchable}>
               <View style={{width: '100%', alignItems: 'flex-start'}}>
-                <Text style={styles.boldText}>{t('start')}</Text>
-                <Text style={styles.subText}>{t('welcome')}</Text>
+                <View style={{width: '100%', alignItems: 'flex-start'}}>
+                  <Text style={styles.boldText}>{t('start')}</Text>
+                  <Text style={styles.subText}>{t('welcome')}</Text>
+                </View>
               </View>
             </View>
+            <Image source={logo} style={styles.logo} />
           </View>
-          <Image source={logo} style={styles.logo} />
-        </View>
 
-        <View style={styles.inputContainer}>
-          <Image source={Flag} style={styles.triangleIcon} />
-          <Image source={Dropdown} style={styles.dropdownIcon} />
-          <View style={styles.divider} />
-          <TextInput
-            style={styles.input}
-            placeholder={t('mobile_no')}
-            keyboardType="phone-pad"
-            maxLength={10}
-            value={phoneNumber}
-            onChangeText={(text) => {
-              console.log("Updating phone number to: ", text); 
-              setPhoneNumber(text);
-            }}
-          />
-        </View>
-
-        <View style={styles.containerText}>
-          <Text
-            style={[
-              styles.bottomText,
-              {flex: 1, textAlign: 'left', paddingLeft: 12},
-            ]}>
-            {t('recover')}
-          </Text>
-          <Text
-            style={[
-              styles.bottomTextHelp,
-              {flex: 1, textAlign: 'right', paddingRight: 12},
-            ]}>
-            {t('need')}
-          </Text>
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <GreenButton
-            title={t('next')}
-            // onPress={() => navigation.navigate('OtpSplash')}
-            // onPress={()=>{console.log("phone number" ,phoneNumber)}}
-            onPress={handleSubmit}
-          />
-          <View style={styles.separatorContainer}>
-            <View style={styles.separator} />
-            <Text style={styles.orText}>{t('or')}</Text>
-            <View style={styles.separator} />
+          <View style={styles.inputContainer}>
+            <Image source={Flag} style={styles.triangleIcon} />
+            <Image source={Dropdown} style={styles.dropdownIcon} />
+            <View style={styles.divider} />
+            <TextInput
+              style={styles.input}
+              placeholder={t('mobile_no')}
+              keyboardType="phone-pad"
+              maxLength={10}
+              value={phoneNumber}
+              onChangeText={text => {
+                setPhoneNumber(text);
+              }}
+            />
           </View>
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <CustomButton
-            icon={Phone}
-            title={t('phone')}
-            onPress={() => navigation.navigate('ConnectWithPhone')}
-          />
-          <CustomButton icon={Google} title={t('google')} onPress={() => {}} />
-          <CustomButton
-            icon={Facebook}
-            title={t('facebook')}
-            onPress={() => {}}
-          />
-          <CustomButton icon={Apple} title={t('apple')} onPress={() => {}} />
-          <CustomButton
-            icon={Email}
-            title={t('Get_email')}
-            onPress={() => navigation.navigate('ConnectWithEmail')}
-          />
-          <CustomButton
-            icon={GetstartwithFace}
-            title={t('face')}
-            onPress={() => navigation.navigate('ScanFace')}
-          />
-        </View>
+          <View style={styles.containerText}>
+            <Text
+              style={[
+                styles.bottomText,
+                {flex: 1, textAlign: 'left', paddingLeft: 12},
+              ]}>
+              {t('recover')}
+            </Text>
+            <Text
+              style={[
+                styles.bottomTextHelp,
+                {flex: 1, textAlign: 'right', paddingRight: 12},
+              ]}>
+              {t('need')}
+            </Text>
+          </View>
 
-        <Text style={styles.subsubText}>
-          {t('terms_and_conditions')} {'\n'}
-          {t('terms_and_conditions1')}
-        </Text>
-      </ScrollView>
+          <View style={styles.buttonContainer}>
+            <GreenButton title={t('next')} onPress={handleSubmit} />
+            <View style={styles.separatorContainer}>
+              <View style={styles.separator} />
+              <Text style={styles.orText}>{t('or')}</Text>
+              <View style={styles.separator} />
+            </View>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              icon={Phone}
+              title={t('phone')}
+              onPress={() => navigation.navigate('ConnectWithPhone')}
+            />
+            <CustomButton
+              icon={Google}
+              title={t('google')}
+              onPress={() => {}}
+            />
+            <CustomButton
+              icon={Facebook}
+              title={t('facebook')}
+              onPress={() => {}}
+            />
+            <CustomButton icon={Apple} title={t('apple')} onPress={() => {}} />
+            <CustomButton
+              icon={Email}
+              title={t('Get_email')}
+              onPress={() => navigation.navigate('ConnectWithEmail')}
+            />
+            <CustomButton
+              icon={GetstartwithFace}
+              title={t('face')}
+              onPress={() => navigation.navigate('ScanFace')}
+            />
+          </View>
+
+          <Text style={styles.subsubText}>
+            {t('terms_and_conditions')} {'\n'}
+            {t('terms_and_conditions1')}
+          </Text>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

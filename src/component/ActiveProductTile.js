@@ -133,15 +133,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 22,
   },
   editButton: {
-    padding: 10,
+    // padding: 10,
     borderRadius: 5,
   },
   deleteButton: {
-    padding: 10,
+    // padding: 10,
     borderRadius: 5,
   },
   buttonDivider: {
-    height: '70%',
+    height: '120%',
     width: 1,
     backgroundColor: '#CCCCCC',
     marginHorizontal: 10,
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
   backButtonImage: {
     width: 24,
     height: 24,
+    
   },
 });
 

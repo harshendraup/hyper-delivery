@@ -26,6 +26,8 @@ import DocumentPicker from 'react-native-document-picker';
 
 const {width} = Dimensions.get('window');
 
+
+
 const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -61,6 +63,16 @@ const AddProducts = () => {
   const [Cannabisform, setCannabisform] = useState(false); // State for Cannabis form accordion
   const [projectCategoryOpen, setProjectCategoryOpen] = useState(false); // State for Project Category accordion
   const [selectedFileName, setSelectedFileName] = useState(''); // New state for the file name
+  const [accordionOpen, setAccordionOpen] = useState(false);
+const items = [
+  {item: t('medical')},
+  {item: t('oil')},
+  {item: t('power') },
+  {
+    item: t('ancillary'),
+   
+  },
+];
 
   const handleFileSelection = async () => {
     try {
@@ -99,126 +111,129 @@ const AddProducts = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}>
-            <Image source={backbutton} style={styles.backButtonImage} />
-          </TouchableOpacity>
-          <Text
-            style={styles.title}
-            onPress={() => navigation.navigate('AncillaryAddProducts')}>
-           {t('addProduct')}
-          </Text>
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Accordion
-            title={t('cannabis_type')}
-            items={[t('medical'), t('oil'), t('power'), t('ancillary')]}
-            isOpen={Cannabistype}
-            toggle={() => setCannabistype(!Cannabistype)}
-            onSelect={() => {}}
-          />
-
-          <FloatingLabelInput
-            label={t('product1')}
-            value={ProductName}
-            onChangeText={setProductName}
-            keyboardType="email-address"
-          />
-          <FloatingLabelInput
-            label={t('price_per_gram')}
-            value={pricePerGram}
-            onChangeText={setPricePerGram}
-            keyboardType="email-address"
-          />
-          <FloatingLabelInput
-            label={t('product_details')}
-            value={ProductDetails}
-            onChangeText={setProductDetails}
-            keyboardType="email-address"
-          />
-
-          {/* Accordion for Cannabis Type */}
-          <Accordion
-            title={t('projectCategory')}
-            items={[t('1'), t('2'), t('3')]}
-            isOpen={projectCategoryOpen}
-            toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
-            onSelect={() => {}}
-          />
-
-          <FloatingLabelInput
-            label={t('enter_lanzer_range')}
-            value={lanzer}
-            onChangeText={handleLanzerChange}
-          />
-          <FloatingLabelInput
-            label={t('cbd')}
-            value={Cbd}
-            onChangeText={setCbd}
-            keyboardType="email-address"
-          />
-          <Accordion
-            title={t('cannabisForm')}
-            items={[t('1'), t('2'), t('3')]} // Replace with actual items
-            isOpen={Cannabisform}
-            toggle={() => setCannabisform(!Cannabisform)}
-            onSelect={() => {}}
-          />
-          <FloatingLabelInput
-            label={t('stock')}
-            value={Stock}
-            onChangeText={setStock}
-            keyboardType="email-address"
-          />
-
-          {/* Checkbox for prescription requirement */}
-          <View style={styles.checkboxContainer}>
-            <View style={styles.checkboxWrapper}>
-              <CheckBox
-                value={isPrescriptionRequired}
-                onValueChange={setIsPrescriptionRequired}
-                style={styles.checkbox} // Optional: Apply some other styles to checkbox itself
-              />
-            </View>
-            <Text style={styles.checkboxLabel}>
-            {t('requires_prescription_and_license')}
+      <SafeAreaView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled">
+          <View style={styles.headerContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.backButton}>
+              <Image source={backbutton} style={styles.backButtonImage} />
+            </TouchableOpacity>
+            <Text
+              style={styles.title}
+              onPress={() => navigation.navigate('AncillaryAddProducts')}>
+              {t('addProduct')}
             </Text>
           </View>
-        </View>
 
-        <View style={styles.uploadContainer}>
-          <Text style={styles.uploadText}>{t('product_images')}</Text>
-          <Image
-            source={ProductImage}
-            style={{width: '100%', alignItems: 'center', borderRadius: 10}}
-          />
-          <View style={styles.uploadRow}>
-            <TouchableOpacity style={styles.uploadButton}  onPress={handleFileSelection}>
-              <Image source={Cloud} style={styles.CloudIcon} />
-              <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
-              {selectedFileName ? (
-              <Text style={styles.selectedFileName}>{selectedFileName}</Text>
-            ) : null}
-            </TouchableOpacity>
+          <View style={styles.inputContainer}>
+            <Accordion
+              title={t('medical')}
+              items={items} // pass the structured array of items
+              isOpen={accordionOpen}
+              toggle={() => setAccordionOpen(!accordionOpen)}
+              onSelect={item => console.log(item)}
+              noShift={true}
+              borderColor="#409C59"
+              width="100%"
+            />
+
+            <FloatingLabelInput
+              label={t('product1')}
+              value={ProductName}
+              onChangeText={setProductName}
+              keyboardType="email-address"
+            />
+            <FloatingLabelInput
+              label={t('price_per_gram')}
+              value={pricePerGram}
+              onChangeText={setPricePerGram}
+              keyboardType="email-address"
+            />
+            <FloatingLabelInput
+              label={t('product_details')}
+              value={ProductDetails}
+              onChangeText={setProductDetails}
+              keyboardType="email-address"
+            />
+
+            {/* Accordion for Cannabis Type */}
+            <Accordion
+              title={t('projectCategory')}
+              items={[t('1'), t('2'), t('3')]}
+              isOpen={projectCategoryOpen}
+              toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
+              onSelect={() => {}}
+            />
+
+            <FloatingLabelInput
+              label={t('enter_lanzer_range')}
+              value={lanzer}
+              onChangeText={handleLanzerChange}
+            />
+            <FloatingLabelInput
+              label={t('cbd')}
+              value={Cbd}
+              onChangeText={setCbd}
+              keyboardType="email-address"
+            />
+            <Accordion
+              title={t('cannabisForm')}
+              items={[t('1'), t('2'), t('3')]} // Replace with actual items
+              isOpen={Cannabisform}
+              toggle={() => setCannabisform(!Cannabisform)}
+              onSelect={() => {}}
+            />
+            <FloatingLabelInput
+              label={t('stock')}
+              value={Stock}
+              onChangeText={setStock}
+              keyboardType="email-address"
+            />
+
+            {/* Checkbox for prescription requirement */}
+            <View style={styles.checkboxContainer}>
+              <View style={styles.checkboxWrapper}>
+                <CheckBox
+                  value={isPrescriptionRequired}
+                  onValueChange={setIsPrescriptionRequired}
+                  style={styles.checkbox} // Optional: Apply some other styles to checkbox itself
+                />
+              </View>
+              <Text style={styles.checkboxLabel}>
+                {t('requires_prescription_and_license')}
+              </Text>
+            </View>
           </View>
-        </View>
 
-        <View
-          style={[
-            styles.buttonContainer,
-            {width: '85%', alignItems: 'center'},
-          ]}>
-          <CommonButton title={t('next')} onPress={() => {}} />
-        </View>
-      </ScrollView>
+          <View style={styles.uploadContainer}>
+            <Text style={styles.uploadText}>{t('product_images')}</Text>
+            <View style={styles.uploadRow}>
+              <TouchableOpacity
+                style={styles.uploadButton}
+                onPress={handleFileSelection}>
+                <Image source={Cloud} style={styles.CloudIcon} />
+                <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
+                {selectedFileName ? (
+                  <Text style={styles.selectedFileName}>
+                    {selectedFileName}
+                  </Text>
+                ) : null}
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.buttonContainer,
+              {width: '85%', alignItems: 'center'},
+            ]}>
+            <CommonButton title={t('next')} onPress={() => {}} />
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
