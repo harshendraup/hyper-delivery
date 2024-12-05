@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
 import Backbutton from '../../asset/SVG/Backbutton.png';
 import Accordion from '../../component/Accordion';
@@ -66,6 +66,152 @@ const BusinessDetails = () => {
   const [outside, setoutside] = useState('');
   const [inside, setinside] = useState('');
   const [accordionOpen, setAccordionOpen] = useState(false);
+  const route = useRoute();
+  const { user_id } = route.params; 
+
+  useEffect(() => {
+    console.log("Received business details:", user_id);  // Log or use the user_id as needed
+  }, [user_id]);
+
+  // const handleSubmit = async () => {
+  //   const formdata = new FormData();
+  //   formdata.append("business_name", firstName);
+  //   formdata.append("phone", lastName);
+  //   formdata.append("about", email);
+  //   formdata.append("shop_timing", dob);
+  //   formdata.append("open_days", selectDayOpen);
+  //   formdata.append("user_id", user_id);
+  //   formdata.append("store_logo", {
+  //     uri: uploadLogo.uri,
+  //     name: uploadLogo.name,
+  //     type: uploadLogo.type,
+  //   });
+  //   formdata.append("business_outside_image", {
+  //     uri: outside.uri,
+  //     name: outside.name,
+  //     type: outside.type,
+  //   });
+  //   formdata.append("business_inside_image", {
+  //     uri: inside.uri,
+  //     name: inside.name,
+  //     type: inside.type,
+  //   });
+  //   formdata.append("menu_image", {
+  //     uri: menu.uri,
+  //     name: menu.name,
+  //     type: menu.type,
+  //   });
+  
+  //    // Debugging line to log the FormData
+  
+  //   try {
+  //     const requestOptions = {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //       body: formdata,
+  //     };
+  //     console.log('Form Data:', formdata);
+  //     const response = await fetch(
+  //       "https://getweed.stgserver.site/api/v1/shop/update-shop-detail",
+  //       requestOptions
+  //     );
+  //     console.log("dataaaa---->");
+      
+  //     const result = await response.text();
+  //     console.log('Response:', result); // Log the response
+      
+  //     if (response.ok) {
+  //       console.log('Request successful');
+  //       setIsBankDetails(true);
+  //     } else {
+  //       console.error('Failed request with status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error('Network request failed:', error); // More descriptive error logging
+  //   }
+  // };
+
+  const handleSubmit = () => {
+    const formdata = new FormData();
+    formdata.append("account_approval_form", {
+          uri: selectedFileName.uri,
+          name: selectedFileName.name,
+          type: selectedFileName.type,
+        })
+    fetch("https://getweed.stgserver.site/api/v1/shop/update-shop-detail", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        account_number:accountNumber,
+        bank_name:bankName,
+        account_holder_name:HolderName, 
+        ifsc_code:sortCode,
+        account_approval_form:formdata
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Response Data: ", JSON.stringify(responseData));
+        // navigation.navigate('ApprovalWaitng')
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleNext = () => {
+    const formdata = new FormData();
+    formdata.append("business_name", firstName);
+    formdata.append("phone", lastName);
+    formdata.append("about", email);
+    // formdata.append("shop_timing", dob);
+    formdata.append("open_days", selectDayOpen);
+    formdata.append("user_id", user_id);
+    formdata.append("store_logo", {
+      uri: uploadLogo.uri,
+      name: uploadLogo.name,
+      type: uploadLogo.type,
+    });
+    formdata.append("business_outside_image", {
+      uri: outside.uri,
+      name: outside.name,
+      type: outside.type,
+    });
+    formdata.append("business_inside_image", {
+      uri: inside.uri,
+      name: inside.name,
+      type: inside.type,
+    });
+    formdata.append("menu_image", {
+      uri: menu.uri,
+      name: menu.name,
+      type: menu.type,
+    });
+    fetch("https://getweed.stgserver.site/api/v1/shop/update-shop-detail", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data", // Change to multipart/form-data for file uploads
+      },
+      body:formdata,
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Response Data: ", JSON.stringify(responseData));
+        setIsBankDetails(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
 
   const handleFileSelection = async (type) => {
     try {
@@ -203,7 +349,8 @@ const BusinessDetails = () => {
                   <View style={styles.buttonContainer}>
                     <GreenButton
                       title={t('next')}
-                      onPress={() => navigation.navigate('ApprovalWaitng')}
+                      onPress={handleSubmit}
+                      // onPress={() => navigation.navigate('ApprovalWaitng')}
                     />
                   </View>
                 </>
@@ -324,10 +471,7 @@ const BusinessDetails = () => {
                         ) : null}
                       </TouchableOpacity>
                     </View>
-                    <GreenButton
-                      title={t('next')}
-                      onPress={() => setIsBankDetails(true)}
-                    />
+                    <GreenButton title={t('next')} onPress={handleNext} />
                   </View>
                 </>
               )}

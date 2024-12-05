@@ -62,7 +62,7 @@ const PersonalInfo = () => {
     console.log("Received person user_id:", user_id);  // Log or use the user_id as needed
   }, [user_id]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!frontFile || !backFile) {
       alert("Please upload both documents.");
       return;
@@ -85,27 +85,31 @@ const PersonalInfo = () => {
       name: backFile.name,
       type: backFile.type,
     });
-
-    try {
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data", // Change to multipart/form-data for file uploads
-        },
-        body: formdata,
-      };
-      const response = await fetch(
-        "https://getweed.stgserver.site/api/v1/shop/update-shop",
-        requestOptions
-      );
-      const result = await response.text();
-      navigation.navigate("BusinessDetails");
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
+   console.log('Form Data:', formdata);
+    fetch("https://getweed.stgserver.site/api/v1/shop/update-shop", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data", // Change to multipart/form-data for file uploads
+      },
+      body: formdata,
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Response Data: ", JSON.stringify(responseData));
+        
+        const userId = responseData.data.id;
+        if (userId) {
+          navigation.navigate('BusinessDetails', { user_id: userId });  
+        } else {
+          console.error('User ID not found in response');
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
+
 
   const handleFileSelection = async (type) => {
     try {
