@@ -49,76 +49,72 @@ const Onboarding = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          // keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
-          <View style={styles.topSection}>
-            <View style={styles.touchable}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('BusinessDetails')}>
-                <Image source={logo} style={styles.logo} />
-              </TouchableOpacity>
-              <View>
-                <Text style={styles.boldText}>{t('start')}</Text>
-                <Text style={styles.subText}>{t('welcome')}</Text>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        // keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.topSection}>
+          <View style={styles.touchable}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('TabNavigator')}>
+              <Image source={logo} style={styles.logo} />
+            </TouchableOpacity>
+            <View >
+              <Text style={styles.boldText}>{t('start')}</Text>
+              <Text style={styles.subText}>{t('welcome')}</Text>
+            </View>
+          </View>
+
+          <View style={styles.swiperContainer}>
+            <Swiper
+              style={styles.wrapper}
+              autoplay
+              autoplayTimeout={3}
+              showsButtons={false}
+              showsPagination={false}
+              loop={true}>
+              <View style={styles.slide}>
+                <Image source={girlBag} style={styles.image} />
               </View>
-            </View>
-
-            <View style={styles.swiperContainer}>
-              <Swiper
-                style={styles.wrapper}
-                autoplay
-                autoplayTimeout={3}
-                showsButtons={false}
-                showsPagination={false}
-                loop={true}>
-                <View style={styles.slide}>
-                  <Image source={girlBag} style={styles.image} />
-                </View>
-                <View style={styles.slide}>
-                  <Image source={guyPhoto} style={styles.image} />
-                </View>
-                <View style={styles.slide}>
-                  <Image source={girlWeb} style={styles.image} />
-                </View>
-              </Swiper>
-            </View>
+              <View style={styles.slide}>
+                <Image source={guyPhoto} style={styles.image} />
+              </View>
+              <View style={styles.slide}>
+                <Image source={girlWeb} style={styles.image} />
+              </View>
+            </Swiper>
           </View>
+        </View>
 
-          <View style={styles.buttonContainer}>
-            <CustomButton
-              icon={Phone}
-              title={t('phone')}
-              onPress={() => navigation.navigate('ConnectWithPhone')}
-            />
-            <CustomButton
-              icon={Google}
-              title={t('google')}
-              onPress={() => {}}
-            />
-            <CustomButton
-              icon={Facebook}
-              title={t('facebook')}
-              onPress={() => {}}
-            />
-            <CustomButton icon={Apple} title={t('apple')} onPress={() => {}} />
-            <CustomButton
-              icon={Email}
-              title={t('Get_email')}
-              onPress={() => navigation.navigate('ConnectWithEmail')}
-            />
-            <CustomButton
-              icon={GetstartwithFace}
-              title={t('face')}
-              onPress={() => navigation.navigate('ScanFace')}
-            />
-          </View>
-          <Text style={styles.subsubText}>
-            {t('terms_and_conditions')} {'\n'}
-            {t('terms_and_conditions1')}
-          </Text>
-        </ScrollView>
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            icon={Phone}
+            title={t('phone')}
+            onPress={() => navigation.navigate('ConnectWithPhone')}
+          />
+          <CustomButton icon={Google} title={t('google')} onPress={() => {}} />
+          <CustomButton
+            icon={Facebook}
+            title={t('facebook')}
+            onPress={() => {}}
+          />
+          <CustomButton icon={Apple} title={t('apple')} onPress={() => {}} />
+          <CustomButton
+            icon={Email}
+            title={t('Get_email')}
+            onPress={() => navigation.navigate('ConnectWithEmail')}
+          />
+          <CustomButton
+            icon={GetstartwithFace}
+            title={t('face')}
+            onPress={() => navigation.navigate('ScanFace')}
+          />
+        </View>
+        <Text style={styles.subsubText}>
+          {t('terms_and_conditions')} {'\n'}
+          {t('terms_and_conditions1')}
+        </Text>
+      </ScrollView>
       </SafeAreaView>
     </View>
   );

@@ -1,4 +1,3 @@
-// ActiveProductTile.js
 import React from 'react';
 import {Text, TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -9,26 +8,43 @@ import stock from '../asset/stock.png'; // stock image
 const ActiveProductTile = ({product, onDelete, onEdit}) => {
   const navigation = useNavigation();
 
+ 
+  const productImage = product.images?.[0]?.image || stock; 
+
   return (
     <TouchableOpacity
       style={styles.productTile}
-      onPress={() => navigation.navigate('ProductInfo')}>
+      onPress={() =>
+        navigation.navigate('ProductInfo', {productId: product.id})
+      } // pass the productId
+    >
       <View style={styles.imageContainer}>
-        <Image source={stock} style={styles.productImage} />
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>In Stock</Text>
+        <Image
+          source={{uri: String(productImage)}}
+          style={styles.productImage}
+        />
+
+        <View
+          style={[
+            styles.badge,
+            {
+              backgroundColor:
+                product.stock_quantity > 0 ? '#409C59' : '#ff3636',
+            },
+          ]}>
+          <Text style={styles.badgeText}>
+            {product.stock_quantity > 0 ? 'In Stock' : 'Out of Stock'}
+          </Text>
         </View>
       </View>
-      <Text style={styles.productTitle}>Hybrid</Text>
+
+      <Text style={styles.productTitle}>{product.name}</Text>
       <Text style={styles.productSubtitle}>
-        {product.subtitle} <Text>{product.wight}g</Text>
+        {product.details} <Text>{product.cbd_content}mg CBD</Text>
       </Text>
 
       <View style={styles.priceContainer}>
         <Text style={styles.priceText}>${product.price}</Text>
-        <Text style={styles.discountedPriceText}>
-          ${product.discountedPrice}
-        </Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -78,7 +94,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: '#409C59',
     padding: 5,
     borderRadius: 5,
     zIndex: 1,
@@ -110,12 +125,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'green',
     fontWeight: 'bold',
-  },
-  discountedPriceText: {
-    fontSize: 14,
-    color: 'gray',
-    textDecorationLine: 'line-through',
-    marginLeft: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
