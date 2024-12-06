@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,24 +12,27 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
 import Backbutton from '../../asset/SVG/Backbutton.png';
 import Accordion from '../../component/Accordion';
 import Clock from '../../asset/SVG/Clock.png';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import DocumentPicker from 'react-native-document-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import moment from 'moment';
 
-const {width} = Dimensions.get('window');
-const {height} = Dimensions.get('window');
 
-const FloatingLabelInput = ({label, value, onChangeText, icon}) => {
+const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
+
+const FloatingLabelInput = ({ label, value, onChangeText, icon, onIconPress }) => {
   const [isFocused, setIsFocused] = useState(false);
   return (
     <View style={styles.floatingLabelContainer}>
-      <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
+      <Text style={[styles.floatingLabel, { top: isFocused || value ? -2 : 19 }]}>
         {label}
       </Text>
       <View style={styles.inputWrapper}>
@@ -40,7 +43,11 @@ const FloatingLabelInput = ({label, value, onChangeText, icon}) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        {icon && <Image source={Clock} style={styles.icon} />}
+         {icon && (
+          <TouchableOpacity onPress={onIconPress} style={styles.iconContainer}>
+            <Image source={icon} style={styles.icon} />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -48,32 +55,259 @@ const FloatingLabelInput = ({label, value, onChangeText, icon}) => {
 
 const BusinessDetails = () => {
   const navigation = useNavigation();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
+  const [day, setDay] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [bankName, setBankName] = useState('');
   const [HolderName, setHolderName] = useState('');
   const [sortCode, setSortCode] = useState('');
   const [isBankDetails, setIsBankDetails] = useState(false);
+  const [selectDayOpen, setselectDayOpen] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
+  const [menu, setmenu] = useState('');
   const [uploadLogo, setuploadLogo] = useState('');
   const [outside, setoutside] = useState('');
   const [inside, setinside] = useState('');
-  const [menu, setmenu] = useState('');
-  const [fileInput, setFileInput] = useState(null); // State to hold the file input reference
+  const [accordionOpen, setAccordionOpen] = useState(false);
+  const [firstNameError, setFirstNameError] = useState('');
+  const [accountHolderError, setaccountHolderError] = useState('');
+  const [BanknameError, setBanknameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [accountNumberError, setAccountNumberError] = useState('');
+  const [ifscCodeError, setIfscCodeError] = useState('');
+  const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
+  const route = useRoute();
+  const { user_id } = route.params;
 
-  const handleFileSelection = async type => {
+  const handleTimeIconPress = () => {
+    setIsTimePickerVisible(true); // Open the time picker when the clock icon is pressed
+  };
+
+  const handleTimePickerConfirm = (time) => {
+    setDob(moment(time).format('HH:mm')); // Format the selected time and update `dob`
+    setIsTimePickerVisible(false); // Close the time picker
+  };
+
+  const handleTimePickerCancel = () => {
+    setIsTimePickerVisible(false); // Close the time picker without updating the `dob`
+  };
+
+  useEffect(() => {
+    console.log('Received business details:', user_id);  // Log or use the user_id as needed
+  }, [user_id]);
+
+
+  const validatePhoneNumber = (phone) => {
+    const regex = /^[0-9]{10}$/; // Phone number should be exactly 10 digits
+    return regex.test(phone);
+  };
+
+  const validateAccountNumber = (accountNumber) => {
+    const regex = /^[0-9]{8,12}$/; // Account number should be between 8 to 12 digits
+    return regex.test(accountNumber);
+  };
+
+  const validateIFSCCode = (ifscCode) => {
+    const regex = /^[A-Z]{4}0[A-Z0-9]{6}$/; // IFSC format like "ABCD0123456"
+    return regex.test(ifscCode);
+  };
+
+  const handlePhoneChange = (text) => {
+    setLastName(text);
+    if (!text) {
+      setPhoneError(t('Please enter phone number'));
+    } else if (!validatePhoneNumber(text)) {
+      setPhoneError(t('Phone number must contain exactly 10 digits'));
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const handleAccountNumberChange = (text) => {
+    setAccountNumber(text);
+    if (!text) {
+      setAccountNumberError(t('Please enter account number'));
+    } else if (!validateAccountNumber(text)) {
+      setAccountNumberError(t('Account number must be between 8 and 12 digits'));
+    } else {
+      setAccountNumberError('');
+    }
+  };
+
+  const handleIFSCCodeChange = (text) => {
+    setSortCode(text);
+    if (!text) {
+      setIfscCodeError(t('Please enter IFSC code'));
+    } else if (!validateIFSCCode(text)) {
+      setIfscCodeError(t('IFSC code must be in the format ABCD0123456'));
+    } else {
+      setIfscCodeError('');
+    }
+  };
+
+  const validateName = (name) => {
+    const regex = /^[a-zA-Z]+$/; // Only letters allowed
+    return regex.test(name);
+  };
+
+  const handleBusinessNameChange = (text) => {
+    setFirstName(text);
+    if (!text) {
+      setFirstNameError(t('Please enter Business name'));
+    } else if (!validateName(text)) {
+      setFirstNameError(t('Business name must contain only letters'));
+    } else {
+      setFirstNameError('');
+    }
+  };
+
+  const handleAccountNumChange = (text) => {
+    setHolderName(text);
+    if (!text) {
+      setaccountHolderError(t('Please enter account holder name'));
+    } else if (!validateName(text)) {
+      setaccountHolderError(t('Account holder name must contain only letters'));
+    } else {
+      setaccountHolderError('');
+    }
+  };
+
+  const handleBankNameChange = (text) => {
+    setBankName(text);
+    if (!text) {
+      setBanknameError(t('Please enter Bank name'));
+    } else if (!validateName(text)) {
+      setBanknameError(t('Bank name must contain only letters'));
+    } else {
+      setBanknameError('');
+    }
+  };
+
+  const handleSubmit = () => {
+    if (
+      !selectedFileName &&
+      !selectedFileName.uri &&
+      !selectedFileName.name &&
+      !selectedFileName.type
+    ) {
+      alert('Please select a valid account approval file!');
+      return;
+    }
+    const formdata = new FormData();
+    formdata.append('account_approval_form', {
+      uri: selectedFileName.uri,
+      name: selectedFileName.name,
+      type: selectedFileName.type,
+    });
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-bank-detail', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        account_number: accountNumber,
+        bank_name: bankName,
+        account_holder_name: HolderName,
+        ifsc_code: sortCode,
+        account_approval_form: formdata,
+      }),
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response Data: ', JSON.stringify(responseData));
+        navigation.navigate('ApprovalWaitng')
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+  const handleNext = () => {
+    if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
+      alert('Please fill in all the required details!');
+      return;
+    }
+
+    if (!uploadLogo && !uploadLogo.uri && !uploadLogo.name && !uploadLogo.type) {
+      alert('Please select a valid logo image!');
+      return;
+    }
+
+    if (!outside && !outside.uri && !outside.name && !outside.type) {
+      alert('Please select a valid outside image!');
+      return;
+    }
+
+    if (!inside && !inside.uri && !inside.name && !inside.type) {
+      alert('Please select a valid inside image!');
+      return;
+    }
+
+    if (!menu && !menu.uri && !menu.name && !menu.type) {
+      alert('Please select a valid menu image!');
+      return;
+    }
+    const formdata = new FormData();
+    formdata.append('business_name', firstName);
+    formdata.append('phone', lastName);
+    formdata.append('about', email);
+    // formdata.append("shop_timing", dob);
+    formdata.append('open_days', selectDayOpen);
+    formdata.append('user_id', user_id);
+    formdata.append('store_logo', {
+      uri: uploadLogo.uri,
+      name: uploadLogo.name,
+      type: uploadLogo.type,
+    });
+    formdata.append('business_outside_image', {
+      uri: outside.uri,
+      name: outside.name,
+      type: outside.type,
+    });
+    formdata.append('business_inside_image', {
+      uri: inside.uri,
+      name: inside.name,
+      type: inside.type,
+    });
+    formdata.append('menu_image', {
+      uri: menu.uri,
+      name: menu.name,
+      type: menu.type,
+    });
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formdata,
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('Response Data: ', JSON.stringify(responseData));
+        setIsBankDetails(true);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    setIsBankDetails(true);
+  };
+
+
+  const handleFileSelection = async (type) => {
     try {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles], // You can customize the file types here
       });
 
       if (type === 'upload_form') {
-        setSelectedFileName(res[0].name);
-        setFileInput(res[0]); // Store the selected file
+        setSelectedFileName(res[0].name); // Store the selected front document name
       } else if (type === 'upload_logo') {
         setuploadLogo(res[0].name);
       } else if (type === 'outside') {
@@ -92,58 +326,7 @@ const BusinessDetails = () => {
     }
   };
 
-  const submitBusinessDetails = () => {
-    const formData = new FormData();
-    formData.append('user_id', '27'); // Replace with actual user ID
-    formData.append('business_name', firstName);
-    formData.append('phone', lastName); // Assuming last name is phone number
-    formData.append('about', email);
-    formData.append('store_logo', fileInput, '[PROXY]'); // Replace with actual file
-    formData.append('business_outside_image', outside, '[PROXY]');
-    formData.append('business_inside_image', inside, '[PROXY]');
-    formData.append('menu_image', menu, '[PROXY]');
-    formData.append('open_days', ''); // Add actual days if needed
-
-    const requestOptions = {
-      method: 'POST',
-      body: formData,
-      redirect: 'follow',
-    };
-
-    fetch(
-      'https://getweed.stgserver.site/api/v1/shop/update-shop-detail',
-      requestOptions,
-    )
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.error(error));
-  };
-
-  const submitBankDetails = () => {
-    const formData = new FormData();
-    formData.append('user_id', '27'); // Replace with actual user ID
-    formData.append('account_number', accountNumber);
-    formData.append('bank_name', bankName);
-    formData.append('account_holder_name', HolderName);
-    formData.append('ifsc_code', sortCode);
-    formData.append('account_approval_form', fileInput, '[PROXY]'); // Replace with actual file
-
-    const requestOptions = {
-      method: 'POST',
-      body: formData,
-      redirect: 'follow',
-    };
-
-    fetch(
-      'https://getweed.stgserver.site/api/v1/shop/add-bank-account',
-      requestOptions,
-    )
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.error(error));
-  };
-
-  const GreenButton = ({title, onPress}) => (
+  const GreenButton = ({ title, onPress }) => (
     <TouchableOpacity style={styles.greenButton} onPress={onPress}>
       <Text style={styles.greenButtonText}>{title}</Text>
     </TouchableOpacity>
@@ -205,23 +388,31 @@ const BusinessDetails = () => {
                 <FloatingLabelInput
                   label={t('account_number')}
                   value={accountNumber}
-                  onChangeText={setAccountNumber}
+                  onChangeText={handleAccountNumberChange}
                 />
+                {accountNumberError ? <Text style={styles.errorText}>{accountNumberError}</Text> : null}
                 <FloatingLabelInput
                   label={t('account_holder_name')}
                   value={HolderName}
-                  onChangeText={setHolderName}
+                  onChangeText={handleAccountNumChange}
                 />
+                {accountHolderError ? (
+                  <Text style={styles.errorText}>{accountHolderError}</Text>
+                ) : null}
                 <FloatingLabelInput
                   label={t('bank_name')}
                   value={bankName}
-                  onChangeText={setBankName}
+                  onChangeText={handleBankNameChange}
                 />
+                {BanknameError ? (
+                  <Text style={styles.errorText}>{BanknameError}</Text>
+                ) : null}
                 <FloatingLabelInput
                   label={t('ifsc_code')}
                   value={sortCode}
-                  onChangeText={setSortCode}
+                  onChangeText={handleIFSCCodeChange}
                 />
+                {ifscCodeError ? <Text style={styles.errorText}>{ifscCodeError}</Text> : null}
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>
                     {t('account_approval_form')}
@@ -230,11 +421,15 @@ const BusinessDetails = () => {
                     <TouchableOpacity
                       style={[
                         styles.uploadButton,
-                        {alignItems: 'center', width: '100%'},
+                        {
+                          alignItems: 'center', // Ensure buttons are vertically centered
+                          width: '100%',
+                        },
                       ]}
                       onPress={() => handleFileSelection('upload_form')}>
                       <Text style={styles.uploadButtonText}>
                         <Image source={Cloud} style={styles.CloudIcon} />
+                        {'\n'}
                         {'\n'}
                         {t('upload_form')}
                       </Text>
@@ -247,7 +442,11 @@ const BusinessDetails = () => {
                   </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <GreenButton title={t('next')} onPress={submitBankDetails} />
+                  <GreenButton
+                    title={t('next')}
+                    onPress={handleSubmit}
+                  // onPress={() => navigation.navigate('ApprovalWaitng')}
+                  />
                 </View>
               </>
             ) : (
@@ -255,13 +454,17 @@ const BusinessDetails = () => {
                 <FloatingLabelInput
                   label={t('business_name')}
                   value={firstName}
-                  onChangeText={setFirstName}
+                  onChangeText={handleBusinessNameChange}
                 />
+                {firstNameError ? (
+                  <Text style={styles.errorText}>{firstNameError}</Text>
+                ) : null}
                 <FloatingLabelInput
                   label={t('phone_number')}
                   value={lastName}
-                  onChangeText={setLastName}
+                  onChangeText={handlePhoneChange}
                 />
+                {phoneError ? <Text style={styles.errorText}>{phoneError}</Text> : null}
                 <FloatingLabelInput
                   label={t('about')}
                   value={email}
@@ -273,21 +476,34 @@ const BusinessDetails = () => {
                   value={dob}
                   onChangeText={setDob}
                   icon={Clock} // Pass the Clock icon as a prop
+                  onIconPress={handleTimeIconPress} // Trigger the time picker when the icon is pressed
                 />
-
+                <DateTimePickerModal
+                  isVisible={isTimePickerVisible}
+                  mode="time"
+                  onConfirm={handleTimePickerConfirm}
+                  onCancel={handleTimePickerCancel}
+                  date={dob ? moment(dob, 'HH:mm').toDate() : new Date()} // Ensure date format is correct for DateTimePicker
+                />
                 <Accordion
                   title={t('weekly')}
                   items={[
-                    {item: t('daily')},
-                    {item: t('weekly')},
-                    {item: t('yearly')},
+                    { item: t('daily') },
+                    { item: t('weekly') },
+                    { item: t('yearly') },
                   ]}
-                  isOpen={false}
-                  toggle={() => {}}
+                  isOpen={accordionOpen}
+                  toggle={() => setAccordionOpen(!accordionOpen)}
                   onSelect={item => console.log(item)}
                   noShift={true}
                   borderColor="#409C59"
                   width="100%"
+                  style={{
+                    zIndex: 2,
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                  }}
                 />
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>{t('store_logo')}</Text>
@@ -295,11 +511,15 @@ const BusinessDetails = () => {
                     <TouchableOpacity
                       style={[
                         styles.uploadButton,
-                        {alignItems: 'center', width: '100%'},
+                        {
+                          alignItems: 'center', // Ensure buttons are vertically centered
+                          width: '100%',
+                        },
                       ]}
                       onPress={() => handleFileSelection('upload_logo')}>
                       <Text style={styles.uploadButtonText}>
                         <Image source={Cloud} style={styles.CloudIcon} />
+                        {'\n'}
                         {'\n'}
                         {t('upload_logo')}
                       </Text>
@@ -313,13 +533,16 @@ const BusinessDetails = () => {
                 </View>
 
                 <View style={styles.uploadContainer}>
-                  <Text style={styles.uploadText}>{t('business_images')}</Text>
+                  <Text style={styles.uploadText}>
+                    {t('business_images')}
+                  </Text>
                   <View style={styles.uploadRow}>
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('outside')}>
                       <Text style={styles.uploadButtonText}>
                         <Image source={Cloud} style={styles.CloudIcon} />
+                        {'\n'}
                         {'\n'}
                         {t('outside')}
                       </Text>
@@ -333,6 +556,7 @@ const BusinessDetails = () => {
                       <Text style={styles.uploadButtonText}>
                         <Image source={Cloud} style={styles.CloudIcon} />
                         {'\n'}
+                        {'\n'}
                         {t('inside')}
                       </Text>
                       {inside ? (
@@ -345,6 +569,7 @@ const BusinessDetails = () => {
                       <Text style={styles.uploadButtonText}>
                         <Image source={Cloud} style={styles.CloudIcon} />
                         {'\n'}
+                        {'\n'}
                         {t('menu')}
                       </Text>
                       {menu ? (
@@ -352,10 +577,7 @@ const BusinessDetails = () => {
                       ) : null}
                     </TouchableOpacity>
                   </View>
-                  <GreenButton
-                    title={t('next')}
-                    onPress={submitBusinessDetails}
-                  />
+                  <GreenButton title={t('next')} onPress={handleNext} />
                 </View>
               </>
             )}
@@ -365,7 +587,6 @@ const BusinessDetails = () => {
     </KeyboardAvoidingView>
   );
 };
-
 
 export default BusinessDetails;
 
@@ -472,6 +693,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', // Ensure the icon is on the right
   },
   input: {
+    color: 'black',
     flex: 1,
     fontSize: 18,
     paddingRight: 30, // Make room for the icon on the right
@@ -564,5 +786,15 @@ const styles = StyleSheet.create({
     color: '#333', // Choose a color that fits your design
     marginTop: 5, // Adds space between the upload and the file name
     textAlign: 'center', // Centers the file name text
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 5,
+  },
+  iconContainer: {
+    padding: 10, // Add padding to increase touchable area
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
