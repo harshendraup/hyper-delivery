@@ -198,11 +198,11 @@ const BusinessDetails = () => {
       return;
     }
     const formdata = new FormData();
-    formdata.append('account_approval_form', {
-      uri: selectedFileName.uri,
-      name: selectedFileName.name,
-      type: selectedFileName.type,
-    });
+    // formdata.append('account_approval_form', {
+    //   uri: selectedFileName.uri,
+    //   name: selectedFileName.name,
+    //   type: selectedFileName.type,
+    // });
     fetch('https://getweed.stgserver.site/api/v1/shop/update-bank-detail', {
       method: 'POST',
       headers: {
@@ -258,28 +258,28 @@ const BusinessDetails = () => {
     formdata.append('phone', lastName);
     formdata.append('about', email);
     // formdata.append("shop_timing", dob);
-    formdata.append('open_days', selectDayOpen);
+    // formdata.append('open_days', selectDayOpen);
     formdata.append('user_id', user_id);
-    formdata.append('store_logo', {
-      uri: uploadLogo.uri,
-      name: uploadLogo.name,
-      type: uploadLogo.type,
-    });
-    formdata.append('business_outside_image', {
-      uri: outside.uri,
-      name: outside.name,
-      type: outside.type,
-    });
-    formdata.append('business_inside_image', {
-      uri: inside.uri,
-      name: inside.name,
-      type: inside.type,
-    });
-    formdata.append('menu_image', {
-      uri: menu.uri,
-      name: menu.name,
-      type: menu.type,
-    });
+    // formdata.append('store_logo', {
+    //   uri: uploadLogo.uri,
+    //   name: uploadLogo.name,
+    //   type: uploadLogo.type,
+    // });
+    // formdata.append('business_outside_image', {
+    //   uri: outside.uri,
+    //   name: outside.name,
+    //   type: outside.type,
+    // });
+    // formdata.append('business_inside_image', {
+    //   uri: inside.uri,
+    //   name: inside.name,
+    //   type: inside.type,
+    // });
+    // formdata.append('menu_image', {
+    //   uri: menu.uri,
+    //   name: menu.name,
+    //   type: menu.type,
+    // });
     fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
       method: 'POST',
       headers: {
