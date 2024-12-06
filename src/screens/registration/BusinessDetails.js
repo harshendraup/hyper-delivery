@@ -28,11 +28,20 @@ import moment from 'moment';
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
 
-const FloatingLabelInput = ({ label, value, onChangeText, icon, onIconPress }) => {
+const FloatingLabelInput = ({
+  label,
+  value,
+  onChangeText,
+  icon,
+  onIconPress,
+  editable = true,
+  keyboardType = 'default', // Default keyboard type
+}) => {
   const [isFocused, setIsFocused] = useState(false);
+
   return (
     <View style={styles.floatingLabelContainer}>
-      <Text style={[styles.floatingLabel, { top: isFocused || value ? -2 : 19 }]}>
+      <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
         {label}
       </Text>
       <View style={styles.inputWrapper}>
@@ -42,8 +51,10 @@ const FloatingLabelInput = ({ label, value, onChangeText, icon, onIconPress }) =
           onChangeText={onChangeText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          editable={editable} // Conditionally disable editing (keyboard)
+          keyboardType={keyboardType} // Apply the keyboard type here
         />
-         {icon && (
+        {icon && (
           <TouchableOpacity onPress={onIconPress} style={styles.iconContainer}>
             <Image source={icon} style={styles.icon} />
           </TouchableOpacity>
@@ -52,6 +63,7 @@ const FloatingLabelInput = ({ label, value, onChangeText, icon, onIconPress }) =
     </View>
   );
 };
+
 
 const BusinessDetails = () => {
   const navigation = useNavigation();
@@ -106,10 +118,13 @@ const BusinessDetails = () => {
     return regex.test(phone);
   };
 
-  const validateAccountNumber = (accountNumber) => {
-    const regex = /^[0-9]{8,12}$/; // Account number should be between 8 to 12 digits
-    return regex.test(accountNumber);
-  };
+const validateAccountNumber = accountNumber => {
+  // Regex to match both 10-15 digit account numbers and IBANs
+  const regex = /^(?:[0-9]{10,15}|[A-Z]{2}\d{2}[A-Z0-9]{4,30})$/;
+  return regex.test(accountNumber);
+};
+
+
 
   const validateIFSCCode = (ifscCode) => {
     const regex = /^[A-Z0-9]{6}$/; // IFSC format like "ABCD0123456"
@@ -132,7 +147,7 @@ const BusinessDetails = () => {
     if (!text) {
       setAccountNumberError(t('Please enter account number'));
     } else if (!validateAccountNumber(text)) {
-      setAccountNumberError(t('Account number must be between 8 and 12 digits'));
+      setAccountNumberError(t('Enter a valid Account number'));
     } else {
       setAccountNumberError('');
     }
@@ -153,12 +168,16 @@ const BusinessDetails = () => {
     const regex = /^[a-zA-Z]+$/; // Only letters allowed
     return regex.test(name);
   };
+const validateBusinessName = name => {
+  const regex = /^[a-zA-Z\s]+$/; // Allow letters and spaces
+  return regex.test(name);
+};
 
   const handleBusinessNameChange = (text) => {
     setFirstName(text);
     if (!text) {
       setFirstNameError(t('Please enter Business name'));
-    } else if (!validateName(text)) {
+    } else if (!validateBusinessName(text)) {
       setFirstNameError(t('Business name must contain only letters'));
     } else {
       setFirstNameError('');
@@ -169,7 +188,7 @@ const BusinessDetails = () => {
     setHolderName(text);
     if (!text) {
       setaccountHolderError(t('Please enter account holder name'));
-    } else if (!validateName(text)) {
+    } else if (!validateBusinessName(text)) {
       setaccountHolderError(t('Account holder name must contain only letters'));
     } else {
       setaccountHolderError('');
@@ -180,7 +199,7 @@ const BusinessDetails = () => {
     setBankName(text);
     if (!text) {
       setBanknameError(t('Please enter Bank name'));
-    } else if (!validateName(text)) {
+    } else if (!validateBusinessName(text)) {
       setBanknameError(t('Bank name must contain only letters'));
     } else {
       setBanknameError('');
@@ -390,7 +409,9 @@ const BusinessDetails = () => {
                   value={accountNumber}
                   onChangeText={handleAccountNumberChange}
                 />
-                {accountNumberError ? <Text style={styles.errorText}>{accountNumberError}</Text> : null}
+                {accountNumberError ? (
+                  <Text style={styles.errorText}>{accountNumberError}</Text>
+                ) : null}
                 <FloatingLabelInput
                   label={t('account_holder_name')}
                   value={HolderName}
@@ -412,7 +433,9 @@ const BusinessDetails = () => {
                   value={sortCode}
                   onChangeText={handleIFSCCodeChange}
                 />
-                {ifscCodeError ? <Text style={styles.errorText}>{ifscCodeError}</Text> : null}
+                {ifscCodeError ? (
+                  <Text style={styles.errorText}>{ifscCodeError}</Text>
+                ) : null}
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>
                     {t('account_approval_form')}
@@ -445,7 +468,7 @@ const BusinessDetails = () => {
                   <GreenButton
                     title={t('next')}
                     onPress={handleSubmit}
-                  // onPress={() => navigation.navigate('ApprovalWaitng')}
+                    // onPress={() => navigation.navigate('ApprovalWaitng')}
                   />
                 </View>
               </>
@@ -463,8 +486,11 @@ const BusinessDetails = () => {
                   label={t('phone_number')}
                   value={lastName}
                   onChangeText={handlePhoneChange}
+                  keyboardType="phone-pad"
                 />
-                {phoneError ? <Text style={styles.errorText}>{phoneError}</Text> : null}
+                {phoneError ? (
+                  <Text style={styles.errorText}>{phoneError}</Text>
+                ) : null}
                 <FloatingLabelInput
                   label={t('about')}
                   value={email}
@@ -474,10 +500,12 @@ const BusinessDetails = () => {
                 <FloatingLabelInput
                   label={t('shop_timing')}
                   value={dob}
+                  editable={false}
                   onChangeText={setDob}
                   icon={Clock} // Pass the Clock icon as a prop
                   onIconPress={handleTimeIconPress} // Trigger the time picker when the icon is pressed
                 />
+
                 <DateTimePickerModal
                   isVisible={isTimePickerVisible}
                   mode="time"
@@ -488,9 +516,9 @@ const BusinessDetails = () => {
                 <Accordion
                   title={t('weekly')}
                   items={[
-                    { item: t('daily') },
-                    { item: t('weekly') },
-                    { item: t('yearly') },
+                    {item: t('daily')},
+                    {item: t('weekly')},
+                    {item: t('yearly')},
                   ]}
                   isOpen={accordionOpen}
                   toggle={() => setAccordionOpen(!accordionOpen)}
@@ -531,11 +559,8 @@ const BusinessDetails = () => {
                     </TouchableOpacity>
                   </View>
                 </View>
-
                 <View style={styles.uploadContainer}>
-                  <Text style={styles.uploadText}>
-                    {t('business_images')}
-                  </Text>
+                  <Text style={styles.uploadText}>{t('business_images')}</Text>
                   <View style={styles.uploadRow}>
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
