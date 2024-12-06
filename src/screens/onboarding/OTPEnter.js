@@ -11,44 +11,27 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  Alert,
 } from 'react-native';
-import React, { useEffect, useState, createRef } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import React, {useEffect, useState, createRef} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Getweed from '../../asset/SVG/Getweed.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import LoadingButton from '../../component/LoadingButton'; // Import the LoadingButton component
 
-const { width } = Dimensions.get('window');
-
-const GreenButton = ({ title, onPress, disabled }) => (
-  <TouchableOpacity
-    style={[styles.greenButton, { opacity: disabled ? 0.5 : 1 }]}
-    onPress={onPress}
-    disabled={disabled}
-  >
-    <Text style={styles.greenButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
+const {width} = Dimensions.get('window');
 
 const OTPEnter = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { user_id } = route.params;
-  const { t } = useTranslation();
-
-  if (!user_id) {
-    console.log("User ID is missing");
-    return;
-  }
-
+  const {user_id, phone_number} = route.params;
+  const {t} = useTranslation();
+  const [isLoading, setIsLoading] = useState(false); // For showing loading indicator
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);  // Disable button initially
-  const inputRefs = Array.from({ length: 6 }, () => createRef());
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
+  const inputRefs = Array.from({length: 6}, () => createRef());
 
   useEffect(() => {
-    // Check if OTP is complete and valid
     const isOtpValid = otp.every(digit => digit !== '');
     setIsButtonDisabled(!isOtpValid); // Enable button if OTP is valid
   }, [otp]);
@@ -74,37 +57,41 @@ const OTPEnter = () => {
   };
 
   const handleSubmit = () => {
-    if (isButtonDisabled) {
-      return;
-    }
-    
+    if (isButtonDisabled) return;
+
     if (!otp) {
-      console.log("Please enter OTP");
+      console.log('Please enter OTP');
       return;
     }
-    fetch("https://getweed.stgserver.site/api/v1/shop/otp-verification", {
-      method: "POST",
+
+    setIsLoading(true); // Start loading when OTP is being submitted
+    setErrorMessage(''); // Reset error message
+
+    fetch('https://getweed.stgserver.site/api/v1/shop/otp-verification', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         otp: otp.join(''),
-        user_id: user_id, // Pass the user_id received from the previous screen
+        user_id: user_id,
       }),
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("Response Data: ", JSON.stringify(responseData));
-        if (responseData.status === "success") { // Assuming 'status' is returned
+      .then(response => response.json())
+      .then(responseData => {
+        setIsLoading(false); // Stop loading after response
+
+        if (responseData.status === 'success') {
           const userId = responseData.data.user_id;
-          navigation.navigate("PersonalInfo", { user_id: userId });
+          navigation.navigate('PersonalInfo', {user_id: userId});
         } else {
-          Alert.alert("Invalid OTP", "The OTP you entered is incorrect.");
+          setErrorMessage(t('incorrect OTP')); // Set error message to display
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(error => {
+        setIsLoading(false); // Stop loading if there is an error
+        console.error('Error:', error);
       });
   };
 
@@ -121,7 +108,8 @@ const OTPEnter = () => {
           <Image source={Getweed} style={styles.logo} />
           <Text style={styles.title}>{t('enter_otp')}</Text>
           <Text style={styles.subTitle}>
-            {t('otp_sent_message')}{'\n'}+123456789
+            {t('otp_sent_message')}
+            {'\n'}+{phone_number}
           </Text>
           <View style={styles.otpContainer}>
             {otp.map((digit, index) => (
@@ -137,13 +125,20 @@ const OTPEnter = () => {
               />
             ))}
           </View>
+
+          {/* Show error message below OTP inputs if exists */}
+          {errorMessage ? (
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
+          ) : null}
+
           <View style={styles.buttonContainer}>
-            <GreenButton
+            <LoadingButton
               title={t('next')}
               onPress={handleSubmit}
-              disabled={isButtonDisabled}
+              isLoading={isLoading} // Pass isLoading to show spinner when submitting
             />
           </View>
+
           <View style={styles.containerText}>
             <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
           </View>
@@ -158,7 +153,6 @@ const OTPEnter = () => {
 };
 
 export default OTPEnter;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -247,4 +241,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontFamily: 'Roboto',
   },
+  errorMessage: {
+    color: 'red',
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 10,
+  },
 });
+43

@@ -14,6 +14,8 @@ import {
   SafeAreaView,
   Modal,
 } from 'react-native';
+import {ActivityIndicator} from 'react-native';
+
 import React, {useEffect, useState} from 'react';
 import logo from '../../asset/SVG/Logo.png';
 import Apple from '../../asset/SVG/Apple'; // Import SVG components
@@ -45,19 +47,28 @@ const CustomButton = ({icon: Icon, title, onPress}) => {
   );
 };
 
-const GreenButton = ({title, onPress}) => {
+const GreenButton = ({title, onPress, isLoading}) => {
   return (
-    <TouchableOpacity style={styles.greenButton} onPress={onPress}>
-      <Text style={styles.greenButtonText}>{title}</Text>
+    <TouchableOpacity
+      style={styles.greenButton}
+      onPress={onPress}
+      disabled={isLoading}>
+      {isLoading ? (
+        <ActivityIndicator size="small" color="#fff" /> // Show loader when loading
+      ) : (
+        <Text style={styles.greenButtonText}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
+
 
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); // Error message state
+const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -80,51 +91,56 @@ const ConnectWithPhone = () => {
     };
   }, []);
 
-  const handleSubmit = () => {
-    if (!phoneNumber || phoneNumber.length < 10) {
-      setErrorMessage(t('invalid_phone_number')); // Set error message if invalid
-      return;
-    }
+const handleSubmit = () => {
+  if (!phoneNumber || phoneNumber.length < 10) {
+    setErrorMessage(t('invalid_phone_number'));
+    return;
+  }
 
-    // Reset error message if phone number is valid
-    setErrorMessage('');
+  setErrorMessage('');
+  setIsLoading(true); // Show the loading indicator
 
-    fetch(
-      'https://getweed.stgserver.site/api/v1/shop/start-phone-verification',
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          phone: phoneNumber,
-        }),
-      },
-    )
-      .then(response => response.json())
-      .then(responseData => {
-        console.log('Response Data: ', JSON.stringify(responseData));
-        const userId = responseData.data.user_id;
-        const otp = responseData.data.otp; // Assuming the OTP is returned in the response
+  fetch('https://getweed.stgserver.site/api/v1/shop/start-phone-verification', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      phone: phoneNumber,
+    }),
+  })
+    .then(response => response.json())
+    .then(responseData => {
+      console.log('Response Data: ', JSON.stringify(responseData));
+      const userId = responseData.data.user_id;
+      const otp = responseData.data.otp;
 
-        if (otp) {
-          // Show OTP in alert
-          Alert.alert('OTP', `Your OTP is: ${otp}`, [
-            {
-              text: 'OK',
-              onPress: () =>
-                navigation.navigate('OtpSplash', {user_id: userId}),
-            },
-          ]);
-        } else {
-          console.error('OTP not found in response');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
+      if (otp) {
+        // Show OTP in alert
+        Alert.alert('OTP', `Your OTP is: ${otp}`, [
+          {
+            text: 'OK',
+            onPress: () =>
+              navigation.navigate('OtpSplash', {
+                user_id: userId,
+                phone_number: phoneNumber,
+              }),
+          },
+        ]);
+      } else {
+        console.error('OTP not found in response');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    })
+    .finally(() => {
+      setIsLoading(false); // Hide the loading indicator
+    });
+};
+
+
 
   return (
     <KeyboardAvoidingView
@@ -187,7 +203,12 @@ const ConnectWithPhone = () => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <GreenButton title={t('next')} onPress={handleSubmit} />
+            <GreenButton
+              title={t('next')}
+              onPress={handleSubmit}
+              isLoading={isLoading}
+            />
+
             <View style={styles.separatorContainer}>
               <View style={styles.separator} />
               <Text style={styles.orText}>{t('or')}</Text>
