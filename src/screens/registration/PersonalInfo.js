@@ -112,59 +112,62 @@ const PersonalInfo = () => {
       setEmailError(''); // Clear error message if valid
     }
   };
+const handleSubmit = () => {
+  if (!frontFile || !backFile) {
+    setDocumentError(t('Please upload both documents.'));
+    return; // Prevent further processing if files are missing
+  }
+  setDocumentError('');
+  setIsLoading(true); // Show loader
 
-  const handleSubmit = () => {
-    if (!frontFile || !backFile) {
-      setDocumentError(t('Please upload both documents.')); // Set the error message
-      return; // Prevent further processing if files are missing
-    }
-    setDocumentError('');
+  const formdata = new FormData();
+  formdata.append('first_name', firstName);
+  formdata.append('last_name', lastName);
+  formdata.append('email', email);
+  formdata.append('dob', dob);
+  formdata.append('address', address);
+  formdata.append('user_id', user_id);
+  formdata.append('document_front', {
+    uri: frontFile.uri,
+    name: frontFile.name,
+    type: frontFile.type,
+  });
+  formdata.append('document_back', {
+    uri: backFile.uri,
+    name: backFile.name,
+    type: backFile.type,
+  });
 
-    const formdata = new FormData();
-    formdata.append('first_name', firstName);
-    formdata.append('last_name', lastName);
-    formdata.append('email', email);
-    formdata.append('dob', dob);
-    formdata.append('address', address);
-    formdata.append('user_id', user_id);
-    formdata.append('document_front', {
-      uri: frontFile.uri,
-      name: frontFile.name,
-      type: frontFile.type,
-    });
-    formdata.append('document_back', {
-      uri: backFile.uri,
-      name: backFile.name,
-      type: backFile.type,
-    });
-    console.log('Form Data:', formdata);
-    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data', // Change to multipart/form-data for file uploads
-      },
-      body: formdata,
+  fetch('https://getweed.stgserver.site/api/v1/shop/update-shop', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data', // Change to multipart/form-data for file uploads
+    },
+    body: formdata,
+  })
+    .then(response => response.json())
+    .then(responseData => {
+      setIsLoading(false); // Hide loader
+      console.log('Response Data:', JSON.stringify(responseData));
+      const userId = responseData.data ? responseData.data.id : null;
+      if (userId) {
+        navigation.navigate('BusinessDetails', {user_id: userId});
+      } else {
+        console.error('email is already used, Pleas enter another email');
+      }
     })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log('Response Data:', JSON.stringify(responseData)); // Log the entire response
-        const userId = responseData.data ? responseData.data.id : null;
-        if (userId) {
-          navigation.navigate('BusinessDetails', { user_id: userId });
-        } else {
-          console.error('email is already used, Pleas enter another email');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
+    .catch(error => {
+      setIsLoading(false); // Hide loader on error
+      console.error('Error:', error);
+    });
+};
+
 
   const handleFileSelection = async type => {
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles], // Customize the file types
+        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Customize the file types
       });
 
       if (type === 'front') {

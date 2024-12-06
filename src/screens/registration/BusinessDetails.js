@@ -92,6 +92,7 @@ const BusinessDetails = () => {
   const [accountNumberError, setAccountNumberError] = useState('');
   const [ifscCodeError, setIfscCodeError] = useState('');
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
+    const [documentError, setDocumentError] = useState('');
   const route = useRoute();
   const { user_id } = route.params;
 
@@ -146,10 +147,6 @@ const validateAccountNumber = accountNumber => {
     setAccountNumber(text);
     if (!text) {
       setAccountNumberError(t('Please enter account number'));
-    } else if (!validateAccountNumber(text)) {
-      setAccountNumberError(t('Enter a valid Account number'));
-    } else {
-      setAccountNumberError('');
     }
   };
 
@@ -213,7 +210,7 @@ const validateBusinessName = name => {
       !selectedFileName.name &&
       !selectedFileName.type
     ) {
-      alert('Please select a valid account approval file!');
+      
       return;
     }
     const formdata = new FormData();
@@ -249,27 +246,27 @@ const validateBusinessName = name => {
 
   const handleNext = () => {
     if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
-      alert('Please fill in all the required details!');
+      setDocumentError(t('Please upload all documents.'));
       return;
     }
 
     if (!uploadLogo && !uploadLogo.uri && !uploadLogo.name && !uploadLogo.type) {
-      alert('Please select a valid logo image!');
+      setDocumentError(t('Please upload all documents.'));
       return;
     }
 
     if (!outside && !outside.uri && !outside.name && !outside.type) {
-      alert('Please select a valid outside image!');
+      setDocumentError(t('Please upload all documents.'));
       return;
     }
 
     if (!inside && !inside.uri && !inside.name && !inside.type) {
-      alert('Please select a valid inside image!');
+      setDocumentError(t('Please upload all documents.'));
       return;
     }
 
     if (!menu && !menu.uri && !menu.name && !menu.type) {
-      alert('Please select a valid menu image!');
+     setDocumentError(t('Please upload all documents.'));
       return;
     }
     const formdata = new FormData();
@@ -322,7 +319,7 @@ const validateBusinessName = name => {
   const handleFileSelection = async (type) => {
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // You can customize the file types here
       });
 
       if (type === 'upload_form') {
@@ -463,6 +460,9 @@ const validateBusinessName = name => {
                       ) : null}
                     </TouchableOpacity>
                   </View>
+                  {documentError ? (
+                    <Text style={styles.errorText}>{documentError}</Text>
+                  ) : null}
                 </View>
                 <View style={styles.buttonContainer}>
                   <GreenButton
@@ -505,7 +505,6 @@ const validateBusinessName = name => {
                   icon={Clock} // Pass the Clock icon as a prop
                   onIconPress={handleTimeIconPress} // Trigger the time picker when the icon is pressed
                 />
-
                 <DateTimePickerModal
                   isVisible={isTimePickerVisible}
                   mode="time"
@@ -559,6 +558,9 @@ const validateBusinessName = name => {
                     </TouchableOpacity>
                   </View>
                 </View>
+                {documentError ? (
+                  <Text style={styles.errorText}>{documentError}</Text>
+                ) : null}
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>{t('business_images')}</Text>
                   <View style={styles.uploadRow}>
@@ -602,6 +604,9 @@ const validateBusinessName = name => {
                       ) : null}
                     </TouchableOpacity>
                   </View>
+                  {documentError ? (
+                    <Text style={styles.errorText}>{documentError}</Text>
+                  ) : null}
                   <GreenButton title={t('next')} onPress={handleNext} />
                 </View>
               </>
