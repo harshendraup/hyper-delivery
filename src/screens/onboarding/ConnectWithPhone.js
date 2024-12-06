@@ -57,6 +57,7 @@ const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // Error message state
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -80,10 +81,13 @@ const ConnectWithPhone = () => {
   }, []);
 
   const handleSubmit = () => {
-    if (!phoneNumber) {
-      console.log('Please enter a phone number');
+    if (!phoneNumber || phoneNumber.length < 10) {
+      setErrorMessage(t('invalid_phone_number')); // Set error message if invalid
       return;
     }
+
+    // Reset error message if phone number is valid
+    setErrorMessage('');
 
     fetch(
       'https://getweed.stgserver.site/api/v1/shop/start-phone-verification',
@@ -156,8 +160,13 @@ const ConnectWithPhone = () => {
               value={phoneNumber}
               onChangeText={text => {
                 setPhoneNumber(text);
+                setErrorMessage(''); // Reset error message on user input change
               }}
             />
+            {/* Error message under the input */}
+            {errorMessage ? (
+              <Text style={styles.errorText}>{errorMessage}</Text>
+            ) : null}
           </View>
 
           <View style={styles.containerText}>
@@ -228,6 +237,12 @@ const ConnectWithPhone = () => {
 export default ConnectWithPhone;
 
 const styles = StyleSheet.create({
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 5,
+    paddingLeft: 12,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
