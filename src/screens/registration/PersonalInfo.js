@@ -62,6 +62,7 @@ const PersonalInfo = () => {
   const { user_id } = route.params; // Get the user_id passed from the previous screen
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
+  const [documentError, setDocumentError] = useState('');
 
   useEffect(() => {
     console.log('Received person user_id:', user_id); // Log or use the user_id as needed
@@ -112,9 +113,10 @@ const PersonalInfo = () => {
 
   const handleSubmit = () => {
     if (!frontFile || !backFile) {
-      alert('Please upload both documents.');
-      return;
+      setDocumentError(t('Please upload both documents.')); // Set the error message
+      return; // Prevent further processing if files are missing
     }
+    setDocumentError('');
 
     const formdata = new FormData();
     formdata.append('first_name', firstName);
@@ -149,8 +151,8 @@ const PersonalInfo = () => {
         if (userId) {
           navigation.navigate('BusinessDetails', { user_id: userId });
         } else {
-          console.error('User ID not found in response');
-          alert('Failed to retrieve user ID from the response.');
+          console.error('email is already used, Pleas enter another email');
+          // alert('Failed to retrieve user ID from the response.');
         }
       })
       .catch(error => {
@@ -281,6 +283,7 @@ const PersonalInfo = () => {
                 </View>
               </TouchableOpacity>
             </View>
+            {documentError ? <Text style={styles.errorText}>{documentError}</Text> : null}
           </View>
 
           <View style={styles.buttonContainer}>
