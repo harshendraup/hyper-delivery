@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,25 +12,26 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import DocumentPicker from 'react-native-document-picker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const GreenButton = ({title, onPress}) => (
+const GreenButton = ({ title, onPress }) => (
   <TouchableOpacity style={styles.greenButton} onPress={onPress}>
     <Text style={styles.greenButtonText}>{title}</Text>
   </TouchableOpacity>
 );
 
-const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
+const FloatingLabelInput = ({ label, value, onChangeText, ...props }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <View style={styles.floatingLabelContainer}>
-      <Text style={[styles.floatingLabel, {top: isFocused || value ? -2 : 19}]}>
+      <Text style={[styles.floatingLabel, { top: isFocused || value ? -2 : 19 }]}>
         {label}
       </Text>
       <TextInput
@@ -47,20 +48,67 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const PersonalInfo = () => {
   const navigation = useNavigation();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [address, setAddress] = useState('');
   const [frontFile, setFrontFile] = useState(null); // Store the front file data
   const [backFile, setBackFile] = useState(null); // Store the back file data
+  const [emailError, setEmailError] = useState(''); // For email error message
   const route = useRoute(); // Access route parameters
-  const {user_id} = route.params; // Get the user_id passed from the previous screen
+  const { user_id } = route.params; // Get the user_id passed from the previous screen
+  const [firstNameError, setFirstNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
 
   useEffect(() => {
     console.log('Received person user_id:', user_id); // Log or use the user_id as needed
   }, [user_id]);
+  
+  const validateName = (name) => {
+    const regex = /^[a-zA-Z]+$/; // Only letters allowed
+    return regex.test(name);
+  };
+  
+  const handleFirstNameChange = (text) => {
+    setFirstName(text);
+    if (!text) {
+      setFirstNameError(t('Please enter first name'));
+    } else if (!validateName(text)) {
+      setFirstNameError(t('First name must contain only letters'));
+    } else {
+      setFirstNameError('');
+    }
+  };
+  
+  const handleLastNameChange = (text) => {
+    setLastName(text);
+    if (!text) {
+      setLastNameError(t('Please enter last name'));
+    } else if (!validateName(text)) {
+      setLastNameError(t('Last name must contain only letters'));
+    } else {
+      setLastNameError('');
+    }
+  };
+
+  // Email Validation Regex
+  const validateEmail = (email) => {
+    // Simple regex for validating an email address
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+    if (text && !validateEmail(text)) {
+      setEmailError(t('Please enter valid email')); // Display error message
+    } else {
+      setEmailError(''); // Clear error message if valid
+    }
+  };
 
   const handleSubmit = () => {
     if (!frontFile || !backFile) {
@@ -96,13 +144,13 @@ const PersonalInfo = () => {
     })
       .then(response => response.json())
       .then(responseData => {
-        console.log('Response Data: ', JSON.stringify(responseData));
-
-        const userId = responseData.data.id;
+        console.log('Response Data:', JSON.stringify(responseData)); // Log the entire response
+        const userId = responseData.data ? responseData.data.id : null;
         if (userId) {
-          navigation.navigate('BusinessDetails', {user_id: userId});
+          navigation.navigate('BusinessDetails', { user_id: userId });
         } else {
           console.error('User ID not found in response');
+          alert('Failed to retrieve user ID from the response.');
         }
       })
       .catch(error => {
@@ -112,26 +160,36 @@ const PersonalInfo = () => {
 
   const handleFileSelection = async type => {
     try {
-      // Open the file picker
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+        type: [DocumentPicker.types.allFiles], // Customize the file types
       });
 
-      // Handle the selected file and update the state based on type
       if (type === 'front') {
-        setFrontFile(res[0]); // Store the selected front document
+        setFrontFile(res[0]); // Store front document
       } else {
-        setBackFile(res[0]); // Store the selected back document
+        setBackFile(res[0]); // Store back document
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        // If the user cancels the file picker
         console.log('User cancelled the file picker');
       } else {
-        // Handle other errors
         console.error('File picker error: ', err);
       }
     }
+  };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    setDob(formattedDate);
+    hideDatePicker();
   };
 
   return (
@@ -150,24 +208,41 @@ const PersonalInfo = () => {
             <FloatingLabelInput
               label={t('first_name')}
               value={firstName}
-              onChangeText={setFirstName}
+              onChangeText={handleFirstNameChange}
             />
+            {firstNameError ? <Text style={styles.errorText}>{firstNameError}</Text> : null}
             <FloatingLabelInput
               label={t('last_name')}
               value={lastName}
-              onChangeText={setLastName}
+              onChangeText={handleLastNameChange}
             />
+            {lastNameError ? <Text style={styles.errorText}>{lastNameError}</Text> : null}
             <FloatingLabelInput
               label={t('email')}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={handleEmailChange}
               keyboardType="email-address"
             />
-            <FloatingLabelInput
-              label={t('dob')}
-              value={dob}
-              onChangeText={setDob}
-            />
+            {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+            <View style={styles.containerrr}>
+              <Text style={styles.labelll}>{t('dob')}</Text>
+              <TouchableOpacity onPress={showDatePicker} style={styles.inputContainerrr}>
+                <TextInput
+                  style={styles.inputtt}
+                  value={dob}
+                  editable={false} // Make the input non-editable so users can only pick a date
+                />
+              </TouchableOpacity>
+
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+                date={new Date()}
+                maximumDate={new Date()}
+              />
+            </View>
             <FloatingLabelInput
               label={t('address')}
               value={address}
@@ -190,11 +265,7 @@ const PersonalInfo = () => {
                   <Text style={styles.uploadButtonSubtext}>
                     {t('upload_and_scan')}
                   </Text>
-                  {frontFile ? (
-                    <Text style={styles.selectedFileName}>
-                      {frontFile.name}
-                    </Text>
-                  ) : null}
+                  {frontFile ? <Text style={styles.selectedFileName}>{frontFile.name}</Text> : null}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -206,9 +277,7 @@ const PersonalInfo = () => {
                   <Text style={styles.uploadButtonSubtext}>
                     {t('upload_and_scan')}
                   </Text>
-                  {backFile ? (
-                    <Text style={styles.selectedFileName}>{backFile.name}</Text>
-                  ) : null}
+                  {backFile ? <Text style={styles.selectedFileName}>{backFile.name}</Text> : null}
                 </View>
               </TouchableOpacity>
             </View>
@@ -371,5 +440,39 @@ const styles = StyleSheet.create({
     color: '#333', // Choose a color that fits your design
     marginTop: 5, // Adds space between the upload and the file name
     textAlign: 'center', // Centers the file name text
+  },
+
+
+  containerrr: {
+    position: 'relative',
+    marginVertical: 10,
+  },
+  labelll: {
+    position: 'absolute',
+    left: 10,
+    color: 'gray',
+    fontSize: 12,
+    transition: 'top 0.2s ease',
+    marginTop: 3,
+  },
+  inputContainerrr: {
+    height: 60,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    fontSize: 18,
+    color: 'black',
+    backgroundColor: 'transparent',
+  },
+  inputtt: {
+    fontSize: 18,
+    color: 'black',
+    marginTop: 10,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 5,
   },
 });

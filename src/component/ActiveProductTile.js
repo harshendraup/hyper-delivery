@@ -128,8 +128,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
-    marginHorizontal: 22,
+    marginTop: 1,
+    marginHorizontal: 20,
+    position:'relative',
   },
   editButton: {
     padding: 10,
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
     width: 1,
     backgroundColor: '#CCCCCC',
     marginHorizontal: 10,
+    marginTop:5,
   },
   backButtonImage: {
     width: 24,
