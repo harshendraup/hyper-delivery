@@ -175,10 +175,13 @@ const handleSubmit = () => {
               maxLength={10}
               value={phoneNumber}
               onChangeText={text => {
-                setPhoneNumber(text);
-                setErrorMessage(''); // Reset error message on user input change
+                // Ensure only numbers are allowed in the phone number
+                const filteredText = text.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
+                setPhoneNumber(filteredText);
+                 setErrorMessage('Enter a number'); // Reset error message on user input change
               }}
             />
+
             {/* Error message under the input */}
             {errorMessage ? (
               <Text style={styles.errorText}>{errorMessage}</Text>

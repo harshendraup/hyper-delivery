@@ -163,26 +163,46 @@ const handleSubmit = () => {
     });
 };
 
+const handleFileSelection = async type => {
+  try {
+    const res = await DocumentPicker.pick({
+      type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Allow image and PDF files
+    });
 
-  const handleFileSelection = async type => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Customize the file types
-      });
+    const selectedFile = res[0]; // Get the selected file
 
-      if (type === 'front') {
-        setFrontFile(res[0]); // Store front document
-      } else {
-        setBackFile(res[0]); // Store back document
-      }
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled the file picker');
-      } else {
-        console.error('File picker error: ', err);
-      }
+    // Get the file extension from the file name (you could also use MIME type here)
+    const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+
+    // Check if the file extension is valid
+    if (
+      fileExtension !== 'png' &&
+      fileExtension !== 'jpg' &&
+      fileExtension !== 'jpeg' &&
+      fileExtension !== 'pdf'
+    ) {
+      // If not valid, show an error message
+      setDocumentError(t('Please upload only PNG, JPG, or PDF files.'));
+      return;
     }
-  };
+
+    // Clear the document error if the file is valid
+    setDocumentError('');
+
+    // Set the selected file for the appropriate type (front or back)
+    if (type === 'front') {
+      setFrontFile(selectedFile);
+    } else {
+      setBackFile(selectedFile);
+    }
+  } catch (err) {
+    if (DocumentPicker.isCancel(err)) {
+      console.log('User cancelled the file picker');
+    } else {
+      console.error('File picker error: ', err);
+    }
+  }
+};
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);

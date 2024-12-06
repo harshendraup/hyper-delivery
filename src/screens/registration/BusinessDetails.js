@@ -36,6 +36,7 @@ const FloatingLabelInput = ({
   onIconPress,
   editable = true,
   keyboardType = 'default', // Default keyboard type
+  maxlength, // New prop to define the maximum length
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -53,6 +54,7 @@ const FloatingLabelInput = ({
           onBlur={() => setIsFocused(false)}
           editable={editable} // Conditionally disable editing (keyboard)
           keyboardType={keyboardType} // Apply the keyboard type here
+          maxLength={maxlength} // Set the maxlength here
         />
         {icon && (
           <TouchableOpacity onPress={onIconPress} style={styles.iconContainer}>
@@ -63,6 +65,7 @@ const FloatingLabelInput = ({
     </View>
   );
 };
+
 
 
 const BusinessDetails = () => {
@@ -132,16 +135,22 @@ const validateAccountNumber = accountNumber => {
     return regex.test(ifscCode);
   };
 
-  const handlePhoneChange = (text) => {
-    setLastName(text);
-    if (!text) {
-      setPhoneError(t('Please enter phone number'));
-    } else if (!validatePhoneNumber(text)) {
-      setPhoneError(t('Phone number must contain exactly 10 digits'));
-    } else {
-      setPhoneError('');
-    }
-  };
+ const handlePhoneChange = text => {
+   // Filter out non-numeric characters
+   const numericText = text.replace(/[^0-9]/g, '');
+
+   setLastName(numericText); // Update state with the numeric-only input
+
+   // Validation logic
+   if (!numericText) {
+     setPhoneError(t('Please enter phone number'));
+   } else if (numericText.length !== 10) {
+     setPhoneError(t('Phone number must contain exactly 10 digits'));
+   } else {
+     setPhoneError(''); // Clear error if the phone number is valid
+   }
+ };
+
 
   const handleAccountNumberChange = (text) => {
     setAccountNumber(text);
@@ -150,16 +159,25 @@ const validateAccountNumber = accountNumber => {
     }
   };
 
-  const handleIFSCCodeChange = (text) => {
-    setSortCode(text);
-    if (!text) {
-      setIfscCodeError(t('Please enter IFSC code'));
-    } else if (!validateIFSCCode(text)) {
-      setIfscCodeError(t('IFSC code must be in the format ABCD0123456'));
-    } else {
-      setIfscCodeError('');
-    }
-  };
+const handleIFSCCodeChange = text => {
+  // Remove any special characters and keep only alphanumeric characters
+  const sanitizedText = text.replace(/[^A-Z0-9]/g, '');
+
+  setSortCode(sanitizedText);
+
+  // Regex for IFSC code validation
+  const ifscCodeRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+
+  if (!sanitizedText) {
+    setIfscCodeError(t('Please enter IFSC code'));
+  } else if (!ifscCodeRegex.test(sanitizedText)) {
+    setIfscCodeError(t('IFSC code must be in the format ABCD0123456'));
+  } else {
+    setIfscCodeError('');
+  }
+};
+
+
 
   const validateName = (name) => {
     const regex = /^[a-zA-Z]+$/; // Only letters allowed
@@ -486,7 +504,8 @@ const validateBusinessName = name => {
                   label={t('phone_number')}
                   value={lastName}
                   onChangeText={handlePhoneChange}
-                  keyboardType="phone-pad"
+                  keyboardType="numeric"
+                  maxlength={10}
                 />
                 {phoneError ? (
                   <Text style={styles.errorText}>{phoneError}</Text>
