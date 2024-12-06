@@ -112,7 +112,7 @@ const BusinessDetails = () => {
   };
 
   const validateIFSCCode = (ifscCode) => {
-    const regex = /^[A-Z]{4}0[A-Z0-9]{6}$/; // IFSC format like "ABCD0123456"
+    const regex = /^[A-Z0-9]{6}$/; // IFSC format like "ABCD0123456"
     return regex.test(ifscCode);
   };
 
