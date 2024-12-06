@@ -124,7 +124,8 @@ const items = [
             </TouchableOpacity>
             <Text
               style={styles.title}
-              onPress={() => navigation.navigate('AncillaryAddProducts')}>
+              // onPress={() => navigation.navigate('AncillaryAddProducts')}
+              >
               {t('addProduct')}
             </Text>
           </View>

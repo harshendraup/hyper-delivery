@@ -9,8 +9,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Keyboard,Alert,
-  SafeAreaView,Modal,
+  Keyboard,
+  Alert,
+  SafeAreaView,
+  Modal,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import logo from '../../asset/SVG/Logo.png';
@@ -386,7 +388,7 @@ const styles = StyleSheet.create({
     width: 1.2, // Divider width
     height: '100%', // Divider height to match the input container
     backgroundColor: '#409C59', // Divider color, adjust as needed
-    marginLeft:5, 
-    marginRight:5// Space between the icon and divider
+    marginLeft: 5,
+    marginRight: 5, // Space between the icon and divider
   },
 });

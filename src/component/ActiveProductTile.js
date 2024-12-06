@@ -8,8 +8,7 @@ import stock from '../asset/stock.png'; // stock image
 const ActiveProductTile = ({product, onDelete, onEdit}) => {
   const navigation = useNavigation();
 
- 
-  const productImage = product.images?.[0]?.image || stock; 
+  const productImage = product.images?.[0]?.image || stock;
 
   return (
     <TouchableOpacity
@@ -133,15 +132,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 22,
   },
   editButton: {
-    // padding: 10,
+    padding: 10,
     borderRadius: 5,
   },
   deleteButton: {
-    // padding: 10,
+    padding: 10,
     borderRadius: 5,
   },
   buttonDivider: {
-    height: '120%',
+    height: '70%',
     width: 1,
     backgroundColor: '#CCCCCC',
     marginHorizontal: 10,
@@ -149,7 +148,6 @@ const styles = StyleSheet.create({
   backButtonImage: {
     width: 24,
     height: 24,
-    
   },
 });
 

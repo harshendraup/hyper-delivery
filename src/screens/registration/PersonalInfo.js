@@ -54,70 +54,69 @@ const PersonalInfo = () => {
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
   const [frontFile, setFrontFile] = useState(null); // Store the front file data
-  const [backFile, setBackFile] = useState(null);   // Store the back file data
+  const [backFile, setBackFile] = useState(null); // Store the back file data
   const route = useRoute(); // Access route parameters
-  const { user_id } = route.params; // Get the user_id passed from the previous screen
+  const {user_id} = route.params; // Get the user_id passed from the previous screen
 
   useEffect(() => {
-    console.log("Received person user_id:", user_id);  // Log or use the user_id as needed
+    console.log('Received person user_id:', user_id); // Log or use the user_id as needed
   }, [user_id]);
 
   const handleSubmit = () => {
     if (!frontFile || !backFile) {
-      alert("Please upload both documents.");
+      alert('Please upload both documents.');
       return;
     }
 
     const formdata = new FormData();
-    formdata.append("first_name", firstName);
-    formdata.append("last_name", lastName);
-    formdata.append("email", email);
-    formdata.append("dob", dob);
-    formdata.append("address", address);
-    formdata.append("user_id", user_id);  
-    formdata.append("document_front", {
+    formdata.append('first_name', firstName);
+    formdata.append('last_name', lastName);
+    formdata.append('email', email);
+    formdata.append('dob', dob);
+    formdata.append('address', address);
+    formdata.append('user_id', user_id);
+    formdata.append('document_front', {
       uri: frontFile.uri,
       name: frontFile.name,
       type: frontFile.type,
     });
-    formdata.append("document_back", {
+    formdata.append('document_back', {
       uri: backFile.uri,
       name: backFile.name,
       type: backFile.type,
     });
-   console.log('Form Data:', formdata);
-    fetch("https://getweed.stgserver.site/api/v1/shop/update-shop", {
-      method: "POST",
+    console.log('Form Data:', formdata);
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data", // Change to multipart/form-data for file uploads
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data', // Change to multipart/form-data for file uploads
       },
       body: formdata,
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("Response Data: ", JSON.stringify(responseData));
-        
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response Data: ', JSON.stringify(responseData));
+
         const userId = responseData.data.id;
         if (userId) {
-          navigation.navigate('BusinessDetails', { user_id: userId });  
+          navigation.navigate('BusinessDetails', {user_id: userId});
         } else {
           console.error('User ID not found in response');
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(error => {
+        console.error('Error:', error);
       });
   };
 
-
-  const handleFileSelection = async (type) => {
+  const handleFileSelection = async type => {
     try {
       // Open the file picker
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles], // You can customize the file types here
       });
-      
+
       // Handle the selected file and update the state based on type
       if (type === 'front') {
         setFrontFile(res[0]); // Store the selected front document
@@ -145,9 +144,7 @@ const PersonalInfo = () => {
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          <Text style={styles.topText}>
-            {t('personal_info_title')}
-          </Text>
+          <Text style={styles.topText}>{t('personal_info_title')}</Text>
 
           <View style={styles.inputContainer}>
             <FloatingLabelInput
@@ -184,7 +181,9 @@ const PersonalInfo = () => {
           <Text style={styles.uploadText}>{t('upload_documents')}</Text>
           <View style={styles.uploadContainer}>
             <View style={styles.uploadRow}>
-              <TouchableOpacity style={styles.uploadButton} onPress={() => handleFileSelection('front')}>
+              <TouchableOpacity
+                style={styles.uploadButton}
+                onPress={() => handleFileSelection('front')}>
                 <View style={styles.uploadButtonContent}>
                   <Image source={Cloud} style={styles.CloudIcon} />
                   <Text style={styles.uploadButtonText}>{t('front')}</Text>
@@ -192,11 +191,15 @@ const PersonalInfo = () => {
                     {t('upload_and_scan')}
                   </Text>
                   {frontFile ? (
-                    <Text style={styles.selectedFileName}>{frontFile.name}</Text>
+                    <Text style={styles.selectedFileName}>
+                      {frontFile.name}
+                    </Text>
                   ) : null}
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.uploadButton} onPress={() => handleFileSelection('back')}>
+              <TouchableOpacity
+                style={styles.uploadButton}
+                onPress={() => handleFileSelection('back')}>
                 <View style={styles.uploadButtonContent}>
                   <Image source={Cloud} style={styles.CloudIcon} />
                   <Text style={styles.uploadButtonText}>{t('back')}</Text>
@@ -212,17 +215,13 @@ const PersonalInfo = () => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <GreenButton
-              title={t('next')}
-              onPress={handleSubmit}
-            />
+            <GreenButton title={t('next')} onPress={handleSubmit} />
           </View>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
-
 
 export default PersonalInfo;
 
@@ -259,7 +258,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     fontSize: 18,
-    color:'black',
+    color: 'black',
     backgroundColor: 'transparent',
   },
   CloudIcon: {
@@ -363,7 +362,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     fontSize: 18,
-    color:"black",
+    color: 'black',
     backgroundColor: 'transparent',
   },
   selectedFileName: {

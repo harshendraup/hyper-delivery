@@ -113,7 +113,8 @@ const EditProducts = () => {
           </TouchableOpacity>
           <Text
             style={styles.title}
-            onPress={() => navigation.navigate('AncillaryEditProduct')}>
+            // onPress={() => navigation.navigate('AncillaryEditProduct')}
+            >
             {t('editproducts')}
           </Text>
         </View>

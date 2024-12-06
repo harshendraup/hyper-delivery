@@ -122,7 +122,7 @@ const ConnectWithEmail = () => {
         <View style={styles.buttonContainer}>
           <CommonButton
             title={t('next')}
-            onPress={() => navigation.navigate('ScanFace')}
+            // onPress={() => navigation.navigate('ScanFace')}
           />
           <View style={styles.separatorContainer}>
             <View style={styles.separator} />

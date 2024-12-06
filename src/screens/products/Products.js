@@ -50,7 +50,7 @@ useEffect(() => {
   )
     .then(response => {
       if (response.status === 401) {
-        // If the token is invalid
+       
         setError('Wrong user ID or invalid token');
         return Promise.reject('Unauthorized');
       }
@@ -63,7 +63,7 @@ useEffect(() => {
     })
     .catch(error => {
       console.error(error);
-      // In case of other errors
+     
       if (error !== 'Unauthorized') {
         setError('An error occurred while fetching products');
       }
@@ -76,7 +76,7 @@ useEffect(() => {
   };
 
 const handleEdit = productId => {
-  navigation.navigate('ProductInfo', {productId});
+  navigation.navigate('EditProducts', {productId});
 };
 
 
