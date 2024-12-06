@@ -24,10 +24,10 @@ const LoadingButton = ({title, onPress, isLoading, style, textStyle}) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#409C59',
     paddingVertical: 15,
     paddingHorizontal: 25,
-    borderRadius: 5,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

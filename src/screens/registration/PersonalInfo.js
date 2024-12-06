@@ -17,6 +17,7 @@ import Cloud from '../../asset/SVG/Cloud.png';
 import { useTranslation } from 'react-i18next';
 import DocumentPicker from 'react-native-document-picker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import LoadingButton from '../../component/LoadingButton';
 
 const { width } = Dimensions.get('window');
 
@@ -63,6 +64,7 @@ const PersonalInfo = () => {
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [documentError, setDocumentError] = useState('');
+   const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     console.log('Received person user_id:', user_id); // Log or use the user_id as needed
@@ -152,7 +154,6 @@ const PersonalInfo = () => {
           navigation.navigate('BusinessDetails', { user_id: userId });
         } else {
           console.error('email is already used, Pleas enter another email');
-          // alert('Failed to retrieve user ID from the response.');
         }
       })
       .catch(error => {
@@ -212,23 +213,31 @@ const PersonalInfo = () => {
               value={firstName}
               onChangeText={handleFirstNameChange}
             />
-            {firstNameError ? <Text style={styles.errorText}>{firstNameError}</Text> : null}
+            {firstNameError ? (
+              <Text style={styles.errorText}>{firstNameError}</Text>
+            ) : null}
             <FloatingLabelInput
               label={t('last_name')}
               value={lastName}
               onChangeText={handleLastNameChange}
             />
-            {lastNameError ? <Text style={styles.errorText}>{lastNameError}</Text> : null}
+            {lastNameError ? (
+              <Text style={styles.errorText}>{lastNameError}</Text>
+            ) : null}
             <FloatingLabelInput
               label={t('email')}
               value={email}
               onChangeText={handleEmailChange}
               keyboardType="email-address"
             />
-            {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+            {emailError ? (
+              <Text style={styles.errorText}>{emailError}</Text>
+            ) : null}
             <View style={styles.containerrr}>
               <Text style={styles.labelll}>{t('dob')}</Text>
-              <TouchableOpacity onPress={showDatePicker} style={styles.inputContainerrr}>
+              <TouchableOpacity
+                onPress={showDatePicker}
+                style={styles.inputContainerrr}>
                 <TextInput
                   style={styles.inputtt}
                   value={dob}
@@ -267,7 +276,11 @@ const PersonalInfo = () => {
                   <Text style={styles.uploadButtonSubtext}>
                     {t('upload_and_scan')}
                   </Text>
-                  {frontFile ? <Text style={styles.selectedFileName}>{frontFile.name}</Text> : null}
+                  {frontFile ? (
+                    <Text style={styles.selectedFileName}>
+                      {frontFile.name}
+                    </Text>
+                  ) : null}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -279,15 +292,24 @@ const PersonalInfo = () => {
                   <Text style={styles.uploadButtonSubtext}>
                     {t('upload_and_scan')}
                   </Text>
-                  {backFile ? <Text style={styles.selectedFileName}>{backFile.name}</Text> : null}
+                  {backFile ? (
+                    <Text style={styles.selectedFileName}>{backFile.name}</Text>
+                  ) : null}
                 </View>
               </TouchableOpacity>
             </View>
-            {documentError ? <Text style={styles.errorText}>{documentError}</Text> : null}
+            {documentError ? (
+              <Text style={styles.errorText}>{documentError}</Text>
+            ) : null}
           </View>
 
           <View style={styles.buttonContainer}>
-            <GreenButton title={t('next')} onPress={handleSubmit} />
+          
+            <LoadingButton
+              title={t('next')}
+              onPress={handleSubmit}
+              isLoading={isLoading} // Pass isLoading to show spinner when submitting
+            />
           </View>
         </ScrollView>
       </SafeAreaView>
