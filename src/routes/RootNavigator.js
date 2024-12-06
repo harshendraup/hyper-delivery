@@ -20,8 +20,6 @@ import StoreDetails from '../screens/profile/StoreDetails';
 import Earnings from '../screens/profile/Earnings';
 import CustomerSupport from '../screens/profile/CustomerSupport';
 import ContactUsForm from '../screens/profile/ContactUsForm';
-import AncillaryAddProducts from '../screens/products/AncillaryAddProducts';
-import AncillaryEditProduct from '../screens/products/AncillaryEditProduct';
 import SelectLanguage from '../screens/onboarding/SelectLanguage';
 import OrderDetails from '../screens/orders/OrderDetails';
 import RejectReason from '../screens/orders/RejectReason';
@@ -59,15 +57,6 @@ const RootNavigator = () => {
       <Stack.Screen name="CustomerSupport" component={CustomerSupport} />
       <Stack.Screen name="ContactUsForm" component={ContactUsForm} />
       <Stack.Screen name="SelectLanguage" component={SelectLanguage} />
-      <Stack.Screen
-        name="AncillaryAddProducts"
-        component={AncillaryAddProducts}
-      />
-      <Stack.Screen
-        name="AncillaryEditProduct"
-        component={AncillaryEditProduct}
-      />
-     
     </Stack.Navigator>
   );
 };

@@ -49,9 +49,13 @@ const ProductInfo = () => {
       .then(result => {
         console.log(result); // You can see the result here, use it to populate your state
         setProductDetails(result.data); // Set the product details in state
+        // Check if stock quantity is 0 and update inStock state accordingly
+        if (result.data.stock_quantity === 0) {
+          setInStock(true); // Set inStock to true if stock is 0
+        }
       })
       .catch(error => console.error(error));
-  }, [productId]); // Ensure the effect runs whenever the productId changes
+  }, [productId]); // Ensure the effect runs whenever the productId changes);
 
   // Render the component only if productDetails is available
   if (!productDetails) {
@@ -154,7 +158,7 @@ const ProductInfo = () => {
                   styles.toggleContainer,
                   {backgroundColor: inStock ? 'red' : '#409C59'},
                 ]}>
-                <TouchableOpacity
+                <View
                   style={[
                     styles.toggleButton,
                     !inStock ? styles.activeToggle : styles.inactiveToggle,
@@ -167,8 +171,8 @@ const ProductInfo = () => {
                     ]}>
                     {t('availability')}
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </View>
+                <View
                   style={[
                     styles.toggleButton,
                     inStock ? styles.activeToggleRed : styles.inactiveToggle,
@@ -181,7 +185,7 @@ const ProductInfo = () => {
                     ]}>
                     {t('outofstock')}
                   </Text>
-                </TouchableOpacity>
+                </View>
               </View>
             </View>
           </Card.Content>

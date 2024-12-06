@@ -23,10 +23,9 @@ import Cloud from '../../asset/SVG/Cloud.png';
 import CheckBox from '@react-native-community/checkbox'; // Import CheckBox
 import Accordion from '../../component/Accordion'; // Import Accordion component
 import DocumentPicker from 'react-native-document-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const {width} = Dimensions.get('window');
-
-
 
 const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -51,7 +50,7 @@ const FloatingLabelInput = ({label, value, onChangeText, ...props}) => {
 
 const AddProducts = () => {
   const navigation = useNavigation();
-   const {t} = useTranslation();
+  const {t} = useTranslation();
   const [ProductName, setProductName] = useState('');
   const [pricePerGram, setPricePerGram] = useState('');
   const [ProductDetails, setProductDetails] = useState('');
@@ -59,43 +58,47 @@ const AddProducts = () => {
   const [Stock, setStock] = useState('');
   const [lanzer, setLanzer] = useState('');
   const [isPrescriptionRequired, setIsPrescriptionRequired] = useState(false);
-  const [Cannabistype, setCannabistype] = useState(false); // State for Cannabis type accordion
-  const [Cannabisform, setCannabisform] = useState(false); // State for Cannabis form accordion
-  const [projectCategoryOpen, setProjectCategoryOpen] = useState(false); // State for Project Category accordion
-  const [selectedFileName, setSelectedFileName] = useState(''); // New state for the file name
+  const [Cannabistype, setCannabistype] = useState(false);
+  const [Cannabisform, setCannabisform] = useState(false);
+  const [projectCategoryOpen, setProjectCategoryOpen] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState('');
   const [accordionOpen, setAccordionOpen] = useState(false);
-const items = [
-  {item: t('medical')},
-  {item: t('oil')},
-  {item: t('power') },
-  {
-    item: t('ancillary'),
-   
-  },
-];
+  const [selectedCategory, setSelectedCategory] = useState(''); // Track the selected category
+  const [selectedImageUri, setSelectedImageUri] = useState(null); // New state for image URI
+  const [selectedImages, setSelectedImages] = useState([]); // New state for storing multiple images
+  const [uploadedImages, setUploadedImages] = useState([]); // State for multiple uploaded images
 
-  const handleFileSelection = async () => {
+  const CannabisFromitems = [
+    {item: t('medical')},
+    {item: t('oil')},
+    {item: t('power')},
+    {item: t('ancillary')}, // Ensure "Ancillary" is included
+  ];
+  const ProductsTypeitems = [{item: t('1')}, {item: t('2')}, {item: t('3')}];
+  const CannabisTypesitems = [
+    {item: t('1')},
+    {item: t('2')},
+    {item: t('3')},
+    {item: t('4')}, // Ensure "Ancillary" is included
+  ];
+
+  const handleImageSelection = async () => {
     try {
-      // Open the file picker
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles], // You can customize the file types here
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        quality: 0.8,
+        selectionLimit: 0, // 0 means no limit, user can select multiple images
       });
-      
-      // Handle the selected file
-      console.log(res);
-      setSelectedFileName(res[0].name);
-      // You can process the file here, for example, uploading it or saving the file path.
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // If the user cancels the picker
-        console.log('User cancelled the file picker');
-      } else {
-        // Handle other errors
-        console.error('File picker error: ', err);
+
+      if (result.assets) {
+        // Store the URIs of the selected images
+        const imageUris = result.assets.map(asset => asset.uri);
+        setSelectedImages(prevImages => [...prevImages, ...imageUris]);
       }
+    } catch (error) {
+      console.error('Image selection error:', error);
     }
   };
-
   const handleLanzerChange = Number => {
     const numericValue = parseInt(Number, 10);
     if (
@@ -105,6 +108,25 @@ const items = [
       setLanzer(Number);
     }
   };
+const handleFileSelection = async () => {
+  try {
+    const res = await DocumentPicker.pick({
+      type: [DocumentPicker.types.images], // Only allow image types
+    });
+
+    // Add the selected file to the uploadedImages state
+    setUploadedImages(prevImages => [
+      ...prevImages,
+      {uri: res[0].uri, name: res[0].name}, // Store image URI and name
+    ]);
+  } catch (err) {
+    if (DocumentPicker.isCancel(err)) {
+      console.log('User cancelled the file picker');
+    } else {
+      console.error('File picker error: ', err);
+    }
+  }
+};
 
   return (
     <KeyboardAvoidingView
@@ -122,24 +144,18 @@ const items = [
               style={styles.backButton}>
               <Image source={backbutton} style={styles.backButtonImage} />
             </TouchableOpacity>
-            <Text
-              style={styles.title}
-              // onPress={() => navigation.navigate('AncillaryAddProducts')}
-              >
-              {t('addProduct')}
-            </Text>
+            <Text style={styles.title}>{t('addProduct')}</Text>
           </View>
 
           <View style={styles.inputContainer}>
             <Accordion
-              title={t('medical')}
-              items={items} // pass the structured array of items
-              isOpen={accordionOpen}
-              toggle={() => setAccordionOpen(!accordionOpen)}
-              onSelect={item => console.log(item)}
-              noShift={true}
-              borderColor="#409C59"
-              width="100%"
+              title={t('Cannabis Type')}
+              items={CannabisFromitems}
+              isOpen={Cannabistype}
+              toggle={() => setCannabistype(!Cannabistype)}
+              onSelect={item => {
+                setSelectedCategory(item);
+              }}
             />
 
             <FloatingLabelInput
@@ -161,33 +177,40 @@ const items = [
               keyboardType="email-address"
             />
 
-            {/* Accordion for Cannabis Type */}
-            <Accordion
-              title={t('projectCategory')}
-              items={[t('1'), t('2'), t('3')]}
-              isOpen={projectCategoryOpen}
-              toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
-              onSelect={() => {}}
-            />
-
-            <FloatingLabelInput
-              label={t('enter_lanzer_range')}
-              value={lanzer}
-              onChangeText={handleLanzerChange}
-            />
-            <FloatingLabelInput
-              label={t('cbd')}
-              value={Cbd}
-              onChangeText={setCbd}
-              keyboardType="email-address"
-            />
-            <Accordion
-              title={t('cannabisForm')}
-              items={[t('1'), t('2'), t('3')]} // Replace with actual items
-              isOpen={Cannabisform}
-              toggle={() => setCannabisform(!Cannabisform)}
-              onSelect={() => {}}
-            />
+            {/* Conditionally render fields */}
+            {selectedCategory !== t('ancillary') && (
+              <>
+                <Accordion
+                  title={t('Product Category')}
+                  items={ProductsTypeitems}
+                  isOpen={projectCategoryOpen}
+                  toggle={() => setProjectCategoryOpen(!projectCategoryOpen)}
+                  onSelect={item => {
+                    setSelectedCategory(item);
+                  }}
+                />
+                <FloatingLabelInput
+                  label={t('enter_lanzer_range')}
+                  value={lanzer}
+                  onChangeText={handleLanzerChange}
+                />
+                <FloatingLabelInput
+                  label={t('cbd')}
+                  value={Cbd}
+                  onChangeText={setCbd}
+                  keyboardType="email-address"
+                />
+                <Accordion
+                  title={t('Cannabis Type')}
+                  items={CannabisTypesitems}
+                  isOpen={Cannabisform}
+                  toggle={() => setCannabisform(!Cannabisform)}
+                  onSelect={item => {
+                    setSelectedCategory(item);
+                  }}
+                />
+              </>
+            )}
             <FloatingLabelInput
               label={t('stock')}
               value={Stock}
@@ -195,13 +218,12 @@ const items = [
               keyboardType="email-address"
             />
 
-            {/* Checkbox for prescription requirement */}
             <View style={styles.checkboxContainer}>
               <View style={styles.checkboxWrapper}>
                 <CheckBox
                   value={isPrescriptionRequired}
                   onValueChange={setIsPrescriptionRequired}
-                  style={styles.checkbox} // Optional: Apply some other styles to checkbox itself
+                  style={styles.checkbox}
                 />
               </View>
               <Text style={styles.checkboxLabel}>
@@ -209,20 +231,28 @@ const items = [
               </Text>
             </View>
           </View>
-
           <View style={styles.uploadContainer}>
             <Text style={styles.uploadText}>{t('product_images')}</Text>
+
+            {/* Conditionally render multiple images */}
+            {selectedImages.length > 0 && (
+              <View style={styles.imagesContainer}>
+                {selectedImages.map((imageUri, index) => (
+                  <Image
+                    key={index}
+                    source={{uri: imageUri}}
+                    style={styles.selectedImage}
+                  />
+                ))}
+              </View>
+            )}
+
             <View style={styles.uploadRow}>
               <TouchableOpacity
                 style={styles.uploadButton}
-                onPress={handleFileSelection}>
+                onPress={handleImageSelection}>
                 <Image source={Cloud} style={styles.CloudIcon} />
                 <Text style={styles.uploadButtonText}>{t('upload_image')}</Text>
-                {selectedFileName ? (
-                  <Text style={styles.selectedFileName}>
-                    {selectedFileName}
-                  </Text>
-                ) : null}
               </TouchableOpacity>
             </View>
           </View>
@@ -239,6 +269,7 @@ const items = [
     </KeyboardAvoidingView>
   );
 };
+
 
 export default AddProducts;
 
@@ -376,5 +407,18 @@ const styles = StyleSheet.create({
     color: '#333', // Choose a color that fits your design
     marginTop: 5, // Adds space between the upload and the file name
     textAlign: 'center', // Centers the file name text
+  },
+  imagesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 10, // Space between images and upload button
+  },
+
+  // Style for each image
+  selectedImage: {
+    height: 120,
+    width: '100%',
+    margin: 5, 
+    borderRadius: 8, 
   },
 });
