@@ -112,47 +112,49 @@ const PersonalInfo = () => {
       setEmailError(''); // Clear error message if valid
     }
   };
-const handleSubmit = () => {
-  if (!frontFile || !backFile) {
-    setDocumentError(t('Please upload both documents.'));
-    return; // Prevent further processing if files are missing
-  }
-  setDocumentError('');
-  setIsLoading(true); // Show loader
+  const handleSubmit = () => {
+    if (!frontFile || !backFile) {
+      setDocumentError(t('Please upload both documents.'));
+      return; // Prevent further processing if files are missing
+    }
+    setDocumentError('');
+    setIsLoading(true); // Show loader
+    const formData = new FormData();
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
+    formData.append('email', email);
+    formData.append('dob', dob);
+    formData.append('address', address);
+    formData.append('user_id', user_id);
+    formData.append('document_front', {
+      uri: frontFile.uri,
+      name: frontFile.name,
+      type: frontFile.type,
+    });
+    formData.append('document_back', {
+      uri: backFile.uri,
+      name: backFile.name,
+      type: backFile.type,
+    });
 
-  const formdata = new FormData();
-  formdata.append('first_name', firstName);
-  formdata.append('last_name', lastName);
-  formdata.append('email', email);
-  formdata.append('dob', dob);
-  formdata.append('address', address);
-  formdata.append('user_id', user_id);
-  formdata.append('document_front', {
-    uri: frontFile.uri,
-    name: frontFile.name,
-    type: frontFile.type,
-  });
-  formdata.append('document_back', {
-    uri: backFile.uri,
-    name: backFile.name,
-    type: backFile.type,
-  });
+    // Logging formData to check
+    console.log('Form Data:', formData);
 
-  fetch('https://getweed.stgserver.site/api/v1/shop/update-shop', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'multipart/form-data', // Change to multipart/form-data for file uploads
-    },
-    body: formdata,
-  })
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
     .then(response => response.json())
     .then(responseData => {
-      setIsLoading(false); // Hide loader
-      console.log('Response Data:', JSON.stringify(responseData));
-      const userId = responseData.data ? responseData.data.id : null;
+      setIsLoading(false);
+      console.log('Response Data:', responseData);
+      const userId = responseData.data.id;
       if (userId) {
-        navigation.navigate('BusinessDetails', {user_id: userId});
+        navigation.navigate('BusinessDetails', { user_id: userId });
       } else {
         console.error('email is already used, Pleas enter another email');
       }
@@ -161,11 +163,13 @@ const handleSubmit = () => {
       setIsLoading(false); // Hide loader on error
       console.error('Error:', error);
     });
-};
+  };
 
-const handleFileSelection = async type => {
-  try {
-    const res = await DocumentPicker.pick({
+
+
+  const handleFileSelection = async type => {
+    try {
+      const res = await DocumentPicker.pick({
       type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Allow image and PDF files
     });
 
@@ -190,19 +194,19 @@ const handleFileSelection = async type => {
     setDocumentError('');
 
     // Set the selected file for the appropriate type (front or back)
-    if (type === 'front') {
+      if (type === 'front') {
       setFrontFile(selectedFile);
-    } else {
+      } else {
       setBackFile(selectedFile);
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User cancelled the file picker');
+      } else {
+        console.error('File picker error: ', err);
+      }
     }
-  } catch (err) {
-    if (DocumentPicker.isCancel(err)) {
-      console.log('User cancelled the file picker');
-    } else {
-      console.error('File picker error: ', err);
-    }
-  }
-};
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
