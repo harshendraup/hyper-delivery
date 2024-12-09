@@ -95,7 +95,7 @@ const BusinessDetails = () => {
   const [accountNumberError, setAccountNumberError] = useState('');
   const [ifscCodeError, setIfscCodeError] = useState('');
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
-    const [documentError, setDocumentError] = useState('');
+  const [documentError, setDocumentError] = useState('');
   const route = useRoute();
   const { user_id } = route.params;
 
@@ -153,31 +153,42 @@ const validateAccountNumber = accountNumber => {
 
 
   const handleAccountNumberChange = (text) => {
-    setAccountNumber(text);
-    if (!text) {
+    // Automatically convert to digits only
+    const numericText = text.replace(/[^0-9]/g, '');
+  
+    setAccountNumber(numericText);
+  
+    // Length validation for Account Number (10 to 15 digits)
+    if (!numericText) {
       setAccountNumberError(t('Please enter account number'));
+    } else if (numericText.length < 10 || numericText.length > 15) {
+      setAccountNumberError(t('Account number must be between 10 and 15 digits'));
+    } else {
+      setAccountNumberError('');
     }
   };
+  
 
-const handleIFSCCodeChange = text => {
-  // Remove any special characters and keep only alphanumeric characters
-  const sanitizedText = text.replace(/[^A-Z0-9]/g, '');
-
-  setSortCode(sanitizedText);
-
-  // Regex for IFSC code validation
-  const ifscCodeRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
-
-  if (!sanitizedText) {
-    setIfscCodeError(t('Please enter IFSC code'));
-  } else if (!ifscCodeRegex.test(sanitizedText)) {
-    setIfscCodeError(t('IFSC code must be in the format ABCD0123456'));
-  } else {
-    setIfscCodeError('');
-  }
-};
-
-
+  const handleIFSCCodeChange = (text) => {
+    // Automatically convert text to uppercase and remove special characters
+    const upperCaseText = text.toUpperCase();
+    const sanitizedText = upperCaseText.replace(/[^A-Z0-9]/g, '');
+    
+    setSortCode(sanitizedText);
+  
+    // IFSC code validation: must be exactly 11 characters long
+    if (!sanitizedText) {
+      setIfscCodeError(t('Please enter IFSC code'));
+    } else if (sanitizedText.length !== 11) {
+      // Only validate length first, as the code is not complete yet
+      setIfscCodeError(t('IFSC code must be exactly 11 characters long'));
+    } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(sanitizedText)) {
+      // Check if the code is in the correct format once the length is valid
+      setIfscCodeError(t('IFSC code must be in the format: XXXX0YYYYYY, where X is a letter or Y is a number'));
+    } else {
+      setIfscCodeError('');  // Clear error if all checks pass
+    }
+  };
 
   const validateName = (name) => {
     const regex = /^[a-zA-Z]+$/; // Only letters allowed
@@ -200,22 +211,22 @@ const validateBusinessName = name => {
   };
 
   const handleAccountNumChange = (text) => {
-    setHolderName(text);
-    if (!text) {
+    const upperCaseText = text.toUpperCase(); // Automatically convert to uppercase
+    setHolderName(upperCaseText);
+
+    if (!upperCaseText) {
       setaccountHolderError(t('Please enter account holder name'));
-    } else if (!validateBusinessName(text)) {
-      setaccountHolderError(t('Account holder name must contain only letters'));
     } else {
       setaccountHolderError('');
     }
   };
 
   const handleBankNameChange = (text) => {
-    setBankName(text);
-    if (!text) {
+    const upperCaseText = text.toUpperCase(); // Automatically convert to uppercase
+    setBankName(upperCaseText);
+
+    if (!upperCaseText) {
       setBanknameError(t('Please enter Bank name'));
-    } else if (!validateBusinessName(text)) {
-      setBanknameError(t('Bank name must contain only letters'));
     } else {
       setBanknameError('');
     }
@@ -341,24 +352,39 @@ const validateBusinessName = name => {
       });
   
       const fileType = res[0].type;
-      
+      const fileName = res[0].name;
+  
       // Check if the selected file is an mp4 and reject it
       if (fileType && fileType.includes('video/mp4')) {
         alert(t('MP4 videos are not allowed for upload')); // You can show an error message or alert the user
         return; // Exit the function without setting the file
       }
   
-      // Handle file based on type (store logo, business images, etc.)
-      if (type === 'upload_form') {
-        setSelectedFileName(res[0].name); // Store the selected file name for the form
-      } else if (type === 'upload_logo') {
-        setuploadLogo(res[0].name); // Store the selected logo file name
-      } else if (type === 'outside') {
-        setoutside(res[0].name); // Store the outside business image
-      } else if (type === 'inside') {
-        setinside(res[0].name); // Store the inside business image
+      // Check if the selected file is an image and validate its extension
+      if (fileType && (fileType.includes('image/jpeg') || fileType.includes('image/png'))) {
+        // Handle file based on type (store logo, business images, etc.)
+        if (type === 'upload_form') {
+          setSelectedFileName(fileName); // Store the selected file name for the form
+        } else if (type === 'upload_logo') {
+          setuploadLogo(fileName); // Store the selected logo file name
+        } else if (type === 'outside') {
+          setoutside(fileName); // Store the outside business image
+        } else if (type === 'inside') {
+          setinside(fileName); // Store the inside business image
+        } else {
+          setmenu(fileName); // Store the menu file name
+        }
+      } else if (fileType && !fileType.includes('image')) {
+        // Check if the file is not an image
+        alert(t('Only image files (JPG, PNG) are allowed for upload.'));
       } else {
-        setmenu(res[0].name); // Store the menu file name
+        // Handle other file types (PDF in this case) if needed
+        if (type === 'upload_form') {
+          setSelectedFileName(fileName); // Store the selected file name for the form
+        } else {
+          // Handle other cases like PDF upload
+          alert(t('Only JPG, PNG, and PDF files are allowed for upload.'));
+        }
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -368,6 +394,7 @@ const validateBusinessName = name => {
       }
     }
   };
+  
 
   const GreenButton = ({ title, onPress }) => (
     <TouchableOpacity style={styles.greenButton} onPress={onPress}>
