@@ -135,21 +135,21 @@ const validateAccountNumber = accountNumber => {
     return regex.test(ifscCode);
   };
 
- const handlePhoneChange = text => {
-   // Filter out non-numeric characters
-   const numericText = text.replace(/[^0-9]/g, '');
-
-   setLastName(numericText); // Update state with the numeric-only input
-
-   // Validation logic
-   if (!numericText) {
-     setPhoneError(t('Please enter phone number'));
-   } else if (numericText.length !== 10) {
-     setPhoneError(t('Phone number must contain exactly 10 digits'));
-   } else {
-     setPhoneError(''); // Clear error if the phone number is valid
-   }
- };
+  const handlePhoneChange = text => {
+    // Filter out non-numeric characters
+    const numericText = text.replace(/[^0-9]/g, '');
+  
+    setLastName(numericText); // Update state with the numeric-only input
+  
+    // Validation logic
+    if (!numericText) {
+      setPhoneError(t('Please enter phone number'));
+    } if (numericText.length >= 6 && numericText.length <= 9) {
+      setPhoneError(t('Phone number must be 10 digits long'));
+    } else {
+      setPhoneError(''); // Clear error if the phone number is valid
+    }
+  };
 
 
   const handleAccountNumberChange = (text) => {
@@ -337,19 +337,28 @@ const validateBusinessName = name => {
   const handleFileSelection = async (type) => {
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // You can customize the file types here
+        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Restrict file types to images and PDFs
       });
-
+  
+      const fileType = res[0].type;
+      
+      // Check if the selected file is an mp4 and reject it
+      if (fileType && fileType.includes('video/mp4')) {
+        alert(t('MP4 videos are not allowed for upload')); // You can show an error message or alert the user
+        return; // Exit the function without setting the file
+      }
+  
+      // Handle file based on type (store logo, business images, etc.)
       if (type === 'upload_form') {
-        setSelectedFileName(res[0].name); // Store the selected front document name
+        setSelectedFileName(res[0].name); // Store the selected file name for the form
       } else if (type === 'upload_logo') {
-        setuploadLogo(res[0].name);
+        setuploadLogo(res[0].name); // Store the selected logo file name
       } else if (type === 'outside') {
-        setoutside(res[0].name);
+        setoutside(res[0].name); // Store the outside business image
       } else if (type === 'inside') {
-        setinside(res[0].name);
+        setinside(res[0].name); // Store the inside business image
       } else {
-        setmenu(res[0].name);
+        setmenu(res[0].name); // Store the menu file name
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -532,11 +541,11 @@ const validateBusinessName = name => {
                   date={dob ? moment(dob, 'HH:mm').toDate() : new Date()} // Ensure date format is correct for DateTimePicker
                 />
                 <Accordion
-                  title={t('weekly')}
+                  title={t('Weekly')}
                   items={[
-                    {item: t('daily')},
-                    {item: t('weekly')},
-                    {item: t('yearly')},
+                    {item: t('Daily')},
+                    {item: t('Weekly')},
+                    {item: t('Yearly')},
                   ]}
                   isOpen={accordionOpen}
                   toggle={() => setAccordionOpen(!accordionOpen)}
