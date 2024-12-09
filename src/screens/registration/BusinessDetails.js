@@ -273,7 +273,81 @@ const validateBusinessName = name => {
       });
   };
 
- 
+  const handleNext = () => {
+    if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
+      setDocumentError(t('Please upload all documents.'));
+      return;
+    }
+
+    if (
+      !uploadLogo &&
+      !uploadLogo.uri &&
+      !uploadLogo.name &&
+      !uploadLogo.type
+    ) {
+      setDocumentError(t('Please upload all documents.'));
+      return;
+    }
+
+    if (!outside && !outside.uri && !outside.name && !outside.type) {
+      setDocumentError(t('Please upload all documents.'));
+      return;
+    }
+
+    if (!inside && !inside.uri && !inside.name && !inside.type) {
+      setDocumentError(t('Please upload all documents.'));
+      return;
+    }
+
+    if (!menu && !menu.uri && !menu.name && !menu.type) {
+      setDocumentError(t('Please upload all documents.'));
+      return;
+    }
+    const formdata = new FormData();
+    formdata.append('business_name', firstName);
+    formdata.append('phone', lastName);
+    formdata.append('about', email);
+    // formdata.append("shop_timing", dob);
+    // formdata.append('open_days', selectDayOpen);
+    formdata.append('user_id', user_id);
+    // formdata.append('store_logo', {
+    //   uri: uploadLogo.uri,
+    //   name: uploadLogo.name,
+    //   type: uploadLogo.type,
+    // });
+    // formdata.append('business_outside_image', {
+    //   uri: outside.uri,
+    //   name: outside.name,
+    //   type: outside.type,
+    // });
+    // formdata.append('business_inside_image', {
+    //   uri: inside.uri,
+    //   name: inside.name,
+    //   type: inside.type,
+    // });
+    // formdata.append('menu_image', {
+    //   uri: menu.uri,
+    //   name: menu.name,
+    //   type: menu.type,
+    // });
+    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formdata,
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response Data: ', JSON.stringify(responseData));
+        setIsBankDetails(true);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    setIsBankDetails(true);
+  };
 
 
 const handleFileSelection = async type => {
@@ -403,6 +477,7 @@ const handleFileSelection = async type => {
                 {ifscCodeError ? (
                   <Text style={styles.errorText}>{ifscCodeError}</Text>
                 ) : null}
+
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>
                     {t('account_approval_form')}
@@ -434,6 +509,7 @@ const handleFileSelection = async type => {
                     <Text style={styles.errorText}>{documentError}</Text>
                   ) : null}
                 </View>
+
                 <View style={styles.buttonContainer}>
                   <GreenButton
                     title={t('next')}
@@ -628,6 +704,10 @@ const handleFileSelection = async type => {
                       )}
                     </TouchableOpacity>
                   </View>
+                  {documentError ? (
+                    <Text style={styles.errorText}>{documentError}</Text>
+                  ) : null}
+                  <GreenButton title={t('next')} onPress={handleNext} />
                 </View>
               </>
             )}
