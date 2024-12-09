@@ -27,8 +27,9 @@ import GetstartwithFace from '../../asset/SVG/ScanFace';
 import Flag from '../../asset/SVG/Flag.png';
 import Dropdown from '../../asset/SVG/Dropdown.png';
 import {useNavigation} from '@react-navigation/native';
+import Language from '../../utils/Language';
+import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
-import LoadingButton from '../../component/LoadingButton';
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,6 +37,7 @@ const CustomButton = ({icon: Icon, title, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
+        {/* Render the passed SVG icon as a component */}
         {Icon && <Icon />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
@@ -52,7 +54,7 @@ const GreenButton = ({title, onPress, isLoading}) => {
       onPress={onPress}
       disabled={isLoading}>
       {isLoading ? (
-        <ActivityIndicator size="small" color="#fff" /> 
+        <ActivityIndicator size="small" color="#fff" /> // Show loader when loading
       ) : (
         <Text style={styles.greenButtonText}>{title}</Text>
       )}
@@ -60,19 +62,21 @@ const GreenButton = ({title, onPress, isLoading}) => {
   );
 };
 
-
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); 
-const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); // Error message state
+  const [isLoading, setIsLoading] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [showOtpModal, setShowOtpModal] = useState(false);  // New state for modal visibility
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        
+        // Handle the keyboard showing, if needed
       },
     );
 
@@ -89,59 +93,66 @@ const [isLoading, setIsLoading] = useState(false);
     };
   }, []);
 
-const handleSubmit = () => {
-  if (!phoneNumber || phoneNumber.length < 10) {
-    setErrorMessage(t('invalid_phone_number'));
-    return;
-  }
+  const handlePhoneNumberChange = text => {
+    const filteredText = text.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    setPhoneNumber(filteredText);
 
-  setErrorMessage('');
-  setIsLoading(true); // Show the loader immediately when the process starts
+    // Validate phone number length and show appropriate error message
+    if (filteredText.length < 10) {
+      setErrorMessage(t('Enter valid Number'));
+    } else {
+      setErrorMessage(''); // Remove error message if length is valid
+    }
+  };
 
-  fetch('https://getweed.stgserver.site/api/v1/shop/start-phone-verification', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      phone: phoneNumber,
-    }),
-  })
-    .then(response => response.json())
-    .then(responseData => {
-      console.log('Response Data: ', JSON.stringify(responseData));
-      const userId = responseData.data.user_id;
-      const otp = responseData.data.otp;
+  const handleSubmit = () => {
+    if (phoneNumber.length !== 10) {
+      setErrorMessage(t('Enter valid Phone Number'));
+      return;
+    }
 
-      if (otp) {
-        Alert.alert('OTP', `Your OTP is: ${otp}`, [
-          {
-            text: 'OK',
-            onPress: () => {
-              // After pressing OK, wait for 3 seconds before navigating
-              setTimeout(() => {
-                // Ensure the loader continues spinning for 3 seconds before stopping
-                navigation.navigate('OtpSplash', {
-                  user_id: userId,
-                  phone_number: phoneNumber,
-                });
-                setIsLoading(false); // Stop the loader only after navigation
-              }, 3000); // 3 seconds delay before navigating
-            },
-          },
-        ]);
-      } else {
-        console.error('OTP not found in response');
-        setIsLoading(false); // Hide the loader if OTP is not found
-      }
+    setErrorMessage('');
+    setIsLoading(true); // Show the loading indicator
+
+    fetch('https://getweed.stgserver.site/api/v1/shop/start-phone-verification', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone: phoneNumber,
+      }),
     })
-    .catch(error => {
-      console.error('Error:', error);
-      setIsLoading(false); // Hide the loader if there was an error
-    });
-};
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response Data: ', JSON.stringify(responseData));
+        const userId = responseData.data.user_id;
+        const otp = responseData.data.otp;
 
+        if (otp) {
+          setOtp(otp);
+          setUserId(userId);
+          setShowOtpModal(true);  // Show OTP modal
+
+          // Automatically navigate after 5 seconds
+          setTimeout(() => {
+            navigation.navigate('OtpSplash', {
+              user_id: userId,
+              phone_number: phoneNumber,
+            });
+          }, 5000);
+        } else {
+          console.error('OTP not found in response');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Hide the loading indicator
+      });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -156,10 +167,8 @@ const handleSubmit = () => {
           <View style={styles.topSection}>
             <View style={styles.touchable}>
               <View style={{width: '100%', alignItems: 'flex-start'}}>
-                <View style={{width: '100%', alignItems: 'flex-start'}}>
-                  <Text style={styles.boldText}>{t('start')}</Text>
-                  <Text style={styles.subText}>{t('welcome')}</Text>
-                </View>
+                <Text style={styles.boldText}>{t('start')}</Text>
+                <Text style={styles.subText}>{t('welcome')}</Text>
               </View>
             </View>
             <Image source={logo} style={styles.logo} />
@@ -175,42 +184,40 @@ const handleSubmit = () => {
               keyboardType="phone-pad"
               maxLength={10}
               value={phoneNumber}
-              onChangeText={text => {
-                // Ensure only numbers are allowed in the phone number
-                const filteredText = text.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
-                setPhoneNumber(filteredText);
-                //  setErrorMessage('Enter a number'); // Reset error message on user input change
-              }}
+              onChangeText={handlePhoneNumberChange} // Updated onChangeText handler
             />
-
-            {/* Error message under the input */}
-            {errorMessage ? (
+          </View>
+          {errorMessage ? (
               <Text style={styles.errorText}>{errorMessage}</Text>
             ) : null}
-          </View>
 
           <View style={styles.containerText}>
             <Text
-              style={[
-                styles.bottomText,
-                {flex: 1, textAlign: 'left', paddingLeft: 12},
-              ]}>
+              style={[styles.bottomText, {flex: 1, textAlign: 'left', paddingLeft: 12}]}>
               {t('recover')}
             </Text>
             <Text
-              style={[
-                styles.bottomTextHelp,
-                {flex: 1, textAlign: 'right', paddingRight: 12},
-              ]}>
+              style={[styles.bottomTextHelp, {flex: 1, textAlign: 'right', paddingRight: 12}]}>
               {t('need')}
             </Text>
           </View>
-
+          <Modal
+          animationType="fade"
+          transparent={true}
+          visible={showOtpModal}
+          onRequestClose={() => setShowOtpModal(false)}>
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <Text style={styles.otpText}>{t('OTP')}: {otp}</Text>
+              <Text style={styles.otpMessage}>{t('OTP will expire soon')}</Text>
+            </View>
+          </View>
+        </Modal>
           <View style={styles.buttonContainer}>
-            <LoadingButton
+            <GreenButton
               title={t('next')}
               onPress={handleSubmit}
-              isLoading={isLoading} // Pass isLoading to show spinner when submitting
+              isLoading={isLoading}
             />
             <View style={styles.separatorContainer}>
               <View style={styles.separator} />
@@ -260,12 +267,12 @@ const handleSubmit = () => {
 
 export default ConnectWithPhone;
 
+
+
 const styles = StyleSheet.create({
   errorText: {
     color: 'red',
-    fontSize: 12,
-    marginTop: 5,
-    paddingLeft: 12,
+    fontSize: 10,
   },
   container: {
     flex: 1,
@@ -340,7 +347,7 @@ const styles = StyleSheet.create({
     borderColor: '#409C59',
     borderRadius: 10,
     paddingHorizontal: 10,
-    marginVertical: 20,
+    marginVertical: 10,
   },
   triangleIcon: {
     width: 40,
@@ -431,5 +438,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#409C59', // Divider color, adjust as needed
     marginLeft: 5,
     marginRight: 5, // Space between the icon and divider
+  },
+
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    width: '80%',
+  },
+  otpText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 10,
+  },
+  otpMessage: {
+    fontSize: 14,
+    color: '#555',
+    textAlign: 'center',
   },
 });
