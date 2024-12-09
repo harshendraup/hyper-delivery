@@ -26,9 +26,9 @@ const ApprovalWaiting = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
+      <View onPress={() => navigation.navigate('TabNavigator')}>
         <Image source={connect} style={styles.image} />
-      </TouchableOpacity>
+      </View>
       <View style={styles.textContainer}>
         <Text style={styles.heading}>{t('nice_to_meet')}</Text>
         <Text style={styles.subtext}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,8 @@ import {
   ScrollView,
   Image,
   SafeAreaView,
+  Alert,
+  BackHandler,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import chat from '../../asset/SVG/Chaticon.png';
@@ -19,8 +21,6 @@ import orderIcon from '../../asset/SVG/Ordersicon.png';
 import ordersIcon from '../../asset/SVG/Orders.png';
 import productsIcon from '../../asset/SVG/Productsicon.png';
 import salesIcon from '../../asset/SVG/Salesicon.png';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
@@ -37,6 +37,7 @@ const Dashboard = () => {
   ];
 
   const recentOrders = [
+    // Example orders data
     {
       id: '12345',
       date: '01-10-2024',
@@ -123,67 +124,95 @@ const Dashboard = () => {
     },
   ];
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert(
+        t('Exit app'), // Exit app confirmation message
+        t(' Are you sure you want to exit?'), // Are you sure you want to exit?
+        [
+          {
+            text: t('cancel'), // Cancel button text
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {
+            text: t('exit'), // Exit button text
+            onPress: () => BackHandler.exitApp(), // Close the app if the user presses "Exit"
+          },
+        ],
+        {cancelable: false},
+      );
+      return true; // Prevent navigation back
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    // Cleanup the event listener on component unmount
+    return () => backHandler.remove();
+  }, [t]); // Adding t as dependency to ensure translations work
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            // onPress={() => navigation.goBack()}
-            style={[styles.backButton, styles.shadow]}>
-            <Image source={Dashboardbutton} style={styles.backButtonImage} />
-          </TouchableOpacity>
-          <Text style={styles.topText}>{t('dashboard')}</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Chat')}
-            style={[styles.backButton, styles.shadow]}>
-            <Image source={chat} style={styles.backButtonImage} />
-          </TouchableOpacity>
-        </View>
+      <SafeAreaView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled">
+          <View style={styles.headerContainer}>
+            <TouchableOpacity style={[styles.backButton, styles.shadow]}>
+              <Image source={Dashboardbutton} style={styles.backButtonImage} />
+            </TouchableOpacity>
+            <Text style={styles.topText}>{t('dashboard')}</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Chat')}
+              style={[styles.backButton, styles.shadow]}>
+              <Image source={chat} style={styles.backButtonImage} />
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.tileContainer}>
-          {tilesData.map((tile, index) => (
-            <View key={index} style={styles.tile}>
-              <View style={styles.tileHeader}>
-                <Image source={tile.icon} style={styles.tileIcon} />
-                <Text style={styles.tileTitle}>{tile.title}</Text>
-              </View>
-              <Text style={styles.tileData}>{tile.data}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View style={styles.listContainer}>
-          <Text style={styles.listTitle}>{t('recentOrders')}</Text>
-          {recentOrders.map(order => (
-            <View key={order.id} style={styles.listItem}>
-              <Image source={ordersIcon} style={styles.listIcon} />
-              <View style={styles.orderInfo}>
-                <View style={styles.orderIdContainer}>
-                  <Text style={styles.orderId}>
-                    {t('orderId')}: {order.id}
-                  </Text>
-                  {order.isNew && (
-                    <View style={styles.newBadge}>
-                      <Text style={styles.badgeText}>{t('newOrder')}</Text>
-                    </View>
-                  )}
+          <View style={styles.tileContainer}>
+            {tilesData.map((tile, index) => (
+              <View key={index} style={styles.tile}>
+                <View style={styles.tileHeader}>
+                  <Image source={tile.icon} style={styles.tileIcon} />
+                  <Text style={styles.tileTitle}>{tile.title}</Text>
                 </View>
-                <Text style={styles.orderDate}>
-                  {order.date} {order.time}
-                </Text>
+                <Text style={styles.tileData}>{tile.data}</Text>
               </View>
-              <Text style={styles.orderPrice}>${order.price}</Text>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
+            ))}
+          </View>
+
+          <View style={styles.listContainer}>
+            <Text style={styles.listTitle}>{t('recentOrders')}</Text>
+            {recentOrders.map(order => (
+              <View key={order.id} style={styles.listItem}>
+                <Image source={ordersIcon} style={styles.listIcon} />
+                <View style={styles.orderInfo}>
+                  <View style={styles.orderIdContainer}>
+                    <Text style={styles.orderId}>
+                      {t('orderId')}: {order.id}
+                    </Text>
+                    {order.isNew && (
+                      <View style={styles.newBadge}>
+                        <Text style={styles.badgeText}>{t('newOrder')}</Text>
+                      </View>
+                    )}
+                  </View>
+                  <Text style={styles.orderDate}>
+                    {order.date} {order.time}
+                  </Text>
+                </View>
+                <Text style={styles.orderPrice}>${order.price}</Text>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

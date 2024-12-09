@@ -307,29 +307,29 @@ const validateBusinessName = name => {
     formdata.append('business_name', firstName);
     formdata.append('phone', lastName);
     formdata.append('about', email);
-    // formdata.append("shop_timing", dob);
-    // formdata.append('open_days', selectDayOpen);
+    formdata.append("shop_timing", dob);
+    formdata.append('open_days', selectDayOpen);
     formdata.append('user_id', user_id);
-    // formdata.append('store_logo', {
-    //   uri: uploadLogo.uri,
-    //   name: uploadLogo.name,
-    //   type: uploadLogo.type,
-    // });
-    // formdata.append('business_outside_image', {
-    //   uri: outside.uri,
-    //   name: outside.name,
-    //   type: outside.type,
-    // });
-    // formdata.append('business_inside_image', {
-    //   uri: inside.uri,
-    //   name: inside.name,
-    //   type: inside.type,
-    // });
-    // formdata.append('menu_image', {
-    //   uri: menu.uri,
-    //   name: menu.name,
-    //   type: menu.type,
-    // });
+    formdata.append('store_logo', {
+      uri: uploadLogo.uri,
+      name: uploadLogo.name,
+      type: uploadLogo.type,
+    });
+    formdata.append('business_outside_image', {
+      uri: outside.uri,
+      name: outside.name,
+      type: outside.type,
+    });
+    formdata.append('business_inside_image', {
+      uri: inside.uri,
+      name: inside.name,
+      type: inside.type,
+    });
+    formdata.append('menu_image', {
+      uri: menu.uri,
+      name: menu.name,
+      type: menu.type,
+    });
     fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
       method: 'POST',
       headers: {
@@ -353,24 +353,38 @@ const validateBusinessName = name => {
 const handleFileSelection = async type => {
   try {
     const res = await DocumentPicker.pick({
-      type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // You can add more types if needed
+      type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Allow only images and PDFs
     });
 
     // Extract the URI (for images) and the file name
     const fileName = res[0].name;
     const fileUri = res[0].uri;
 
-    // Update the respective state based on the selected type
-    if (type === 'upload_logo') {
-      setuploadLogo({name: fileName, uri: fileUri});
-    } else if (type === 'outside') {
-      setoutside({name: fileName, uri: fileUri});
-    } else if (type === 'inside') {
-      setinside({name: fileName, uri: fileUri});
-    } else if (type === 'menu') {
-      setmenu({name: fileName, uri: fileUri});
+    // Validate file type to ensure it's either an image or a document
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+    if (
+      fileExtension === 'jpg' ||
+      fileExtension === 'jpeg' ||
+      fileExtension === 'png' ||
+      fileExtension === 'gif' ||
+      fileExtension === 'pdf'
+    ) {
+      // Update the respective state based on the selected type
+      if (type === 'upload_logo') {
+        setuploadLogo({name: fileName, uri: fileUri});
+      } else if (type === 'outside') {
+        setoutside({name: fileName, uri: fileUri});
+      } else if (type === 'inside') {
+        setinside({name: fileName, uri: fileUri});
+      } else if (type === 'menu') {
+        setmenu({name: fileName, uri: fileUri});
+      } else {
+        setSelectedFileName({name: fileName, uri: fileUri});
+      }
     } else {
-      setSelectedFileName(fileName);
+      setDocumentError(
+        'Invalid file type. Please select an image or PDF document.',
+      );
     }
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {
@@ -384,6 +398,7 @@ const handleFileSelection = async type => {
     }
   }
 };
+
 
 
   const GreenButton = ({ title, onPress }) => (
@@ -479,6 +494,7 @@ const handleFileSelection = async type => {
                 ) : null}
 
                 <View style={styles.uploadContainer}>
+                  {/* Account Approval Form Upload */}
                   <Text style={styles.uploadText}>
                     {t('account_approval_form')}
                   </Text>
@@ -486,25 +502,36 @@ const handleFileSelection = async type => {
                     <TouchableOpacity
                       style={[
                         styles.uploadButton,
-                        {
-                          alignItems: 'center', // Ensure buttons are vertically centered
-                          width: '100%',
-                        },
+                        {alignItems: 'center', width: '100%'},
                       ]}
                       onPress={() => handleFileSelection('upload_form')}>
-                      <Text style={styles.uploadButtonText}>
-                        <Image source={Cloud} style={styles.CloudIcon} />
-                        {'\n'}
-                        {'\n'}
-                        {t('upload_form')}
-                      </Text>
-                      {selectedFileName ? (
-                        <Text style={styles.selectedFileName}>
-                          {selectedFileName}
-                        </Text>
+                      {/* Conditionally render cloud icon and text if image is not uploaded */}
+                      {!selectedFileName ? (
+                        <>
+                          <Image source={Cloud} style={styles.CloudIcon} />
+                          <Text style={styles.uploadButtonText}>
+                            {t('upload_form')}
+                          </Text>
+                        </>
                       ) : null}
+
+                      {/* Show image preview if uploaded */}
+                      {selectedFileName && selectedFileName.uri && (
+                        <Image
+                          source={{uri: selectedFileName.uri}}
+                          style={styles.previewImage}
+                        />
+                      )}
+
+                      {/* Show selected file name */}
+                      {selectedFileName && (
+                        <Text style={styles.selectedFileName}>
+                          {selectedFileName.name}
+                        </Text>
+                      )}
                     </TouchableOpacity>
                   </View>
+                  {/* Show error message if any */}
                   {documentError ? (
                     <Text style={styles.errorText}>{documentError}</Text>
                   ) : null}
