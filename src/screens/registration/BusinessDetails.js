@@ -243,11 +243,11 @@ const validateBusinessName = name => {
       return;
     }
     const formdata = new FormData();
-    // formdata.append('account_approval_form', {
-    //   uri: selectedFileName.uri,
-    //   name: selectedFileName.name,
-    //   type: selectedFileName.type,
-    // });
+    formdata.append('account_approval_form', {
+      uri: selectedFileName.uri,
+      name: selectedFileName.name,
+      type: selectedFileName.type,
+    });
     fetch('https://getweed.stgserver.site/api/v1/shop/update-bank-detail', {
       method: 'POST',
       headers: {
@@ -273,128 +273,44 @@ const validateBusinessName = name => {
       });
   };
 
-  const handleNext = () => {
-    if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
-      setDocumentError(t('Please upload all documents.'));
-      return;
-    }
-
-    if (!uploadLogo && !uploadLogo.uri && !uploadLogo.name && !uploadLogo.type) {
-      setDocumentError(t('Please upload all documents.'));
-      return;
-    }
-
-    if (!outside && !outside.uri && !outside.name && !outside.type) {
-      setDocumentError(t('Please upload all documents.'));
-      return;
-    }
-
-    if (!inside && !inside.uri && !inside.name && !inside.type) {
-      setDocumentError(t('Please upload all documents.'));
-      return;
-    }
-
-    if (!menu && !menu.uri && !menu.name && !menu.type) {
-     setDocumentError(t('Please upload all documents.'));
-      return;
-    }
-    const formdata = new FormData();
-    formdata.append('business_name', firstName);
-    formdata.append('phone', lastName);
-    formdata.append('about', email);
-    // formdata.append("shop_timing", dob);
-    // formdata.append('open_days', selectDayOpen);
-    formdata.append('user_id', user_id);
-    // formdata.append('store_logo', {
-    //   uri: uploadLogo.uri,
-    //   name: uploadLogo.name,
-    //   type: uploadLogo.type,
-    // });
-    // formdata.append('business_outside_image', {
-    //   uri: outside.uri,
-    //   name: outside.name,
-    //   type: outside.type,
-    // });
-    // formdata.append('business_inside_image', {
-    //   uri: inside.uri,
-    //   name: inside.name,
-    //   type: inside.type,
-    // });
-    // formdata.append('menu_image', {
-    //   uri: menu.uri,
-    //   name: menu.name,
-    //   type: menu.type,
-    // });
-    fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formdata,
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log('Response Data: ', JSON.stringify(responseData));
-        setIsBankDetails(true);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    setIsBankDetails(true);
-  };
+ 
 
 
-  const handleFileSelection = async (type) => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Restrict file types to images and PDFs
-      });
-  
-      const fileType = res[0].type;
-      const fileName = res[0].name;
-  
-      // Check if the selected file is an mp4 and reject it
-      if (fileType && fileType.includes('video/mp4')) {
-        alert(t('MP4 videos are not allowed for upload')); // You can show an error message or alert the user
-        return; // Exit the function without setting the file
-      }
-  
-      // Check if the selected file is an image and validate its extension
-      if (fileType && (fileType.includes('image/jpeg') || fileType.includes('image/png'))) {
-        // Handle file based on type (store logo, business images, etc.)
-        if (type === 'upload_form') {
-          setSelectedFileName(fileName); // Store the selected file name for the form
-        } else if (type === 'upload_logo') {
-          setuploadLogo(fileName); // Store the selected logo file name
-        } else if (type === 'outside') {
-          setoutside(fileName); // Store the outside business image
-        } else if (type === 'inside') {
-          setinside(fileName); // Store the inside business image
-        } else {
-          setmenu(fileName); // Store the menu file name
-        }
-      } else if (fileType && !fileType.includes('image')) {
-        // Check if the file is not an image
-        alert(t('Only image files (JPG, PNG) are allowed for upload.'));
-      } else {
-        // Handle other file types (PDF in this case) if needed
-        if (type === 'upload_form') {
-          setSelectedFileName(fileName); // Store the selected file name for the form
-        } else {
-          // Handle other cases like PDF upload
-          alert(t('Only JPG, PNG, and PDF files are allowed for upload.'));
-        }
-      }
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled the file picker');
-      } else {
-        console.error('File picker error: ', err);
-      }
+const handleFileSelection = async type => {
+  try {
+    const res = await DocumentPicker.pick({
+      type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // You can add more types if needed
+    });
+
+    // Extract the URI (for images) and the file name
+    const fileName = res[0].name;
+    const fileUri = res[0].uri;
+
+    // Update the respective state based on the selected type
+    if (type === 'upload_logo') {
+      setuploadLogo({name: fileName, uri: fileUri});
+    } else if (type === 'outside') {
+      setoutside({name: fileName, uri: fileUri});
+    } else if (type === 'inside') {
+      setinside({name: fileName, uri: fileUri});
+    } else if (type === 'menu') {
+      setmenu({name: fileName, uri: fileUri});
+    } else {
+      setSelectedFileName(fileName);
     }
-  };
-  
+  } catch (err) {
+    if (DocumentPicker.isCancel(err)) {
+      console.log('User cancelled the file picker');
+    } else {
+      console.error('File picker error: ', err);
+      // Optionally, display an error message to the user
+      setDocumentError(
+        'An error occurred while selecting the file. Please try again.',
+      );
+    }
+  }
+};
+
 
   const GreenButton = ({ title, onPress }) => (
     <TouchableOpacity style={styles.greenButton} onPress={onPress}>
@@ -588,81 +504,130 @@ const validateBusinessName = name => {
                   }}
                 />
                 <View style={styles.uploadContainer}>
+                  {/* Store Logo Upload */}
                   <Text style={styles.uploadText}>{t('store_logo')}</Text>
                   <View style={styles.uploadRow}>
                     <TouchableOpacity
                       style={[
                         styles.uploadButton,
-                        {
-                          alignItems: 'center', // Ensure buttons are vertically centered
-                          width: '100%',
-                        },
+                        {alignItems: 'center', width: '100%'},
                       ]}
                       onPress={() => handleFileSelection('upload_logo')}>
-                      <Text style={styles.uploadButtonText}>
-                        <Image source={Cloud} style={styles.CloudIcon} />
-                        {'\n'}
-                        {'\n'}
-                        {t('upload_logo')}
-                      </Text>
-                      {uploadLogo ? (
-                        <Text style={styles.selectedFileName}>
-                          {uploadLogo}
-                        </Text>
+                      {/* Conditionally render cloud icon and text if image is not uploaded */}
+                      {!uploadLogo ? (
+                        <>
+                          <Image source={Cloud} style={styles.CloudIcon} />
+                          <Text style={styles.uploadButtonText}>
+                            {t('upload_logo')}
+                          </Text>
+                        </>
                       ) : null}
+
+                      {/* Show image preview if uploaded */}
+                      {uploadLogo && uploadLogo.uri && (
+                        <Image
+                          source={{uri: uploadLogo.uri}}
+                          style={styles.previewImage}
+                        />
+                      )}
+
+                      {/* Show selected file name */}
+                      {uploadLogo && (
+                        <Text style={styles.selectedFileName}>
+                          {uploadLogo.name}
+                        </Text>
+                      )}
                     </TouchableOpacity>
                   </View>
                 </View>
+
                 {documentError ? (
                   <Text style={styles.errorText}>{documentError}</Text>
                 ) : null}
+
+                {/* Business Images Section */}
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>{t('business_images')}</Text>
                   <View style={styles.uploadRow}>
+                    {/* Outside Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('outside')}>
-                      <Text style={styles.uploadButtonText}>
-                        <Image source={Cloud} style={styles.CloudIcon} />
-                        {'\n'}
-                        {'\n'}
-                        {t('outside')}
-                      </Text>
-                      {outside ? (
-                        <Text style={styles.selectedFileName}>{outside}</Text>
+                      {!outside ? (
+                        <>
+                          <Image source={Cloud} style={styles.CloudIcon} />
+                          <Text style={styles.uploadButtonText}>
+                            {t('outside')}
+                          </Text>
+                        </>
                       ) : null}
+
+                      {outside && outside.uri && (
+                        <Image
+                          source={{uri: outside.uri}}
+                          style={styles.previewImage}
+                        />
+                      )}
+
+                      {outside && (
+                        <Text style={styles.selectedFileName}>
+                          {outside.name}
+                        </Text>
+                      )}
                     </TouchableOpacity>
+
+                    {/* Inside Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('inside')}>
-                      <Text style={styles.uploadButtonText}>
-                        <Image source={Cloud} style={styles.CloudIcon} />
-                        {'\n'}
-                        {'\n'}
-                        {t('inside')}
-                      </Text>
-                      {inside ? (
-                        <Text style={styles.selectedFileName}>{inside}</Text>
+                      {!inside ? (
+                        <>
+                          <Image source={Cloud} style={styles.CloudIcon} />
+                          <Text style={styles.uploadButtonText}>
+                            {t('inside')}
+                          </Text>
+                        </>
                       ) : null}
+
+                      {inside && inside.uri && (
+                        <Image
+                          source={{uri: inside.uri}}
+                          style={styles.previewImage}
+                        />
+                      )}
+
+                      {inside && (
+                        <Text style={styles.selectedFileName}>
+                          {inside.name}
+                        </Text>
+                      )}
                     </TouchableOpacity>
+
+                    {/* Menu Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('menu')}>
-                      <Text style={styles.uploadButtonText}>
-                        <Image source={Cloud} style={styles.CloudIcon} />
-                        {'\n'}
-                        {'\n'}
-                        {t('menu')}
-                      </Text>
-                      {menu ? (
-                        <Text style={styles.selectedFileName}>{menu}</Text>
+                      {!menu ? (
+                        <>
+                          <Image source={Cloud} style={styles.CloudIcon} />
+                          <Text style={styles.uploadButtonText}>
+                            {t('menu')}
+                          </Text>
+                        </>
                       ) : null}
+
+                      {menu && menu.uri && (
+                        <Image
+                          source={{uri: menu.uri}}
+                          style={styles.previewImage}
+                        />
+                      )}
+
+                      {menu && (
+                        <Text style={styles.selectedFileName}>{menu.name}</Text>
+                      )}
                     </TouchableOpacity>
                   </View>
-                  {documentError ? (
-                    <Text style={styles.errorText}>{documentError}</Text>
-                  ) : null}
-                  <GreenButton title={t('next')} onPress={handleNext} />
                 </View>
               </>
             )}
@@ -676,6 +641,13 @@ const validateBusinessName = name => {
 export default BusinessDetails;
 
 const styles = StyleSheet.create({
+  previewImage: {
+    width: width * 0.4, // 40% of screen width
+    height: width * 0.15, // 20% of screen width
+    resizeMode: 'contain',
+    marginTop: 10,
+  },
+
   container: {
     flex: 1,
     backgroundColor: 'white',

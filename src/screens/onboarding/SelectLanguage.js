@@ -25,7 +25,7 @@ const SelectLanguage = () => {
   const {t, i18n} = useTranslation();
   const navigation = useNavigation();
 
-  // State to track which language button is selected
+  // State to track which language button is selected, initially set to null
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const handleLanguageSelect = language => {
@@ -45,7 +45,21 @@ const SelectLanguage = () => {
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
-        <Text style={styles.topText}>{t('select_lang')}</Text>
+        <Text style={styles.topText}>
+          {t('select_lang')}
+          {' '}
+          <Text style={styles.selectedLanguageText}>
+            {selectedLanguage
+              ? selectedLanguage === 'ar'
+                ? 'عربي'
+                : selectedLanguage === 'en'
+                ? 'English'
+                : selectedLanguage === 'ru'
+                ? 'Русский'
+                : 'עברית'
+              : 'English'}
+          </Text>
+        </Text>
 
         <View style={styles.uploadContainer}>
           <View style={styles.uploadRow}>
@@ -110,7 +124,6 @@ const SelectLanguage = () => {
     </KeyboardAvoidingView>
   );
 };
-
 export default SelectLanguage;
 
 const styles = StyleSheet.create({

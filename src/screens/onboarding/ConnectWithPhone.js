@@ -27,9 +27,8 @@ import GetstartwithFace from '../../asset/SVG/ScanFace';
 import Flag from '../../asset/SVG/Flag.png';
 import Dropdown from '../../asset/SVG/Dropdown.png';
 import {useNavigation} from '@react-navigation/native';
-import Language from '../../utils/Language';
-import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
+import LoadingButton from '../../component/LoadingButton';
 
 const {width, height} = Dimensions.get('window');
 
@@ -37,7 +36,6 @@ const CustomButton = ({icon: Icon, title, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
-        {/* Render the passed SVG icon as a component */}
         {Icon && <Icon />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
@@ -54,7 +52,7 @@ const GreenButton = ({title, onPress, isLoading}) => {
       onPress={onPress}
       disabled={isLoading}>
       {isLoading ? (
-        <ActivityIndicator size="small" color="#fff" /> // Show loader when loading
+        <ActivityIndicator size="small" color="#fff" /> 
       ) : (
         <Text style={styles.greenButtonText}>{title}</Text>
       )}
@@ -67,14 +65,14 @@ const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // Error message state
+  const [errorMessage, setErrorMessage] = useState(''); 
 const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        // Handle the keyboard showing, if needed
+        
       },
     );
 
@@ -98,7 +96,7 @@ const handleSubmit = () => {
   }
 
   setErrorMessage('');
-  setIsLoading(true); // Show the loading indicator
+  setIsLoading(true); // Show the loader immediately when the process starts
 
   fetch('https://getweed.stgserver.site/api/v1/shop/start-phone-verification', {
     method: 'POST',
@@ -117,29 +115,32 @@ const handleSubmit = () => {
       const otp = responseData.data.otp;
 
       if (otp) {
-        // Show OTP in alert
         Alert.alert('OTP', `Your OTP is: ${otp}`, [
           {
             text: 'OK',
-            onPress: () =>
-              navigation.navigate('OtpSplash', {
-                user_id: userId,
-                phone_number: phoneNumber,
-              }),
+            onPress: () => {
+              // After pressing OK, wait for 3 seconds before navigating
+              setTimeout(() => {
+                // Ensure the loader continues spinning for 3 seconds before stopping
+                navigation.navigate('OtpSplash', {
+                  user_id: userId,
+                  phone_number: phoneNumber,
+                });
+                setIsLoading(false); // Stop the loader only after navigation
+              }, 3000); // 3 seconds delay before navigating
+            },
           },
         ]);
       } else {
         console.error('OTP not found in response');
+        setIsLoading(false); // Hide the loader if OTP is not found
       }
     })
     .catch(error => {
       console.error('Error:', error);
-    })
-    .finally(() => {
-      setIsLoading(false); // Hide the loading indicator
+      setIsLoading(false); // Hide the loader if there was an error
     });
 };
-
 
 
   return (
@@ -178,7 +179,7 @@ const handleSubmit = () => {
                 // Ensure only numbers are allowed in the phone number
                 const filteredText = text.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
                 setPhoneNumber(filteredText);
-                 setErrorMessage('Enter a number'); // Reset error message on user input change
+                //  setErrorMessage('Enter a number'); // Reset error message on user input change
               }}
             />
 
@@ -206,12 +207,11 @@ const handleSubmit = () => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <GreenButton
+            <LoadingButton
               title={t('next')}
               onPress={handleSubmit}
-              isLoading={isLoading}
+              isLoading={isLoading} // Pass isLoading to show spinner when submitting
             />
-
             <View style={styles.separatorContainer}>
               <View style={styles.separator} />
               <Text style={styles.orText}>{t('or')}</Text>
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   buttonContainer: {
-    paddingTop: 5,
+    paddingTop: 0,
     width: width * 0.85,
     paddingBottom: 30,
   },
@@ -412,6 +412,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
+    marginTop:20,
+    marginBottom:-10
   },
   separator: {
     flex: 1,

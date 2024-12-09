@@ -114,8 +114,8 @@ const PersonalInfo = () => {
   };
 const handleSubmit = () => {
   if (!frontFile || !backFile) {
-    setDocumentError(t('Please upload both documents.'));
-    return; // Prevent further processing if files are missing
+    setDocumentError(t('Please upload all fields.'));
+        return; // Prevent further processing if files are missing
   }
   setDocumentError('');
   setIsLoading(true); // Show loader
@@ -294,11 +294,20 @@ const handleFileSelection = async type => {
                 style={styles.uploadButton}
                 onPress={() => handleFileSelection('front')}>
                 <View style={styles.uploadButtonContent}>
-                  <Image source={Cloud} style={styles.CloudIcon} />
-                  <Text style={styles.uploadButtonText}>{t('front')}</Text>
-                  <Text style={styles.uploadButtonSubtext}>
-                    {t('upload_and_scan')}
-                  </Text>
+                  {frontFile && frontFile.type.startsWith('image') ? (
+                    <Image
+                      source={{uri: frontFile.uri}}
+                      style={styles.imagePreview} // You can add your custom styles for the image
+                    />
+                  ) : (
+                    <>
+                      <Image source={Cloud} style={styles.CloudIcon} />
+                      <Text style={styles.uploadButtonText}>{t('front')}</Text>
+                      <Text style={styles.uploadButtonSubtext}>
+                        {t('upload_and_scan')}
+                      </Text>
+                    </>
+                  )}
                   {frontFile ? (
                     <Text style={styles.selectedFileName}>
                       {frontFile.name}
@@ -310,11 +319,20 @@ const handleFileSelection = async type => {
                 style={styles.uploadButton}
                 onPress={() => handleFileSelection('back')}>
                 <View style={styles.uploadButtonContent}>
-                  <Image source={Cloud} style={styles.CloudIcon} />
-                  <Text style={styles.uploadButtonText}>{t('back')}</Text>
-                  <Text style={styles.uploadButtonSubtext}>
-                    {t('upload_and_scan')}
-                  </Text>
+                  {backFile && backFile.type.startsWith('image') ? (
+                    <Image
+                      source={{uri: backFile.uri}}
+                      style={styles.imagePreview} // Same styling for the image preview
+                    />
+                  ) : (
+                    <>
+                      <Image source={Cloud} style={styles.CloudIcon} />
+                      <Text style={styles.uploadButtonText}>{t('back')}</Text>
+                      <Text style={styles.uploadButtonSubtext}>
+                        {t('upload_and_scan')}
+                      </Text>
+                    </>
+                  )}
                   {backFile ? (
                     <Text style={styles.selectedFileName}>{backFile.name}</Text>
                   ) : null}
@@ -490,7 +508,6 @@ const styles = StyleSheet.create({
     textAlign: 'center', // Centers the file name text
   },
 
-
   containerrr: {
     position: 'relative',
     marginVertical: 10,
@@ -522,5 +539,10 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 12,
     marginTop: 5,
+  },
+  imagePreview: {
+    width: 150, // Set a suitable width
+    height: 100, // Set a suitable height
+    resizeMode: 'cover', // Maintain the aspect ratio
   },
 });

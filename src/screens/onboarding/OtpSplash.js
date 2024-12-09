@@ -28,12 +28,12 @@ const OtpSplash = () => {
   return (
     <View style={styles.container}>
       {/* Clickable SVG to navigate to OTPEnter screen */}
-      <TouchableOpacity
+      <View
         onPress={() =>
           navigation.navigate('OTPEnter', {user_id, phone_number})
         }>
         <OtpSplashSVG />
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };
