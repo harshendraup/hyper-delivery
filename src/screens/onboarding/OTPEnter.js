@@ -95,6 +95,8 @@ const OTPEnter = () => {
       });
   };
 
+  const digitsLeft = 6 - otp.filter(digit => digit !== '').length;
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -139,11 +141,12 @@ const OTPEnter = () => {
             />
           </View>
 
+
           <View style={styles.containerText}>
             <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
           </View>
           <View style={styles.containerText}>
-            <Text style={styles.bottomText}>{t('otp_left')}</Text>
+            <Text style={styles.bottomText}>{digitsLeft} {t('otp_left')}</Text>
           </View>
           <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
         </ScrollView>
@@ -180,6 +183,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     width: width * 0.85,
     paddingBottom: 30,
+    marginTop:15,
   },
   greenButton: {
     width: '100%',
@@ -238,7 +242,6 @@ const styles = StyleSheet.create({
     color: 'rgb(143, 145, 149, 1)',
     textAlign: 'center',
     paddingBottom: 20,
-    marginTop: 20,
     fontFamily: 'Roboto',
   },
   errorMessage: {

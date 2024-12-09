@@ -144,7 +144,7 @@
   "enter_otp": "Enter OTP",
   "otp_sent_message": "A 6-digit code has been sent to",
   "send_otp_whatsapp": "Send me code on WhatsApp!",
-  "otp_left": "4 OTP left!",
+  "otp_left": "OTP left!",
   "auto_verifying_otp": "Auto-verifying your OTP in (00:13)",
   "personal_info_title": "Fill your Personal information below or register with your social account",
   "dob": "Date of Birth",
