@@ -27,8 +27,9 @@ import GetstartwithFace from '../../asset/SVG/ScanFace';
 import Flag from '../../asset/SVG/Flag.png';
 import Dropdown from '../../asset/SVG/Dropdown.png';
 import {useNavigation} from '@react-navigation/native';
+import Language from '../../utils/Language';
+import i18next from '../../services/i18next';
 import {useTranslation} from 'react-i18next';
-import LoadingButton from '../../component/LoadingButton';
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,6 +37,7 @@ const CustomButton = ({icon: Icon, title, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.buttonContent}>
+        {/* Render the passed SVG icon as a component */}
         {Icon && <Icon />}
         <View style={styles.textContainer}>
           <Text style={styles.buttonText}>{title}</Text>
@@ -52,7 +54,7 @@ const GreenButton = ({title, onPress, isLoading}) => {
       onPress={onPress}
       disabled={isLoading}>
       {isLoading ? (
-        <ActivityIndicator size="small" color="#fff" /> 
+        <ActivityIndicator size="small" color="#fff" /> // Show loader when loading
       ) : (
         <Text style={styles.greenButtonText}>{title}</Text>
       )}
@@ -60,19 +62,21 @@ const GreenButton = ({title, onPress, isLoading}) => {
   );
 };
 
-
 const ConnectWithPhone = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); 
-const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); // Error message state
+  const [isLoading, setIsLoading] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [showOtpModal, setShowOtpModal] = useState(false); // New state for modal visibility
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        
+        // Handle the keyboard showing, if needed
       },
     );
 
@@ -89,11 +93,23 @@ const [isLoading, setIsLoading] = useState(false);
     };
   }, []);
 
-const handleSubmit = () => {
-  if (!phoneNumber || phoneNumber.length < 10) {
-    setErrorMessage(t('invalid_phone_number'));
-    return;
-  }
+  const handlePhoneNumberChange = text => {
+    const filteredText = text.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    setPhoneNumber(filteredText);
+
+    // Validate phone number length and show appropriate error message
+    if (filteredText.length < 10) {
+      setErrorMessage(t('Enter valid Number'));
+    } else {
+      setErrorMessage(''); // Remove error message if length is valid
+    }
+  };
+
+  const handleSubmit = () => {
+    if (phoneNumber.length !== 10) {
+      setErrorMessage(t('Enter valid Phone Number'));
+      return;
+    }
 
   setErrorMessage('');
   setIsLoading(true); // Show the loader immediately when the process starts
@@ -207,10 +223,10 @@ const handleSubmit = () => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <LoadingButton
+            <GreenButton
               title={t('next')}
               onPress={handleSubmit}
-              isLoading={isLoading} // Pass isLoading to show spinner when submitting
+              isLoading={isLoading}
             />
             <View style={styles.separatorContainer}>
               <View style={styles.separator} />
@@ -263,9 +279,7 @@ export default ConnectWithPhone;
 const styles = StyleSheet.create({
   errorText: {
     color: 'red',
-    fontSize: 12,
-    marginTop: 5,
-    paddingLeft: 12,
+    fontSize: 10,
   },
   container: {
     flex: 1,
@@ -340,7 +354,7 @@ const styles = StyleSheet.create({
     borderColor: '#409C59',
     borderRadius: 10,
     paddingHorizontal: 10,
-    marginVertical: 20,
+    marginVertical: 10,
   },
   triangleIcon: {
     width: 40,
@@ -412,8 +426,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    marginTop:20,
-    marginBottom:-10
+    marginTop: 20,
+    marginBottom: -10,
   },
   separator: {
     flex: 1,
@@ -431,5 +445,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#409C59', // Divider color, adjust as needed
     marginLeft: 5,
     marginRight: 5, // Space between the icon and divider
+  },
+
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    width: '80%',
+  },
+  otpText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 10,
+  },
+  otpMessage: {
+    fontSize: 14,
+    color: '#555',
+    textAlign: 'center',
   },
 });
