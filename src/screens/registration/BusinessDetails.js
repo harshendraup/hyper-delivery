@@ -184,7 +184,7 @@ const validateAccountNumber = accountNumber => {
       setIfscCodeError(t('IFSC code must be exactly 11 characters long'));
     } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(sanitizedText)) {
       // Check if the code is in the correct format once the length is valid
-      setIfscCodeError(t('IFSC code must be in the format: XXXX0YYYYYY, where X is a letter or Y is a number'));
+      setIfscCodeError(t('IFSC code must be in the correct format'));
     } else {
       setIfscCodeError('');  // Clear error if all checks pass
     }
@@ -211,7 +211,7 @@ const validateBusinessName = name => {
   };
 
   const handleAccountNumChange = (text) => {
-    const upperCaseText = text.toUpperCase(); // Automatically convert to uppercase
+    const upperCaseText = text; // Automatically convert to uppercase
     setHolderName(upperCaseText);
 
     if (!upperCaseText) {
@@ -222,7 +222,7 @@ const validateBusinessName = name => {
   };
 
   const handleBankNameChange = (text) => {
-    const upperCaseText = text.toUpperCase(); // Automatically convert to uppercase
+    const upperCaseText = text; // Automatically convert to uppercase
     setBankName(upperCaseText);
 
     if (!upperCaseText) {
@@ -275,7 +275,7 @@ const validateBusinessName = name => {
 
   const handleNext = () => {
     if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
-      setDocumentError(t('Please upload all documents.'));
+      setDocumentError(t('Please fill all fields'));
       return;
     }
 
@@ -927,7 +927,8 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 12,
-    marginTop: 5,
+    marginTop: -3,
+    marginBottom:5
   },
   iconContainer: {
     padding: 10, // Add padding to increase touchable area
