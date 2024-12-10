@@ -145,9 +145,15 @@ const OTPEnter = () => {
           <View style={styles.containerText}>
             <Text style={styles.bottomText}>{t('send_otp_whatsapp')}</Text>
           </View>
-          <View style={styles.containerText}>
-            <Text style={styles.bottomText}>{digitsLeft} {t('otp_left')}</Text>
-          </View>
+          {digitsLeft > 0 ? (
+            <View style={styles.containerText}>
+              <Text style={styles.bottomText}>{digitsLeft} {t('otp_left')}</Text>
+            </View>
+          ) : (
+            <View style={styles.containerText}>
+              <Text style={styles.bottomText}>{t('OTP Entered Successfully')}</Text>
+            </View>
+          )}
           <Text style={styles.subsubText}>{t('auto_verifying_otp')}</Text>
         </ScrollView>
       </SafeAreaView>

@@ -71,6 +71,7 @@ const ConnectWithPhone = () => {
   const [otp, setOtp] = useState('');
   const [showOtpModal, setShowOtpModal] = useState(false); // New state for modal visibility
   const [userId, setUserId] = useState(null);
+  const [timer, setTimer] = useState(5);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -93,6 +94,26 @@ const ConnectWithPhone = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let countdown;
+    if (showOtpModal && timer > 0) {
+      countdown = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    }
+
+    // Navigate to OTP screen when the timer runs out
+    if (timer === 0) {
+      navigation.navigate('OtpSplash', {
+        user_id: userId,
+        phone_number: phoneNumber,
+      });
+    }
+
+    // Clean up the interval when the modal is closed or the timer reaches 0
+    return () => clearInterval(countdown);
+  }, [showOtpModal, timer]);
+
   const handlePhoneNumberChange = text => {
     const filteredText = text.replace(/[^0-9]/g, ''); // Remove non-numeric characters
     setPhoneNumber(filteredText);
@@ -105,11 +126,11 @@ const ConnectWithPhone = () => {
     }
   };
 
-  const handleSubmit = () => {
-    if (phoneNumber.length !== 10) {
-      setErrorMessage(t('Enter valid Phone Number'));
-      return;
-    }
+ const handleSubmit = () => {
+  if (phoneNumber.length !== 10) {
+    setErrorMessage(t('Enter valid Phone Number'));
+    return;
+  }
 
   setErrorMessage('');
   setIsLoading(true); // Show the loader immediately when the process starts
@@ -131,32 +152,31 @@ const ConnectWithPhone = () => {
       const otp = responseData.data.otp;
 
       if (otp) {
-        Alert.alert('OTP', `Your OTP is: ${otp}`, [
-          {
-            text: 'OK',
-            onPress: () => {
-              // After pressing OK, wait for 3 seconds before navigating
-              setTimeout(() => {
-                // Ensure the loader continues spinning for 3 seconds before stopping
-                navigation.navigate('OtpSplash', {
-                  user_id: userId,
-                  phone_number: phoneNumber,
-                });
-                setIsLoading(false); // Stop the loader only after navigation
-              }, 3000); // 3 seconds delay before navigating
-            },
-          },
-        ]);
+        setOtp(otp); // Set OTP to display in the modal
+        setUserId(userId);
+        setShowOtpModal(true); // Show OTP modal
+        setIsLoading(false); // Stop loader
+        setTimer(5);
       } else {
-        console.error('OTP not found in response');
-        setIsLoading(false); // Hide the loader if OTP is not found
+        console.error('OTP not found');
+        setIsLoading(false);
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      setIsLoading(false); // Hide the loader if there was an error
+      setIsLoading(false);
     });
 };
+
+const handleOtpModalClose = () => {
+  setShowOtpModal(false); // Close OTP Modal
+  clearInterval(); // Stop the timer if user presses "Proceed"
+  navigation.navigate('OtpSplash', {
+    user_id: userId,
+    phone_number: phoneNumber,
+  });
+};
+
 
 
   return (
@@ -194,7 +214,7 @@ const ConnectWithPhone = () => {
               onChangeText={text => {
                 // Ensure only numbers are allowed in the phone number
                 const filteredText = text.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
-                setPhoneNumber(filteredText);
+                handlePhoneNumberChange(filteredText);
                 //  setErrorMessage('Enter a number'); // Reset error message on user input change
               }}
             />
@@ -268,6 +288,20 @@ const ConnectWithPhone = () => {
             {t('terms_and_conditions')} {'\n'}
             {t('terms_and_conditions1')}
           </Text>
+
+          <Modal
+            visible={showOtpModal}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={handleOtpModalClose}
+          >
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.otpText}>{t('OTP Received')}</Text>
+                <Text style={styles.otpMessage}>{t('OTP is')}: {otp}</Text>
+              </View>
+            </View>
+          </Modal>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
