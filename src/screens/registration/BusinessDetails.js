@@ -672,7 +672,7 @@ const handleFileSelection = async type => {
                       {outside && outside.uri && (
                         <Image
                           source={{uri: outside.uri}}
-                          style={styles.previewImage1}
+                          style={styles.previewImage}
                         />
                       )}
                     </TouchableOpacity>
@@ -691,7 +691,7 @@ const handleFileSelection = async type => {
                       {inside && inside.uri && (
                         <Image
                           source={{uri: inside.uri}}
-                          style={styles.previewImage1}
+                          style={styles.previewImage}
                         />
                       )}
                     </TouchableOpacity>
@@ -711,7 +711,7 @@ const handleFileSelection = async type => {
                       {menu && menu.uri && (
                         <Image
                           source={{uri: menu.uri}}
-                          style={styles.previewImage1}
+                          style={styles.previewImage}
                         />
                       )}
                     </TouchableOpacity>
@@ -734,16 +734,10 @@ export default BusinessDetails;
 
 const styles = StyleSheet.create({
   previewImage: {
-    width: width * 0.84, // 40% of screen width
-    height: width * 0.33, // 20% of screen width
-    resizeMode: 'cover',
-    borderRadius:10,
-  },
-  previewImage1: {
-    width: width * 0.27, // 40% of screen width
-    height: width * 0.33, // 20% of screen width
-    resizeMode: 'cover',
-    borderRadius:10,
+    width: width * 0.4, // 40% of screen width
+    height: width * 0.15, // 20% of screen width
+    resizeMode: 'contain',
+    marginTop: 10,
   },
 
   container: {

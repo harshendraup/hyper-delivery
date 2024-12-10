@@ -571,9 +571,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   imagePreview: {
-    width: 164, // Set a suitable width
-    height: 148, // Set a suitable height
+    width: 150, // Set a suitable width
+    height: 100, // Set a suitable height
     resizeMode: 'cover', // Maintain the aspect ratio
-    borderRadius:10,
   },
 });
