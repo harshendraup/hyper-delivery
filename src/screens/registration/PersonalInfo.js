@@ -66,6 +66,9 @@ const PersonalInfo = () => {
   const [lastNameError, setLastNameError] = useState('');
   const [documentError, setDocumentError] = useState('');
    const [isLoading, setIsLoading] = useState(false); 
+   const [isFormValid, setIsFormValid] = useState(false);
+const [userIdError, setUserIdError] = useState('');
+
 
   useEffect(() => {
     console.log('Received person user_id:', user_id); // Log or use the user_id as needed
@@ -77,7 +80,6 @@ const PersonalInfo = () => {
  };
 
 const handleFirstNameChange = text => {
-  // Capitalize first letter and keep the rest as it is
   const capitalizedText = text.charAt(0).toUpperCase() + text.slice(1);
   setFirstName(capitalizedText);
 
@@ -86,12 +88,12 @@ const handleFirstNameChange = text => {
   } else if (!validateName(capitalizedText)) {
     setFirstNameError(t('First name must contain only letters'));
   } else {
-    setFirstNameError(''); // Clear the error when name is valid
+    setFirstNameError('');
   }
+  validateForm(); // Call the validateForm function after each change
 };
 
 const handleLastNameChange = text => {
-  // Capitalize first letter and keep the rest as it is
   const capitalizedText = text.charAt(0).toUpperCase() + text.slice(1);
   setLastName(capitalizedText);
 
@@ -100,8 +102,9 @@ const handleLastNameChange = text => {
   } else if (!validateName(capitalizedText)) {
     setLastNameError(t('Last name must contain only letters'));
   } else {
-    setLastNameError(''); // Clear the error when name is valid
+    setLastNameError('');
   }
+  validateForm(); // Call the validateForm function after each change
 };
 
 
@@ -111,16 +114,16 @@ const handleLastNameChange = text => {
    return regex.test(email);
  };
 
- const handleEmailChange = text => {
-   setEmail(text);
+const handleEmailChange = text => {
+  setEmail(text);
 
-   if (text && !validateEmail(text)) {
-     setEmailError(t('Please enter valid email'));
-   } else {
-     setEmailError(''); // Clear the error if valid email
-   }
- };
-
+  if (text && !validateEmail(text)) {
+    setEmailError(t('Please enter valid email'));
+  } else {
+    setEmailError('');
+  }
+  validateForm(); // Call the validateForm function after each change
+};
 
 const handleSubmit = () => {
   // Check if any of the required fields are missing
@@ -137,13 +140,12 @@ const handleSubmit = () => {
     // Construct an error message based on the missing fields
     let errorMessage = 'Fill all fields';
 
-    
-
     setDocumentError(errorMessage.trim()); // Show all errors at once
     return; // Prevent further processing if fields are missing
   }
 
   setDocumentError(''); // Clear any previous error messages
+  setUserIdError(''); // Clear the userId error message
   setIsLoading(true); // Show loader
 
   const formdata = new FormData();
@@ -175,13 +177,15 @@ const handleSubmit = () => {
     .then(response => response.json())
     .then(responseData => {
       setIsLoading(false); // Hide loader
-      Alert.alert('Response Data:', JSON.stringify(responseData));
       console.log('Response Data:', JSON.stringify(responseData));
       const userId = responseData.data ? responseData.data.id : null;
       if (userId) {
         navigation.navigate('BusinessDetails', {user_id: userId});
       } else {
-        console.error('Email is already used, please enter another email');
+        // If the userId is missing or the email is already used, set the userIdError state
+        setUserIdError(
+          'Enter correct information',
+        );
       }
     })
     .catch(error => {
@@ -189,6 +193,27 @@ const handleSubmit = () => {
       setIsLoading(false); // Hide loader on error
       console.error('Error:', error);
     });
+};
+
+
+const validateForm = () => {
+  if (
+    firstName &&
+    !firstNameError &&
+    lastName &&
+    !lastNameError &&
+    email &&
+    !emailError &&
+    frontFile &&
+    backFile &&
+    dob &&
+    address &&
+    user_id
+  ) {
+    setIsFormValid(true); // Enable the submit button if everything is valid
+  } else {
+    setIsFormValid(false); // Disable the submit button if any field is invalid or missing
+  }
 };
 
 
@@ -374,11 +399,18 @@ const handleFileSelection = async type => {
               <Text style={styles.errorText}>{documentError}</Text>
             ) : null}
           </View>
-         
+
           <View style={styles.buttonContainer}>
+            {userIdError ? (
+              <Text style={{color: 'red', marginBottom: 10}}>
+                {userIdError}
+              </Text>
+            ) : null}
+
             <LoadingButton
               title={t('next')}
               onPress={handleSubmit}
+              disabled={!isFormValid}
               isLoading={isLoading} // Pass isLoading to show spinner when submitting
             />
           </View>

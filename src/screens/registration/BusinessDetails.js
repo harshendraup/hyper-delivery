@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,21 +12,20 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
 import Backbutton from '../../asset/SVG/Backbutton.png';
 import Accordion from '../../component/Accordion';
 import Clock from '../../asset/SVG/Clock.png';
 import Language from '../../utils/Language';
 import i18next from '../../services/i18next';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import DocumentPicker from 'react-native-document-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 
-
-const { width } = Dimensions.get('window');
-const { height } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 
 const FloatingLabelInput = ({
   label,
@@ -66,11 +65,9 @@ const FloatingLabelInput = ({
   );
 };
 
-
-
 const BusinessDetails = () => {
   const navigation = useNavigation();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -96,15 +93,17 @@ const BusinessDetails = () => {
   const [ifscCodeError, setIfscCodeError] = useState('');
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
   const [documentError, setDocumentError] = useState('');
-    const [logodocumentError, setlogoDocumentError] = useState('');
+  const [logodocumentError, setlogoDocumentError] = useState('');
   const route = useRoute();
-  const { user_id } = route.params;
+  const [bankDocumentError, setBankDocumentError] = useState('');
+  
+  const {user_id} = route.params;
 
   const handleTimeIconPress = () => {
     setIsTimePickerVisible(true); // Open the time picker when the clock icon is pressed
   };
 
-  const handleTimePickerConfirm = (time) => {
+  const handleTimePickerConfirm = time => {
     setDob(moment(time).format('HH:mm')); // Format the selected time and update `dob`
     setIsTimePickerVisible(false); // Close the time picker
   };
@@ -114,169 +113,182 @@ const BusinessDetails = () => {
   };
 
   useEffect(() => {
-    console.log('Received business details:', user_id);  // Log or use the user_id as needed
+    console.log('Received business details:', user_id); // Log or use the user_id as needed
   }, [user_id]);
 
-
- 
   const handlePhoneChange = text => {
     // Filter out non-numeric characters
     const numericText = text.replace(/[^0-9]/g, '');
 
-    setLastName(numericText); // Update state with the numeric-only input
+    setLastName(numericText); // Update state with numeric-only phone number
 
-    // Validation logic
+    // Validation logic for phone number
     if (!numericText) {
-      setPhoneError(t('Please enter phone number'));
+      setPhoneError(t('Please enter phone number')); // Error if empty
     } else if (numericText.length !== 10) {
-      setPhoneError(t('Phone number must be 10 digits long'));
+      setPhoneError(t('Phone number must be 10 digits long')); // Error if not exactly 10 digits
     } else {
-      setPhoneError(''); // Clear error if the phone number is valid
+      setPhoneError(''); // Clear error if valid
     }
   };
 
+  const handleBusinessNameChange = text => {
+    setFirstName(text);
+    if (!text) {
+      setFirstNameError(t('Please enter Business name'));
+    } else if (!validateBusinessName(text)) {
+      setFirstNameError(t('Business name must contain only letters'));
+    } else {
+      setFirstNameError(''); // Clear error if business name is valid
+    }
+  };
 
-
+  const validateBusinessName = name => {
+    const regex = /^[A-Za-z0-9 ]+$/; // Allows letters, numbers, and spaces
+    return regex.test(name);
+  };
   const handleAccountNumberChange = text => {
-    // Automatically convert to digits only
-    const numericText = text.replace(/[^0-9]/g, '');
+    // Automatically convert to uppercase and alphanumeric (letters and digits only)
+    const alphanumericText = text.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); // Convert to uppercase and allow only letters and digits
 
-    setAccountNumber(numericText);
+    setAccountNumber(alphanumericText);
 
-    // Length validation for Account Number (10 to 15 digits)
-    if (!numericText) {
+    // Length validation for Account Number (10 to 15 characters)
+    if (!alphanumericText) {
       setAccountNumberError(t('Please enter account number'));
-    } else if (numericText.length < 10 || numericText.length > 15) {
+    } else if (alphanumericText.length < 10 || alphanumericText.length > 15) {
       setAccountNumberError(
-        t('Account number must be between 10 and 15 digits'),
+        t('Account number must be between 10 and 15 characters'),
       );
     } else {
       setAccountNumberError(''); // Clear error if account number is valid
     }
   };
 
+  const handleIFSCCodeChange = text => {
+    // Automatically convert text to uppercase and remove special characters
+    const upperCaseText = text.toUpperCase();
+    const sanitizedText = upperCaseText.replace(/[^A-Z0-9]/g, '');
+    setSortCode(sanitizedText);
 
- const handleIFSCCodeChange = text => {
-   // Automatically convert text to uppercase and remove special characters
-   const upperCaseText = text.toUpperCase();
-   const sanitizedText = upperCaseText.replace(/[^A-Z0-9]/g, '');
-   setSortCode(sanitizedText);
+    // IFSC code validation: must be exactly 11 characters long
+    if (!sanitizedText) {
+      setIfscCodeError(t('Please enter IFSC code'));
+    } else if (sanitizedText.length !== 11) {
+      setIfscCodeError(t('IFSC code must be exactly 11 characters long'));
+    } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(sanitizedText)) {
+      setIfscCodeError(t('IFSC code must be in the correct format'));
+    } else {
+      setIfscCodeError(''); // Clear error if all checks pass
+    }
+  };
+  const handleAccountNameChange = text => {
+    const filteredText = text.replace(/[^a-zA-Z\s]/g, '');
 
-   // IFSC code validation: must be exactly 11 characters long
-   if (!sanitizedText) {
-     setIfscCodeError(t('Please enter IFSC code'));
-   } else if (sanitizedText.length !== 11) {
-     setIfscCodeError(t('IFSC code must be exactly 11 characters long'));
-   } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(sanitizedText)) {
-     setIfscCodeError(t('IFSC code must be in the correct format'));
-   } else {
-     setIfscCodeError(''); // Clear error if all checks pass
+    const capitalizedText = filteredText
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+
+    setHolderName(capitalizedText);
+
+    // Error handling for empty input
+    if (!capitalizedText) {
+      setaccountHolderError(t('Please enter account holder name'));
+    } else {
+      setaccountHolderError('');
+    }
+  };
+
+  const handleBankNameChange = text => {
+    const upperCaseText = text.toUpperCase(); // Convert to uppercase
+    setBankName(upperCaseText);
+
+    if (!upperCaseText.trim()) {
+      // Check if the text is empty or just spaces
+      setBanknameError(t('Please enter Bank name')); // Set error if no text
+    } else {
+      setBanknameError(''); // Clear error if valid input
+    }
+  };
+
+ const handleSubmit = () => {
+   // Check for any errors in the input fields
+   if (
+     accountNumberError ||
+     ifscCodeError ||
+     accountHolderError ||
+     BanknameError ||
+     !accountNumber ||
+     !sortCode ||
+     !HolderName ||
+     !bankName
+   ) {
+     // If there are errors, set the error message and prevent submission
+     setBankDocumentError(t('Please fix the errors before submitting.'));
+     return;
    }
- };
 
-
-const validateBusinessName = name => {
-  const regex = /^[A-Za-z0-9 ]+$/; // Allows letters, numbers, and spaces
-  return regex.test(name);
-};
-
-
- const handleBusinessNameChange = text => {
-   setFirstName(text);
-   if (!text) {
-     setFirstNameError(t('Please enter Business name'));
-   } else if (!validateBusinessName(text)) {
-     setFirstNameError(t('Business name must contain only letters'));
-   } else {
-     setFirstNameError(''); // Clear error if business name is valid
-   }
- };
-
-
-
- 
-const handleAccountNameChange = text => {
-  // Capitalize the first letter of each word
-  const capitalizedText = text
-    .split(' ') // Split by space to handle each word
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
-    .join(' '); // Join the words back into a single string
-
-  setHolderName(capitalizedText);
-
-  if (!capitalizedText) {
-    setaccountHolderError(t('Please enter account holder name'));
-  } else {
-    setaccountHolderError('');
-  }
-};
-
-
-
-
-
-
-
-const handleBankNameChange = text => {
-  const upperCaseText = text.toUpperCase(); // Convert to uppercase
-  setBankName(upperCaseText);
-
-  if (!upperCaseText.trim()) {
-    // Check if the text is empty or just spaces
-    setBanknameError(t('Please enter Bank name')); // Set error if no text
-  } else {
-    setBanknameError(''); // Clear error if valid input
-  }
-};
-
-
-  const handleSubmit = () => {
+   // Check if the file is selected and is valid
     if (
       !selectedFileName &&
       !selectedFileName.uri &&
       !selectedFileName.name &&
       !selectedFileName.type
     ) {
-      
       return;
     }
-    const formdata = new FormData();
-    formdata.append('account_approval_form', {
-      uri: selectedFileName.uri,
-      name: selectedFileName.name,
-      type: selectedFileName.type,
-    });
-    fetch('https://getweed.stgserver.site/api/v1/shop/update-bank-detail', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: JSON.stringify({
-        user_id: user_id,
-        account_number: accountNumber,
-        bank_name: bankName,
-        account_holder_name: HolderName,
-        ifsc_code: sortCode,
-        account_approval_form: formdata,
-      }),
-    })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log('Response Data: ', JSON.stringify(responseData));
-        navigation.navigate('ApprovalWaitng')
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
+
+   // Clear any previous error messages if everything is valid
+   setBankDocumentError('');
+
+   // Proceed with form submission if all fields are valid
+   const formdata = new FormData();
+   formdata.append('account_approval_form', {
+     uri: selectedFileName.uri,
+     name: selectedFileName.name,
+     type: selectedFileName.type,
+   });
+
+   fetch('https://getweed.stgserver.site/api/v1/shop/update-bank-detail', {
+     method: 'POST',
+     headers: {
+       Accept: 'application/json',
+       'Content-Type': 'multipart/form-data',
+     },
+     body: JSON.stringify({
+       user_id: user_id,
+       account_number: accountNumber,
+       bank_name: bankName,
+       account_holder_name: HolderName,
+       ifsc_code: sortCode,
+       account_approval_form: formdata,
+     }),
+   })
+     .then(response => response.json())
+     .then(responseData => {
+       console.log('Response Data: ', JSON.stringify(responseData));
+       navigation.navigate('ApprovalWaitng');
+     })
+     .catch(error => {
+       console.error('Error:', error);
+     });
+ };
+
 
   const handleNext = () => {
-    if (!firstName && !lastName && !email && !dob && !selectDayOpen) {
+    // Check if there is a phone number error
+    if (phoneError) {
+      return; // Don't proceed if there's a phone number validation error
+    }
+
+    // Check if required fields are filled
+    if (!firstName || !lastName || !email) {
       setDocumentError(t('Please fill all fields'));
       return;
     }
 
+    // Check if required documents are uploaded
     if (
       !uploadLogo &&
       !uploadLogo.uri &&
@@ -292,7 +304,7 @@ const handleBankNameChange = text => {
       return;
     }
 
-    if (!inside && !inside.uri  && !inside.type) {
+    if (!inside && !inside.uri && !inside.type) {
       setDocumentError(t('Please upload all documents.'));
       return;
     }
@@ -301,11 +313,13 @@ const handleBankNameChange = text => {
       setDocumentError(t('Please upload all documents.'));
       return;
     }
+
+    // Prepare form data for API submission
     const formdata = new FormData();
     formdata.append('business_name', firstName);
-    formdata.append('phone', lastName);
+    formdata.append('phone', lastName); // phone number stored in lastName
     formdata.append('about', email);
-    formdata.append("shop_timing", dob);
+    formdata.append('shop_timing', dob);
     formdata.append('open_days', selectDayOpen);
     formdata.append('user_id', user_id);
     formdata.append('store_logo', {
@@ -328,6 +342,8 @@ const handleBankNameChange = text => {
       name: menu.name,
       type: menu.type,
     });
+
+    // Make POST request to update shop details
     fetch('https://getweed.stgserver.site/api/v1/shop/update-shop-detail', {
       method: 'POST',
       headers: {
@@ -339,87 +355,85 @@ const handleBankNameChange = text => {
       .then(response => response.json())
       .then(responseData => {
         console.log('Response Data: ', JSON.stringify(responseData));
-        setIsBankDetails(true);
+        setIsBankDetails(true); // Move to the next step if successful
       })
       .catch(error => {
         console.error('Error:', error);
       });
-    setIsBankDetails(true);
+
+    setIsBankDetails(true); // Continue to the next step regardless of the outcome
   };
 
+  const handleFileSelection = async type => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Allow only images and PDFs
+      });
 
-const handleFileSelection = async type => {
-  try {
-    const res = await DocumentPicker.pick({
-      type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Allow only images and PDFs
-    });
+      const fileName = res[0].name;
+      const fileUri = res[0].uri;
+      const fileSize = res[0].size; // File size in bytes
 
-    const fileName = res[0].name;
-    const fileUri = res[0].uri;
-    const fileSize = res[0].size; // File size in bytes
-
-    // Validate file type to ensure it's either an image or a document
-    const fileExtension = fileName.split('.').pop().toLowerCase();
-    if (
-      fileExtension === 'jpg' ||
-      fileExtension === 'jpeg' ||
-      fileExtension === 'png' ||
-      fileExtension === 'gif' ||
-      fileExtension === 'pdf'
-    ) {
-      // Check if file size is less than 1 MB (1 MB = 1024 * 1024 bytes)
-      if (fileSize > 1024 * 1024) {
+      // Validate file type to ensure it's either an image or a document
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+      if (
+        fileExtension === 'jpg' ||
+        fileExtension === 'jpeg' ||
+        fileExtension === 'png' ||
+        fileExtension === 'gif' ||
+        fileExtension === 'pdf'
+      ) {
+        // Check if file size is less than 1 MB (1 MB = 1024 * 1024 bytes)
+        if (fileSize > 1024 * 1024) {
+          if (type === 'upload_logo') {
+            setlogoDocumentError(
+              'File size exceeds 1 MB. Please select a smaller logo file.',
+            );
+          } else {
+            setDocumentError(
+              'File size exceeds 1 MB. Please select a smaller file.',
+            );
+          }
+        } else {
+          // Update the respective state based on the selected type
+          if (type === 'upload_logo') {
+            setuploadLogo({name: fileName, uri: fileUri});
+            setlogoDocumentError(''); // Clear logo-specific error if file is valid
+          } else if (type === 'outside') {
+            setoutside({name: fileName, uri: fileUri});
+          } else if (type === 'inside') {
+            setinside({name: fileName, uri: fileUri});
+          } else if (type === 'menu') {
+            setmenu({name: fileName, uri: fileUri});
+          } else {
+            setSelectedFileName({name: fileName, uri: fileUri});
+          }
+        }
+      } else {
         if (type === 'upload_logo') {
           setlogoDocumentError(
-            'File size exceeds 1 MB. Please select a smaller logo file.',
+            'Invalid file type. Please select an image or PDF document for the logo.',
           );
         } else {
           setDocumentError(
-            'File size exceeds 1 MB. Please select a smaller file.',
+            'Invalid file type. Please select an image or PDF document.',
           );
         }
-      } else {
-        // Update the respective state based on the selected type
-        if (type === 'upload_logo') {
-          setuploadLogo({name: fileName, uri: fileUri});
-          setlogoDocumentError(''); // Clear logo-specific error if file is valid
-        } else if (type === 'outside') {
-          setoutside({name: fileName, uri: fileUri});
-        } else if (type === 'inside') {
-          setinside({name: fileName, uri: fileUri});
-        } else if (type === 'menu') {
-          setmenu({name: fileName, uri: fileUri});
-        } else {
-          setSelectedFileName({name: fileName, uri: fileUri});
-        }
       }
-    } else {
-      if (type === 'upload_logo') {
-        setlogoDocumentError(
-          'Invalid file type. Please select an image or PDF document for the logo.',
-        );
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User cancelled the file picker');
       } else {
+        console.error('File picker error: ', err);
+        // Optionally, display an error message to the user
         setDocumentError(
-          'Invalid file type. Please select an image or PDF document.',
+          'An error occurred while selecting the file. Please try again.',
         );
       }
     }
-  } catch (err) {
-    if (DocumentPicker.isCancel(err)) {
-      console.log('User cancelled the file picker');
-    } else {
-      console.error('File picker error: ', err);
-      // Optionally, display an error message to the user
-      setDocumentError(
-        'An error occurred while selecting the file. Please try again.',
-      );
-    }
-  }
-};
+  };
 
-
-
-  const GreenButton = ({ title, onPress }) => (
+  const GreenButton = ({title, onPress}) => (
     <TouchableOpacity style={styles.greenButton} onPress={onPress}>
       <Text style={styles.greenButtonText}>{title}</Text>
     </TouchableOpacity>
@@ -545,11 +559,11 @@ const handleFileSelection = async type => {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                  <GreenButton
-                    title={t('next')}
-                    onPress={handleSubmit}
-                    // onPress={() => navigation.navigate('ApprovalWaitng')}
-                  />
+                  {bankDocumentError ? (
+                    <Text style={styles.errorText}>{bankDocumentError}</Text>
+                  ) : null}
+
+                  <GreenButton title={t('next')} onPress={handleSubmit} />
                 </View>
               </>
             ) : (
@@ -650,10 +664,6 @@ const handleFileSelection = async type => {
                   <Text style={styles.errorText}>{logodocumentError}</Text>
                 ) : null}
 
-                {/* Display general error for other file uploads */}
-             
-
-                {/* Business Images Section */}
                 <View style={styles.uploadContainer}>
                   <Text style={styles.uploadText}>{t('business_images')}</Text>
                   <View style={styles.uploadRow}>
@@ -723,6 +733,7 @@ const handleFileSelection = async type => {
                   {documentError ? (
                     <Text style={styles.errorText}>{documentError}</Text>
                   ) : null}
+
                   <GreenButton title={t('next')} onPress={handleNext} />
                 </View>
               </>
@@ -944,10 +955,8 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 12,
     marginTop: -3,
-    marginBottom:5,
-  alignSelf:'center',
- 
-    
+    marginBottom: 5,
+    alignSelf: 'center',
   },
   iconContainer: {
     padding: 10, // Add padding to increase touchable area
