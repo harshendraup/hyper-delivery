@@ -11,6 +11,7 @@ import {
   TextInput,
   Image,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Cloud from '../../asset/SVG/Cloud.png';
@@ -149,6 +150,7 @@ const handleSubmit = () => {
     .then(response => response.json())
     .then(responseData => {
       setIsLoading(false); // Hide loader
+     Alert.alert('Response Data:', JSON.stringify(responseData));
       console.log('Response Data:', JSON.stringify(responseData));
       const userId = responseData.data ? responseData.data.id : null;
       if (userId) {
@@ -158,6 +160,7 @@ const handleSubmit = () => {
       }
     })
     .catch(error => {
+      Alert.alert('Error Response Data:', JSON.stringify(error));
       setIsLoading(false); // Hide loader on error
       console.error('Error:', error);
     });
