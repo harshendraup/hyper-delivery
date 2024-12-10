@@ -174,25 +174,20 @@ const handleFileSelection = async type => {
 
     const selectedFile = res[0]; // Get the selected file
 
-    // Get the file extension from the file name (you could also use MIME type here)
     const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
 
-    // Check if the file extension is valid
     if (
       fileExtension !== 'png' &&
       fileExtension !== 'jpg' &&
       fileExtension !== 'jpeg' &&
       fileExtension !== 'pdf'
     ) {
-      // If not valid, show an error message
       setDocumentError(t('Please upload only PNG, JPG, or PDF files.'));
       return;
     }
 
-    // Clear the document error if the file is valid
     setDocumentError('');
 
-    // Set the selected file for the appropriate type (front or back)
     if (type === 'front') {
       setFrontFile(selectedFile);
     } else {
@@ -311,11 +306,8 @@ const handleFileSelection = async type => {
                       </Text>
                     </>
                   )}
-                  {frontFile ? (
-                    <Text style={styles.selectedFileName}>
-                      {frontFile.name}
-                    </Text>
-                  ) : null}
+                  {/* Only hide the file name text */}
+                  {frontFile ? null : null}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -336,9 +328,8 @@ const handleFileSelection = async type => {
                       </Text>
                     </>
                   )}
-                  {backFile ? (
-                    <Text style={styles.selectedFileName}>{backFile.name}</Text>
-                  ) : null}
+                  {/* Only hide the file name text */}
+                  {backFile ? null : null}
                 </View>
               </TouchableOpacity>
             </View>
@@ -348,7 +339,6 @@ const handleFileSelection = async type => {
           </View>
 
           <View style={styles.buttonContainer}>
-          
             <LoadingButton
               title={t('next')}
               onPress={handleSubmit}

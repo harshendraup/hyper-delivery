@@ -494,7 +494,6 @@ const handleFileSelection = async type => {
                 ) : null}
 
                 <View style={styles.uploadContainer}>
-                  {/* Account Approval Form Upload */}
                   <Text style={styles.uploadText}>
                     {t('account_approval_form')}
                   </Text>
@@ -505,7 +504,6 @@ const handleFileSelection = async type => {
                         {alignItems: 'center', width: '100%'},
                       ]}
                       onPress={() => handleFileSelection('upload_form')}>
-                      {/* Conditionally render cloud icon and text if image is not uploaded */}
                       {!selectedFileName ? (
                         <>
                           <Image source={Cloud} style={styles.CloudIcon} />
@@ -514,24 +512,15 @@ const handleFileSelection = async type => {
                           </Text>
                         </>
                       ) : null}
-
-                      {/* Show image preview if uploaded */}
                       {selectedFileName && selectedFileName.uri && (
                         <Image
                           source={{uri: selectedFileName.uri}}
                           style={styles.previewImage}
                         />
                       )}
-
-                      {/* Show selected file name */}
-                      {selectedFileName && (
-                        <Text style={styles.selectedFileName}>
-                          {selectedFileName.name}
-                        </Text>
-                      )}
+                     
                     </TouchableOpacity>
                   </View>
-                  {/* Show error message if any */}
                   {documentError ? (
                     <Text style={styles.errorText}>{documentError}</Text>
                   ) : null}
@@ -634,12 +623,7 @@ const handleFileSelection = async type => {
                         />
                       )}
 
-                      {/* Show selected file name */}
-                      {uploadLogo && (
-                        <Text style={styles.selectedFileName}>
-                          {uploadLogo.name}
-                        </Text>
-                      )}
+                     
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -672,11 +656,6 @@ const handleFileSelection = async type => {
                         />
                       )}
 
-                      {outside && (
-                        <Text style={styles.selectedFileName}>
-                          {outside.name}
-                        </Text>
-                      )}
                     </TouchableOpacity>
 
                     {/* Inside Image Upload */}
@@ -699,11 +678,7 @@ const handleFileSelection = async type => {
                         />
                       )}
 
-                      {inside && (
-                        <Text style={styles.selectedFileName}>
-                          {inside.name}
-                        </Text>
-                      )}
+                     
                     </TouchableOpacity>
 
                     {/* Menu Image Upload */}
@@ -726,9 +701,7 @@ const handleFileSelection = async type => {
                         />
                       )}
 
-                      {menu && (
-                        <Text style={styles.selectedFileName}>{menu.name}</Text>
-                      )}
+                     
                     </TouchableOpacity>
                   </View>
                   {documentError ? (
