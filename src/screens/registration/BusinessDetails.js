@@ -634,7 +634,6 @@ const handleFileSelection = async type => {
                         </>
                       ) : null}
 
-                      {/* Show image preview if uploaded */}
                       {uploadLogo && uploadLogo.uri && (
                         <Image
                           source={{uri: uploadLogo.uri}}
@@ -673,12 +672,10 @@ const handleFileSelection = async type => {
                       {outside && outside.uri && (
                         <Image
                           source={{uri: outside.uri}}
-                          style={styles.previewImage}
+                          style={styles.previewImage1}
                         />
                       )}
                     </TouchableOpacity>
-
-                    {/* Inside Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('inside')}>
@@ -694,12 +691,11 @@ const handleFileSelection = async type => {
                       {inside && inside.uri && (
                         <Image
                           source={{uri: inside.uri}}
-                          style={styles.previewImage}
+                          style={styles.previewImage1}
                         />
                       )}
                     </TouchableOpacity>
 
-                    {/* Menu Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('menu')}>
@@ -715,7 +711,7 @@ const handleFileSelection = async type => {
                       {menu && menu.uri && (
                         <Image
                           source={{uri: menu.uri}}
-                          style={styles.previewImage}
+                          style={styles.previewImage1}
                         />
                       )}
                     </TouchableOpacity>
@@ -738,10 +734,16 @@ export default BusinessDetails;
 
 const styles = StyleSheet.create({
   previewImage: {
-    width: width * 0.4, // 40% of screen width
-    height: width * 0.15, // 20% of screen width
-    resizeMode: 'contain',
-    marginTop: 10,
+    width: width * 0.84, // 40% of screen width
+    height: width * 0.33, // 20% of screen width
+    resizeMode: 'cover',
+    borderRadius:10,
+  },
+  previewImage1: {
+    width: width * 0.27, // 40% of screen width
+    height: width * 0.33, // 20% of screen width
+    resizeMode: 'cover',
+    borderRadius:10,
   },
 
   container: {
