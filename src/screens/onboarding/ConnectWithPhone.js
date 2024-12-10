@@ -200,10 +200,10 @@ const ConnectWithPhone = () => {
             />
 
             {/* Error message under the input */}
+          </View>
             {errorMessage ? (
               <Text style={styles.errorText}>{errorMessage}</Text>
             ) : null}
-          </View>
 
           <View style={styles.containerText}>
             <Text
