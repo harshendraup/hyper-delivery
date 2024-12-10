@@ -190,7 +190,11 @@ const ConnectWithPhone = () => {
                 // Ensure only numbers are allowed in the phone number
                 const filteredText = text.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
                 setPhoneNumber(filteredText);
-                //  setErrorMessage('Enter a number'); // Reset error message on user input change
+                if (filteredText.length === 10) {
+                  setErrorMessage(''); // Clear error when the phone number is valid
+                } else {
+                  setErrorMessage(t('Enter valid Phone Number')); // Show error if invalid
+                }
               }}
             />
 

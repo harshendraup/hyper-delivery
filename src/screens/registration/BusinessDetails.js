@@ -648,7 +648,6 @@ const BusinessDetails = () => {
                         </>
                       ) : null}
 
-                      {/* Show image preview if uploaded */}
                       {uploadLogo && uploadLogo.uri && (
                         <Image
                           source={{uri: uploadLogo.uri}}
@@ -687,8 +686,6 @@ const BusinessDetails = () => {
                         />
                       )}
                     </TouchableOpacity>
-
-                    {/* Inside Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('inside')}>
@@ -709,7 +706,6 @@ const BusinessDetails = () => {
                       )}
                     </TouchableOpacity>
 
-                    {/* Menu Image Upload */}
                     <TouchableOpacity
                       style={styles.uploadButtonThree}
                       onPress={() => handleFileSelection('menu')}>
