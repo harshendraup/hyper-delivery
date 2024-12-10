@@ -71,7 +71,9 @@ const ConnectWithPhone = () => {
   const [otp, setOtp] = useState('');
   const [showOtpModal, setShowOtpModal] = useState(false); // New state for modal visibility
   const [userId, setUserId] = useState(null);
-  const [timer, setTimer] = useState(5);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [otpMessage, setOtpMessage] = useState(''); // Define state for OTP message
+
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -94,90 +96,63 @@ const ConnectWithPhone = () => {
     };
   }, []);
 
-  useEffect(() => {
-    let countdown;
-    if (showOtpModal && timer > 0) {
-      countdown = setInterval(() => {
-        setTimer((prev) => prev - 1);
-      }, 1000);
-    }
-
-    // Navigate to OTP screen when the timer runs out
-    if (timer === 0) {
-      navigation.navigate('OtpSplash', {
-        user_id: userId,
-        phone_number: phoneNumber,
-      });
-    }
-
-    // Clean up the interval when the modal is closed or the timer reaches 0
-    return () => clearInterval(countdown);
-  }, [showOtpModal, timer]);
-
-  const handlePhoneNumberChange = text => {
-    const filteredText = text.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-    setPhoneNumber(filteredText);
-
-    // Validate phone number length and show appropriate error message
-    if (filteredText.length < 10) {
-      setErrorMessage(t('Enter valid Number'));
-    } else {
-      setErrorMessage(''); // Remove error message if length is valid
-    }
-  };
 
  const handleSubmit = () => {
-  if (phoneNumber.length !== 10) {
-    setErrorMessage(t('Enter valid Phone Number'));
-    return;
-  }
+   if (phoneNumber.length !== 10) {
+     setErrorMessage(t('Enter valid Phone Number'));
+     return;
+   }
 
-  setErrorMessage('');
-  setIsLoading(true); // Show the loader immediately when the process starts
+   setErrorMessage('');
+   setIsLoading(true); // Show loader
 
-  fetch('https://getweed.stgserver.site/api/v1/shop/start-phone-verification', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      phone: phoneNumber,
-    }),
-  })
-    .then(response => response.json())
-    .then(responseData => {
-      console.log('Response Data: ', JSON.stringify(responseData));
-      const userId = responseData.data.user_id;
-      const otp = responseData.data.otp;
+   fetch(
+     'https://getweed.stgserver.site/api/v1/shop/start-phone-verification',
+     {
+       method: 'POST',
+       headers: {
+         Accept: 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         phone: phoneNumber,
+       }),
+     },
+   )
+     .then(response => response.json())
+     .then(responseData => {
+       console.log('Response Data: ', JSON.stringify(responseData));
+       const userId = responseData.data.user_id;
+       const otp = responseData.data.otp;
 
-      if (otp) {
-        setOtp(otp); // Set OTP to display in the modal
-        setUserId(userId);
-        setShowOtpModal(true); // Show OTP modal
-        setIsLoading(false); // Stop loader
-        setTimer(5);
-      } else {
-        console.error('OTP not found');
-        setIsLoading(false);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setIsLoading(false);
-    });
-};
+       if (otp) {
+         // Set the OTP message
+         const displayOTP = `Your OTP is: ${otp}`;
+         setOtpMessage(displayOTP); // Store the OTP message in state
 
-const handleOtpModalClose = () => {
-  setShowOtpModal(false); // Close OTP Modal
-  clearInterval(); // Stop the timer if user presses "Proceed"
-  navigation.navigate('OtpSplash', {
-    user_id: userId,
-    phone_number: phoneNumber,
-  });
-};
+         setIsLoading(true); // Show loader
 
+         // Show a custom modal with OTP
+         setTimeout(() => {
+           setModalVisible(false); // Hide modal after 5 seconds
+           navigation.navigate('OtpSplash', {
+             user_id: userId,
+             phone_number: phoneNumber,
+           });
+           setIsLoading(false); // Stop loader after navigation
+         }, 5000); // Close the modal after 5 seconds
 
+         setModalVisible(true); // Show the modal
+       } else {
+         console.error('OTP not found in response');
+         setIsLoading(false); // Hide the loader if OTP is not found
+       }
+     })
+     .catch(error => {
+       console.error('Error:', error);
+       setIsLoading(false); // Hide the loader if there was an error
+     });
+ };
 
   return (
     <KeyboardAvoidingView
@@ -214,16 +189,16 @@ const handleOtpModalClose = () => {
               onChangeText={text => {
                 // Ensure only numbers are allowed in the phone number
                 const filteredText = text.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
-                handlePhoneNumberChange(filteredText);
+                setPhoneNumber(filteredText);
                 //  setErrorMessage('Enter a number'); // Reset error message on user input change
               }}
             />
 
             {/* Error message under the input */}
           </View>
-            {errorMessage ? (
-              <Text style={styles.errorText}>{errorMessage}</Text>
-            ) : null}
+          {errorMessage ? (
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          ) : null}
 
           <View style={styles.containerText}>
             <Text
@@ -288,20 +263,34 @@ const handleOtpModalClose = () => {
             {t('terms_and_conditions')} {'\n'}
             {t('terms_and_conditions1')}
           </Text>
-
-          <Modal
-            visible={showOtpModal}
-            transparent={true}
-            animationType="fade"
-            onRequestClose={handleOtpModalClose}
-          >
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContent}>
-                <Text style={styles.otpText}>{t('OTP Received')}</Text>
-                <Text style={styles.otpMessage}>{t('OTP is')}: {otp}</Text>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            
+            <Modal
+              visible={modalVisible}
+              transparent={true}
+              animationType="fade"
+              onRequestClose={() => setModalVisible(false)}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+                }}>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    padding: 20,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{fontSize: 18, textAlign: 'center'}}>
+                    {otpMessage} {/* Display the OTP message */}
+                  </Text>
+                </View>
               </View>
-            </View>
-          </Modal>
+            </Modal>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>

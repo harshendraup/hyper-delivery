@@ -71,54 +71,79 @@ const PersonalInfo = () => {
     console.log('Received person user_id:', user_id); // Log or use the user_id as needed
   }, [user_id]);
   
-  const validateName = (name) => {
-    const regex = /^[a-zA-Z]+$/; // Only letters allowed
-    return regex.test(name);
-  };
-  
-  const handleFirstNameChange = (text) => {
-    setFirstName(text);
-    if (!text) {
-      setFirstNameError(t('Please enter first name'));
-    } else if (!validateName(text)) {
-      setFirstNameError(t('First name must contain only letters'));
-    } else {
-      setFirstNameError('');
-    }
-  };
-  
-  const handleLastNameChange = (text) => {
-    setLastName(text);
-    if (!text) {
-      setLastNameError(t('Please enter last name'));
-    } else if (!validateName(text)) {
-      setLastNameError(t('Last name must contain only letters'));
-    } else {
-      setLastNameError('');
-    }
-  };
+ const validateName = name => {
+   const regex = /^[a-zA-Z]+$/; // Only letters allowed
+   return regex.test(name);
+ };
 
-  // Email Validation Regex
-  const validateEmail = (email) => {
-    // Simple regex for validating an email address
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(email);
-  };
+const handleFirstNameChange = text => {
+  // Capitalize first letter and keep the rest as it is
+  const capitalizedText = text.charAt(0).toUpperCase() + text.slice(1);
+  setFirstName(capitalizedText);
 
-  const handleEmailChange = (text) => {
-    setEmail(text);
-    if (text && !validateEmail(text)) {
-      setEmailError(t('Please enter valid email')); // Display error message
-    } else {
-      setEmailError(''); // Clear error message if valid
-    }
-  };
-const handleSubmit = () => {
-  if (!frontFile || !backFile) {
-    setDocumentError(t('Please upload all fields.'));
-        return; // Prevent further processing if files are missing
+  if (!capitalizedText) {
+    setFirstNameError(t('Please enter first name'));
+  } else if (!validateName(capitalizedText)) {
+    setFirstNameError(t('First name must contain only letters'));
+  } else {
+    setFirstNameError(''); // Clear the error when name is valid
   }
-  setDocumentError('');
+};
+
+const handleLastNameChange = text => {
+  // Capitalize first letter and keep the rest as it is
+  const capitalizedText = text.charAt(0).toUpperCase() + text.slice(1);
+  setLastName(capitalizedText);
+
+  if (!capitalizedText) {
+    setLastNameError(t('Please enter last name'));
+  } else if (!validateName(capitalizedText)) {
+    setLastNameError(t('Last name must contain only letters'));
+  } else {
+    setLastNameError(''); // Clear the error when name is valid
+  }
+};
+
+
+ // Email Validation Regex
+ const validateEmail = email => {
+   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+   return regex.test(email);
+ };
+
+ const handleEmailChange = text => {
+   setEmail(text);
+
+   if (text && !validateEmail(text)) {
+     setEmailError(t('Please enter valid email'));
+   } else {
+     setEmailError(''); // Clear the error if valid email
+   }
+ };
+
+
+const handleSubmit = () => {
+  // Check if any of the required fields are missing
+  if (
+    !frontFile ||
+    !backFile ||
+    !firstName ||
+    !lastName ||
+    !email ||
+    !dob ||
+    !address ||
+    !user_id
+  ) {
+    // Construct an error message based on the missing fields
+    let errorMessage = 'Fill all fields';
+
+    
+
+    setDocumentError(errorMessage.trim()); // Show all errors at once
+    return; // Prevent further processing if fields are missing
+  }
+
+  setDocumentError(''); // Clear any previous error messages
   setIsLoading(true); // Show loader
 
   const formdata = new FormData();
@@ -150,13 +175,13 @@ const handleSubmit = () => {
     .then(response => response.json())
     .then(responseData => {
       setIsLoading(false); // Hide loader
-     Alert.alert('Response Data:', JSON.stringify(responseData));
+      Alert.alert('Response Data:', JSON.stringify(responseData));
       console.log('Response Data:', JSON.stringify(responseData));
       const userId = responseData.data ? responseData.data.id : null;
       if (userId) {
         navigation.navigate('BusinessDetails', {user_id: userId});
       } else {
-        console.error('email is already used, Pleas enter another email');
+        console.error('Email is already used, please enter another email');
       }
     })
     .catch(error => {
@@ -166,6 +191,7 @@ const handleSubmit = () => {
     });
 };
 
+
 const handleFileSelection = async type => {
   try {
     const res = await DocumentPicker.pick({
@@ -174,8 +200,10 @@ const handleFileSelection = async type => {
 
     const selectedFile = res[0]; // Get the selected file
 
+    // Get the file extension
     const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
 
+    // Check if the file extension is PNG, JPG, JPEG, or PDF
     if (
       fileExtension !== 'png' &&
       fileExtension !== 'jpg' &&
@@ -186,8 +214,16 @@ const handleFileSelection = async type => {
       return;
     }
 
+    // Check if the file size is less than 1 MB (1 MB = 1,048,576 bytes)
+    if (selectedFile.size > 1048576) {
+      setDocumentError(t('Please upload a file smaller than 1 MB.'));
+      return;
+    }
+
+    // Clear any previous error messages
     setDocumentError('');
 
+    // Set the file based on type (front or back)
     if (type === 'front') {
       setFrontFile(selectedFile);
     } else {
@@ -201,6 +237,7 @@ const handleFileSelection = async type => {
     }
   }
 };
+
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -262,7 +299,7 @@ const handleFileSelection = async type => {
                 <TextInput
                   style={styles.inputtt}
                   value={dob}
-                  editable={false} // Make the input non-editable so users can only pick a date
+                  editable={false}
                 />
               </TouchableOpacity>
 
@@ -337,7 +374,7 @@ const handleFileSelection = async type => {
               <Text style={styles.errorText}>{documentError}</Text>
             ) : null}
           </View>
-
+         
           <View style={styles.buttonContainer}>
             <LoadingButton
               title={t('next')}
